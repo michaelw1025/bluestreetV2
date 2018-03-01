@@ -1,0 +1,76 @@
+body{
+    margin-top: 60px;
+
+    /* Fallback (could use .jpg/.png alternatively) */
+    background-color: #8f8f8f;
+
+    /* SVG fallback for IE 9 (could be data URI, or could use filter) */
+    /* background-image: url(fallback-gradient.svg);  */
+
+    /* Safari 4, Chrome 1-9, iOS 3.2-4.3, Android 2.1-3.0 */
+    background-image:
+        -webkit-gradient(linear, left top, right top, from(#8f8f8f), to(#fff));
+    
+    /* Safari 5.1, iOS 5.0-6.1, Chrome 10-25, Android 4.0-4.3 */
+    background-image:
+        -webkit-linear-gradient(left, #8f8f8f, #fff, #8f8f8f);
+
+    /* Firefox 3.6 - 15 */
+    background-image:
+        -moz-linear-gradient(left, #8f8f8f, #fff, #8f8f8f);
+
+    /* Opera 11.1 - 12 */
+    background-image:
+        -o-linear-gradient(left, #8f8f8f, #fff, #8f8f8f);
+
+    /* Opera 15+, Chrome 25+, IE 10+, Firefox 16+, Safari 6.1+, iOS 7+, Android 4.4+ */
+    background-image:
+        linear-gradient(to right, #8f8f8f, #fff, #8f8f8f);
+}
+.home-jumbotron{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    background: transparent;
+}
+/* Sets the main div to full width */
+.wrapper {
+    position: relative;
+    width: 100%;
+}
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+}
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="email"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+

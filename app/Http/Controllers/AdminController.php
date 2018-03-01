@@ -46,13 +46,14 @@ class AdminController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-        return($request);
+
+        return redirect()->route('admin.users', $id);
     }
 
     public function destroy(Request $request, User $user, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-        return($request);
+        return redirect('admin.users');
     }
 }

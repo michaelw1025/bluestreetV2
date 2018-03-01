@@ -25,7 +25,7 @@ Route::get('admin.index', 'AdminController@index');
 // Show all site users
 Route::get('admin.users', 'AdminController@showUsers');
 // Show selected site user
-Route::get('admin.users/{id}', 'AdminController@show');
+Route::get('admin.users/{id}', 'AdminController@show')->name('admin.users');
 // Edit selected site user
 Route::post('admin.users/{id}/edit', 'AdminController@update');
 // Delete selected site user
