@@ -15,6 +15,11 @@
             <a class="nav-link {{ Route::is('admin.*') ? 'active' : '' }}" href="{{ url('admin.index') }}">Admin</a>
         </li>
         @endif
+        @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']))
+        <li class="nav-item">
+            <a class="nav-link {{ Route::is('hr.*') ? 'active' : '' }}" href="{{ url('hr.home') }}">Human Resources</a>
+        </li>
+        @endif
         @endif
         </ul>
 

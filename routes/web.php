@@ -44,3 +44,9 @@ Route::get('admin.roles/{id}', 'RoleController@show')->name('admin.roles');
 Route::post('admin.roles/{id}/edit', 'RoleController@update')->name('admin.edit-role');
 // Delete selected site role
 Route::post('admin.roles/{id}/delete', 'RoleController@destroy');
+
+// ----------------Human resources routes----------------
+// HR home page
+Route::get('hr.home', function(){
+    return view('hr.home');
+})->name('hr.home');
