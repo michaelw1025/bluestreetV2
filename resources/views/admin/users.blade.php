@@ -5,8 +5,9 @@
 
     <!-- Content for main window must go within this div -->
     <div class="col mr-sm-3">
-        <h1 class="">Site Users</h1>
+        <h1 class="">Site Users<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
         <hr class="border-info"/>
+        @include('layouts.session-messages')
         @if($users)
             <table class="table table-hover">
                 <thead>

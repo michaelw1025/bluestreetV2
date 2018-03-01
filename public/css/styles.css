@@ -1,6 +1,5 @@
 body{
     margin-top: 60px;
-    /* background-color: #8f8f8f; */
 }
 
 
@@ -20,3 +19,12 @@ body{
 .clickable-row:hover{
     cursor: pointer;
 }
+
+@media print{
+    body{
+      width: 900px;
+    }
+    .prevent-print{
+      display: none !important;
+    }
+  }

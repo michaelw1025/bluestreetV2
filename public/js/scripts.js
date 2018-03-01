@@ -6,3 +6,9 @@ $(document).ready(function(){
 $('.clickable-row').on('click', function(){
     window.location = $(this).data('href');
 });
+
+// Print button
+$('.print-button').on('click', function(){
+    window.print();
+    return false;
+});

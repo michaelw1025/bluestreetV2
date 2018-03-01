@@ -20,13 +20,27 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // ----------------Admin routes----------------
-// Admin index page
-Route::get('admin.index', 'AdminController@index');
+// Admin home page
+Route::get('admin.index', function(){
+    return view('admin.index');
+})->name('admin.index');
+
 // Show all site users
-Route::get('admin.users', 'AdminController@showUsers');
+Route::get('admin.users', 'UserController@index')->name('admin.all-users');
 // Show selected site user
-Route::get('admin.users/{id}', 'AdminController@show')->name('admin.users');
+Route::get('admin.users/{id}', 'UserController@show')->name('admin.users');
 // Edit selected site user
-Route::post('admin.users/{id}/edit', 'AdminController@update');
+Route::post('admin.users/{id}/edit', 'UserController@update')->name('admin.edit-user');
 // Delete selected site user
-Route::post('admin.users/{id}/delete', 'AdminController@destroy');
+Route::post('admin.users/{id}/delete', 'UserController@destroy');
+
+// Show all site roles
+Route::get('admin.roles', 'RoleController@index')->name('admin.all-roles');
+// Create new site role
+Route::post('admin.roles', 'RoleController@store')->name('admin.create-role');
+// Show selected site role
+Route::get('admin.roles/{id}', 'RoleController@show')->name('admin.roles');
+// Edit selected site role
+Route::post('admin.roles/{id}/edit', 'RoleController@update')->name('admin.edit-role');
+// Delete selected site role
+Route::post('admin.roles/{id}/delete', 'RoleController@destroy');
