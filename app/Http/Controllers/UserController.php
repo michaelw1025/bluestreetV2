@@ -129,10 +129,9 @@ class UserController extends Controller
 
         if($user->delete()){
             \Session::flash('status', 'User deleted.');
-            return redirect('admin.users');
         }else{
             \Session::flash('error', 'User not deleted.');
-            return redirect('admin.users');
         }
+        return redirect('admin.users');
     }
 }

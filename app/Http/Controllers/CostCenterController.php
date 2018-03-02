@@ -3,23 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Role;
+use App\CostCenter;
 
-class RoleController extends Controller
+class CostCenterController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Role $role)
+    public function index(Request $request, CostCenter $costCenter)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
 
-        $roles = $role->all();
-        return view('admin.roles', [
-            'roles' => $roles,
+        $costCenters = $costCenter->orderBy('number', 'asc')->get();
+        return view('hr.cost-centers', [
+            'costCenters' => $costCenters,
         ]);
     }
 
@@ -28,7 +28,7 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
@@ -40,25 +40,24 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Role $role)
+    public function store(Request $request, CostCenter $costCenter)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
 
         $this->validate($request,[
-            'name' => 'required|string|max:255|unique:roles',
+            'number' => 'required|string|max:255|unique:cost_centers',
             'description' => 'required|string|max:255',
         ]);
-
-        $role = new Role();
-        $role->name = $request->name;
-        $role->description = $request->description;
-        if($role->save()){
-            \Session::flash('status', 'Role created.');
+        $costCenter = new CostCenter();
+        $costCenter->number = $request->number;
+        $costCenter->description = $request->description;
+        if($costCenter->save()){
+            \Session::flash('status', 'Cost Center created.');
         }else{
-            \Session::flash('error', 'Role not created.');
+            \Session::flash('error', 'Cost Center not created.');
         }
-        return redirect('admin.roles');
+        return redirect('hr.cost-centers');
     }
 
     /**
@@ -67,14 +66,14 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Role $role, $id)
+    public function show(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
 
-        $role = $role->find($id);
-        return view('admin.show-role', [
-            'role' => $role,
+        $costCenter = $costCenter->find($id);
+        return view('hr.show-cost-center', [
+            'costCenter' => $costCenter,
         ]);
     }
 
@@ -84,7 +83,7 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id)
+    public function edit($id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
@@ -97,24 +96,24 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Role $role, $id)
+    public function update(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
 
         $this->validate($request,[
-            'name' => 'required|string|max:255|unique:roles,name,'.$id,
+            'number' => 'required|string|max:255|unique:cost_centers,number,'.$id,
             'description' => 'required|string|max:255',
         ]);
-        $role = $role->find($id);
-        $role->name = $request->name;
-        $role->description = $request->description;
-        if($role->save()){
-            \Session::flash('status', 'Role edited.');
+        $costCenter = $costCenter->find($id);
+        $costCenter->number = $request->number;
+        $costCenter->description = $request->description;
+        if($costCenter->save()){
+            \Session::flash('status', 'Cost Center edited.');
         }else{
-            \Session::flash('error', 'Role not edited.');
+            \Session::flash('error', 'Cost Center not edited.');
         }
-        return redirect()->route('admin.roles', $id);
+        return redirect()->route('hr.cost-centers', $id);
     }
 
     /**
@@ -123,17 +122,17 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request, Role $role, $id)
+    public function destroy(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
 
-        $role = $role->find($id);
-        if($role->delete()){
-            \Session::flash('status', 'Role deleted.');
+        $costCenter = $costCenter->find($id);
+        if($costCenter->delete()){
+            \Session::flash('status', 'Cost Center deleted.');
         }else{
-            \Session::flash('error', 'Role not deleted.');
+            \Session::flash('error', 'Cost Center not deleted.');
         }
-        return redirect('admin.roles');
+        return redirect('hr.cost-centers');
     }
 }

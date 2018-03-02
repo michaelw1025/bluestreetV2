@@ -30,8 +30,8 @@
 
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <button type="submit" class="btn btn-warning" formaction="{{url('admin.roles/'.$role['id'].'/edit')}}">Edit Role</button>
-                    <button type="submit" class="btn btn-danger" formaction="{{url('admin.roles/'.$role['id'].'/delete')}}">Delete role</button>
+                    <button type="submit" class="btn btn-warning" formaction="{{url('admin.roles/'.$role['id'].'/update')}}">Edit Role</button>
+                    <button type="submit" class="btn btn-danger delete-item" formaction="{{url('admin.roles/'.$role['id'].'/delete')}}" name="role">Delete Role</button>
                 </div>
             </div>
         </form>

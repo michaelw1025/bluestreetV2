@@ -50,8 +50,8 @@
 
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <button type="submit" class="btn btn-warning" formaction="{{url('admin.users/'.$user['id'].'/edit')}}">Edit User</button>
-                    <button type="submit" class="btn btn-danger" formaction="{{url('admin.users/'.$user['id'].'/delete')}}">Delete User</button>
+                    <button type="submit" class="btn btn-warning" formaction="{{url('admin.users/'.$user['id'].'/update')}}">Edit User</button>
+                    <button type="submit" class="btn btn-danger delete-item" formaction="{{url('admin.users/'.$user['id'].'/delete')}}" name="user">Delete User</button>
                 </div>
             </div>
         </form>

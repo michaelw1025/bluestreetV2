@@ -29,8 +29,8 @@ Route::get('admin.index', function(){
 Route::get('admin.users', 'UserController@index')->name('admin.all-users');
 // Show selected site user
 Route::get('admin.users/{id}', 'UserController@show')->name('admin.users');
-// Edit selected site user
-Route::post('admin.users/{id}/edit', 'UserController@update')->name('admin.edit-user');
+// Update selected site user
+Route::post('admin.users/{id}/update', 'UserController@update')->name('admin.update-user');
 // Delete selected site user
 Route::post('admin.users/{id}/delete', 'UserController@destroy');
 
@@ -40,8 +40,8 @@ Route::get('admin.roles', 'RoleController@index')->name('admin.all-roles');
 Route::post('admin.roles', 'RoleController@store')->name('admin.create-role');
 // Show selected site role
 Route::get('admin.roles/{id}', 'RoleController@show')->name('admin.roles');
-// Edit selected site role
-Route::post('admin.roles/{id}/edit', 'RoleController@update')->name('admin.edit-role');
+// Update selected site role
+Route::post('admin.roles/{id}/update', 'RoleController@update')->name('admin.update-role');
 // Delete selected site role
 Route::post('admin.roles/{id}/delete', 'RoleController@destroy');
 
@@ -50,3 +50,80 @@ Route::post('admin.roles/{id}/delete', 'RoleController@destroy');
 Route::get('hr.home', function(){
     return view('hr.home');
 })->name('hr.home');
+
+// Show all cost centers
+Route::get('hr.cost-centers', 'CostCenterController@index')->name('hr.all-cost-centers');
+// Create new cost center
+Route::post('hr.cost-centers', 'CostCenterController@store')->name('hr.create-cost-center');
+// Show selected cost center
+Route::get('hr.cost-centers/{id}', 'CostCenterController@show')->name('hr.cost-centers');
+// Update selected cost center
+Route::post('hr.cost-centers/{id}/update', 'CostCenterController@update')->name('hr.update-cost-center');
+// Delete selected cost center
+Route::post('hr.cost-centers/{id}/delete', 'CostCenterController@destroy');
+
+// Show all jobs
+Route::get('hr.jobs', 'JobController@index')->name('hr.all-jobs');
+// Create new job
+Route::post('hr.jobs', 'JobController@store')->name('hr.create-job');
+// Show selected job
+Route::get('hr.jobs/{id}', 'JobController@show')->name('hr.jobs');
+// Update selected job
+Route::post('hr.jobs/{id}/update', 'JobController@update')->name('hr.update-job');
+// Delete selected job
+Route::post('hr.jobs/{id}/delete', 'JobController@destroy');
+
+// Show all positions
+Route::get('hr.positions', 'PositionController@index')->name('hr.all-positions');
+// Create new position
+Route::post('hr.positions', 'PositionController@store')->name('hr.create-position');
+// Show selected position
+Route::get('hr.positions/{id}', 'PositionController@show')->name('hr.positions');
+// Update selected position
+Route::post('hr.positions/{id}/update', 'PositionController@update')->name('hr.update-position');
+// Delete selected position
+Route::post('hr.positions/{id}/delete', 'PositionController@destroy');
+
+// Show all shifts
+Route::get('hr.shifts', 'ShiftController@index')->name('hr.all-shifts');
+// Create new shift
+Route::post('hr.shifts', 'ShiftController@store')->name('hr.create-shift');
+// Show selected shift
+Route::get('hr.shifts/{id}', 'ShiftController@show')->name('hr.shifts');
+// Update selected shift
+Route::post('hr.shifts/{id}/update', 'ShiftController@update')->name('hr.update-shift');
+// Delete selected shift
+Route::post('hr.shifts/{id}/delete', 'ShiftController@destroy');
+
+// Show all teams
+Route::get('hr.teams', 'TeamController@index')->name('hr.all-teams');
+// Create new team
+Route::post('hr.teams', 'TeamController@store')->name('hr.create-team');
+// Show selected team
+Route::get('hr.teams/{id}', 'TeamController@show')->name('hr.teams');
+// Update selected team
+Route::post('hr.teams/{id}/update', 'TeamController@update')->name('hr.update-team');
+// Delete selected team
+Route::post('hr.teams/{id}/delete', 'TeamController@destroy');
+
+// Show all wage progressions
+Route::get('hr.wage-progressions', 'WageProgressionController@index')->name('hr.all-wage-progressions');
+// Create new wage progression
+Route::post('hr.wage-progressions', 'WageProgressionController@store')->name('hr.create-wage-progression');
+// Show selected wage progression
+Route::get('hr.wage-progressions/{id}', 'WageProgressionController@show')->name('hr.wage-progressions');
+// Update selected wage progression
+Route::post('hr.wage-progressions/{id}/update', 'WageProgressionController@update')->name('hr.update-wage-progression');
+// Delete selected wage progression
+Route::post('hr.wage-progressions/{id}/delete', 'WageProgressionController@destroy');
+
+// Show all wage titles
+Route::get('hr.wage-titles', 'WageTitleController@index')->name('hr.all-wage-titles');
+// Create new wage title
+Route::post('hr.wage-titles', 'WageTitleController@store')->name('hr.create-wage-title');
+// Show selected wage title
+Route::get('hr.wage-titles/{id}', 'WageTitleController@show')->name('hr.wage-titles');
+// Update selected wage title
+Route::post('hr.wage-titles/{id}/update', 'WageTitleController@update')->name('hr.update-wage-title');
+// Delete selected wage title
+Route::post('hr.wage-titles/{id}/delete', 'WageTitleController@destroy');
