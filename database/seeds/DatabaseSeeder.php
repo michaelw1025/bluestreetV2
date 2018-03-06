@@ -28,5 +28,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ShiftsTableSeeder::class);
 
         $this->call(TeamsTableSeeder::class);
+
+        $this->call(EmployeesTableSeeder::class);
     }
 }
