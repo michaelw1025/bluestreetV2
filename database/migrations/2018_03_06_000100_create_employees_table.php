@@ -17,6 +17,8 @@ class CreateEmployeesTable extends Migration
             $table->increments('id');
             $table->string('first_name');
             $table->string('last_name');
+            $table->string('middle_initial')->nullable();
+            $table->string('ssn');
             $table->timestamps();
         });
     }

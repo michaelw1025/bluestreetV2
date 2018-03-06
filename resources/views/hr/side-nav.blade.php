@@ -1,12 +1,12 @@
 <nav class="col-sm-3 col-md-2  d-sm-block bg-white sidebar ml-2 prevent-print">
         <ul class="nav nav-pills flex-column">
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Employee</a>
+                <a class="nav-link dropdown-toggle {{ Route::is('hr.all-employees') ? 'active' : (Route::is('hr.employees') ? 'active' : (Route::is('hr.create-employee') ? 'active' : '')) }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Employee</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="">Add New</a>
+                    <a class="dropdown-item" href="{{ url('hr.create-employee') }}">Add New</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="">Search Active</a>
-                    <a class="dropdown-item" href="">Search Inactive</a>
+                    <a class="dropdown-item" href="{{ url('hr.all-employees/active') }}">Search Active</a>
+                    <a class="dropdown-item" href="{{ url('hr.all-employees/inactive') }}">Search Inactive</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

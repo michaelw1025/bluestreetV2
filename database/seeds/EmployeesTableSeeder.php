@@ -1,21 +1,34 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Flynsarmy\CsvSeeder\CsvSeeder;
+use Faker\Factory as Faker;
+use Carbon\Carbon;
 use App\Employee;
 
-class EmployeesTableSeeder extends CsvSeeder
+class EmployeesTableSeeder extends Seeder
 {
-    public function __construct()
-    {
-        $this->table = 'employees';
-        $this->filename = base_path().'/database/seeds/employee-seed.csv';
-    }
-
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
-        DB::disableQueryLog();
-        DB::table($this->table)->truncate();
-        parent::run();
+        $faker = Faker::create();
+
+        for($i = 0; $i <= 100; $i++)
+        {
+            $employee = new Employee();
+
+            $firstName = $faker->randomElement($array = array('male', 'female'));
+            $middle = $faker->text($maxNbChars = 5);
+
+            $employee->first_name = $faker->firstName($gender = $firstName);
+            $employee->middle_initial = $middle[0];
+            $employee->last_name = $faker->lastName;
+            $employee->ssn = $faker->ssn;
+
+            $employee->save();
+        }
     }
 }

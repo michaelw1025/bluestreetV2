@@ -16,7 +16,6 @@ class CostCenterController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $costCenters = $costCenter->orderBy('number', 'asc')->get();
         return view('hr.cost-centers', [
             'costCenters' => $costCenters,

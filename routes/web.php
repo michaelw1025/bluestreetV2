@@ -127,3 +127,16 @@ Route::get('hr.wage-titles/{id}', 'WageTitleController@show')->name('hr.wage-tit
 Route::post('hr.wage-titles/{id}/update', 'WageTitleController@update')->name('hr.update-wage-title');
 // Delete selected wage title
 Route::post('hr.wage-titles/{id}/delete', 'WageTitleController@destroy');
+
+// Show add employee form
+Route::get('hr.create-employee', 'EmployeeController@create')->name('hr.create-employee');
+// Show all employees
+Route::get('hr.all-employees/{status}', 'EmployeeController@index')->name('hr.all-employees');
+// Store new employee
+Route::post('hr.employees', 'EmployeeController@store')->name('hr.store-employee');
+// Show selected employee
+Route::get('hr.employees/{id}', 'EmployeeController@show')->name('hr.employees');
+// Update selected employee
+Route::post('hr.employees/{id}/update', 'EmployeeController@update')->name('hr.update-employee');
+// Delete selected employee
+Route::post('hr.employees/{id}/delete', 'EmployeeController@destroy');
