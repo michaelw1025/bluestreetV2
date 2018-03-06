@@ -37,4 +37,17 @@ class WageTitle extends Model
         return ucWords($description);
     }
     // ----------------End Mutators----------------
+
+    // ----------------Relationships----------------
+    // Job relationship
+    public function job()
+    {
+        return $this->belongsToMany('App\Job');
+    }
+
+    // Wage Progression relationship
+    public function wageProgression()
+    {
+        return $this->belongsToMany('App\WageProgression')->withPivot('amount')->orderBy('month', 'asc');
+    }
 }

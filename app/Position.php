@@ -37,4 +37,11 @@ class Position extends Model
         return ucWords($description);
     }
     // ----------------End Mutators----------------
+
+    // ----------------Relationships----------------
+    // Job relationship
+    public function job()
+    {
+        return $this->belongsToMany('App\Job');
+    }
 }

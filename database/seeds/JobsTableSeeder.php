@@ -12,6 +12,10 @@ class JobsTableSeeder extends Seeder
      */
     public function run()
     {
+        // Positions
+        $hourly = 1;
+        $salary = 2;
+
         $assemblyJobs = array(
             'assembler',
         );
@@ -19,11 +23,9 @@ class JobsTableSeeder extends Seeder
             $addJob = new Job();
             $addJob->description = $assemblyJob;
             $addJob->save();
+            $addJob->position()->sync([$hourly]);
+            $addJob->wageTitle()->sync([2]);
         }
-
-
-
-
 
         $technicalJobs = array(
             'checmical floor support technician',
@@ -38,10 +40,9 @@ class JobsTableSeeder extends Seeder
             $addJob = new Job();
             $addJob->description = $technicalJob;
             $addJob->save();
+            $addJob->position()->sync([$hourly]);
+            $addJob->wageTitle()->sync([3]);
         }
-
-
-
 
         $specialistJobs = array(
             'specialist guage',
@@ -56,10 +57,9 @@ class JobsTableSeeder extends Seeder
             $addJob = new Job();
             $addJob->description = $specialistJob;
             $addJob->save();
+            $addJob->position()->sync([$hourly]);
+            $addJob->wageTitle()->sync([4]);
         }
-
-
-
 
         $maintenanceJobs = array(
             'machinist',
@@ -73,11 +73,9 @@ class JobsTableSeeder extends Seeder
             $addJob = new Job();
             $addJob->description = $maintenanceJob;
             $addJob->save();
+            $addJob->position()->sync([$hourly]);
+            $addJob->wageTitle()->sync([5]);
         }
-
-
-
-
 
         $salaryJobs = array(
             'administrative assistant',
@@ -126,6 +124,8 @@ class JobsTableSeeder extends Seeder
             $addJob = new Job();
             $addJob->description = $salaryJob;
             $addJob->save();
+            $addJob->position()->sync([$salary]);
+            $addJob->wageTitle()->sync([1]);
         }
     }
 }

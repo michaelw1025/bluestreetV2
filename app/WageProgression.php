@@ -39,4 +39,11 @@ class WageProgression extends Model
         return (int)$month;
     }
     // ----------------End Mutators----------------
+
+    // ----------------Relationships----------------
+    // Wage Title relationship
+    public function wageTitle()
+    {
+        return $this->belongsToMany('App\WageTitle')->withPivot('amount')->orderBy('month', 'asc');
+    }
 }
