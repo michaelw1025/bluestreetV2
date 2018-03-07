@@ -1,5 +1,12 @@
 $(document).ready(function(){
-
+    // attach datepicker
+    $(document).on('focus', '.date-pick', function(){
+        var inputID = $(this).attr('id');
+        $(this).datepicker({
+            altField: '.'+inputID,
+            altFormat: 'yy-mm-dd',
+        });
+    });
 });
 
 // Go to link when clickable table row is clicked
@@ -61,7 +68,7 @@ $('.ssn-format').on('keyup', function(){
 });
 // ----------------End SSN validation----------------
 
-// ----------------Format SSn for Submission----------------
+// ----------------Format SSN for Submission, removes dashes----------------
 $('.update-employee').on('click', function(){
     $('.ssn-format').each(function(){
         var oldSSN = $(this).val();
@@ -70,3 +77,12 @@ $('.update-employee').on('click', function(){
     })
 });
 // ----------------End Format SSn for Submission----------------
+
+// ----------------Set datepicker defaults----------------
+$.datepicker.setDefaults({
+    changeMonth: true,
+    changeYear: true,
+    yearRange: "1920:2030",
+    dateFormat: "mm-dd-yy"
+  });
+  // ----------------End datepicker defaults----------------

@@ -140,3 +140,5 @@ Route::get('hr.employees/{id}', 'EmployeeController@show')->name('hr.employees')
 Route::post('hr.employees/{id}/update', 'EmployeeController@update')->name('hr.update-employee');
 // Delete selected employee
 Route::post('hr.employees/{id}/delete', 'EmployeeController@destroy');
+// Search employees
+Route::get('hr.search-employees/{status}', 'EmployeeController@search')->name('hr.search-employees');

@@ -11,36 +11,43 @@
 
         <h3 class="prevent-print">Search Employee</h3>
         <!-- <form> -->
-        <!-- <form method="post" action="" class="prevent-print">
+        <form method="get" action="" class="prevent-print">
         {{ csrf_field() }}
             <div class="form-group row">
-                <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
+                <label for="search_last_name" class="col-sm-2 col-form-label">Last Name</label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="first_name" required value="{{old('first_name')}}">
-                    <small class="text-danger">{{ $errors->first('first_name') }}</small>
+                    <input type="text" class="form-control" name="search_last_name" value="">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
+                <label for="search_ssn" class="col-sm-2 col-form-label">SSN</label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="last_name" required value="{{old('last_name')}}">
-                    <small class="text-danger">{{ $errors->first('last_name') }}</small>
+                    <input type="text" class="form-control ssn-format" name="search_ssn" maxlength="11">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="middle_initial" class="col-sm-2 col-form-label">Middle Initial</label>
+                <label for="search_birth_date" class="col-sm-2 col-form-label">Date of Birth</label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="middle_initial" required value="{{old('middle_initial')}}">
-                    <small class="text-danger">{{ $errors->first('middle_initial') }}</small>
+                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="search_birth_date">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="search_hire_date" class="col-sm-2 col-form-label">Date of Hire</label>
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="search_hire_date">
                 </div>
             </div>
             
             <div class="form-group row">
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <button type="submit" class="btn btn-success" formaction="{{url('hr.employees')}}">Create Employee</button>
+                @if($routeName == 'hr.all-employees/inactive' || $routeName == 'hr.search-employees/inactive')
+                    <button type="submit" class="btn btn-success update-employee" formaction="{{url('hr.search-employees/inactive')}}">Search Employees</button>
+                @else
+                    <button type="submit" class="btn btn-success update-employee" formaction="{{url('hr.search-employees/active')}}">Search Employees</button>
+                @endif
                 </div>
             </div>
-        </form> -->
+        </form>
         <!-- </form> -->
         <hr class="border-info mt-4 mb-4 prevent-print"/>
 
@@ -48,19 +55,25 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
+                        <th scope="col">ID</th>
                         <th scope="col">First</th>
                         <th scope="col">Last</th>
                         <th scope="col">MI</th>
                         <th scope="col">SSN</th>
+                        <th scope="col">Birth Date</th>
+                        <th scope="col">Hire Date</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($employees as $employee)
                     <tr class="clickable-row" data-href="{{ url('hr.employees/'.$employee->id) }}">
+                    <td>{{$employee->id}}</td>
                         <td>{{$employee->first_name}}</td>
                         <td>{{$employee->last_name}}</td>
                         <td>{{$employee->middle_initial}}</td>
                         <td>{{$employee->ssn}}</td>
+                        <td>{{$employee->birth_date->format('m-d-Y')}}</td>
+                        <td>{{$employee->hire_date->format('m-d-Y')}}</td>
                     </tr>
                 @endforeach
                 <tbody>
