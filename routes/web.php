@@ -142,3 +142,42 @@ Route::post('hr.employees/{id}/update', 'EmployeeController@update')->name('hr.u
 Route::post('hr.employees/{id}/delete', 'EmployeeController@destroy');
 // Search employees
 Route::get('hr.search-employees/{status}', 'EmployeeController@search')->name('hr.search-employees');
+
+// Show insurances home page
+Route::get('hr.insurances', 'InsuranceController@index')->name('hr.all-insurances');
+// ----------------Insurance Coverage Types----------------
+// Show selected insurance coverage
+Route::get('hr.insurance-coverages/{id}', 'InsuranceController@showInsuranceCoverage')->name('hr.insurance-coverages');
+// Store new insurance coverage
+Route::post('hr.insurance-coverages', 'InsuranceController@storeInsuranceCoverage')->name('hr.store-insurance-coverages');
+// Update selected insurance coverage
+Route::post('hr.insurance-coverages/{id}/update', 'InsuranceController@updateInsuranceCoverage')->name('hr.update-insurance-coverage');
+// Delete selected insurance coverage
+Route::post('hr.insurance-coverages/{id}/delete', 'InsuranceController@destroyInsuranceCoverage');
+// ----------------Medical Plans----------------
+// Show selected insurance coverage
+Route::get('hr.medical-plans/{id}', 'InsuranceController@showMedicalPlan')->name('hr.medical-plans');
+// Store new insurance coverage
+Route::post('hr.medical-plans', 'InsuranceController@storeMedicalPlan')->name('hr.store-medical-plans');
+// Update selected insurance coverage
+Route::post('hr.medical-plans/{id}/update', 'InsuranceController@updateMedicalPlan')->name('hr.update-medical-plan');
+// Delete selected insurance coverage
+Route::post('hr.medical-plans/{id}/delete', 'InsuranceController@destroyMedicalPlan');
+// ----------------Dental Plans----------------
+// Show selected insurance coverage
+Route::get('hr.dental-plans/{id}', 'InsuranceController@showDentalPlan')->name('hr.dental-plans');
+// Store new insurance coverage
+Route::post('hr.dental-plans', 'InsuranceController@storeDentalPlan')->name('hr.store-dental-plans');
+// Update selected insurance coverage
+Route::post('hr.dental-plans/{id}/update', 'InsuranceController@updateDentalPlan')->name('hr.update-dental-plan');
+// Delete selected insurance coverage
+Route::post('hr.dental-plans/{id}/delete', 'InsuranceController@destroyDentalPlan');
+// ----------------Vision Plans----------------
+// Show selected insurance coverage
+Route::get('hr.vision-plans/{id}', 'InsuranceController@showVisionPlan')->name('hr.vision-plans');
+// Store new insurance coverage
+Route::post('hr.vision-plans', 'InsuranceController@storeVisionPlan')->name('hr.store-vision-plans');
+// Update selected insurance coverage
+Route::post('hr.vision-plans/{id}/update', 'InsuranceController@updateVisionPlan')->name('hr.update-vision-plan');
+// Delete selected insurance coverage
+Route::post('hr.vision-plans/{id}/delete', 'InsuranceController@destroyVisionPlan');

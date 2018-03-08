@@ -1,4 +1,4 @@
-<p class="text-danger">* indicates a required field</p>
+<p class="text-danger prevent-print">* indicates a required field</p>
 <!-- <form> -->
 <form method="post" action="">
         {{ csrf_field() }}
@@ -20,7 +20,7 @@
                 <label class="sr-only" for="first_name">First Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;First Name</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;First Name</div>
                     </div>
                     <input type="text" class="form-control" name="first_name" required value="{{ isset($employee->first_name) ? $employee->first_name : old('first_name') }}">
                     <small class="text-danger">{{ $errors->first('first_name') }}</small>
@@ -31,7 +31,7 @@
                 <label class="sr-only" for="last_name">Last Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Last Name</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Last Name</div>
                     </div>
                     <input type="text" class="form-control" name="last_name" required value="{{ isset($employee->last_name) ? $employee->last_name : old('last_name') }}">
                     <small class="text-danger">{{ $errors->first('last_name') }}</small>
@@ -53,7 +53,7 @@
                 <label class="sr-only" for="ssn">SSN</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;SSN</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;SSN</div>
                     </div>
                     <input type="text" class="form-control ssn-format" name="ssn" required maxlength="11" value="{{ isset($employee->ssn) ? $employee->ssn : old('ssn') }}">
                     <small class="text-danger">{{ $errors->first('ssn') }}</small>
@@ -75,7 +75,7 @@
                 <label class="sr-only" for="birth_date">Birth Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Birth Date</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Birth Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="birth_date" required value="{{ isset($employee->birth_date) ? $employee->birth_date->format('m-d-Y') : old('birth_date') }}">
                     <small class="text-danger">{{ $errors->first('birth_date') }}</small>
@@ -86,7 +86,7 @@
                 <label class="sr-only" for="hire_date">Hire Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Hire Date</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Hire Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="hire_date" required value="{{ isset($employee->hire_date) ? $employee->hire_date->format('m-d-Y') : old('hire_date') }}">
                     <small class="text-danger">{{ $errors->first('hire_date') }}</small>
@@ -98,7 +98,7 @@
                 <label class="sr-only" for="service_date">Service Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Service Date</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Service Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="service_date" required value="{{ isset($employee->service_date) ? $employee->service_date->format('m-d-Y') : old('service_date') }}">
                     <small class="text-danger">{{ $errors->first('service_date') }}</small>
@@ -132,7 +132,7 @@
                 <label class="sr-only" for="gender">Gender</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Gender</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Gender</div>
                     </div>
                     <select class="form-control" name="gender" required>
                         <option></option>
@@ -163,7 +163,7 @@
                 <label class="sr-only" for="address_1">Address</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Address</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Address</div>
                     </div>
                     <input type="text" class="form-control" name="address_1" required value="{{ isset($employee->address_1) ? $employee->address_1 : old('address_1') }}">
                     <small class="text-danger">{{ $errors->first('address_1') }}</small>
@@ -185,7 +185,7 @@
                 <label class="sr-only" for="city">City</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;City</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;City</div>
                     </div>
                     <input type="text" class="form-control" name="city" required value="{{ isset($employee->city) ? $employee->city : old('city') }}">
                     <small class="text-danger">{{ $errors->first('city') }}</small>
@@ -196,7 +196,7 @@
                 <label class="sr-only" for="state">State</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;State</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;State</div>
                     </div>
                     <select class="form-control" name="state" required>
                         <option></option>
@@ -260,7 +260,7 @@
                 <label class="sr-only" for="zip_code">Zip Code</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Zip Code</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Zip Code</div>
                     </div>
                     <input type="text" class="form-control" name="zip_code" required value="{{ isset($employee->zip_code) ? $employee->zip_code : old('zip_code') }}">
                     <small class="text-danger">{{ $errors->first('zip_code') }}</small>
@@ -271,7 +271,7 @@
                 <label class="sr-only" for="county">County</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;County</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;County</div>
                     </div>
                     <input type="text" class="form-control" name="county" required value="{{ isset($employee->county) ? $employee->county : old('county') }}">
                     <small class="text-danger">{{ $errors->first('county') }}</small>
@@ -298,7 +298,7 @@
                 <label class="sr-only" for="status">Status</label>
                 <div class="input-group {{ $employee->status == '1' ? 'border border-success' : 'border border-danger' }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Status</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Status</div>
                     </div>
                     <div class="form-check form-check-inline ml-4">
                         <input class="form-check-input" type="radio" name="status" value="1" {{ $employee->status == '1' ? 'checked' : '' }}>
@@ -316,7 +316,7 @@
                 <label class="sr-only" for="rehire">Rehire Eligible</label>
                 <div class="input-group {{ $employee->rehire == '1' ? 'border border-success' : 'border border-danger' }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Rehire Eligible</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Rehire Eligible</div>
                     </div>
                     <div class="form-check form-check-inline ml-4">
                         <input class="form-check-input" type="radio" name="rehire" value="1" {{ $employee->rehire == '1' ? 'checked' : '' }}>
@@ -332,9 +332,9 @@
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="reviews">Reviews</label>
-                <div class="input-group {{ $employee->reviews == '1' ? 'border border-success' : 'border border-danger' }}">
+                <div class="input-group border border-secondary">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Reviews</div>
+                        <div class="input-group-text">Reviews</div>
                     </div>
                     <div class="form-check form-check-inline ml-4">
                         <input class="form-check-input" type="checkbox" name="thirty_day_review" value="1" {{ $employee->thirty_day_review == '1' ? 'checked' : '' }}>
@@ -359,7 +359,7 @@
                 <label class="sr-only" for="bid_eligible">Bid Eligible</label>
                 <div class="input-group {{ $employee->bid_eligible == '1' ? 'border border-success' : 'border border-danger' }}">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger">*</span>&nbsp;Bid Eligible</div>
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Bid Eligible</div>
                     </div>
                     <div class="form-check form-check-inline ml-4">
                         <input class="form-check-input" type="radio" name="bid_eligible" value="1" {{ $employee->bid_eligible == '1' ? 'checked' : '' }}>

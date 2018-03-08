@@ -20,7 +20,11 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employees = $employee->orderBy('last_name', 'asc')->get();
+        if($status == 'inactive'){
+            $employees = $employee->where('status', 0)->orderBy('last_name', 'asc')->get();
+        }else{
+            $employees = $employee->where('status', 1)->orderBy('last_name', 'asc')->get();
+        }
         $routeName = $request->path();
         return view('hr.employees', [
             'employees' => $employees,
@@ -113,7 +117,6 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        return $request;
         $this->validate($request,[
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
