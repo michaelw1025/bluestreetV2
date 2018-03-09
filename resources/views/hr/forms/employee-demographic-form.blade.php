@@ -1,9 +1,5 @@
-<p class="text-danger prevent-print">* indicates a required field</p>
-<!-- <form> -->
-<form method="post" action="">
-        {{ csrf_field() }}
-        <div class="form-row align-items-center">
 
+        <div class="form-row align-items-center">
             @if(isset($employee))
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="id">Employee ID</label>
@@ -279,20 +275,6 @@
             </div>
 
             @if(isset($employee))
-            <!-- <div class="col-xl-4 my-1">
-                <label class="sr-only" for="status">Employment Status</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text {{ $employee->status == '1' ? 'border border-success' : 'border border-danger' }}"><span class="text-danger">*</span>&nbsp;Employment Status</div>
-                    </div>
-                    <select class="form-control" name="status" required>
-                        <option></option>
-                        <option {{ $employee->status == '1' ? 'selected' : '' }} value="1">Active</option>
-                        <option {{ $employee->status == '2' ? 'selected' : '' }} value="2">Inactive</option>
-                    </select>
-                    <small class="text-danger">{{ $errors->first('status') }}</small>
-                </div>
-            </div> -->
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="status">Status</label>
@@ -349,148 +331,6 @@
             </div>
 
             @endif
+            </div> <!-- end form row -->
 
-        </div> <!-- end form row -->
-
-        @if(isset($employee))
-        <h6 class="alert alert-dark mt-3">Bidding</h6>
-        <div class="form-row align-items-center">
-            <div class="col-xl-4 my-1">
-                <label class="sr-only" for="bid_eligible">Bid Eligible</label>
-                <div class="input-group {{ $employee->bid_eligible == '1' ? 'border border-success' : 'border border-danger' }}">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Bid Eligible</div>
-                    </div>
-                    <div class="form-check form-check-inline ml-4">
-                        <input class="form-check-input" type="radio" name="bid_eligible" value="1" {{ $employee->bid_eligible == '1' ? 'checked' : '' }}>
-                        <label class="form-check-label">Yes</label>
-                    </div>
-                    <div class="form-check form-check-inline ml-4">
-                        <input class="form-check-input" type="radio" name="bid_eligible" value="0" {{ $employee->bid_eligible == '0' ? 'checked' : '' }}>
-                        <label class="form-check-label">No</label>
-                    </div>
-                    <small class="text-danger">{{ $errors->first('bid_eligible') }}</small>
-                </div>
-            </div>
-
-            <div class="col-xl-4 my-1">
-                <label class="sr-only" for="bid_eligible_date">Bid Eligible Date</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Bid Eligible Date</div>
-                    </div>
-                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="bid_eligible_date" required value="{{ isset($employee->bid_eligible_date) ? $employee->bid_eligible_date->format('m-d-Y') : old('bid_eligible_date') }}">
-                    <small class="text-danger">{{ $errors->first('bid_eligible_date') }}</small>
-                </div>
-            </div>
-            <div class="col-xl-4 my-1">
-                <label class="sr-only" for="bid_eligible_comment">Bid Eligible Comment</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">Bid Eligible Comment</div>
-                    </div>
-                    <input type="text" class="form-control" name="bid_eligible_comment" value="{{ isset($employee->bid_eligible_comment) ? $employee->bid_eligible_comment : old('bid_eligible_comment') }}">
-                    <small class="text-danger">{{ $errors->first('bid_eligible_comment') }}</small>
-                </div>
-            </div>
-        </div> <!-- end form row -->
-        @endif
-
-            <!-- <div class="form-group row">
-                <label for="first_name" class="col-sm-2 col-form-label">First Name</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="first_name" required value="{{old('first_name')}}">
-                    <small class="text-danger">{{ $errors->first('first_name') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="last_name" class="col-sm-2 col-form-label">Last Name</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="last_name" required value="{{old('last_name')}}">
-                    <small class="text-danger">{{ $errors->first('last_name') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="middle_initial" class="col-sm-2 col-form-label">Middle Initial</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="middle_initial" required value="{{old('middle_initial')}}">
-                    <small class="text-danger">{{ $errors->first('middle_initial') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="ssn" class="col-sm-2 col-form-label">SSN</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control ssn-format" name="ssn" required value="{{old('ssn')}}" maxlength="11">
-                    <small class="text-danger">{{ $errors->first('ssn') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="oracle_number" class="col-sm-2 col-form-label">Oracle Number</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="oracle_number" value="{{old('oracle_number')}}" maxlength="6">
-                    <small class="text-danger">{{ $errors->first('oracle_number') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="birth_date" class="col-sm-2 col-form-label">Date of Birth</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="birth_date" required value="{{old('birth_date')}}">
-                    <small class="text-danger">{{ $errors->first('birth_date') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="hire_date" class="col-sm-2 col-form-label">Date of Hire</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="hire_date" required value="{{old('hire_date')}}">
-                    <small class="text-danger">{{ $errors->first('hire_date') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="maiden_name" class="col-sm-2 col-form-label">Maiden Name</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="maiden_name" value="{{old('maiden_name')}}">
-                    <small class="text-danger">{{ $errors->first('maiden_name') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                <label for="nick_name" class="col-sm-2 col-form-label">Nick Name</label>
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="nick_name" value="{{old('nick_name')}}">
-                    <small class="text-danger">{{ $errors->first('nick_name') }}</small>
-                </div>
-            </div> -->
-            <!-- <div class="form-group row">
-                    <label for="gender" class="col-sm-2 col-form-label">Gender</label>
-                    <div class="col-sm-10 col-md-8 col-lg-6">
-                        <select class="form-control" name="gender" required>
-                            <option></option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
-                        </select>
-                        <small class="text-danger">{{ $errors->first('gender') }}</small>
-                    </div>
-                </div> -->
-
-            
-
-
-
-            @if(isset($employee))
-            <div class="form-group row prevent-print mt-4">
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="d-none" name="update_employee" value="update">
-                    <button type="submit" class="btn btn-warning update-employee" formaction="{{url('hr.employees/'.$employee['id'].'/update')}}">Edit Employee</button>
-                    <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.employees/'.$employee['id'].'/delete')}}" name="employee">Delete Employee</button>
-                </div>
-            </div>
-            @else
-            <div class="form-group row prevent-print mt-4">
-                <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="d-none" name="create_employee" value="create">
-                    <button type="submit" class="btn btn-success update-employee" formaction="{{url('hr.employees')}}">Create Employee</button>
-                </div>
-            </div>
-            @endif
-
-        </form>
-        <!-- </form> -->
+        

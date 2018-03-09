@@ -10,8 +10,8 @@
         @include('layouts.session-messages')
 
         @include('hr.forms.employee-demographic-form')
-
-        <hr class="border-info mt-4 mb-4 prevent-print"/>
+        @include('hr.forms.employee-spouse-form')
+        @include('hr.forms.employee-bidding-form')
 
         
     </div>

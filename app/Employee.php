@@ -217,4 +217,11 @@ class Employee extends Model
         $this->attributes['bid_eligible_date'] = Carbon::parse($date);
     }
     // ----------------End Mutators----------------
+
+    // ----------------Relationships----------------
+    // Spouse relationship
+    public function spouse()
+    {
+        return $this->hasOne('App\Spouse');
+    }
 }

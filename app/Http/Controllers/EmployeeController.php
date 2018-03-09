@@ -66,7 +66,6 @@ class EmployeeController extends Controller
             'state' => 'required',
             'zip_code' => 'required',
             'county' => 'required',
-            'status' => 'required',
         ]);
         $employee = new Employee();
         $this->buildEmployee($request, $employee);
@@ -88,7 +87,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->find($id);
+        $employee = $employee->with('spouse')->find($id);
         return view('hr.show-employee', [
             'employee' => $employee,
         ]);
@@ -132,10 +131,18 @@ class EmployeeController extends Controller
             'zip_code' => 'required',
             'county' => 'required',
             'status' => 'required',
+            'rehire' => 'required',
+            // Spouse
+            'spouse_first_name' => 'required_with:spouse_update',
         ]);
         $employee = $employee->find($id);
+
         $this->buildEmployee($request, $employee);
         if($employee->save()){
+            // Update spouse
+            if($request->spouse){
+                $this->buildSpouse($employee, $request->spouse);
+            }
             \Session::flash('status', 'Employee edited.');
         }else{
             \Session::flash('error', 'Employee not edited.');

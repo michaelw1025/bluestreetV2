@@ -112,3 +112,13 @@ $('.toggle-section').on('click', function(){
     $('.'+section).toggleClass('d-none');
 })
 // ----------------End toggle section----------------
+
+// ----------------Toggle adding spouse----------------
+$('.toggle-add-item').on('change', function(){
+    var item = $(this).attr('id');
+    $('.'+item+'-div').toggleClass('bg-success text-white').toggleClass('bg-warning text-dark');
+    $('.'+item).each(function(){
+        $(this).toggleClass('d-none');
+    })
+});
+// ----------------end toggle adding spouse----------------

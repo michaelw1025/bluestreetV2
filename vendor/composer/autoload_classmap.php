@@ -48,6 +48,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\Role' => $baseDir . '/app/Role.php',
     'App\\Shift' => $baseDir . '/app/Shift.php',
+    'App\\Spouse' => $baseDir . '/app/Spouse.php',
     'App\\Team' => $baseDir . '/app/Team.php',
     'App\\Traits\\FormatsHelper' => $baseDir . '/app/Traits/FormatsHelper.php',
     'App\\User' => $baseDir . '/app/User.php',

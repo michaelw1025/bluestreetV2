@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Faker\Factory as Faker;
 use Carbon\Carbon;
 use App\Employee;
+use App\Spouse;
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -55,6 +56,36 @@ class EmployeesTableSeeder extends Seeder
 
 
             $employee->save();
+
+            $spouseRandom = $faker->numberBetween($min = 0, $max = 1);
+            if($spouseRandom == 1){
+                $spouse = new Spouse();
+                if($firstName = 'male'){
+                    $spouse->first_name = $faker->firstName($gender = 'female');
+                }elseif($firstName = 'female'){
+                    $spouse->first_name = $faker->firstName($gender = 'male');
+                }else{
+                    $spouse->first_name = $faker->firstName($gender = 'male');
+                }
+                $spouse->last_name = $employee->last_name;
+                $middle = $faker->text($maxNbChars = 5);
+                $spouse->middle_initial = $middle[0];
+                $spouseSSN = $faker->ssn;
+                $spouse->ssn = str_replace('-', '', $spouseSSN);
+                $spouse->birth_date = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
+                if($employee->gender == 'male'){
+                    $spouse->gender = 'female';
+                }else{
+                    $spouse->gender = 'male';
+                }
+                $domesticPartnerRandom = $faker->numberBetween($min = 0, $max = 1);
+                if($domesticPartnerRandom == 0){
+                    $spouse->domestic_partner = 0;
+                }else{
+                    $spouse->domestic_partner = 1;
+                }
+                $employee->spouse()->save($spouse);
+            }
         }
     }
 }
