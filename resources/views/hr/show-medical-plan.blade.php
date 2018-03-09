@@ -22,6 +22,36 @@
                 </div>
             </div>
 
+            @if($insuranceCoverages)
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                        @foreach($insuranceCoverages as $insuranceCoverage)
+                        <th scope="col">{{$insuranceCoverage->description}}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="clickable-row" >
+                        @foreach($insuranceCoverages as $insuranceCoverage)
+                        <td>
+                        <input type="text" class="form-control d-none" name="coverage[{{$loop->iteration}}][id]" value="{{$insuranceCoverage->id}}" required>
+                        @if(count($medicalPlan->insuranceCoverage) > 0)
+                                @foreach($medicalPlan->insuranceCoverage as $planCoverage)
+                                    @if($planCoverage->id == $insuranceCoverage->id)
+                                        <input type="text" class="form-control" name="coverage[{{$loop->iteration}}][amount]" value="{{$planCoverage->pivot->amount}}" required>
+                                    @endif
+                                @endforeach
+                            @else
+                                <input type="text" class="form-control" name="coverage[{{$loop->iteration}}][amount]" value="0" required>
+                            @endif
+                        </td>
+                        @endforeach
+                    </tr>
+                <tbody>
+            </table>
+            @endif
+
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.medical-plans/'.$medicalPlan['id'].'/update')}}">Edit Medical Plan</button>

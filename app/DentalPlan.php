@@ -46,4 +46,11 @@ class DentalPlan extends Model
         return ucWords($description);
     }
     // ----------------End Mutators----------------
+
+    // ----------------Relationships----------------
+    // Insurance Coverage relationship
+    public function insuranceCoverage()
+    {
+        return $this->belongsToMany('App\InsuranceCoverage')->withPivot('amount');
+    }
 }

@@ -37,6 +37,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call(VisionPlansTableSeeder::class);
 
+        $this->call(AccidentalCoveragesTableSeeder::class);
+
         $this->call(EmployeesTableSeeder::class);
     }
 }

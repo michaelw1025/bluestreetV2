@@ -7,6 +7,7 @@ use App\InsuranceCoverage;
 use App\MedicalPlan;
 use App\DentalPlan;
 use App\VisionPlan;
+use App\AccidentalCoverage;
 
 class InsuranceController extends Controller
 {
@@ -15,19 +16,21 @@ class InsuranceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, InsuranceCoverage $insuranceCoverage, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan)
+    public function index(Request $request, InsuranceCoverage $insuranceCoverage, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $insuranceCoverages = $insuranceCoverage->all();
-        $medicalPlans = $medicalPlan->all();
-        $dentalPlans = $dentalPlan->all();
-        $visionPlans = $visionPlan->all();
+        $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
+        $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
+        $visionPlans = $visionPlan->with('insuranceCoverage')->get();
+        $accidentalCoverages = $accidentalCoverage->all();
         return view('hr.insurances', [
             'insuranceCoverages' => $insuranceCoverages,
             'medicalPlans' => $medicalPlans,
             'dentalPlans' => $dentalPlans,
             'visionPlans' => $visionPlans,
+            'accidentalCoverages' => $accidentalCoverages,
         ]);
     }
 
@@ -133,6 +136,9 @@ class InsuranceController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $insuranceCoverage = $insuranceCoverage->find($id);
         if($insuranceCoverage->delete()){
+            $insuranceCoverage->medicalPlan()->detach();
+            $insuranceCoverage->dentalPlan()->detach();
+            $insuranceCoverage->visionPlan()->detach();
             \Session::flash('status', 'Insurance Coverage Type deleted.');
         }else{
             \Session::flash('error', 'Insurance Coverage Type not deleted.');
@@ -189,13 +195,15 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showMedicalPlan(Request $request, MedicalPlan $medicalPlan, $id)
+    public function showMedicalPlan(Request $request, MedicalPlan $medicalPlan, InsuranceCoverage $insuranceCoverage, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $medicalPlan = $medicalPlan->find($id);
+        $medicalPlan = $medicalPlan->with('insuranceCoverage')->find($id);
+        $insuranceCoverages = $insuranceCoverage->all();
         return view('hr.show-medical-plan',[
             'medicalPlan' => $medicalPlan,
+            'insuranceCoverages' => $insuranceCoverages,
         ]);
     }
 
@@ -228,6 +236,11 @@ class InsuranceController extends Controller
         $medicalPlan = $medicalPlan->find($id);
         $medicalPlan->description = $request->description;
         if($medicalPlan->save()){
+            $coverageArray = array();
+            foreach($request->coverage as $coverage){
+                $coverageArray[$coverage['id']] = ['amount' => $coverage['amount']];
+            }
+            $medicalPlan->insuranceCoverage()->sync($coverageArray);
             \Session::flash('status', 'Medical Plan edited.');
         }else{
             \Session::flash('error', 'Medical Plan not edited.');
@@ -247,6 +260,7 @@ class InsuranceController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $medicalPlan = $medicalPlan->find($id);
         if($medicalPlan->delete()){
+            $medicalPlan->insuranceCoverage()->sync([]);
             \Session::flash('status', 'Medical Plan deleted.');
         }else{
             \Session::flash('error', 'Medical Plan not deleted.');
@@ -315,13 +329,15 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showDentalPlan(Request $request, DentalPlan $dentalPlan, $id)
+    public function showDentalPlan(Request $request, DentalPlan $dentalPlan, InsuranceCoverage $insuranceCoverage, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $dentalPlan = $dentalPlan->find($id);
+        $dentalPlan = $dentalPlan->with('insuranceCoverage')->find($id);
+        $insuranceCoverages = $insuranceCoverage->all();
         return view('hr.show-dental-plan',[
             'dentalPlan' => $dentalPlan,
+            'insuranceCoverages' => $insuranceCoverages,
         ]);
     }
 
@@ -354,6 +370,11 @@ class InsuranceController extends Controller
         $dentalPlan = $dentalPlan->find($id);
         $dentalPlan->description = $request->description;
         if($dentalPlan->save()){
+            $coverageArray = array();
+            foreach($request->coverage as $coverage){
+                $coverageArray[$coverage['id']] = ['amount' => $coverage['amount']];
+            }
+            $dentalPlan->insuranceCoverage()->sync($coverageArray);
             \Session::flash('status', 'Dental Plan edited.');
         }else{
             \Session::flash('error', 'Dental Plan not edited.');
@@ -373,6 +394,7 @@ class InsuranceController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $dentalPlan = $dentalPlan->find($id);
         if($dentalPlan->delete()){
+            $dentalPlan->insuranceCoverage()->sync([]);
             \Session::flash('status', 'Dental Plan deleted.');
         }else{
             \Session::flash('error', 'Dental Plan not deleted.');
@@ -447,13 +469,15 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showVisionPlan(Request $request, VisionPlan $visionPlan, $id)
+    public function showVisionPlan(Request $request, VisionPlan $visionPlan, InsuranceCoverage $insuranceCoverage, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $visionPlan = $visionPlan->find($id);
+        $visionPlan = $visionPlan->with('insuranceCoverage')->find($id);
+        $insuranceCoverages = $insuranceCoverage->all();
         return view('hr.show-vision-plan',[
             'visionPlan' => $visionPlan,
+            'insuranceCoverages' => $insuranceCoverages,
         ]);
     }
 
@@ -476,16 +500,21 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function updateVisionPlan(Request $request, VisionPlan $visionPlan, $id)
+    public function updateVisionPlan(Request $request, VisionPlan $visionPlan, InsuranceCoverage $insuranceCoverage, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $this->validate($request,[
             'description' => 'required',
         ]);
-        $visionPlan = $visionPlan->find($id);
+        $visionPlan = $visionPlanwith('insuranceCoverage')->find($id);
         $visionPlan->description = $request->description;
         if($visionPlan->save()){
+            $coverageArray = array();
+            foreach($request->coverage as $coverage){
+                $coverageArray[$coverage['id']] = ['amount' => $coverage['amount']];
+            }
+            $visionPlan->insuranceCoverage()->sync($coverageArray);
             \Session::flash('status', 'Vision Plan edited.');
         }else{
             \Session::flash('error', 'Vision Plan not edited.');
@@ -505,9 +534,128 @@ class InsuranceController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $visionPlan = $visionPlan->find($id);
         if($visionPlan->delete()){
+            $visionPlan->insuranceCoverage()->sync([]);
             \Session::flash('status', 'Vision Plan deleted.');
         }else{
             \Session::flash('error', 'Vision Plan not deleted.');
+        }
+        return redirect('hr.insurances');
+    }
+
+
+
+
+
+
+
+
+
+
+    // ****************************************************************************************
+    // --------------------------------Accidental Coverage Types--------------------------------
+    // ****************************************************************************************
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createAccidentalCoverage()
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeAccidentalCoverage(Request $request, AccidentalCoverage $accidentalCoverage)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $this->validate($request,[
+            'description' => 'required',
+        ]);
+        $accidentalCoverage = new AccidentalCoverage();
+        $accidentalCoverage->description = $request->description;
+        if($accidentalCoverage->save()){
+            \Session::flash('status', 'Accidental Coverage Type created.');
+        }else{
+            \Session::flash('error', 'Accidental Coverage Type not created.');
+        }
+        return redirect('hr.insurances');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showAccidentalCoverage(Request $request, AccidentalCoverage $accidentalCoverage, $id)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $accidentalCoverage = $accidentalCoverage->find($id);
+        return view('hr.show-accidental-coverage',[
+            'accidentalCoverage' => $accidentalCoverage,
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function editAccidentalCoverage($id)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateAccidentalCoverage(Request $request, AccidentalCoverage $accidentalCoverage, $id)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $this->validate($request,[
+            'description' => 'required',
+        ]);
+        $accidentalCoverage = $accidentalCoverage->find($id);
+        $accidentalCoverage->description = $request->description;
+        if($accidentalCoverage->save()){
+            \Session::flash('status', 'Accidental Coverage Type edited.');
+        }else{
+            \Session::flash('error', 'Accidental Coverage Type not edited.');
+        }
+        return redirect()->route('hr.accidental-coverages', $id);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyAccidentalCoverage(Request $request, AccidentalCoverage $accidentalCoverage, $id)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $accidentalCoverage = $accidentalCoverage->find($id);
+        if($accidentalCoverage->delete()){
+            \Session::flash('status', 'Accidental Coverage Type deleted.');
+        }else{
+            \Session::flash('error', 'Accidental Coverage Type not deleted.');
         }
         return redirect('hr.insurances');
     }

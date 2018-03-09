@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InsuranceCoverage extends Model
+class AccidentalCoverage extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -46,23 +46,4 @@ class InsuranceCoverage extends Model
         return ucWords($description);
     }
     // ----------------End Mutators----------------
-
-    // ----------------Relationships----------------
-    // Medical Plan relationship
-    public function medicalPlan()
-    {
-        return $this->belongsToMany('App\MedicalPlan')->withPivot('amount');
-    }
-
-    // Dental Plan relationship
-    public function dentalPlan()
-    {
-        return $this->belongsToMany('App\DentalPlan')->withPivot('amount');
-    }
-
-    // Vision Plan relationship
-    public function visionPlan()
-    {
-        return $this->belongsToMany('App\VisionPlan')->withPivot('amount');
-    }
 }

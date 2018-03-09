@@ -22,6 +22,7 @@
             </div>
 
             @if($wageProgressions)
+            <h6 class="alert alert-dark mt-3">Set Amount For Each Wage Progression</h6>
             <table class="table table-sm table-bordered">
                 <thead>
                     <tr>

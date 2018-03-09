@@ -16,7 +16,7 @@ body{
     position: relative;
     width: 100%;
 }
-.clickable-row:hover{
+.clickable-row:hover, .toggle-section:hover{
     cursor: pointer;
 }
 

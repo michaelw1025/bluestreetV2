@@ -30,6 +30,9 @@ $('.delete-item').on('click', function(e){
     }
 });
 
+
+
+
 // ----------------SSN validation----------------
 // trap keypress - only allow numbers
 $('.ssn-format').on('keypress', function(event){
@@ -68,6 +71,9 @@ $('.ssn-format').on('keyup', function(){
 });
 // ----------------End SSN validation----------------
 
+
+
+
 // ----------------Format SSN for Submission, removes dashes----------------
 $('.update-employee').on('click', function(){
     $('.ssn-format').each(function(){
@@ -78,11 +84,31 @@ $('.update-employee').on('click', function(){
 });
 // ----------------End Format SSn for Submission----------------
 
+
+
+
 // ----------------Set datepicker defaults----------------
 $.datepicker.setDefaults({
     changeMonth: true,
     changeYear: true,
     yearRange: "1920:2030",
     dateFormat: "mm-dd-yy"
-  });
-  // ----------------End datepicker defaults----------------
+});
+// ----------------End datepicker defaults----------------
+
+
+
+
+// ----------------Toggle section----------------
+$('.toggle-section').on('mouseover', function(){
+    $(this).addClass('border border-info');
+})
+$('.toggle-section').on('mouseleave', function(){
+    $(this).removeClass('border border-info');
+})
+$('.toggle-section').on('click', function(){
+    var section = $(this).attr('id');
+    $(this).toggleClass('alert-info').toggleClass('alert-success');
+    $('.'+section).toggleClass('d-none');
+})
+// ----------------End toggle section----------------
