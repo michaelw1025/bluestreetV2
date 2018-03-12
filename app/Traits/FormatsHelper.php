@@ -17,12 +17,16 @@ trait FormatsHelper
         $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
         return Carbon::parse($date);
     }
-
+/*
+    |--------------------------------------------------------------------------
+    | Spouse update and delete methods
+    |--------------------------------------------------------------------------
+*/
     public function buildSpouse($employee, $spouse)
     {
         foreach($spouse as $spouseArray){
-            if(isset($spouseArray['update'])){    // Check if the spouse is meant to be deleted
-                if(isset($spouseArray['id'])){    // Check if spouse already exists for update
+            if(isset($spouseArray['update'])){    // Check if the spouse is meant to be updated or deleted
+                if(isset($spouseArray['id'])){    // Check if spouse id is set for update
                     $updateSpouse = Spouse::find($spouseArray['id']);    // Get spouse for update
                     $this->assignSpouseInfo($updateSpouse, $spouseArray);
                 }else{    // If spouse does not exist create new
@@ -35,7 +39,6 @@ trait FormatsHelper
             }
         }
     }
-
     public function assignSpouseInfo($updateSpouse, $spouseArray)
     {
         $updateSpouse->first_name = $spouseArray['first_name'];
@@ -46,7 +49,6 @@ trait FormatsHelper
         $updateSpouse->gender = $spouseArray['gender'];
         $updateSpouse->domestic_partner = $spouseArray['domestic_partner'];
     }
-
     public function deleteSpouse($employee)
     {
         $employee->spouse()->delete();

@@ -10,6 +10,19 @@
         @include('layouts.session-messages')
 
         <p class="text-danger prevent-print">* indicates a required field</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
         <!-- <form> -->
         <form method="post" action="">
             {{ csrf_field() }}

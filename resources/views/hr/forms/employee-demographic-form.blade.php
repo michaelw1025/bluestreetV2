@@ -145,7 +145,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">Suffix</div>
                     </div>
-                    <select class="form-control" name="suffix" required>
+                    <select class="form-control" name="suffix">
                         <option></option>
                         <option {{ isset($employee) ? ($employee->suffix == 'mr' ? 'selected' : '') : '' }} value="mr">Mr</option>
                         <option {{ isset($employee) ? ($employee->suffix == 'mrs' ? 'selected' : '') : '' }} value="mrs">Mrs</option>

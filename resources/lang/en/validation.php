@@ -103,6 +103,24 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'spouse.*.first_name' => [
+            'required_with' => 'First name must be present if Add Spouse is checked.'
+        ],
+        'spouse.*.last_name' => [
+            'required_with' => 'Last name must be present if Add Spouse is checked.'
+        ],
+        'spouse.*.ssn' => [
+            'required_with' => 'SSN must be present if Add Spouse is checked.'
+        ],
+        'spouse.*.birth_date' => [
+            'required_with' => 'Birth date must be present if Add Spouse is checked.'
+        ],
+        'spouse.*.gender' => [
+            'required_with' => 'Gender must be present if Add Spouse is checked.'
+        ],
+        'spouse.*.domestic_partner' => [
+            'required_with' => 'Domestic partner must be present if Add Spouse is checked.'
+        ],
     ],
 
     /*

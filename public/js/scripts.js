@@ -7,6 +7,8 @@ $(document).ready(function(){
             altFormat: 'yy-mm-dd',
         });
     });
+
+    checkInitialCheckboxState()
 });
 
 // Go to link when clickable table row is clicked
@@ -114,11 +116,24 @@ $('.toggle-section').on('click', function(){
 // ----------------End toggle section----------------
 
 // ----------------Toggle adding spouse----------------
+// Set toggel color based on initial state of checkbox
+function checkInitialCheckboxState()
+{
+    $('.toggle-add-item').each(function(){
+        if($(this).attr('checked')){
+            var item = $(this).attr('id');
+            $('.'+item+'-div').removeClass('bg-warning text-dark').addClass('bg-success text-white');
+            $('.'+item).removeClass('d-none');
+            // $('.'+item).removeClass('d-none');
+        }
+    });
+}
+// Change item state on checkbox change
 $('.toggle-add-item').on('change', function(){
     var item = $(this).attr('id');
     $('.'+item+'-div').toggleClass('bg-success text-white').toggleClass('bg-warning text-dark');
     $('.'+item).each(function(){
         $(this).toggleClass('d-none');
-    })
+    });
 });
 // ----------------end toggle adding spouse----------------

@@ -66,10 +66,21 @@ class EmployeeController extends Controller
             'state' => 'required',
             'zip_code' => 'required',
             'county' => 'required',
+            // Spouse
+            'spouse.*.first_name' => 'required_with:spouse.*.update',
+            'spouse.*.last_name' => 'required_with:spouse.*.update',
+            'spouse.*.ssn' => 'required_with:spouse.*.update',
+            'spouse.*.birth_date' => 'required_with:spouse.*.update',
+            'spouse.*.gender' => 'required_with:spouse.*.update',
+            'spouse.*.domestic_partner' => 'required_with:spouse.*.update',
         ]);
         $employee = new Employee();
         $this->buildEmployee($request, $employee);
         if($employee->save()){
+            // Update spouse
+            if($request->spouse){
+                $this->buildSpouse($employee, $request->spouse);
+            }
             \Session::flash('status', 'Employee created.');
         }else{
             \Session::flash('error', 'Employee not created.');
@@ -116,6 +127,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // return $request;
         $this->validate($request,[
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -133,7 +145,12 @@ class EmployeeController extends Controller
             'status' => 'required',
             'rehire' => 'required',
             // Spouse
-            'spouse_first_name' => 'required_with:spouse_update',
+            'spouse.*.first_name' => 'required_with:spouse.*.update',
+            'spouse.*.last_name' => 'required_with:spouse.*.update',
+            'spouse.*.ssn' => 'required_with:spouse.*.update',
+            'spouse.*.birth_date' => 'required_with:spouse.*.update',
+            'spouse.*.gender' => 'required_with:spouse.*.update',
+            'spouse.*.domestic_partner' => 'required_with:spouse.*.update',
         ]);
         $employee = $employee->find($id);
 
@@ -226,7 +243,7 @@ class EmployeeController extends Controller
             $employee->hire_date = $this->convertToDate($request->hire_date);
             $employee->service_date = $this->convertToDate($request->hire_date);
             $employee->status = 1;
-            $employee->status = 1;
+            $employee->rehire = 1;
             $employee->bid_eligible = 1;
         }elseif($request->has('update_employee')){
             $employee->birth_date = $this->convertToDate($request->birth_date);
