@@ -11,28 +11,21 @@
 
         <p class="text-danger prevent-print">* indicates a required field</p>
 
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- <form> -->
         <form method="post" action="">
             {{ csrf_field() }}
-            
-
+            <!-- Include employee demographic form -->
             @include('hr.forms.employee-demographic-form')
+
+            <!-- Include employee spouse form -->
             @include('hr.forms.employee-spouse-form')
+
+            <!-- Include employee dependant form -->
+            @include('hr.forms.employee-dependant-form')
+
+            <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             
-
         @if(isset($employee))
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">

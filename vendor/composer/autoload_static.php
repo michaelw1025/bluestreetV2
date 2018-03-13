@@ -324,6 +324,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\CostCenter' => __DIR__ . '/../..' . '/app/CostCenter.php',
         'App\\DentalPlan' => __DIR__ . '/../..' . '/app/DentalPlan.php',
+        'App\\Dependant' => __DIR__ . '/../..' . '/app/Dependant.php',
         'App\\Employee' => __DIR__ . '/../..' . '/app/Employee.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',

@@ -19,7 +19,11 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// ----------------Admin routes----------------
+/*
+    |--------------------------------------------------------------------------
+    | Admin routes
+    |--------------------------------------------------------------------------
+*/
 // Admin home page
 Route::get('admin.index', function(){
     return view('admin.index');
@@ -45,7 +49,11 @@ Route::post('admin.roles/{id}/update', 'RoleController@update')->name('admin.upd
 // Delete selected site role
 Route::post('admin.roles/{id}/delete', 'RoleController@destroy');
 
-// ----------------Human resources routes----------------
+/*
+    |--------------------------------------------------------------------------
+    | HR routes
+    |--------------------------------------------------------------------------
+*/
 // HR home page
 Route::get('hr.home', function(){
     return view('hr.home');
@@ -128,21 +136,6 @@ Route::post('hr.wage-titles/{id}/update', 'WageTitleController@update')->name('h
 // Delete selected wage title
 Route::post('hr.wage-titles/{id}/delete', 'WageTitleController@destroy');
 
-// Show add employee form
-Route::get('hr.create-employee', 'EmployeeController@create')->name('hr.create-employee');
-// Show all employees
-Route::get('hr.all-employees/{status}', 'EmployeeController@index')->name('hr.all-employees');
-// Store new employee
-Route::post('hr.employees', 'EmployeeController@store')->name('hr.store-employee');
-// Show selected employee
-Route::get('hr.employees/{id}', 'EmployeeController@show')->name('hr.employees');
-// Update selected employee
-Route::post('hr.employees/{id}/update', 'EmployeeController@update')->name('hr.update-employee');
-// Delete selected employee
-Route::post('hr.employees/{id}/delete', 'EmployeeController@destroy');
-// Search employees
-Route::get('hr.search-employees/{status}', 'EmployeeController@search')->name('hr.search-employees');
-
 // Show insurances home page
 Route::get('hr.insurances', 'InsuranceController@index')->name('hr.all-insurances');
 // ----------------Insurance Coverage Types----------------
@@ -191,3 +184,23 @@ Route::post('hr.accidental-coverages', 'InsuranceController@storeAccidentalCover
 Route::post('hr.accidental-coverages/{id}/update', 'InsuranceController@updateAccidentalCoverage')->name('hr.update-accidental-coverage');
 // Delete selected accidental coverage
 Route::post('hr.accidental-coverages/{id}/delete', 'InsuranceController@destroyAccidentalCoverage');
+
+/*
+    |--------------------------------------------------------------------------
+    | Employee routes
+    |--------------------------------------------------------------------------
+*/
+// Show add employee form
+Route::get('hr.create-employee', 'EmployeeController@create')->name('hr.create-employee');
+// Show all employees
+Route::get('hr.all-employees/{status}', 'EmployeeController@index')->name('hr.all-employees');
+// Store new employee
+Route::post('hr.employees', 'EmployeeController@store')->name('hr.store-employee');
+// Show selected employee
+Route::get('hr.employees/{id}', 'EmployeeController@show')->name('hr.employees');
+// Update selected employee
+Route::post('hr.employees/{id}/update', 'EmployeeController@update')->name('hr.update-employee');
+// Delete selected employee
+Route::post('hr.employees/{id}/delete', 'EmployeeController@destroy');
+// Search employees
+Route::get('hr.search-employees/{status}', 'EmployeeController@search')->name('hr.search-employees');

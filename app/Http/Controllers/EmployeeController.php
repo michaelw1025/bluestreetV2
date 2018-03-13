@@ -73,6 +73,13 @@ class EmployeeController extends Controller
             'spouse.*.birth_date' => 'required_with:spouse.*.update',
             'spouse.*.gender' => 'required_with:spouse.*.update',
             'spouse.*.domestic_partner' => 'required_with:spouse.*.update',
+            // Dependant 0
+            'dependant.*.first_name' => 'required_with:dependant.*.update',
+            'dependant.*.last_name' => 'required_with:dependant.*.update',
+            'dependant.*.ssn' => 'required_with:dependant.*.update',
+            'dependant.*.birth_date' => 'required_with:dependant.*.update',
+            'dependant.*.gender' => 'required_with:dependant.*.update',
+            'dependant.*.domestic_partner' => 'required_with:dependant.*.update',
         ]);
         $employee = new Employee();
         $this->buildEmployee($request, $employee);
@@ -98,7 +105,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse')->find($id);
+        $employee = $employee->with('spouse', 'dependant')->withCount('dependant')->find($id);
         return view('hr.show-employee', [
             'employee' => $employee,
         ]);
@@ -151,6 +158,14 @@ class EmployeeController extends Controller
             'spouse.*.birth_date' => 'required_with:spouse.*.update',
             'spouse.*.gender' => 'required_with:spouse.*.update',
             'spouse.*.domestic_partner' => 'required_with:spouse.*.update',
+            // Dependant
+            'dependant.*.first_name' => 'required_with:dependant.*.update',
+            'dependant.*.last_name' => 'required_with:dependant.*.update',
+            'dependant.*.ssn' => 'required_with:dependant.*.update',
+            'dependant.*.birth_date' => 'required_with:dependant.*.update',
+            'dependant.*.gender' => 'required_with:dependant.*.update',
+            'dependant.*.domestic_partner' => 'required_with:dependant.*.update',
+
         ]);
         $employee = $employee->find($id);
 

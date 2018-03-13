@@ -5,6 +5,7 @@ use Faker\Factory as Faker;
 use Carbon\Carbon;
 use App\Employee;
 use App\Spouse;
+use App\Dependant;
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -85,6 +86,25 @@ class EmployeesTableSeeder extends Seeder
                     $spouse->domestic_partner = 1;
                 }
                 $employee->spouse()->save($spouse);
+            }
+
+            $dependantRandom = $faker->numberBetween($min = 0, $max = 5);
+            for($d = 0; $d < $dependantRandom; $d++){
+                $dependant = new Dependant();
+                $dependantNameType = $faker->randomElement($array = array('null', 'male', 'female'));
+                $dependant->first_name = $faker->firstName($gender = $dependantNameType);
+                $dependant->last_name = $employee->last_name;
+                $middle = $faker->text($maxNbChars = 5);
+                $dependant->middle_initial = $middle[0];
+                $dependantSSN = $faker->ssn;
+                $dependant->ssn = str_replace('-', '', $dependantSSN);
+                $dependant->birth_date = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
+                if($dependantNameType == 'male'){
+                    $dependant->gender = 'male';
+                }else{
+                    $dependant->gender = 'female';
+                }
+                $employee->dependant()->save($dependant);
             }
         }
     }
