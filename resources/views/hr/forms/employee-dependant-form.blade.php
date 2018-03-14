@@ -29,67 +29,67 @@
             </div>
 
             <div class="col-xl-4 my-1 toggle-dependant-{{$loop->index}} {{ isset($dependant->id) ? '' : 'd-none' }}">
-                <label class="sr-only" for="dependant[$loop->index][first_name]">First Name</label>
+                <label class="sr-only" for="dependant[{{$loop->index}}][first_name]">First Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;First Name</div>
                     </div>
-                    <input type="text" class="form-control" name="dependant[$loop->index][first_name]"  value="{{ isset($dependant->first_name) ? $dependant->first_name : old('dependant.'.$loop->index.'.first_name') }}">
+                    <input type="text" class="form-control" name="dependant[{{$loop->index}}][first_name]"  value="{{ isset($dependant->first_name) ? $dependant->first_name : old('dependant.'.$loop->index.'.first_name') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('dependant.'.$loop->index.'.first_name') }}</small>
             </div>
 
             <div class="col-xl-4 my-1 toggle-dependant-{{$loop->index}} {{ isset($dependant->id) ? '' : 'd-none' }}">
-                <label class="sr-only" for="dependant[$loop->index][last_name]">Last Name</label>
+                <label class="sr-only" for="dependant[{{$loop->index}}][last_name]">Last Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Last Name</div>
                     </div>
-                    <input type="text" class="form-control" name="dependant[$loop->index][last_name]"  value="{{ isset($dependant->last_name) ? $dependant->last_name : old('dependant.'.$loop->index.'.last_name') }}">
+                    <input type="text" class="form-control" name="dependant[{{$loop->index}}][last_name]"  value="{{ isset($dependant->last_name) ? $dependant->last_name : old('dependant.'.$loop->index.'.last_name') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('dependant.'.$loop->index.'.last_name') }}</small>
             </div>
 
             <div class="col-xl-4 my-1 toggle-dependant-{{$loop->index}} {{ isset($dependant->id) ? '' : 'd-none' }}">
-                <label class="sr-only" for="dependant[$loop->index][middle_initial]">Middle Initial</label>
+                <label class="sr-only" for="dependant[{{$loop->index}}][middle_initial]">Middle Initial</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Middle Initial</div>
                     </div>
-                    <input type="text" class="form-control" name="dependant[$loop->index][middle_initial]" value="{{ isset($dependant->middle_initial) ? $dependant->middle_initial : old('dependant.'.$loop->index.'.middle_initial') }}">
+                    <input type="text" class="form-control" name="dependant[{{$loop->index}}][middle_initial]" value="{{ isset($dependant->middle_initial) ? $dependant->middle_initial : old('dependant.'.$loop->index.'.middle_initial') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('dependant.'.$loop->index.'.middle_initial') }}</small>
             </div>
 
             <div class="col-xl-4 my-1 toggle-dependant-{{$loop->index}} {{ isset($dependant->id) ? '' : 'd-none' }}">
-                <label class="sr-only" for="dependant[$loop->index][ssn]">SSN</label>
+                <label class="sr-only" for="dependant[{{$loop->index}}][ssn]">SSN</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;SSN</div>
                     </div>
-                    <input type="text" class="form-control ssn-format" name="dependant[$loop->index][ssn]"  maxlength="11" value="{{ isset($dependant->ssn) ? $dependant->ssn : old('dependant.'.$loop->index.'.ssn') }}">
+                    <input type="text" class="form-control ssn-format" name="dependant[{{$loop->index}}][ssn]"  maxlength="11" value="{{ isset($dependant->ssn) ? $dependant->ssn : old('dependant.'.$loop->index.'.ssn') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('dependant.'.$loop->index.'.ssn') }}</small>
             </div>
 
             <div class="col-xl-4 my-1 toggle-dependant-{{$loop->index}} {{ isset($dependant->id) ? '' : 'd-none' }}">
-                <label class="sr-only" for="dependant[$loop->index][birth_date]">Birth Date</label>
+                <label class="sr-only" for="dependant[{{$loop->index}}][birth_date]">Birth Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Birth Date</div>
                     </div>
-                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="dependant[$loop->index][birth_date]"  value="{{ isset($dependant->birth_date) ? $dependant->birth_date->format('m-d-Y') : old('dependant.'.$loop->index.'.birth_date') }}">
+                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="dependant[{{$loop->index}}][birth_date]"  value="{{ isset($dependant->birth_date) ? $dependant->birth_date->format('m-d-Y') : old('dependant.'.$loop->index.'.birth_date') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('dependant.'.$loop->index.'.birth_date') }}</small>
             </div>
 
             <div class="col-xl-4 my-1 toggle-dependant-{{$loop->index}} {{ isset($dependant->id) ? '' : 'd-none' }}">
-                <label class="sr-only" for="dependant[$loop->index][gender]">Gender</label>
+                <label class="sr-only" for="dependant[{{$loop->index}}][gender]">Gender</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Gender</div>
                     </div>
-                    <select class="form-control" name="dependant[$loop->index][gender]" >
+                    <select class="form-control" name="dependant[{{$loop->index}}][gender]" >
                         <option></option>
                         <option {{ isset($dependant->gender) ? ($dependant->gender == 'male' ? 'selected' : '') : (old('dependant.'.$loop->index.'.gender') == 'male' ? 'selected' : '') }} value="male">Male</option>
                         <option {{ isset($dependant->gender) ? ($dependant->gender == 'female' ? 'selected' : '') : (old('dependant.'.$loop->index.'.gender') == 'female' ? 'selected' : '') }} value="female">Female</option>

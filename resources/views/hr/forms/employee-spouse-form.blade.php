@@ -21,7 +21,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;ID</div>
                     </div>
-                    <input type="text" class="form-control" name="spouse[0][id]" required value="{{ isset($employee->spouse->id) ? $employee->spouse->id : '' }}">
+                    <input type="text" class="form-control" name="spouse[0][id]"  value="{{ isset($employee->spouse->id) ? $employee->spouse->id : '' }}">
                 </div>
             </div>
             @endif
@@ -31,7 +31,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;First Name</div>
                     </div>
-                    <input type="text" class="form-control" name="spouse[0][first_name]" required value="{{ isset($employee->spouse->first_name) ? $employee->spouse->first_name : old('spouse.0.first_name') }}">
+                    <input type="text" class="form-control" name="spouse[0][first_name]"  value="{{ isset($employee->spouse->first_name) ? $employee->spouse->first_name : old('spouse.0.first_name') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('spouse.0.first_name') }}</small>
             </div>
@@ -41,7 +41,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Last Name</div>
                     </div>
-                    <input type="text" class="form-control" name="spouse[0][last_name]" required value="{{ isset($employee->spouse->last_name) ? $employee->spouse->last_name : old('spouse.0.last_name') }}">
+                    <input type="text" class="form-control" name="spouse[0][last_name]"  value="{{ isset($employee->spouse->last_name) ? $employee->spouse->last_name : old('spouse.0.last_name') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('spouse.0.last_name') }}</small>
             </div>
@@ -61,7 +61,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;SSN</div>
                     </div>
-                    <input type="text" class="form-control ssn-format" name="spouse[0][ssn]" required maxlength="11" value="{{ isset($employee->spouse->ssn) ? $employee->spouse->ssn : old('spouse.0.ssn') }}">
+                    <input type="text" class="form-control ssn-format" name="spouse[0][ssn]"  maxlength="11" value="{{ isset($employee->spouse->ssn) ? $employee->spouse->ssn : old('spouse.0.ssn') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('spouse.0.ssn') }}</small>
             </div>
@@ -71,7 +71,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Birth Date</div>
                     </div>
-                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="spouse[0][birth_date]" required value="{{ isset($employee->spouse->birth_date) ? $employee->spouse->birth_date->format('m-d-Y') : old('spouse.0.birth_date') }}">
+                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="spouse[0][birth_date]"  value="{{ isset($employee->spouse->birth_date) ? $employee->spouse->birth_date->format('m-d-Y') : old('spouse.0.birth_date') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('spouse.0.birth_date') }}</small>
             </div>
@@ -81,7 +81,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Gender</div>
                     </div>
-                    <select class="form-control" name="spouse[0][gender]" required>
+                    <select class="form-control" name="spouse[0][gender]" >
                         <option></option>
                         <option {{ isset($employee->spouse->gender) ? ($employee->spouse->gender == 'male' ? 'selected' : '') : (old('spouse.0.gender') == 'male' ? 'selected' : '') }} value="male">Male</option>
                         <option {{ isset($employee->spouse->gender) ? ($employee->spouse->gender == 'female' ? 'selected' : '') : (old('spouse.0.gender') == 'female' ? 'selected' : '') }} value="female">Female</option>

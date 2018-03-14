@@ -121,6 +121,21 @@ return [
         'spouse.*.domestic_partner' => [
             'required_with' => 'Domestic partner must be present if Add Spouse is checked.'
         ],
+        'dependant.*.first_name' => [
+            'required_with' => 'First name must be present if Add Dependant is checked.'
+        ],
+        'dependant.*.last_name' => [
+            'required_with' => 'Last name must be present if Add Dependant is checked.'
+        ],
+        'dependant.*.ssn' => [
+            'required_with' => 'SSN must be present if Add Dependant is checked.'
+        ],
+        'dependant.*.birth_date' => [
+            'required_with' => 'Birth date must be present if Add Dependant is checked.'
+        ],
+        'dependant.*.gender' => [
+            'required_with' => 'Gender must be present if Add Dependant is checked.'
+        ],
     ],
 
     /*

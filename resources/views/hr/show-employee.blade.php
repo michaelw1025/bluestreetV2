@@ -9,6 +9,19 @@
         <hr class="border-info"/>
         @include('layouts.session-messages')
 
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
+
         <p class="text-danger prevent-print">* indicates a required field</p>
 
         <!-- <form> -->
