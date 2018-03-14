@@ -25,7 +25,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text">Bid Eligible Date</div>
                     </div>
-                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="bid_eligible_date" required value="{{ isset($employee->bid_eligible_date) ? $employee->bid_eligible_date->format('m-d-Y') : old('bid_eligible_date') }}">
+                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="bid_eligible_date"  value="{{ isset($employee->bid_eligible_date) ? $employee->bid_eligible_date->format('m-d-Y') : old('bid_eligible_date') }}">
                     <small class="text-danger">{{ $errors->first('bid_eligible_date') }}</small>
                 </div>
             </div>

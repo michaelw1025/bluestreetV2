@@ -9,19 +9,6 @@
         <hr class="border-info"/>
         @include('layouts.session-messages')
 
-
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
-
-
         <p class="text-danger prevent-print">* indicates a required field</p>
 
         <!-- <form> -->
@@ -39,7 +26,6 @@
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             
-        @if(isset($employee))
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">
                 <input type="text" class="d-none" name="update_employee" value="update">
@@ -47,14 +33,6 @@
                 <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.employees/'.$employee['id'].'/delete')}}" name="employee">Delete Employee</button>
             </div>
         </div>
-        @else
-        <div class="form-group row prevent-print mt-4">
-            <div class="col-sm-10 col-md-8 col-lg-6">
-                <input type="text" class="d-none" name="create_employee" value="create">
-                <button type="submit" class="btn btn-success update-employee" formaction="{{url('hr.employees')}}">Create Employee</button>
-            </div>
-        </div>
-        @endif
 
         </form>
         <!-- </form> -->

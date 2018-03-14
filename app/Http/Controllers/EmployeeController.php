@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\FormatsHelper;
+use App\Http\Requests\StoreEmployee;
 
 use App\Employee;
 
@@ -57,7 +58,7 @@ class EmployeeController extends Controller
         $this->validate($request,[
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'ssn' => 'required|string|unique:employees',
+            'ssn' => 'required|unique:employees|unique:spouses|unique:dependants',
             'birth_date' => 'required',
             'hire_date' => 'required',
             'gender' => 'required',
@@ -69,14 +70,14 @@ class EmployeeController extends Controller
             // Spouse
             'spouse.*.first_name' => 'required_with:spouse.*.update',
             'spouse.*.last_name' => 'required_with:spouse.*.update',
-            'spouse.*.ssn' => 'required_with:spouse.*.update',
+            'spouse.*.ssn' => 'required_with:spouse.*.update|unique:employees|unique:spouses|unique:dependants',
             'spouse.*.birth_date' => 'required_with:spouse.*.update',
             'spouse.*.gender' => 'required_with:spouse.*.update',
             'spouse.*.domestic_partner' => 'required_with:spouse.*.update',
             // Dependant
             'dependant.*.first_name' => 'required_with:dependant.*.update',
             'dependant.*.last_name' => 'required_with:dependant.*.update',
-            'dependant.*.ssn' => 'required_with:dependant.*.update',
+            'dependant.*.ssn' => 'required_with:dependant.*.update|unique:employees|unique:spouses|unique:dependants',
             'dependant.*.birth_date' => 'required_with:dependant.*.update',
             'dependant.*.gender' => 'required_with:dependant.*.update',
         ]);
@@ -133,42 +134,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Employee $employee, $id)
+    public function update(StoreEmployee $request, Employee $employee, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        // return $request;
-        $this->validate($request,[
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'ssn' => 'required|string|unique:employees,ssn,'.$id,
-            'oracle_number' => 'required',
-            'birth_date' => 'required',
-            'hire_date' => 'required',
-            'service_date' => 'required',
-            'gender' => 'required',
-            'address_1' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip_code' => 'required',
-            'county' => 'required',
-            'status' => 'required',
-            'rehire' => 'required',
-            // Spouse
-            'spouse.*.first_name' => 'required_with:spouse.*.update',
-            'spouse.*.last_name' => 'required_with:spouse.*.update',
-            'spouse.*.ssn' => 'required_with:spouse.*.update',
-            'spouse.*.birth_date' => 'required_with:spouse.*.update',
-            'spouse.*.gender' => 'required_with:spouse.*.update',
-            'spouse.*.domestic_partner' => 'required_with:spouse.*.update',
-            // Dependant
-            'dependant.*.first_name' => 'required_with:dependant.*.update',
-            'dependant.*.last_name' => 'required_with:dependant.*.update',
-            'dependant.*.ssn' => 'required_with:dependant.*.update',
-            'dependant.*.birth_date' => 'required_with:dependant.*.update',
-            'dependant.*.gender' => 'required_with:dependant.*.update',
 
-        ]);
         $employee = $employee->find($id);
 
         $this->buildEmployee($request, $employee);
