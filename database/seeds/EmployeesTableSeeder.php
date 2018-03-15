@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use App\Employee;
 use App\Spouse;
 use App\Dependant;
+use App\PhoneNumber;
+use App\EmergencyContact;
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -105,6 +107,31 @@ class EmployeesTableSeeder extends Seeder
                     $dependant->gender = 'female';
                 }
                 $employee->dependant()->save($dependant);
+            }
+
+            $phoneRandom = $faker->numberBetween($min = 0, $max = 2);
+            for($c = 0; $c <= $phoneRandom; $c++){
+                $phone = new PhoneNumber();
+                $phone->number =$faker->randomNumber($nbDigits = 5, $strict = false).$faker->randomNumber($nbDigits = 5, $strict = false);
+                if($c == 0){
+                    $phone->is_primary = 1;
+                }else{
+                    $phone->is_primary = 0;
+                }
+                $employee->phoneNumber()->save($phone);
+            }
+
+            $contactRandom = $faker->numberBetween($min = 0, $max = 3);
+            for($c = 0; $c <= $contactRandom; $c++){
+                $contact = new EmergencyContact();
+                $contact->name = $faker->firstName.' '.$faker->lastName;
+                $contact->number = $faker->randomNumber($nbDigits = 5, $strict = false).$faker->randomNumber($nbDigits = 5, $strict = false);
+                if($c == 0){
+                    $contact->is_primary = 1;
+                }else{
+                    $contact->is_primary = 0;
+                }
+                $employee->emergencyContact()->save($contact);
             }
         }
     }

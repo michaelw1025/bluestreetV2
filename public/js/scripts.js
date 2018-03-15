@@ -137,3 +137,64 @@ $('.toggle-add-item').on('change', function(){
     });
 });
 // ----------------end toggle adding spouse----------------
+
+// ----------------Phone number validation----------------
+// trap keypress - only allow numbers
+$('.phone-number-format').on('keypress', function(event){
+    // trap keypress
+    var character = String.fromCharCode(event.which);
+    if(!isInteger(character)){
+        return false;
+    }    
+});
+
+// format phone number 
+$('.phone-number-format').on('keyup', function(){
+   var val = this.value.replace(/\D/g, '');
+   var newVal = '';
+    if(val.length > 4) {
+        this.value = val;
+    }
+    if((val.length > 3) && (val.length < 6)) {
+        newVal += val.substr(0, 3) + '-';
+        val = val.substr(3);
+    }
+    if (val.length > 6) {
+        newVal += val.substr(0, 3) + '-';
+        newVal += val.substr(3, 3) + '-';
+        val = val.substr(6);
+    }
+    newVal += val;
+    this.value = newVal;   
+});
+// ----------------End Phone number validation----------------
+
+// ----------------Set primary phone number----------------
+$('.phone-number-primary-button').on('click', function(){
+    var item = $(this).attr('id');
+    if($(this).hasClass('btn-primary')){
+        $('.phone-number-primary-button').removeClass('btn-primary').addClass('btn-outline-secondary');
+        $('.phone-number-primary-checkbox').prop('checked', false);
+    }else{
+        $('.phone-number-primary-button').removeClass('btn-primary').addClass('btn-outline-secondary');
+        $('.phone-number-primary-checkbox').prop('checked', false);
+        $(this).removeClass('btn-outline-secondary').addClass('btn-primary');
+        $('.'+item).prop('checked', true);
+    }
+});
+// ----------------End set primary phone number----------------
+
+// ----------------Set primary emergency contact----------------
+$('.emergency-contact-primary-button').on('click', function(){
+    var item = $(this).attr('id');
+    if($(this).hasClass('btn-primary')){
+        $('.emergency-contact-primary-button').removeClass('btn-primary').addClass('btn-outline-secondary');
+        $('.emergency-contact-primary-checkbox').prop('checked', false);
+    }else{
+        $('.emergency-contact-primary-button').removeClass('btn-primary').addClass('btn-outline-secondary');
+        $('.emergency-contact-primary-checkbox').prop('checked', false);
+        $(this).removeClass('btn-outline-secondary').addClass('btn-primary');
+        $('.'+item).prop('checked', true);
+    }
+});
+// ----------------End set primary emergency contact----------------

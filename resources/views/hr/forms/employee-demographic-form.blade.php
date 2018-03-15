@@ -19,8 +19,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;First Name</div>
                     </div>
                     <input type="text" class="form-control" name="first_name" required value="{{ isset($employee->first_name) ? $employee->first_name : old('first_name') }}">
-                    <small class="text-danger">{{ $errors->first('first_name') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('first_name') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -30,8 +30,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Last Name</div>
                     </div>
                     <input type="text" class="form-control" name="last_name" required value="{{ isset($employee->last_name) ? $employee->last_name : old('last_name') }}">
-                    <small class="text-danger">{{ $errors->first('last_name') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('last_name') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -41,8 +41,8 @@
                         <div class="input-group-text">Middle Initial</div>
                     </div>
                     <input type="text" class="form-control" name="middle_initial" value="{{ isset($employee->middle_initial) ? $employee->middle_initial : old('middle_initial') }}">
-                    <small class="text-danger">{{ $errors->first('middle_initial') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('middle_initial') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -52,19 +52,19 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;SSN</div>
                     </div>
                     <input type="text" class="form-control ssn-format" name="ssn" required maxlength="11" value="{{ isset($employee->ssn) ? $employee->ssn : old('ssn') }}">
-                    <small class="text-danger">{{ $errors->first('ssn') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('ssn') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="oracle_number">Oracle Number</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">@if(isset($employee))<span class="text-danger">*</span>&nbsp;@endif Oracle Number</div>
+                        <div class="input-group-text">Oracle Number</div>
                     </div>
-                    <input type="text" class="form-control" name="oracle_number" {{isset($employee) ? 'required' : ''}} maxlength="6" value="{{ isset($employee->oracle_number) ? $employee->oracle_number : old('oracle_number') }}">
-                    <small class="text-danger">{{ $errors->first('oracle_number') }}</small>
+                    <input type="text" class="form-control" name="oracle_number" maxlength="6" value="{{ isset($employee->oracle_number) ? $employee->oracle_number : old('oracle_number') }}">
                 </div>
+                <small class="text-danger">{{ $errors->first('oracle_number') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -74,8 +74,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Birth Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="birth_date" required value="{{ isset($employee->birth_date) ? $employee->birth_date->format('m-d-Y') : old('birth_date') }}">
-                    <small class="text-danger">{{ $errors->first('birth_date') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('birth_date') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -85,8 +85,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Hire Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="hire_date" required value="{{ isset($employee->hire_date) ? $employee->hire_date->format('m-d-Y') : old('hire_date') }}">
-                    <small class="text-danger">{{ $errors->first('hire_date') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('hire_date') }}</small>
             </div>
 
             @if(isset($employee))
@@ -97,8 +97,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Service Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="service_date" required value="{{ isset($employee->service_date) ? $employee->service_date->format('m-d-Y') : old('service_date') }}">
-                    <small class="text-danger">{{ $errors->first('service_date') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('service_date') }}</small>
             </div>
             @endif
 
@@ -109,8 +109,8 @@
                         <div class="input-group-text">Maiden Name</div>
                     </div>
                     <input type="text" class="form-control" name="maiden_name" value="{{ isset($employee->maiden_name) ? $employee->maiden_name : old('maiden_name') }}">
-                    <small class="text-danger">{{ $errors->first('maiden_name') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('maiden_name') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -120,8 +120,8 @@
                         <div class="input-group-text">Nick Name</div>
                     </div>
                     <input type="text" class="form-control" name="nick_name" value="{{ isset($employee->nick_name) ? $employee->nick_name : old('nick_name') }}">
-                    <small class="text-danger">{{ $errors->first('nick_name') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('nick_name') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -135,8 +135,8 @@
                         <option {{ isset($employee) ? ($employee->gender == 'male' ? 'selected' : '') : (old('gender') == 'male' ? 'selected' : '') }} value="male">Male</option>
                         <option {{ isset($employee) ? ($employee->gender == 'female' ? 'selected' : '') : (old('gender') == 'female' ? 'selected' : '') }} value="female">Female</option>
                     </select>
-                    <small class="text-danger">{{ $errors->first('gender') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('gender') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -151,8 +151,8 @@
                         <option {{ isset($employee) ? ($employee->suffix == 'mrs' ? 'selected' : '') : '' }} value="mrs">Mrs</option>
                         <option {{ isset($employee) ? ($employee->suffix == 'miss' ? 'selected' : '') : '' }} value="miss">Miss</option>
                     </select>
-                    <small class="text-danger">{{ $errors->first('suffix') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('suffix') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -162,8 +162,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Address</div>
                     </div>
                     <input type="text" class="form-control" name="address_1" required value="{{ isset($employee->address_1) ? $employee->address_1 : old('address_1') }}">
-                    <small class="text-danger">{{ $errors->first('address_1') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('address_1') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -173,8 +173,8 @@
                         <div class="input-group-text">Address Cont</div>
                     </div>
                     <input type="text" class="form-control" name="address_2" value="{{ isset($employee->address_2) ? $employee->address_2 : old('address_2') }}">
-                    <small class="text-danger">{{ $errors->first('address_2') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('address_2') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -184,8 +184,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;City</div>
                     </div>
                     <input type="text" class="form-control" name="city" required value="{{ isset($employee->city) ? $employee->city : old('city') }}">
-                    <small class="text-danger">{{ $errors->first('city') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('city') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -248,8 +248,8 @@
                         <option value="WI" {{ isset($employee->state) ? ($employee->state == 'WI' ? 'selected' : '') : (old('state') == 'WI' ? 'selected' : '') }}>Wisconsin</option>
                         <option value="WY" {{ isset($employee->state) ? ($employee->state == 'WY' ? 'selected' : '') : (old('state') == 'WY' ? 'selected' : '') }}>Wyoming</option>
                     </select>
-                    <small class="text-danger">{{ $errors->first('state') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('state') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -259,8 +259,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Zip Code</div>
                     </div>
                     <input type="text" class="form-control" name="zip_code" required value="{{ isset($employee->zip_code) ? $employee->zip_code : old('zip_code') }}">
-                    <small class="text-danger">{{ $errors->first('zip_code') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('zip_code') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -270,8 +270,8 @@
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;County</div>
                     </div>
                     <input type="text" class="form-control" name="county" required value="{{ isset($employee->county) ? $employee->county : old('county') }}">
-                    <small class="text-danger">{{ $errors->first('county') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('county') }}</small>
             </div>
 
             @if(isset($employee))
@@ -290,8 +290,8 @@
                         <input class="form-check-input" type="radio" name="status" value="0" {{ $employee->status == '0' ? 'checked' : '' }}>
                         <label class="form-check-label">Inactive</label>
                     </div>
-                    <small class="text-danger">{{ $errors->first('status') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('status') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -308,8 +308,8 @@
                         <input class="form-check-input" type="radio" name="rehire" value="0" {{ $employee->rehire == '0' ? 'checked' : '' }}>
                         <label class="form-check-label">No</label>
                     </div>
-                    <small class="text-danger">{{ $errors->first('rehire') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('rehire') }}</small>
             </div>
 
             <div class="col-xl-4 my-1">
@@ -326,8 +326,8 @@
                         <input class="form-check-input" type="checkbox" name="sixty_day_review" value="1" {{ $employee->sixty_day_review == '1' ? 'checked' : '' }}>
                         <label class="form-check-label">60 Day</label>
                     </div>
-                    <small class="text-danger">{{ $errors->first('reviews') }}</small>
                 </div>
+                <small class="text-danger">{{ $errors->first('reviews') }}</small>
             </div>
 
             @endif

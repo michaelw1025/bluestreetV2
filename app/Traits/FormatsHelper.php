@@ -5,6 +5,8 @@ namespace App\Traits;
 use Carbon\Carbon;
 use App\Spouse;
 use App\Dependant;
+use App\PhoneNumber;
+use App\EmergencyContact;
 
 trait FormatsHelper
 {
@@ -60,50 +62,115 @@ trait FormatsHelper
     | Dependant update and delete methods
     |--------------------------------------------------------------------------
 */
-public function buildDependant($employee, $dependant)
-{
-    // foreach($dependant as $dependantArray){
-        // if(isset($dependantArray['update'])){    // Check if the dependant is meant to be updated or deleted
-        //     if(isset($dependantArray['id'])){    // Check if dependant id is set for update
-        //         $updateDependant = Dependant::find($dependantArray['id']);    // Get dependant for update
-        //         $this->assignDependantInfo($updateDependant, $dependantArray);
-        //     }else{    // If dependant does not exist create new
-        //         $updateDependant = new Dependant();    // Create new dependant
-        //         $this->assignDependantInfo($updateDependant, $dependantArray);
-        //     }
-        //     $employee->dependant()->save($updateDependant);
-        // }else{    // If dependant info is in request but not selected for update then delete
-        //     $this->deleteDependant($employee);    // Call method to delete dependant
-        // }
-
-        $storeDependants = array();
-        foreach($dependant as $dependantArray){
-            if(isset($dependantArray['update'])){
-                if(isset($dependantArray['id'])){
-                    $updateDependant = Dependant::find($dependantArray['id']);
-                    $this->assignDependantInfo($updateDependant, $dependantArray);
-                }else{
-                    $updateDependant = new Dependant();
-                    $this->assignDependantInfo($updateDependant, $dependantArray);
+    public function buildDependant($employee, $dependant)
+    {
+            $storeDependants = array();
+            foreach($dependant as $dependantArray){
+                if(isset($dependantArray['update'])){
+                    if(isset($dependantArray['id'])){
+                        $updateDependant = Dependant::find($dependantArray['id']);
+                        $this->assignDependantInfo($updateDependant, $dependantArray);
+                    }else{
+                        $updateDependant = new Dependant();
+                        $this->assignDependantInfo($updateDependant, $dependantArray);
+                    }
+                    $employee->dependant()->save($updateDependant);
+                    $storeDependants[] = $updateDependant->id;
                 }
-                $employee->dependant()->save($updateDependant);
-                $storeDependants[] = $updateDependant->id;
             }
-        }
-        Dependant::where('employee_id', $employee->id)->whereNotIn('id', $storeDependants)->delete();
+            Dependant::where('employee_id', $employee->id)->whereNotIn('id', $storeDependants)->delete();
 
-}
-public function assignDependantInfo($updateDependant, $dependantArray)
-{
-    $updateDependant->first_name = $dependantArray['first_name'];
-    $updateDependant->last_name = $dependantArray['last_name'];
-    $updateDependant->middle_initial = $dependantArray['middle_initial'];
-    $updateDependant->ssn = $dependantArray['ssn'];
-    $updateDependant->birth_date = $this->convertToDate($dependantArray['birth_date']);
-    $updateDependant->gender = $dependantArray['gender'];
-}
-public function deleteDependant($employee)
-{
-    $employee->dependant()->delete();
-}
+    }
+    public function assignDependantInfo($updateDependant, $dependantArray)
+    {
+        $updateDependant->first_name = $dependantArray['first_name'];
+        $updateDependant->last_name = $dependantArray['last_name'];
+        $updateDependant->middle_initial = $dependantArray['middle_initial'];
+        $updateDependant->ssn = $dependantArray['ssn'];
+        $updateDependant->birth_date = $this->convertToDate($dependantArray['birth_date']);
+        $updateDependant->gender = $dependantArray['gender'];
+    }
+    public function deleteDependant($employee)
+    {
+        $employee->dependant()->delete();
+    }
+
+/*
+|--------------------------------------------------------------------------
+| Phone number update and delete methods
+|--------------------------------------------------------------------------
+*/
+    public function buildPhoneNumber($employee, $phoneNumber)
+    {
+            $storePhoneNumbers = array();
+            foreach($phoneNumber as $phoneNumberArray){
+                if(isset($phoneNumberArray['update'])){
+                    if(isset($phoneNumberArray['id'])){
+                        $updatePhoneNumber = PhoneNumber::find($phoneNumberArray['id']);
+                        $this->assignPhoneNumberInfo($updatePhoneNumber, $phoneNumberArray);
+                    }else{
+                        $updatePhoneNumber = new PhoneNumber();
+                        $this->assignPhoneNumberInfo($updatePhoneNumber, $phoneNumberArray);
+                    }
+                    $employee->phoneNumber()->save($updatePhoneNumber);
+                    $storePhoneNumbers[] = $updatePhoneNumber->id;
+                }
+            }
+            PhoneNumber::where('employee_id', $employee->id)->whereNotIn('id', $storePhoneNumbers)->delete();
+
+    }
+    public function assignPhoneNumberInfo($updatePhoneNumber, $phoneNumberArray)
+    {
+        $updatePhoneNumber->number = $phoneNumberArray['number'];
+        if(isset($phoneNumberArray['is_primary'])){
+            $updatePhoneNumber->is_primary = 1;
+        }else{
+            $updatePhoneNumber->is_primary = 0;
+        }
+        
+    }
+    public function deletePhoneNumber($employee)
+    {
+        $employee->phoneNumber()->delete();
+    }
+
+/*
+|--------------------------------------------------------------------------
+| Phone number update and delete methods
+|--------------------------------------------------------------------------
+*/
+    public function buildEmergencyContact($employee, $emergencyContact)
+    {
+            $storeEmergencyContacts = array();
+            foreach($emergencyContact as $emergencyContactArray){
+                if(isset($emergencyContactArray['update'])){
+                    if(isset($emergencyContactArray['id'])){
+                        $updateEmergencyContact = EmergencyContact::find($emergencyContactArray['id']);
+                        $this->assignEmergencyContactInfo($updateEmergencyContact, $emergencyContactArray);
+                    }else{
+                        $updateEmergencyContact = new EmergencyContact();
+                        $this->assignEmergencyContactInfo($updateEmergencyContact, $emergencyContactArray);
+                    }
+                    $employee->emergencyContact()->save($updateEmergencyContact);
+                    $storeEmergencyContacts[] = $updateEmergencyContact->id;
+                }
+            }
+            EmergencyContact::where('employee_id', $employee->id)->whereNotIn('id', $storeEmergencyContacts)->delete();
+
+    }
+    public function assignEmergencyContactInfo($updateEmergencyContact, $emergencyContactArray)
+    {
+        $updateEmergencyContact->name = $emergencyContactArray['name'];
+        $updateEmergencyContact->number = $emergencyContactArray['number'];
+        if(isset($emergencyContactArray['is_primary'])){
+            $updateEmergencyContact->is_primary = 1;
+        }else{
+            $updateEmergencyContact->is_primary = 0;
+        }
+        
+    }
+    public function deleteEmergencyContact($employee)
+    {
+        $employee->emergencyContact()->delete();
+    }
 }

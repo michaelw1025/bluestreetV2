@@ -51,36 +51,10 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Employee $employee)
+    public function store(StoreEmployee $request, Employee $employee)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $this->validate($request,[
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'ssn' => 'required|unique:employees|unique:spouses|unique:dependants',
-            'birth_date' => 'required',
-            'hire_date' => 'required',
-            'gender' => 'required',
-            'address_1' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip_code' => 'required',
-            'county' => 'required',
-            // Spouse
-            'spouse.*.first_name' => 'required_with:spouse.*.update',
-            'spouse.*.last_name' => 'required_with:spouse.*.update',
-            'spouse.*.ssn' => 'required_with:spouse.*.update|unique:employees|unique:spouses|unique:dependants',
-            'spouse.*.birth_date' => 'required_with:spouse.*.update',
-            'spouse.*.gender' => 'required_with:spouse.*.update',
-            'spouse.*.domestic_partner' => 'required_with:spouse.*.update',
-            // Dependant
-            'dependant.*.first_name' => 'required_with:dependant.*.update',
-            'dependant.*.last_name' => 'required_with:dependant.*.update',
-            'dependant.*.ssn' => 'required_with:dependant.*.update|unique:employees|unique:spouses|unique:dependants',
-            'dependant.*.birth_date' => 'required_with:dependant.*.update',
-            'dependant.*.gender' => 'required_with:dependant.*.update',
-        ]);
         $employee = new Employee();
         $this->buildEmployee($request, $employee);
         if($employee->save()){
@@ -91,6 +65,14 @@ class EmployeeController extends Controller
             // Update dependant
             if($request->dependant){
                 $this->buildDependant($employee, $request->dependant);
+            }
+            // Update phone number
+            if($request->phone_number){
+                $this->buildPhoneNumber($employee, $request->phone_number);
+            }
+            // Update emergency contact
+            if($request->emergency_contact){
+                $this->buildEmergencyContact($employee, $request->emergency_contact);
             }
             \Session::flash('status', 'Employee created.');
         }else{
@@ -109,7 +91,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant')->withCount('dependant')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact')->withCount('dependant', 'phoneNumber', 'emergencyContact')->find($id);
         return view('hr.show-employee', [
             'employee' => $employee,
         ]);
@@ -138,7 +120,6 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $employee = $employee->find($id);
 
         $this->buildEmployee($request, $employee);
@@ -150,6 +131,14 @@ class EmployeeController extends Controller
             // Update dependant
             if($request->dependant){
                 $this->buildDependant($employee, $request->dependant);
+            }
+            // Update phone number
+            if($request->phone_number){
+                $this->buildPhoneNumber($employee, $request->phone_number);
+            }
+            // Update emergency contact
+            if($request->emergency_contact){
+                $this->buildEmergencyContact($employee, $request->emergency_contact);
             }
             \Session::flash('status', 'Employee edited.');
         }else{

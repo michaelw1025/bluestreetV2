@@ -13,7 +13,7 @@
                     </div>
                     <div class="form-check form-check-inline ml-4">
                         <input class="form-check-input toggle-add-item" id="toggle-dependant-{{$loop->index}}" type="checkbox" name="dependant[{{$loop->index}}][update]" value="1" {{isset($dependant->id) ? 'checked' : (old('dependant.'.$loop->index.'.update') == '1' ? 'checked' : '') }}>
-                        <label class="form-check-label">Check to Add This Spouse</label>
+                        <label class="form-check-label">Check to Add This Dependant</label>
                     </div>
                 </div>
             </div>
@@ -125,7 +125,7 @@
                     </div>
                     <div class="form-check form-check-inline ml-4">
                         <input class="form-check-input toggle-add-item" id="toggle-dependant-{{$i}}" type="checkbox" name="dependant[{{$i}}][update]" value="1" {{ old('dependant.'.$i.'.update') == '1' ? 'checked' : '' }}>
-                        <label class="form-check-label">Check to Add This Spouse</label>
+                        <label class="form-check-label">Check to Add This Dependant</label>
                     </div>
                 </div>
             </div>

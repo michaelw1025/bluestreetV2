@@ -24,6 +24,12 @@
             <!-- Include employee dependant form -->
             @include('hr.forms.employee-dependant-form')
 
+            <!-- Include employee phone number form -->
+            @include('hr.forms.employee-phone-number-form')
+
+            <!-- Include employee emergency contact form -->
+            @include('hr.forms.employee-emergency-contact-form')
+
 
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">

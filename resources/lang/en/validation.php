@@ -103,6 +103,7 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        // Spouse
         'spouse.*.first_name' => [
             'required_with' => 'First name must be present if Add Spouse is checked.'
         ],
@@ -110,7 +111,8 @@ return [
             'required_with' => 'Last name must be present if Add Spouse is checked.'
         ],
         'spouse.*.ssn' => [
-            'required_with' => 'SSN must be present if Add Spouse is checked.'
+            'required_with' => 'SSN must be present if Add Spouse is checked.',
+            'unique' => 'SSN is already taken.'
         ],
         'spouse.*.birth_date' => [
             'required_with' => 'Birth date must be present if Add Spouse is checked.'
@@ -121,6 +123,7 @@ return [
         'spouse.*.domestic_partner' => [
             'required_with' => 'Domestic partner must be present if Add Spouse is checked.'
         ],
+        // Dependant
         'dependant.*.first_name' => [
             'required_with' => 'First name must be present if Add Dependant is checked.'
         ],
@@ -128,13 +131,32 @@ return [
             'required_with' => 'Last name must be present if Add Dependant is checked.'
         ],
         'dependant.*.ssn' => [
-            'required_with' => 'SSN must be present if Add Dependant is checked.'
+            'required_with' => 'SSN must be present if Add Dependant is checked.',
+            'unique' => 'SSN is already taken.'
         ],
         'dependant.*.birth_date' => [
             'required_with' => 'Birth date must be present if Add Dependant is checked.'
         ],
         'dependant.*.gender' => [
             'required_with' => 'Gender must be present if Add Dependant is checked.'
+        ],
+        // Bid
+        'bid_eligible_date' => [
+            'required_if' => 'Bid Eligible Date must be present if Bid Eligible is set to No.'
+        ],
+        'bid_eligible_comment' => [
+            'required_if' => 'Bid Eligible Comment must be present if Bid Eligible is set to No.'
+        ],
+        // Phone number
+        'phone_number.*.number' => [
+            'required_with' => 'Number must be present if Add Phone Number is checked.'
+        ],
+        // Emergency contact
+        'emergency_contact.*.name' => [
+            'required_with' => 'Name must be present if Add Emergency Contact is checked'
+        ],
+        'emergency_contact.*.number' => [
+            'required_with' => 'Number must be present if Add Emergency Contact is checked'
         ],
     ],
 

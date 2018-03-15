@@ -224,9 +224,19 @@ class Employee extends Model
     {
         return $this->hasOne('App\Spouse');
     }
-    // Spouse relationship
+    // Dependant relationship
     public function dependant()
     {
         return $this->hasMany('App\Dependant');
+    }
+    // Phone Number relationship
+    public function phoneNumber()
+    {
+        return $this->hasMany('App\PhoneNumber');
+    }
+    // Emergency Contact relationship
+    public function emergencyContact()
+    {
+        return $this->hasMany('App\EmergencyContact');
     }
 }
