@@ -29,6 +29,12 @@
             <!-- Include employee emergency contact form -->
             @include('hr.forms.employee-emergency-contact-form')
 
+            <!-- Include job contact form -->
+            @include('hr.forms.employee-job-form')
+
+            <!-- Include wage contact form -->
+            @include('hr.forms.employee-wage-form')
+
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             

@@ -239,4 +239,24 @@ class Employee extends Model
     {
         return $this->hasMany('App\EmergencyContact');
     }
+    //Position relationship
+    public function position()
+    {
+        return $this->belongsToMany('App\Position');
+    }
+    //Job relationship
+    public function job()
+    {
+        return $this->belongsToMany('App\Job');
+    }
+    //Cost Center relationship
+    public function costCenter()
+    {
+        return $this->belongsToMany('App\CostCenter');
+    }
+    //Shift relationship
+    public function shift()
+    {
+        return $this->belongsToMany('App\Shift');
+    }
 }

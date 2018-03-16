@@ -39,6 +39,10 @@ class StoreEmployee extends FormRequest
             'state' => 'required',
             'zip_code' => 'required',
             'county' => 'required',
+            'position' => 'required',
+            'job' => 'required',
+            'cost_center' => 'required',
+            'shift' => 'required',
         ];
         if(isset($this->update_employee)){
             $rulesArray += [

@@ -30,6 +30,12 @@
             <!-- Include employee emergency contact form -->
             @include('hr.forms.employee-emergency-contact-form')
 
+            <!-- Include job contact form -->
+            @include('hr.forms.employee-job-form')
+
+            <!-- Include wage contact form -->
+            @include('hr.forms.employee-wage-form')
+
 
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">

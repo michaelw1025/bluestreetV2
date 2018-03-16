@@ -7,6 +7,11 @@ use App\Traits\FormatsHelper;
 use App\Http\Requests\StoreEmployee;
 
 use App\Employee;
+use App\Position;
+use App\Job;
+use App\CostCenter;
+use App\Shift;
+use App\WageTitle;
 
 class EmployeeController extends Controller
 {
@@ -38,11 +43,22 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        return view('hr.create-employee');
+        $positions = $position->all();
+        $jobs = $job->all();
+        $costCenters = $costCenter->all();
+        $shifts = $shift->all();
+        $wageTitles = $wageTitle->with('wageProgression')->get();
+        return view('hr.create-employee', [
+            'positions' => $positions,
+            'jobs' => $jobs,
+            'costCenters' => $costCenters,
+            'shifts' => $shifts,
+            'wageTitles' => $wageTitles,
+        ]);
     }
 
     /**
@@ -74,6 +90,22 @@ class EmployeeController extends Controller
             if($request->emergency_contact){
                 $this->buildEmergencyContact($employee, $request->emergency_contact);
             }
+            // Sync position
+            if($request->position){
+                $this->syncPosition($employee, $request->position);
+            }
+            // Sync job
+            if($request->job){
+                $this->syncJob($employee, $request->job);
+            }
+            // Sync cost center
+            if($request->cost_center){
+                $this->syncCostCenter($employee, $request->cost_center);
+            }
+            // Sync shift
+            if($request->shift){
+                $this->syncShift($employee, $request->shift);
+            }
             \Session::flash('status', 'Employee created.');
         }else{
             \Session::flash('error', 'Employee not created.');
@@ -87,13 +119,21 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Employee $employee, $id)
+    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact')->withCount('dependant', 'phoneNumber', 'emergencyContact')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'costCenter', 'shift')->withCount('dependant', 'phoneNumber', 'emergencyContact')->find($id);
+        $positions = $position->all();
+        $jobs = $job->all();
+        $costCenters = $costCenter->all();
+        $shifts = $shift->all();
         return view('hr.show-employee', [
             'employee' => $employee,
+            'positions' => $positions,
+            'jobs' => $jobs,
+            'costCenters' => $costCenters,
+            'shifts' => $shifts,
         ]);
     }
 
@@ -121,7 +161,6 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($id);
-
         $this->buildEmployee($request, $employee);
         if($employee->save()){
             // Update spouse
@@ -139,6 +178,22 @@ class EmployeeController extends Controller
             // Update emergency contact
             if($request->emergency_contact){
                 $this->buildEmergencyContact($employee, $request->emergency_contact);
+            }
+            // Sync position
+            if($request->position){
+                $this->syncPosition($employee, $request->position);
+            }
+            // Sync job
+            if($request->job){
+                $this->syncJob($employee, $request->job);
+            }
+            // Sync cost center
+            if($request->cost_center){
+                $this->syncCostCenter($employee, $request->cost_center);
+            }
+            // Sync shift
+            if($request->shift){
+                $this->syncShift($employee, $request->shift);
             }
             \Session::flash('status', 'Employee edited.');
         }else{

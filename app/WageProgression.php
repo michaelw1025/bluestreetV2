@@ -44,6 +44,6 @@ class WageProgression extends Model
     // Wage Title relationship
     public function wageTitle()
     {
-        return $this->belongsToMany('App\WageTitle')->withPivot('amount')->orderBy('month', 'asc');
+        return $this->belongsToMany('App\WageTitle')->withPivot('id', 'amount')->orderBy('month', 'asc');
     }
 }

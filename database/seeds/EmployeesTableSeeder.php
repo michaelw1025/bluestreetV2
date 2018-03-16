@@ -8,6 +8,10 @@ use App\Spouse;
 use App\Dependant;
 use App\PhoneNumber;
 use App\EmergencyContact;
+use App\Position;
+use App\Job;
+use App\CostCenter;
+use App\Shift;
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -19,6 +23,143 @@ class EmployeesTableSeeder extends Seeder
     public function run()
     {
         $faker = Faker::create();
+
+        $hourly = Position::where('description', 'hourly')->first();
+        $salary = Position::where('description', 'salary')->first();
+
+        $hourlyJobsArray = array('assembler',
+            'checmical floor support technician',
+            'floor support technician',
+            'machine operator component',
+            'machine operator scroll',
+            'material handler',
+            'production quality auditor',
+            'support documentation',
+            'specialist guage',
+            'specialist iso',
+            'specialist maintenance',
+            'specialist manufacturing',
+            'specialist operations',
+            'specialist teardown',
+            'specialist welding',
+            'machinist',
+            'maintenance assemly',
+            'maintenance component',
+            'maintenance facilities', 
+            'maintenance scroll', 
+            'maintenance leader',
+        );
+
+        $salaryJobsArray = array(
+            'administrative assistant',
+            'administrator it lan sr',
+            'analyst financial',
+            'analyst it',
+            'analyst materials',
+            'clerk payroll',
+            'college student',
+            'controller plant', 
+            'controller plant assistant',
+            'coordinator engineering change',
+            'coordinator hr',
+            'coordinator project administrative',
+            'engineer environmental',
+            'engineer industrial',
+            'engineer lead',
+            'engineer manufacturing',
+            'engineer manufacturing sr',
+            'engineer production',
+            'engineer quality',
+            'generalist hr',
+            'manager employee relations',
+            'manager facilities and maintenance',
+            'manager hr',
+            'manager manufacturing services',
+            'manager materials',
+            'manager operations',
+            'manager quality',
+            'manager team',
+            'manager technical team',
+            'materials coordinator',
+            'project leader materials',
+            'scheduler',
+            'supervisor materials',
+            'team leader assembly',
+            'team leader iso and quality systems',
+            'team leader machining',
+            'team leader materials',
+            'team leader quality',
+            'technician calorimeter',
+            'technician project'
+        );
+
+        $costCenterArray = array(
+            '2000',
+            '1000',
+            '2001',
+            '2003',
+            '2006',
+            '2009',
+            '2004',
+            '2010',
+            '2011',
+            '2015',
+            '2013',
+            '2014',
+            '3020',
+            '3100',
+            '3106',
+            '3200',
+            '3287',
+            '3281',
+            '3201',
+            '3202',
+            '3203',
+            '3204',
+            '3205',
+            '3206',
+            '3207',
+            '3208',
+            '3209',
+            '3210',
+            '3010',
+            '3400',
+            '3401',
+            '3411',
+            '3301',
+            '3431',
+            '3402',
+            '3412',
+            '3432',
+            '3501',
+            '3502',
+            '3510',
+            '3437',
+            '3440',
+            '3504',
+            '3503',
+            '3404',
+            '3414',
+            '3424',
+            '3405',
+            '3415',
+            '3425',
+            '3417',
+            '3008',
+            '3009',
+            '3003',
+            '3001',
+            '3438',
+            '3002',
+            '3439',
+            '3013',
+            '3016',
+            '3018',
+            '3000',
+            '3406',
+        );
+
+        $shiftsArray = array('day', 'night');
 
         for($i = 0; $i <= 100; $i++)
         {
@@ -133,6 +274,27 @@ class EmployeesTableSeeder extends Seeder
                 }
                 $employee->emergencyContact()->save($contact);
             }
+
+            $employeePosition = $faker->randomElement($array = array($hourly, $salary));
+            $employee->position()->sync([$employeePosition->id]);
+
+            if($employeePosition == $hourly){
+                $jobTitle = $faker->randomElement($array = $hourlyJobsArray);
+                $jobInfo = Job::where('description', $jobTitle)->first();
+                $employee->job()->sync($jobInfo->id);
+            }else{
+                $jobTitle = $faker->randomElement($array = $salaryJobsArray);
+                $jobInfo = Job::where('description', $jobTitle)->first();
+                $employee->job()->sync($jobInfo->id);
+            }
+
+            $costCenterTitle = $faker->randomElement($array = $costCenterArray);
+            $costCenter = CostCenter::where('number', $costCenterTitle)->first();
+            $employee->costCenter()->sync($costCenter->id);
+
+            $shiftTitle = $faker->randomElement($array = $shiftsArray);
+            $shiftInfo = Shift::where('description', $shiftTitle)->first();
+            $employee->shift()->sync($shiftInfo->id);
         }
     }
 }

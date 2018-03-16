@@ -7,6 +7,10 @@ use App\Spouse;
 use App\Dependant;
 use App\PhoneNumber;
 use App\EmergencyContact;
+use App\Position;
+use App\Job;
+use App\CostCenter;
+use App\Shift;
 
 trait FormatsHelper
 {
@@ -20,11 +24,11 @@ trait FormatsHelper
         $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
         return Carbon::parse($date);
     }
-/*
+    /*
     |--------------------------------------------------------------------------
     | Spouse update and delete methods
     |--------------------------------------------------------------------------
-*/
+    */
     public function buildSpouse($employee, $spouse)
     {
         foreach($spouse as $spouseArray){
@@ -57,11 +61,11 @@ trait FormatsHelper
         $employee->spouse()->delete();
     }
 
-/*
+    /*
     |--------------------------------------------------------------------------
     | Dependant update and delete methods
     |--------------------------------------------------------------------------
-*/
+    */
     public function buildDependant($employee, $dependant)
     {
             $storeDependants = array();
@@ -95,11 +99,11 @@ trait FormatsHelper
         $employee->dependant()->delete();
     }
 
-/*
-|--------------------------------------------------------------------------
-| Phone number update and delete methods
-|--------------------------------------------------------------------------
-*/
+    /*
+    |--------------------------------------------------------------------------
+    | Phone number update and delete methods
+    |--------------------------------------------------------------------------
+    */
     public function buildPhoneNumber($employee, $phoneNumber)
     {
             $storePhoneNumbers = array();
@@ -134,11 +138,11 @@ trait FormatsHelper
         $employee->phoneNumber()->delete();
     }
 
-/*
-|--------------------------------------------------------------------------
-| Phone number update and delete methods
-|--------------------------------------------------------------------------
-*/
+    /*
+    |--------------------------------------------------------------------------
+    | Phone number update and delete methods
+    |--------------------------------------------------------------------------
+    */
     public function buildEmergencyContact($employee, $emergencyContact)
     {
             $storeEmergencyContacts = array();
@@ -172,5 +176,45 @@ trait FormatsHelper
     public function deleteEmergencyContact($employee)
     {
         $employee->emergencyContact()->delete();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync Position
+    |--------------------------------------------------------------------------
+    */
+    public function syncPosition($employee, $positionID)
+    {
+        $employee->position()->sync($positionID);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync Job
+    |--------------------------------------------------------------------------
+    */
+    public function syncJob($employee, $jobID)
+    {
+        $employee->job()->sync($jobID);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync CostCenter
+    |--------------------------------------------------------------------------
+    */
+    public function syncCostCenter($employee, $costCenterID)
+    {
+        $employee->costCenter()->sync($costCenterID);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync Shift
+    |--------------------------------------------------------------------------
+    */
+    public function syncShift($employee, $shiftID)
+    {
+        $employee->shift()->sync($shiftID);
     }
 }

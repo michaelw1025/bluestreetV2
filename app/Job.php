@@ -45,10 +45,14 @@ class Job extends Model
     {
         return $this->belongsToMany('App\Position');
     }
-
     // Wage Title relationship
     public function wageTitle()
     {
         return $this->belongsToMany('App\WageTitle');
+    }
+    //Employee relationship
+    public function employee()
+    {
+        return $this->belongsToMany('App\Employee');
     }
 }

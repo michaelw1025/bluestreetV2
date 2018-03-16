@@ -44,4 +44,9 @@ class Position extends Model
     {
         return $this->belongsToMany('App\Job');
     }
+    //Employee relationship
+    public function employee()
+    {
+        return $this->belongsToMany('App\Employee');
+    }
 }

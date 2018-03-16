@@ -37,4 +37,11 @@ class Shift extends Model
         return ucWords($description);
     }
     // ----------------End Mutators----------------
+
+    // ----------------Relationships----------------
+    //Employee relationship
+    public function employee()
+    {
+        return $this->belongsToMany('App\Employee');
+    }
 }
