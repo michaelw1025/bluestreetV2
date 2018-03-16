@@ -106,6 +106,10 @@ class EmployeeController extends Controller
             if($request->shift){
                 $this->syncShift($employee, $request->shift);
             }
+            // Sync wage
+            if($request->progression){
+                $this->syncWage($employee, $request->progression);
+            }
             \Session::flash('status', 'Employee created.');
         }else{
             \Session::flash('error', 'Employee not created.');
@@ -119,21 +123,24 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, $id)
+    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'costCenter', 'shift')->withCount('dependant', 'phoneNumber', 'emergencyContact')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle')->withCount('dependant', 'phoneNumber', 'emergencyContact')->find($id);
         $positions = $position->all();
-        $jobs = $job->all();
+        $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
+        $wageTitles = $wageTitle->with('wageProgression')->get();
+
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
             'jobs' => $jobs,
             'costCenters' => $costCenters,
             'shifts' => $shifts,
+            'wageTitles' => $wageTitles,
         ]);
     }
 
@@ -161,6 +168,7 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($id);
+
         $this->buildEmployee($request, $employee);
         if($employee->save()){
             // Update spouse
@@ -194,6 +202,10 @@ class EmployeeController extends Controller
             // Sync shift
             if($request->shift){
                 $this->syncShift($employee, $request->shift);
+            }
+            // Sync wage
+            if($request->progression){
+                $this->syncWage($employee, $request->progression);
             }
             \Session::flash('status', 'Employee edited.');
         }else{

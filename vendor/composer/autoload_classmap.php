@@ -58,6 +58,7 @@ return array(
     'App\\User' => $baseDir . '/app/User.php',
     'App\\VisionPlan' => $baseDir . '/app/VisionPlan.php',
     'App\\WageProgression' => $baseDir . '/app/WageProgression.php',
+    'App\\WageProgressionWageTitle' => $baseDir . '/app/WageProgressionWageTitle.php',
     'App\\WageTitle' => $baseDir . '/app/WageTitle.php',
     'Carbon\\Carbon' => $vendorDir . '/nesbot/carbon/src/Carbon/Carbon.php',
     'Carbon\\CarbonInterval' => $vendorDir . '/nesbot/carbon/src/Carbon/CarbonInterval.php',

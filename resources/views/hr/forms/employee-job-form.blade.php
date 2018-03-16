@@ -9,7 +9,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Position</div>
                     </div>
-                    <select class="form-control" name="position" >
+                    <select class="form-control" name="position" required>
                         <option></option>
                         @foreach($positions as $position)
                         <option {{ isset($employee->position) ? ($employee->position[0]->id == $position->id ? 'selected' : '') : (old('position') == $position->id ? 'selected' : '') }} value="{{$position->id}}">{{$position->description}}</option>
@@ -27,10 +27,10 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Job</div>
                     </div>
-                    <select class="form-control" name="job" required>
+                    <select class="form-control job-select" name="job" required>
                         <option></option>
                         @foreach($jobs as $job)
-                        <option {{ isset($employee->job) ? ($employee->job[0]->id == $job->id ? 'selected' : '') : (old('job') == $job->id ? 'selected' : '') }} value="{{$job->id}}">{{$job->description}}</option>
+                        <option id="title-{{$job->wageTitle[0]->id}}-{{$job->wageTitle[0]->description}}" {{ isset($employee->job) ? ($employee->job[0]->id == $job->id ? 'selected' : '') : (old('job') == $job->id ? 'selected' : '') }} value="{{$job->id}}">{{$job->description}}</option>
                         @endforeach
                     </select>
                 </div>

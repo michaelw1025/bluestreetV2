@@ -7,10 +7,7 @@ use App\Spouse;
 use App\Dependant;
 use App\PhoneNumber;
 use App\EmergencyContact;
-use App\Position;
-use App\Job;
-use App\CostCenter;
-use App\Shift;
+
 
 trait FormatsHelper
 {
@@ -216,5 +213,15 @@ trait FormatsHelper
     public function syncShift($employee, $shiftID)
     {
         $employee->shift()->sync($shiftID);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync Wage
+    |--------------------------------------------------------------------------
+    */
+    public function syncWage($employee, $wageID)
+    {
+        $employee->wageProgressionWageTitle()->sync($wageID);
     }
 }

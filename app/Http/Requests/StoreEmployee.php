@@ -43,11 +43,12 @@ class StoreEmployee extends FormRequest
             'job' => 'required',
             'cost_center' => 'required',
             'shift' => 'required',
+            'progression' => 'required',
         ];
         if(isset($this->update_employee)){
             $rulesArray += [
                 'ssn' => 'required|unique:spouses|unique:dependants|unique:employees,ssn,'.$this->id,
-                'oracle_number' => 'unique:employees,oracle_number,'.$this->id,
+                'oracle_number' => 'nullable|unique:employees,oracle_number,'.$this->id,
                 'service_date' => 'required',
                 'status' => 'required',
                 'rehire' => 'required',
@@ -58,7 +59,7 @@ class StoreEmployee extends FormRequest
         }else{
             $rulesArray += [
                 'ssn' => 'required|unique:employees|unique:spouses|unique:dependants',
-                'oracle_number' => 'unique:employees',
+                'oracle_number' => 'nullable|unique:employees',
             ];
         }
 

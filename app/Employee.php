@@ -259,4 +259,9 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\Shift');
     }
+    //WageProgressionWageTitle relationship
+    public function wageProgressionWageTitle()
+    {
+        return $this->belongsToMany('App\WageProgressionWageTitle');
+    }
 }
