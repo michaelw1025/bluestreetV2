@@ -5,7 +5,7 @@
         @if($wageTitles)
             @foreach($wageTitles as $wageTitle)
             <table class="table table-bordered progression-{{$wageTitle->description}} wage-progression-table {{isset($employee->job) ? ($employee->job[0]->wageTitle[0]->id == $wageTitle->id ? '' : 'd-none') : 'd-none'}}">
-                <caption class="font-weight-bold"><span class="text-info">Current Wage</span> || <span class="text-danger">Eligible Wage</span></caption>
+                <caption><span class="text-info">Current Wage</span> || <span class="text-danger">Eligible Wage</span></caption>
                 <thead class="thead-light">
                     <tr>
                         <th scope="col"></th>
@@ -18,7 +18,7 @@
                     <tr>
                         <th>{{$wageTitle->description}}</th>
                         @foreach($wageTitle->wageProgression as $wageProgression)
-                        <td class="text-center {{ isset($employee->wageProgressionWageTitle) ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'bg-info text-white' : '') : '' }}">${{$wageProgression->pivot->amount}} &nbsp <input type="radio" name="progression" value="{{$wageProgression->pivot->id}}" {{ isset($employee->wageProgressionWageTitle) ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'checked' : '') : (old('progression') == $wageProgression->pivot->id ? 'checked' : '') }}></td>
+                        <td class="text-center {{ $employee->wage_progression_wage_title_count > '0' ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'bg-info text-white' : '') : '' }}">${{$wageProgression->pivot->amount}} &nbsp <input type="radio" name="progression" value="{{$wageProgression->pivot->id}}" {{ $employee->wage_progression_wage_title_count > '0' ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'checked' : '') : (old('progression') == $wageProgression->pivot->id ? 'checked' : '') }}></td>
                         @endforeach
                     </tr>
                 </tbody>
