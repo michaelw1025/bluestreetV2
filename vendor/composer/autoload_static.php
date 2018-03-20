@@ -373,6 +373,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\Traits\\FormatsHelper' => __DIR__ . '/../..' . '/app/Traits/FormatsHelper.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\VisionPlan' => __DIR__ . '/../..' . '/app/VisionPlan.php',
+        'App\\VisionVoucher' => __DIR__ . '/../..' . '/app/VisionVoucher.php',
         'App\\WageProgression' => __DIR__ . '/../..' . '/app/WageProgression.php',
         'App\\WageProgressionWageTitle' => __DIR__ . '/../..' . '/app/WageProgressionWageTitle.php',
         'App\\WageTitle' => __DIR__ . '/../..' . '/app/WageTitle.php',

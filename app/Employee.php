@@ -279,4 +279,9 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\DentalPlanInsuranceCoverage');
     }
+    // Vision voucher relationship
+    public function visionVoucher()
+    {
+        return $this->hasMany('App\VisionVoucher');
+    }
 }

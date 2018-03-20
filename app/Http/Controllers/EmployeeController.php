@@ -132,6 +132,10 @@ class EmployeeController extends Controller
             if($request->vision_coverage_type){
                 $this->syncVisionInsurance($employee, $request->vision_coverage_type);
             }
+            // Update vision voucher
+            if(!is_null($request->voucher_number)){
+                $this->buildVisionVoucher($employee, $request->voucher_number);
+            }
             \Session::flash('status', 'Employee created.');
         }else{
             \Session::flash('error', 'Employee not created.');
@@ -149,7 +153,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle')->find($id);
         $positions = $position->all();
         $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
@@ -158,7 +162,7 @@ class EmployeeController extends Controller
         $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
         $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
         $visionPlans = $visionPlan->with('insuranceCoverage')->get();
-// return $dentalPlans;
+// return $employee;
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
@@ -246,6 +250,10 @@ class EmployeeController extends Controller
             // Sync vision insurance
             if($request->vision_coverage_type){
                 $this->syncVisionInsurance($employee, $request->vision_coverage_type);
+            }
+            // Update vision voucher
+            if(!is_null($request->voucher_number)){
+                $this->buildVisionVoucher($employee, $request->voucher_number);
             }
             \Session::flash('status', 'Employee edited.');
         }else{

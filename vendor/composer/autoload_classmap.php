@@ -60,6 +60,7 @@ return array(
     'App\\Traits\\FormatsHelper' => $baseDir . '/app/Traits/FormatsHelper.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\VisionPlan' => $baseDir . '/app/VisionPlan.php',
+    'App\\VisionVoucher' => $baseDir . '/app/VisionVoucher.php',
     'App\\WageProgression' => $baseDir . '/app/WageProgression.php',
     'App\\WageProgressionWageTitle' => $baseDir . '/app/WageProgressionWageTitle.php',
     'App\\WageTitle' => $baseDir . '/app/WageTitle.php',

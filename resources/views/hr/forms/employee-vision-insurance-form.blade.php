@@ -42,4 +42,35 @@
                 <small class="text-danger">{{ $errors->first('vision_coverage_type') }}</small>
             </div>
 
+            
+
+        </div> <!-- end form row -->
+
+        <hr class="half-rule employee-vision-insurance mt-4 mb-4 d-none"/>
+        <div class="form-row align-items-center employee-vision-insurance d-none">
+            <div class="col-xl-4 my-1">
+                <label class="sr-only" for="voucher_number">Voucher Number</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Voucher Number</div>
+                    </div>
+                    <input type="text" class="form-control" name="voucher_number" value="{{ old('voucher_number') }}">
+                </div>
+                <small class="text-danger">{{ $errors->first('voucher_number') }}</small>
+            </div>
+
+            @if($employee->has('visionVoucher'))
+            @foreach($employee->visionVoucher as $visionVoucher)
+            <div class="col-xl-4 my-1">
+                <label class="sr-only" for="voucher_number_{{$visionVoucher->id}}">{{ $visionVoucher->created_at->format('m-d-Y') }}</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">{{ $visionVoucher->created_at->format('m-d-Y') }}</div>
+                    </div>
+                    <input type="text" disabled class="form-control" name="voucher_number_{{$visionVoucher->id}}" value="{{ $visionVoucher->voucher_number }}">
+                </div>
+                <small class="text-danger">{{ $errors->first('voucher_number') }}</small>
+            </div>
+            @endforeach
+            @endif
         </div> <!-- end form row -->

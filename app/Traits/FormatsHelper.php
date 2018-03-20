@@ -7,6 +7,7 @@ use App\Spouse;
 use App\Dependant;
 use App\PhoneNumber;
 use App\EmergencyContact;
+use App\VisionVoucher;
 
 
 trait FormatsHelper
@@ -388,4 +389,26 @@ trait FormatsHelper
             }
         }
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Vision voucher update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildVisionVoucher($employee, $voucherNumber)
+    {
+            
+        $updateVoucher = new VisionVoucher();
+        $this->assignVisionVoucherInfo($updateVoucher, $voucherNumber);
+        $employee->visionVoucher()->save($updateVoucher);
+
+    }
+    public function assignVisionVoucherInfo($updateVoucher, $voucherNumber)
+    {
+        $updateVoucher->voucher_number = $voucherNumber;
+    }
+    // public function deleteVisionVoucher($employee)
+    // {
+    //     $employee->visionVoucher()->delete();
+    // }
 }
