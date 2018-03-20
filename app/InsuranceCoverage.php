@@ -51,18 +51,18 @@ class InsuranceCoverage extends Model
     // Medical Plan relationship
     public function medicalPlan()
     {
-        return $this->belongsToMany('App\MedicalPlan')->withPivot('amount');
+        return $this->belongsToMany('App\MedicalPlan')->withPivot('id', 'amount');
     }
 
     // Dental Plan relationship
     public function dentalPlan()
     {
-        return $this->belongsToMany('App\DentalPlan')->withPivot('amount');
+        return $this->belongsToMany('App\DentalPlan')->withPivot('id', 'amount');
     }
 
     // Vision Plan relationship
     public function visionPlan()
     {
-        return $this->belongsToMany('App\VisionPlan')->withPivot('amount');
+        return $this->belongsToMany('App\VisionPlan')->withPivot('id', 'amount');
     }
 }

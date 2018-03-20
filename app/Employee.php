@@ -264,4 +264,19 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\WageProgressionWageTitle');
     }
+    //InsuranceCoverageMedicalPlan relationship
+    public function insuranceCoverageMedicalPlan()
+    {
+        return $this->belongsToMany('App\InsuranceCoverageMedicalPlan');
+    }
+    //InsuranceCoverageVisionPlan relationship
+    public function insuranceCoverageVisionPlan()
+    {
+        return $this->belongsToMany('App\InsuranceCoverageVisionPlan');
+    }
+    //DentalPlanInsuranceCoverage relationship
+    public function dentalPlanInsuranceCoverage()
+    {
+        return $this->belongsToMany('App\DentalPlanInsuranceCoverage');
+    }
 }

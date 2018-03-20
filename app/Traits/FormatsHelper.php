@@ -21,21 +21,103 @@ trait FormatsHelper
         $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
         return Carbon::parse($date);
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Employee update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildEmployee($request, $employee)
+    {
+        $employee->first_name = $request->first_name;
+        $employee->last_name = $request->last_name;
+        $employee->middle_initial = $request->middle_initial;
+        $employee->ssn = $request->ssn;
+        $employee->oracle_number = $request->oracle_number;
+        $employee->maiden_name = $request->maiden_name;
+        $employee->nick_name = $request->nick_name;
+        $employee->gender = $request->gender;
+        $employee->suffix = $request->suffix;
+        $employee->address_1 = $request->address_1;
+        $employee->address_2 = $request->address_2;
+        $employee->city = $request->city;
+        $employee->state = $request->state;
+        $employee->zip_code = $request->zip_code;
+        $employee->county = $request->county;
+        $employee->bid_eligible_comment = $request->bid_eligible_comment;
+        $employee->flex_spending_amount = $request->flex_spending_amount;
+        $employee->hsa_amount = $request->hsa_amount;
+        $employee->child_care_spending_amount = $request->child_care_spending_amount;
+
+        if($request->has('vitality_incentive')){
+            $employee->vitality_incentive = 1;
+        }else{
+            $employee->vitality_incentive = 0;
+        }
+
+        if($request->has('create_employee')){
+            $employee->birth_date = $this->convertToDate($request->birth_date);
+            $employee->hire_date = $this->convertToDate($request->hire_date);
+            $employee->service_date = $this->convertToDate($request->hire_date);
+            $employee->status = 1;
+            $employee->rehire = 1;
+            $employee->bid_eligible = 1;
+        }elseif($request->has('update_employee')){
+            $employee->birth_date = $this->convertToDate($request->birth_date);
+            $employee->hire_date = $this->convertToDate($request->hire_date);
+            $employee->service_date = $this->convertToDate($request->service_date);
+
+            if((int)$request->status == 0){
+                $employee->status = 0;
+            }else{
+                $employee->status = 1;
+            }
+
+            if((int)$request->rehire == 0){
+                $employee->rehire = 0;
+            }else{
+                $employee->rehire = 1;
+            }
+
+            if((int)$request->bid_eligible == 0){
+                $employee->bid_eligible = 0;
+            }else{
+                $employee->bid_eligible = 1;
+            }
+
+            if(!is_null($request->bid_eligible_date)){
+                $employee->bid_eligible_date = $this->convertToDate($request->bid_eligible_date);
+            }
+
+            if($request->has('thirty_day_review')){
+                $employee->thirty_day_review = 1;
+            }else{
+                $employee->thirty_day_review = 0;
+            }
+
+            if($request->has('sixty_day_review')){
+                $employee->sixty_day_review = 1;
+            }else{
+                $employee->sixty_day_review = 0;
+            }
+        }
+    }
+
     /*
     |--------------------------------------------------------------------------
     | Spouse update and delete methods
     |--------------------------------------------------------------------------
     */
-    public function buildSpouse($employee, $spouse)
+    public function buildSpouse($employee, $request)
     {
-        foreach($spouse as $spouseArray){
+        foreach($request->spouse as $spouseArray){
             if(isset($spouseArray['update'])){    // Check if the spouse is meant to be updated or deleted
                 if(isset($spouseArray['id'])){    // Check if spouse id is set for update
                     $updateSpouse = Spouse::find($spouseArray['id']);    // Get spouse for update
-                    $this->assignSpouseInfo($updateSpouse, $spouseArray);
+                    $this->assignSpouseInfo($updateSpouse, $spouseArray, $request);
                 }else{    // If spouse does not exist create new
                     $updateSpouse = new Spouse();    // Create new spouse
-                    $this->assignSpouseInfo($updateSpouse, $spouseArray);
+                    $this->assignSpouseInfo($updateSpouse, $spouseArray, $request);
                 }
                 $employee->spouse()->save($updateSpouse);
             }else{    // If spouse info is in request but not selected for update then delete
@@ -43,7 +125,7 @@ trait FormatsHelper
             }
         }
     }
-    public function assignSpouseInfo($updateSpouse, $spouseArray)
+    public function assignSpouseInfo($updateSpouse, $spouseArray, $request)
     {
         $updateSpouse->first_name = $spouseArray['first_name'];
         $updateSpouse->last_name = $spouseArray['last_name'];
@@ -52,6 +134,26 @@ trait FormatsHelper
         $updateSpouse->birth_date = $this->convertToDate($spouseArray['birth_date']);
         $updateSpouse->gender = $spouseArray['gender'];
         $updateSpouse->domestic_partner = $spouseArray['domestic_partner'];
+        if($request->has('spouse_medical_'.$updateSpouse->id)){
+            $updateSpouse->has_medical = 1;
+        }else{
+            $updateSpouse->has_medical = 0;
+        }
+        if($request->has('spouse_dental_'.$updateSpouse->id)){
+            $updateSpouse->has_dental = 1;
+        }else{
+            $updateSpouse->has_dental = 0;
+        }
+        if($request->has('spouse_vision_'.$updateSpouse->id)){
+            $updateSpouse->has_vision = 1;
+        }else{
+            $updateSpouse->has_vision = 0;
+        }
+        if($request->has('spouse_court_ordered_'.$updateSpouse->id)){
+            $updateSpouse->court_ordered = 1;
+        }else{
+            $updateSpouse->court_ordered = 0;
+        }
     }
     public function deleteSpouse($employee)
     {
@@ -63,17 +165,17 @@ trait FormatsHelper
     | Dependant update and delete methods
     |--------------------------------------------------------------------------
     */
-    public function buildDependant($employee, $dependant)
+    public function buildDependant($employee, $request)
     {
             $storeDependants = array();
-            foreach($dependant as $dependantArray){
+            foreach($request->dependant as $dependantArray){
                 if(isset($dependantArray['update'])){
                     if(isset($dependantArray['id'])){
                         $updateDependant = Dependant::find($dependantArray['id']);
-                        $this->assignDependantInfo($updateDependant, $dependantArray);
+                        $this->assignDependantInfo($updateDependant, $dependantArray, $request);
                     }else{
                         $updateDependant = new Dependant();
-                        $this->assignDependantInfo($updateDependant, $dependantArray);
+                        $this->assignDependantInfo($updateDependant, $dependantArray, $request);
                     }
                     $employee->dependant()->save($updateDependant);
                     $storeDependants[] = $updateDependant->id;
@@ -82,7 +184,7 @@ trait FormatsHelper
             Dependant::where('employee_id', $employee->id)->whereNotIn('id', $storeDependants)->delete();
 
     }
-    public function assignDependantInfo($updateDependant, $dependantArray)
+    public function assignDependantInfo($updateDependant, $dependantArray, $request)
     {
         $updateDependant->first_name = $dependantArray['first_name'];
         $updateDependant->last_name = $dependantArray['last_name'];
@@ -90,6 +192,26 @@ trait FormatsHelper
         $updateDependant->ssn = $dependantArray['ssn'];
         $updateDependant->birth_date = $this->convertToDate($dependantArray['birth_date']);
         $updateDependant->gender = $dependantArray['gender'];
+        if($request->has('dependant_medical_'.$updateDependant->id)){
+            $updateDependant->has_medical = 1;
+        }else{
+            $updateDependant->has_medical = 0;
+        }
+        if($request->has('dependant_dental_'.$updateDependant->id)){
+            $updateDependant->has_dental = 1;
+        }else{
+            $updateDependant->has_dental = 0;
+        }
+        if($request->has('dependant_vision_'.$updateDependant->id)){
+            $updateDependant->has_vision = 1;
+        }else{
+            $updateDependant->has_vision = 0;
+        }
+        if($request->has('dependant_court_ordered_'.$updateDependant->id)){
+            $updateDependant->court_ordered = 1;
+        }else{
+            $updateDependant->court_ordered = 0;
+        }
     }
     public function deleteDependant($employee)
     {
@@ -137,7 +259,7 @@ trait FormatsHelper
 
     /*
     |--------------------------------------------------------------------------
-    | Phone number update and delete methods
+    | Emergency Contact update and delete methods
     |--------------------------------------------------------------------------
     */
     public function buildEmergencyContact($employee, $emergencyContact)
@@ -223,5 +345,47 @@ trait FormatsHelper
     public function syncWage($employee, $wageID)
     {
         $employee->wageProgressionWageTitle()->sync($wageID);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync Medical Insurance
+    |--------------------------------------------------------------------------
+    */
+    public function syncMedicalInsurance($employee, $medicalCoverageType)
+    {
+        foreach($medicalCoverageType as $medicalCoverage){
+            if(!is_null($medicalCoverage)){
+                $employee->insuranceCoverageMedicalPlan()->sync($medicalCoverage);
+            }
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync Dental Insurance
+    |--------------------------------------------------------------------------
+    */
+    public function syncDentalInsurance($employee, $dentalCoverageType)
+    {
+        foreach($dentalCoverageType as $dentalCoverage){
+            if(!is_null($dentalCoverage)){
+                $employee->dentalPlanInsuranceCoverage()->sync($dentalCoverage);
+            }
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Sync Vision Insurance
+    |--------------------------------------------------------------------------
+    */
+    public function syncVisionInsurance($employee, $visionCoverageType)
+    {
+        foreach($visionCoverageType as $visionCoverage){
+            if(!is_null($visionCoverage)){
+                $employee->insuranceCoverageVisionPlan()->sync($visionCoverage);
+            }
+        }
     }
 }

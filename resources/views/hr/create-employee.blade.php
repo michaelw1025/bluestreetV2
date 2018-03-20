@@ -36,6 +36,18 @@
             <!-- Include wage contact form -->
             @include('hr.forms.employee-wage-form')
 
+            <!-- Include health insurance form -->
+            @include('hr.forms.employee-health-insurance-form')
+
+            <!-- Include medical insurance form -->
+            @include('hr.forms.employee-medical-insurance-form')
+
+            <!-- Include dental insurance form -->
+            @include('hr.forms.employee-dental-insurance-form')
+
+            <!-- Include vision insurance form -->
+            @include('hr.forms.employee-vision-insurance-form')
+
 
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">

@@ -51,6 +51,6 @@ class VisionPlan extends Model
     // Insurance Coverage relationship
     public function insuranceCoverage()
     {
-        return $this->belongsToMany('App\InsuranceCoverage')->withPivot('amount');
+        return $this->belongsToMany('App\InsuranceCoverage')->withPivot('id', 'amount');
     }
 }

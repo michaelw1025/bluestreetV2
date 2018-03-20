@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-wage">Wage</h5>
-        <div class="form-row align-items-center employee-wage {{ $errors->has('position') ? '' : ($errors->has('job') ? '' : ($errors->has('cost_center') ? '' : ($errors->has('shift') ? '' : 'd-none'))) }}">
+        <div class="form-row align-items-center employee-wage {{ $errors->has('progression') ? '' : 'd-none' }}">
         
         @if($wageTitles)
             @foreach($wageTitles as $wageTitle)
@@ -18,7 +18,7 @@
                     <tr>
                         <th>{{$wageTitle->description}}</th>
                         @foreach($wageTitle->wageProgression as $wageProgression)
-                        <td class="text-center {{ $employee->wage_progression_wage_title_count > '0' ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'bg-info text-white' : '') : '' }}">${{$wageProgression->pivot->amount}} &nbsp <input type="radio" name="progression" value="{{$wageProgression->pivot->id}}" {{ $employee->wage_progression_wage_title_count > '0' ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'checked' : '') : (old('progression') == $wageProgression->pivot->id ? 'checked' : '') }}></td>
+                        <td class="text-center {{ isset($employee) ? ($employee->wage_progression_wage_title_count > '0' ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'bg-info text-white' : '') : '') : (old('progression') == $wageProgression->pivot->id ? 'bg-info text-white' : '') }}">${{$wageProgression->pivot->amount}} &nbsp <input type="radio" name="progression" value="{{$wageProgression->pivot->id}}" {{ isset($employee) ? ($employee->wage_progression_wage_title_count > '0' ? ($employee->wageProgressionWageTitle[0]->id == $wageProgression->pivot->id ? 'checked' : '') : '') : (old('progression') == $wageProgression->pivot->id ? 'checked' : '') }}></td>
                         @endforeach
                     </tr>
                 </tbody>

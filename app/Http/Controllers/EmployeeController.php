@@ -12,6 +12,9 @@ use App\Job;
 use App\CostCenter;
 use App\Shift;
 use App\WageTitle;
+use App\MedicalPlan;
+use App\DentalPlan;
+use App\VisionPlan;
 
 class EmployeeController extends Controller
 {
@@ -43,7 +46,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle)
+    public function create(Request $request, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -52,12 +55,19 @@ class EmployeeController extends Controller
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('wageProgression')->get();
+        $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
+        $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
+        $visionPlans = $visionPlan->with('insuranceCoverage')->get();
+        // return $dentalPlans;
         return view('hr.create-employee', [
             'positions' => $positions,
             'jobs' => $jobs,
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'wageTitles' => $wageTitles,
+            'medicalPlans' => $medicalPlans,
+            'dentalPlans' => $dentalPlans,
+            'visionPlans' => $visionPlans,
         ]);
     }
 
@@ -76,11 +86,11 @@ class EmployeeController extends Controller
         if($employee->save()){
             // Update spouse
             if($request->spouse){
-                $this->buildSpouse($employee, $request->spouse);
+                $this->buildSpouse($employee, $request);
             }
             // Update dependant
             if($request->dependant){
-                $this->buildDependant($employee, $request->dependant);
+                $this->buildDependant($employee, $request);
             }
             // Update phone number
             if($request->phone_number){
@@ -110,6 +120,18 @@ class EmployeeController extends Controller
             if($request->progression){
                 $this->syncWage($employee, $request->progression);
             }
+            // Sync medical insurance
+            if($request->medical_coverage_type){
+                $this->syncMedicalInsurance($employee, $request->medical_coverage_type);
+            }
+            // Sync dental insurance
+            if($request->dental_coverage_type){
+                $this->syncDentalInsurance($employee, $request->dental_coverage_type);
+            }
+            // Sync vision insurance
+            if($request->vision_coverage_type){
+                $this->syncVisionInsurance($employee, $request->vision_coverage_type);
+            }
             \Session::flash('status', 'Employee created.');
         }else{
             \Session::flash('error', 'Employee not created.');
@@ -123,17 +145,20 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, $id)
+    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle')->find($id);
         $positions = $position->all();
         $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('wageProgression')->get();
-
+        $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
+        $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
+        $visionPlans = $visionPlan->with('insuranceCoverage')->get();
+// return $dentalPlans;
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
@@ -141,6 +166,9 @@ class EmployeeController extends Controller
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'wageTitles' => $wageTitles,
+            'medicalPlans' => $medicalPlans,
+            'dentalPlans' => $dentalPlans,
+            'visionPlans' => $visionPlans,
         ]);
     }
 
@@ -168,16 +196,16 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($id);
-
+// return $request;
         $this->buildEmployee($request, $employee);
         if($employee->save()){
             // Update spouse
             if($request->spouse){
-                $this->buildSpouse($employee, $request->spouse);
+                $this->buildSpouse($employee, $request);
             }
             // Update dependant
             if($request->dependant){
-                $this->buildDependant($employee, $request->dependant);
+                $this->buildDependant($employee, $request);
             }
             // Update phone number
             if($request->phone_number){
@@ -206,6 +234,18 @@ class EmployeeController extends Controller
             // Sync wage
             if($request->progression){
                 $this->syncWage($employee, $request->progression);
+            }
+            // Sync medical insurance
+            if($request->medical_coverage_type){
+                $this->syncMedicalInsurance($employee, $request->medical_coverage_type);
+            }
+            // Sync dental insurance
+            if($request->dental_coverage_type){
+                $this->syncDentalInsurance($employee, $request->dental_coverage_type);
+            }
+            // Sync vision insurance
+            if($request->vision_coverage_type){
+                $this->syncVisionInsurance($employee, $request->vision_coverage_type);
             }
             \Session::flash('status', 'Employee edited.');
         }else{
@@ -264,72 +304,5 @@ class EmployeeController extends Controller
             'routeName' => $routeName,
         ]);
     }
-
-    // ----------------------------------------Build Employee----------------------------------------
-    public function buildEmployee($request, $employee)
-    {
-        $employee->first_name = $request->first_name;
-        $employee->last_name = $request->last_name;
-        $employee->middle_initial = $request->middle_initial;
-        $employee->ssn = $request->ssn;
-        $employee->oracle_number = $request->oracle_number;
-        $employee->maiden_name = $request->maiden_name;
-        $employee->nick_name = $request->nick_name;
-        $employee->gender = $request->gender;
-        $employee->suffix = $request->suffix;
-        $employee->address_1 = $request->address_1;
-        $employee->address_2 = $request->address_2;
-        $employee->city = $request->city;
-        $employee->state = $request->state;
-        $employee->zip_code = $request->zip_code;
-        $employee->county = $request->county;
-        $employee->bid_eligible_comment = $request->bid_eligible_comment;
-
-        if($request->has('create_employee')){
-            $employee->birth_date = $this->convertToDate($request->birth_date);
-            $employee->hire_date = $this->convertToDate($request->hire_date);
-            $employee->service_date = $this->convertToDate($request->hire_date);
-            $employee->status = 1;
-            $employee->rehire = 1;
-            $employee->bid_eligible = 1;
-        }elseif($request->has('update_employee')){
-            $employee->birth_date = $this->convertToDate($request->birth_date);
-            $employee->hire_date = $this->convertToDate($request->hire_date);
-            $employee->service_date = $this->convertToDate($request->service_date);
-
-            if((int)$request->status == 0){
-                $employee->status = 0;
-            }else{
-                $employee->status = 1;
-            }
-
-            if((int)$request->rehire == 0){
-                $employee->rehire = 0;
-            }else{
-                $employee->rehire = 1;
-            }
-
-            if((int)$request->bid_eligible == 0){
-                $employee->bid_eligible = 0;
-            }else{
-                $employee->bid_eligible = 1;
-            }
-
-            if(!is_null($request->bid_eligible_date)){
-                $employee->bid_eligible_date = $this->convertToDate($request->bid_eligible_date);
-            }
-
-            if($request->has('thirty_day_review')){
-                $employee->thirty_day_review = 1;
-            }else{
-                $employee->thirty_day_review = 0;
-            }
-
-            if($request->has('sixty_day_review')){
-                $employee->sixty_day_review = 1;
-            }else{
-                $employee->sixty_day_review = 0;
-            }
-        }
-    }
+    
 }

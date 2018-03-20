@@ -207,3 +207,30 @@ $('.job-select').change(function(){
     $('.progression-'+item).removeClass('d-none');
 });
 // ----------------End set wage table based on job chosen----------------
+
+// ----------------Show medical insurance coverages based on medical plan chosen----------------
+$('.medical-plan-select').change(function(){
+    var item = $(this).val();
+    $('.medical-coverage-types').addClass('d-none');
+    $('.medical-coverage-option').prop('selected', false);
+    $('#medical-coverage-'+item).removeClass('d-none');
+});
+// ----------------End show medical insurance coverages based on medical plan chosen----------------
+
+// ----------------Show dental insurance coverages based on dental plan chosen----------------
+$('.dental-plan-select').change(function(){
+    var item = $(this).val();
+    $('.dental-coverage-types').addClass('d-none');
+    $('.dental-coverage-option').prop('selected', false);
+    $('#dental-coverage-'+item).removeClass('d-none');
+});
+// ----------------End show dental insurance coverages based on dental plan chosen----------------
+
+// ----------------Show vision insurance coverages based on vision plan chosen----------------
+$('.vision-plan-select').change(function(){
+    var item = $(this).val();
+    $('.vision-coverage-types').addClass('d-none');
+    $('.vision-coverage-option').prop('selected', false);
+    $('#vision-coverage-'+item).removeClass('d-none');
+});
+// ----------------End show vision insurance coverages based on vision plan chosen----------------

@@ -22,7 +22,11 @@ class CreateSpousesTable extends Migration
             $table->string('ssn');
             $table->dateTime('birth_date');
             $table->string('gender');
-            $table->boolean('domestic_partner');
+            $table->boolean('domestic_partner')->nullable();
+            $table->boolean('has_medical')->nullable();
+            $table->boolean('has_dental')->nullable();
+            $table->boolean('has_vision')->nullable();
+            $table->boolean('court_ordered')->nullable();
             $table->timestamps();
         });
     }

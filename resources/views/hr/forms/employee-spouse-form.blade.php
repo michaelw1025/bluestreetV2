@@ -15,7 +15,7 @@
                 </div>
             </div>
             @if(isset($employee->spouse->id))
-            <div class="col-xl-4 my-1 toggle-spouse-0 d-none">
+            <div class="col-xl-4 my-1 d-none">
                 <label class="sr-only" for="spouse[0][id]">ID</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
