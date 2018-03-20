@@ -59,7 +59,7 @@
                 <small class="text-danger">{{ $errors->first('voucher_number') }}</small>
             </div>
 
-            @if($employee->has('visionVoucher'))
+            @if(isset($employee))
             @foreach($employee->visionVoucher as $visionVoucher)
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="voucher_number_{{$visionVoucher->id}}">{{ $visionVoucher->created_at->format('m-d-Y') }}</label>
