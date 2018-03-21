@@ -294,4 +294,9 @@ class Employee extends Model
     {
         return $this->hasMany('App\Beneficiary');
     }
+    // Parking permit relationship
+    public function parkingPermit()
+    {
+        return $this->hasMany('App\ParkingPermit');
+    }
 }

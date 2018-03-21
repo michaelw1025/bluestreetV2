@@ -9,6 +9,7 @@ use App\PhoneNumber;
 use App\EmergencyContact;
 use App\VisionVoucher;
 use App\Beneficiary;
+use App\ParkingPermit;
 
 
 trait FormatsHelper
@@ -464,4 +465,26 @@ trait FormatsHelper
     {
         $employee->beneficiary()->delete();
     }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Parking permit update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildParkingPermit($employee, $parkingPermitNumber)
+    {
+            
+        $updateParkingPermit = new ParkingPermit();
+        $this->assignParkingPermitInfo($updateParkingPermit, $parkingPermitNumber);
+        $employee->parkingPermit()->save($updateParkingPermit);
+
+    }
+    public function assignParkingPermitInfo($updateParkingPermit, $parkingPermitNumber)
+    {
+        $updateParkingPermit->number = $parkingPermitNumber;
+    }
+    // public function deleteVisionVoucher($employee)
+    // {
+    //     $employee->visionVoucher()->delete();
+    // }
 }

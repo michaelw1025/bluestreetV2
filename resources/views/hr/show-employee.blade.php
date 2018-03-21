@@ -50,6 +50,9 @@
             <!-- Include life insurance form -->
             @include('hr.forms.employee-life-insurance-form')
 
+            <!-- Include parking permit form -->
+            @include('hr.forms.employee-parking-permit-form')
+
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             

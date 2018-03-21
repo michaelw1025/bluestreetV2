@@ -47,6 +47,7 @@ return array(
     'App\\InsuranceCoverageVisionPlan' => $baseDir . '/app/InsuranceCoverageVisionPlan.php',
     'App\\Job' => $baseDir . '/app/Job.php',
     'App\\MedicalPlan' => $baseDir . '/app/MedicalPlan.php',
+    'App\\ParkingPermit' => $baseDir . '/app/ParkingPermit.php',
     'App\\PhoneNumber' => $baseDir . '/app/PhoneNumber.php',
     'App\\Position' => $baseDir . '/app/Position.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

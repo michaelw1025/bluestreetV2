@@ -145,6 +145,10 @@ class EmployeeController extends Controller
             if($request->beneficiary){
                 $this->buildBeneficiary($employee, $request->beneficiary);
             }
+            // Update parking permit
+            if(!is_null($request->parking_permit_number)){
+                $this->buildParkingPermit($employee, $request->parking_permit_number);
+            }
             \Session::flash('status', 'Employee created.');
         }else{
             \Session::flash('error', 'Employee not created.');
@@ -162,7 +166,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
         $positions = $position->all();
         $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
@@ -271,6 +275,10 @@ class EmployeeController extends Controller
             // Update beneficiary
             if($request->beneficiary){
                 $this->buildBeneficiary($employee, $request->beneficiary);
+            }
+            // Update parking permit
+            if(!is_null($request->parking_permit_number)){
+                $this->buildParkingPermit($employee, $request->parking_permit_number);
             }
             \Session::flash('status', 'Employee edited.');
         }else{

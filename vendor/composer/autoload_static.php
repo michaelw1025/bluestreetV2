@@ -360,6 +360,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\InsuranceCoverageVisionPlan' => __DIR__ . '/../..' . '/app/InsuranceCoverageVisionPlan.php',
         'App\\Job' => __DIR__ . '/../..' . '/app/Job.php',
         'App\\MedicalPlan' => __DIR__ . '/../..' . '/app/MedicalPlan.php',
+        'App\\ParkingPermit' => __DIR__ . '/../..' . '/app/ParkingPermit.php',
         'App\\PhoneNumber' => __DIR__ . '/../..' . '/app/PhoneNumber.php',
         'App\\Position' => __DIR__ . '/../..' . '/app/Position.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
