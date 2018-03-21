@@ -84,12 +84,12 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Beneficiary</div>
-                        <div class="input-group-text bg-primary beneficiary-{{$loop->index}}-div">
-                            <input type="checkbox" class="beneficiary-checkbox" id="beneficiary-{{$loop->index}}" name="beneficiary[{{$loop->index}}][update]" checked>
+                        <div class="input-group-text bg-primary beneficiary-div-{{$loop->index}}">
+                            <input type="checkbox" class="beneficiary-checkbox" id="beneficiary-checkbox-{{$loop->index}}" name="beneficiary[{{$loop->index}}][update]" checked>
                         </div>
                     </div>
                     <input type="text" class="form-control" name="beneficiary[{{$loop->index}}][name]" value="{{$beneficiary->name}}" placeholder="Name">
-                    <input type="text" class="form-control text-right beneficiary-{{$loop->index}} beneficiary-percentage" name="beneficiary[{{$loop->index}}][percentage]" value="{{$beneficiary->percentage}}" placeholder="Percentage">
+                    <input type="text" class="form-control text-right beneficiary-{{$loop->index}} beneficiary-percentage" id="beneficiary-percentage-{{$loop->index}}" name="beneficiary[{{$loop->index}}][percentage]" value="{{$beneficiary->percentage}}" placeholder="Percentage">
                 </div>
                 <small class="text-danger">{{ $errors->first('beneficiary') }}</small>
             </div>
@@ -113,12 +113,12 @@
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <div class="input-group-text">Beneficiary</div>
-                        <div class="input-group-text beneficiary-{{$i}}-div">
-                            <input type="checkbox" class="beneficiary-checkbox" id="beneficiary-{{$i}}" name="beneficiary[{{$i}}][update]">
+                        <div class="input-group-text beneficiary-div-{{$i}}">
+                            <input type="checkbox" class="beneficiary-checkbox" id="beneficiary-checkbox-{{$i}}" name="beneficiary[{{$i}}][update]">
                         </div>
                     </div>
                     <input type="text" class="form-control" name="beneficiary[{{$i}}][name]" value="" placeholder="Name">
-                    <input type="text" class="form-control text-right beneficiary-{{$i}} beneficiary-percentage" name="beneficiary[{{$i}}][percentage]" value="" placeholder="Percentage">
+                    <input type="text" class="form-control text-right beneficiary-{{$i}} beneficiary-percentage" id="beneficiary-percentage-{{$i}}" name="beneficiary[{{$i}}][percentage]" value="" placeholder="Percentage">
                 </div>
                 <small class="text-danger">{{ $errors->first('beneficiary') }}</small>
             </div>

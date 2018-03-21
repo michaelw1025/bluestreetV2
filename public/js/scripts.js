@@ -9,6 +9,8 @@ $(document).ready(function(){
     });
 
     checkInitialCheckboxState()
+
+    calculateBeneficiaryTotal();
 });
 
 // Go to link when clickable table row is clicked
@@ -236,18 +238,33 @@ $('.vision-plan-select').change(function(){
 // ----------------End show vision insurance coverages based on vision plan chosen----------------
 
 // ----------------Beneficiary----------------
-$('.beneficiary-checkbox').on('click', function(){
-    var item = $(this).attr('id');
-    $('.'+item+'-div').toggleClass('bg-primary');
+$('.beneficiary-checkbox').change(function(){
+    var item = $(this).attr('id').split('-').pop();
+    $('.beneficiary-div-'+item).toggleClass('bg-primary');
+    calculateBeneficiaryTotal();
+});
+
+$('.beneficiary-percentage').on('keyup', function(){
     calculateBeneficiaryTotal();
 });
 
 function calculateBeneficiaryTotal(){
     var sum = 0;
     $('.beneficiary-percentage').each(function(){
-        sum += Number($(this).val());
-        alert($(this).val());
+        var index = $(this).attr('id').split('-').pop();
+        if($('#beneficiary-checkbox-'+index).prop('checked')){
+            sum += Number($(this).val());
+        }
     });
+    if(sum < 100){
+        $('#beneficiary-total').removeClass('bg-danger text-white bg-success').addClass('bg-warning text-dark');
+    }else if(sum > 100){
+        $('#beneficiary-total').removeClass('bg-warning text-dark bg-success').addClass('bg-danger text-white');
+    }else if(sum == 100){
+        $('#beneficiary-total').removeClass('bg-warning text-dark bg-danger').addClass('bg-success text-white');
+    }else{
+        $('#beneficiary-total').removeClass('bg-warning text-dark bg-danger text-white bg-success');
+    }
     $('#beneficiary-total').attr('value', sum);
 }
 // ----------------End beneficiary----------------
