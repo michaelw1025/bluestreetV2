@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AccidentalCoveragesTableSeeder' => $baseDir . '/database/seeds/AccidentalCoveragesTableSeeder.php',
     'App\\AccidentalCoverage' => $baseDir . '/app/AccidentalCoverage.php',
+    'App\\Beneficiary' => $baseDir . '/app/Beneficiary.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\CostCenter' => $baseDir . '/app/CostCenter.php',
     'App\\DentalPlan' => $baseDir . '/app/DentalPlan.php',

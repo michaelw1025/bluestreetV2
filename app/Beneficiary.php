@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class AccidentalCoverage extends Model
+class Beneficiary extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,7 +12,8 @@ class AccidentalCoverage extends Model
      * @var array
      */
     protected $fillable = [
-        'description',
+        'name',
+        'percentage',
     ];
 
     /**
@@ -30,27 +31,27 @@ class AccidentalCoverage extends Model
      * @var array
      */
     protected $dates = [
-        
+
     ];
 
     // ----------------Mutators----------------
-    // Set description format
-    public function setDescriptionAttribute($description)
+    // Set name format
+    public function setNameAttribute($name)
     {
-        $this->attributes['description'] = strtolower($description);
+        $this->attributes['name'] = strtolower($name);
     }
 
-    // Get description format
-    public function getDescriptionAttribute($description)
+    // Get name format
+    public function getNameAttribute($name)
     {
-        return ucWords($description);
+        return ucWords($name);
     }
     // ----------------End Mutators----------------
 
     // ----------------Relationships----------------
-    //Employee relationship
+    // Employee relationship
     public function employee()
     {
-        return $this->belongsToMany('App\Employee')->withPivot('amount');
+        return $this->belongsTo('App\Employee');
     }
 }

@@ -234,3 +234,20 @@ $('.vision-plan-select').change(function(){
     $('#vision-coverage-'+item).removeClass('d-none');
 });
 // ----------------End show vision insurance coverages based on vision plan chosen----------------
+
+// ----------------Beneficiary----------------
+$('.beneficiary-checkbox').on('click', function(){
+    var item = $(this).attr('id');
+    $('.'+item+'-div').toggleClass('bg-primary');
+    calculateBeneficiaryTotal();
+});
+
+function calculateBeneficiaryTotal(){
+    var sum = 0;
+    $('.beneficiary-percentage').each(function(){
+        sum += Number($(this).val());
+        alert($(this).val());
+    });
+    $('#beneficiary-total').attr('value', sum);
+}
+// ----------------End beneficiary----------------

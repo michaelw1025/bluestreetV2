@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-vision-insurance">Vision Insurance</h5>
-        <div class="form-row align-items-center employee-vision-insurance {{ $errors->has('vitality_incentive') ? '' : 'd-none' }}">
+        <div class="form-row align-items-center employee-vision-insurance {{ $errors->has('vision_plan') ? '' : ($errors->has('vision_coverage_type') ? '' : ($errors->has('voucher_number') ? '' : 'd-none')) }}">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="vision_plan">Vision Plan</label>

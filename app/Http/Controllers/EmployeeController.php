@@ -15,6 +15,7 @@ use App\WageTitle;
 use App\MedicalPlan;
 use App\DentalPlan;
 use App\VisionPlan;
+use App\AccidentalCoverage;
 
 class EmployeeController extends Controller
 {
@@ -46,7 +47,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan)
+    public function create(Request $request, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -58,6 +59,7 @@ class EmployeeController extends Controller
         $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
         $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
         $visionPlans = $visionPlan->with('insuranceCoverage')->get();
+        $accidentalCoverages = $accidentalCoverage->all();
         // return $dentalPlans;
         return view('hr.create-employee', [
             'positions' => $positions,
@@ -68,6 +70,7 @@ class EmployeeController extends Controller
             'medicalPlans' => $medicalPlans,
             'dentalPlans' => $dentalPlans,
             'visionPlans' => $visionPlans,
+            'accidentalCoverages' => $accidentalCoverages,
         ]);
     }
 
@@ -136,6 +139,12 @@ class EmployeeController extends Controller
             if(!is_null($request->voucher_number)){
                 $this->buildVisionVoucher($employee, $request->voucher_number);
             }
+            // Update accidental insurance
+            $this->attachAccidentalInsurance($employee, $request);
+            // Update beneficiary
+            if($request->beneficiary){
+                $this->buildBeneficiary($employee, $request->beneficiary);
+            }
             \Session::flash('status', 'Employee created.');
         }else{
             \Session::flash('error', 'Employee not created.');
@@ -149,11 +158,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, $id)
+    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
         $positions = $position->all();
         $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
@@ -162,6 +171,7 @@ class EmployeeController extends Controller
         $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
         $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
         $visionPlans = $visionPlan->with('insuranceCoverage')->get();
+        $accidentalCoverages = $accidentalCoverage->all();
 // return $employee;
         return view('hr.show-employee', [
             'employee' => $employee,
@@ -173,6 +183,7 @@ class EmployeeController extends Controller
             'medicalPlans' => $medicalPlans,
             'dentalPlans' => $dentalPlans,
             'visionPlans' => $visionPlans,
+            'accidentalCoverages' => $accidentalCoverages,
         ]);
     }
 
@@ -254,6 +265,12 @@ class EmployeeController extends Controller
             // Update vision voucher
             if(!is_null($request->voucher_number)){
                 $this->buildVisionVoucher($employee, $request->voucher_number);
+            }
+            // Update accidental insurance
+            $this->attachAccidentalInsurance($employee, $request);
+            // Update beneficiary
+            if($request->beneficiary){
+                $this->buildBeneficiary($employee, $request->beneficiary);
             }
             \Session::flash('status', 'Employee edited.');
         }else{

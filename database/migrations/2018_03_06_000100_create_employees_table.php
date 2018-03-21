@@ -44,6 +44,10 @@ class CreateEmployeesTable extends Migration
             $table->decimal('flex_spending_amount', 8, 2)->nullable();
             $table->decimal('hsa_amount', 8, 2)->nullable();
             $table->decimal('child_care_spending_amount', 8, 2)->nullable();
+            $table->string('employee_optional_life')->nullable();
+            $table->decimal('spouse_optional_life', 8, 2)->nullable();
+            $table->decimal('dependant_optional_life', 8, 2)->nullable();
+
             $table->timestamps();
         });
            

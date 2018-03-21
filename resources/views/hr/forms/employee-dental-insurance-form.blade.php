@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-dental-insurance">Dental Insurance</h5>
-        <div class="form-row align-items-center employee-dental-insurance d-none">
+        <div class="form-row align-items-center employee-dental-insurance {{ $errors->has('dental_plan') ? '' : ($errors->has('dental_coverage_type') ? '' : 'd-none') }}">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="dental_plan">Dental Plan</label>

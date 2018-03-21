@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-health-insurance">Health Insurance</h5>
-        <div class="form-row align-items-center employee-health-insurance {{ $errors->has('vitality_incentive') ? '' : 'd-none' }}">
+        <div class="form-row align-items-center employee-health-insurance {{ $errors->has('vitality_incentive') ? '' : ($errors->has('flex_spending_amount') ? '' : ($errors->has('hsa_amount') ? '' : ($errors->has('child_care_spending_amount') ? '' : 'd-none'))) }}">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="vitality_incentive">Vitality Incentive</label>

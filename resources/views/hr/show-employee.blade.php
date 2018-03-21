@@ -47,6 +47,9 @@
             <!-- Include vision insurance form -->
             @include('hr.forms.employee-vision-insurance-form')
 
+            <!-- Include life insurance form -->
+            @include('hr.forms.employee-life-insurance-form')
+
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             

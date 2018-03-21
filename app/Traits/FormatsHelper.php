@@ -8,6 +8,7 @@ use App\Dependant;
 use App\PhoneNumber;
 use App\EmergencyContact;
 use App\VisionVoucher;
+use App\Beneficiary;
 
 
 trait FormatsHelper
@@ -49,6 +50,9 @@ trait FormatsHelper
         $employee->flex_spending_amount = $request->flex_spending_amount;
         $employee->hsa_amount = $request->hsa_amount;
         $employee->child_care_spending_amount = $request->child_care_spending_amount;
+        $employee->employee_optional_life = $request->employee_optional_life;
+        $employee->spouse_optional_life = $request->spouse_optional_life;
+        $employee->dependant_optional_life = $request->dependant_optional_life;
 
         if($request->has('vitality_incentive')){
             $employee->vitality_incentive = 1;
@@ -411,4 +415,53 @@ trait FormatsHelper
     // {
     //     $employee->visionVoucher()->delete();
     // }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Accidental insurance update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function attachAccidentalInsurance($employee, $request)
+    {
+        if(!is_null($request->accidental_insurance_coverage)){
+            $employee->accidentalCoverage()->detach();
+            $employee->accidentalCoverage()->attach($request->accidental_insurance_coverage, ['amount' => $request->accidental_insurance_amount]);
+        }else{
+            $employee->accidentalCoverage()->detach();
+        }
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Beneficiary update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildBeneficiary($employee, $beneficiary)
+    {
+            $storeBeneficiaries = array();
+            foreach($beneficiary as $beneficiaryArray){
+                if(isset($beneficiaryArray['update'])){
+                    if(isset($beneficiaryArray['id'])){
+                        $updateBeneficiary = Beneficiary::find($beneficiaryArray['id']);
+                        $this->assignBeneficiaryInfo($updateBeneficiary, $beneficiaryArray);
+                    }else{
+                        $updateBeneficiary = new Beneficiary();
+                        $this->assignBeneficiaryInfo($updateBeneficiary, $beneficiaryArray);
+                    }
+                    $employee->beneficiary()->save($updateBeneficiary);
+                    $storeBeneficiaries[] = $updateBeneficiary->id;
+                }
+            }
+            Beneficiary::where('employee_id', $employee->id)->whereNotIn('id', $storeBeneficiaries)->delete();
+
+    }
+    public function assignBeneficiaryInfo($updateBeneficiary, $beneficiaryArray)
+    {
+        $updateBeneficiary->name = $beneficiaryArray['name']; 
+        $updateBeneficiary->percentage = $beneficiaryArray['percentage'];    
+    }
+    public function deleteBeneficiary($employee)
+    {
+        $employee->beneficiary()->delete();
+    }
 }

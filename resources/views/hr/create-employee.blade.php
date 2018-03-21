@@ -48,6 +48,9 @@
             <!-- Include vision insurance form -->
             @include('hr.forms.employee-vision-insurance-form')
 
+            <!-- Include life insurance form -->
+            @include('hr.forms.employee-life-insurance-form')
+
 
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">

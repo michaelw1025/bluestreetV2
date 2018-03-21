@@ -284,4 +284,14 @@ class Employee extends Model
     {
         return $this->hasMany('App\VisionVoucher');
     }
+    //Accidental coverage relationship
+    public function accidentalCoverage()
+    {
+        return $this->belongsToMany('App\AccidentalCoverage')->withPivot('amount');
+    }
+    // Beneficiary relationship
+    public function beneficiary()
+    {
+        return $this->hasMany('App\Beneficiary');
+    }
 }

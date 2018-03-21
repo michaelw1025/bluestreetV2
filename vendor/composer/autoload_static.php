@@ -321,6 +321,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
     public static $classMap = array (
         'AccidentalCoveragesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AccidentalCoveragesTableSeeder.php',
         'App\\AccidentalCoverage' => __DIR__ . '/../..' . '/app/AccidentalCoverage.php',
+        'App\\Beneficiary' => __DIR__ . '/../..' . '/app/Beneficiary.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\CostCenter' => __DIR__ . '/../..' . '/app/CostCenter.php',
         'App\\DentalPlan' => __DIR__ . '/../..' . '/app/DentalPlan.php',
