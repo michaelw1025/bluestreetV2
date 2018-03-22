@@ -373,9 +373,9 @@ class EmployeeController extends Controller
     {
         // return $request;
         $employee = $employee->find($request->employee_id);
-        if($request->has('update_disciplinary')){
+        if($request->has('disciplinary_update')){
             $this->updateDisciplinaryInfo($employee, $request);
-        }elseif($request->has('delete_disciplinary')){
+        }elseif($request->has('disciplinary')){
             $this->deleteDisciplinary($employee, $request);
         }else{
 

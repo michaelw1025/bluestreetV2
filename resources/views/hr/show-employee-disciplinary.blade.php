@@ -130,8 +130,8 @@
             <div class="col-sm-10 col-md-8 col-lg-6">
                 <input type="text" class="d-none" value="{{$disciplinary->id}}" name="disciplinary_id">
                 <input type="text" class="d-none" value="{{$disciplinary->employee->id}}" name="employee_id">
-                <button type="submit" class="btn btn-warning update-disciplinary" name="update_disciplinary" value="update">Edit Disciplinary</button>
-                <button type="submit" class="btn btn-danger delete-disciplinary" name="delete_disciplinary" value="delete">Delete Disciplinary</button>
+                <button type="submit" class="btn btn-warning update-disciplinary" name="disciplinary_update" value="update">Edit Disciplinary</button>
+                <button type="submit" class="btn btn-danger delete-disciplinary delete-item" name="disciplinary" value="delete">Delete Disciplinary</button>
             </div>
         </div>
 

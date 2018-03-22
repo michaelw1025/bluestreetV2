@@ -23,12 +23,13 @@ class StoreEmployee extends FormRequest
      */
     public function rules()
     {
+        $rulesArray = [];
         /*
             |--------------------------------------------------------------------------
             | Employee validation rules
             |--------------------------------------------------------------------------
         */
-        $rulesArray = [
+        $rulesArray += [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'birth_date' => 'required',
@@ -145,6 +146,20 @@ class StoreEmployee extends FormRequest
             }
             $e++;
         }
+
+        /*
+            |--------------------------------------------------------------------------
+            | Dependant validation rules
+            |--------------------------------------------------------------------------
+        */
+        $rulesArray += [
+            'disciplinary_type' => 'required_with:disciplinary_update',
+            'disciplinary_level' => 'required_with:disciplinary_update',
+            'disciplinary_date' => 'required_with:disciplinary_update',
+            'disciplinary_cost_center' => 'required_with:disciplinary_update',
+            'disciplinary_issued_by' => 'required_with:disciplinary_update',
+            'disciplinary_comments' => 'required_with:disciplinary_update',
+        ];
 
         // dd($rulesArray);
         return $rulesArray;
