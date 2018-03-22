@@ -176,7 +176,8 @@ class EmployeeController extends Controller
         $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
         $visionPlans = $visionPlan->with('insuranceCoverage')->get();
         $accidentalCoverages = $accidentalCoverage->all();
-// return $employee;
+        $salaryPositions = $position->with('employee:first_name,last_name')->where('description', 'salary')->get();
+// return $salaryPositions;
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
@@ -188,6 +189,7 @@ class EmployeeController extends Controller
             'dentalPlans' => $dentalPlans,
             'visionPlans' => $visionPlans,
             'accidentalCoverages' => $accidentalCoverages,
+            'salaryPositions' => $salaryPositions,
         ]);
     }
 
@@ -280,6 +282,10 @@ class EmployeeController extends Controller
             if(!is_null($request->parking_permit_number)){
                 $this->buildParkingPermit($employee, $request->parking_permit_number);
             }
+            // Update disciplinary
+            if($request->disciplinary_update){
+                $this->buildDisciplinary($employee, $request);
+            }
             \Session::flash('status', 'Employee edited.');
         }else{
             \Session::flash('error', 'Employee not edited.');
@@ -336,6 +342,45 @@ class EmployeeController extends Controller
             'employees' => $employees,
             'routeName' => $routeName,
         ]);
+    }
+
+    /**
+     * Search for specified disciplinary.
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function showDisciplinary(Employee $employee, CostCenter $costCenter, Position $position, $employeeID, $disciplinaryID)
+    {
+        $disciplinary = $employee->find($employeeID)->disciplinary()->where('id', $disciplinaryID)->with('employee:id,first_name,last_name')->first();
+        $costCenters = $costCenter->all();
+        $salaryPositions = $position->with('employee:first_name,last_name')->where('description', 'salary')->get();
+        // return $disciplinary;
+        return view('hr.show-employee-disciplinary', [
+            'disciplinary' => $disciplinary,
+            'costCenters' => $costCenters,
+            'salaryPositions' => $salaryPositions,
+        ]);
+    }
+
+    /**
+     * Update or delete the specified disciplinary.
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function updateDisciplinary(Request $request, Employee $employee)
+    {
+        // return $request;
+        $employee = $employee->find($request->employee_id);
+        if($request->has('update_disciplinary')){
+            $this->updateDisciplinaryInfo($employee, $request);
+        }elseif($request->has('delete_disciplinary')){
+            $this->deleteDisciplinary($employee, $request);
+        }else{
+
+        }
+        return redirect()->route('hr.employees', $request->employee_id);
     }
     
 }

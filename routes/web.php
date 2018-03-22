@@ -204,3 +204,7 @@ Route::post('hr.employees/{id}/update', 'EmployeeController@update')->name('hr.u
 Route::post('hr.employees/{id}/delete', 'EmployeeController@destroy');
 // Search employees
 Route::get('hr.search-employees/{status}', 'EmployeeController@search')->name('hr.search-employees');
+// Show employee disciplinary
+Route::get('hr.employee-disciplinary/{employeeID}/{disciplinaryID}', 'EmployeeController@showDisciplinary')->name('hr.employee-disciplinary');
+// Update or delete disciplinary
+Route::post('hr.employee-disciplinary-update', 'EmployeeController@updateDisciplinary')->name('hr.employee-disciplinary-update');

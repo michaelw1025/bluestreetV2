@@ -299,4 +299,9 @@ class Employee extends Model
     {
         return $this->hasMany('App\ParkingPermit');
     }
+    // Disciplinary relationship
+    public function disciplinary()
+    {
+        return $this->hasMany('App\Disciplinary')->orderBy('type', 'asc')->orderBy('created_at', 'desc');
+    }
 }

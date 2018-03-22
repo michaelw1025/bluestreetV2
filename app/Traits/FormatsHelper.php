@@ -10,6 +10,7 @@ use App\EmergencyContact;
 use App\VisionVoucher;
 use App\Beneficiary;
 use App\ParkingPermit;
+use App\Disciplinary;
 
 
 trait FormatsHelper
@@ -487,4 +488,49 @@ trait FormatsHelper
     // {
     //     $employee->visionVoucher()->delete();
     // }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Disciplinary update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildDisciplinary($employee, $request)
+    {
+            // $storeDisciplinaries = array();
+            // foreach($request->disciplinary as $disciplinaryArray){
+            //     if(isset($disciplinaryArray['update'])){
+            //         if(isset($disciplinaryArray['id'])){
+            //             $updateDisciplinary = Disciplinary::find($disciplinaryArray['id']);
+            //             $this->assignDisciplinaryInfo($updateDisciplinary, $disciplinaryArray, $request);
+            //         }else{
+                        $updateDisciplinary = new Disciplinary();
+                        $this->assignDisciplinaryInfo($updateDisciplinary, $request);
+                    // }
+                    $employee->disciplinary()->save($updateDisciplinary);
+                    // $storeDisciplinaries[] = $updateDisciplinary->id;
+            //     }
+            // }
+            // Disciplinary::where('employee_id', $employee->id)->whereNotIn('id', $storeDisciplinaries)->delete();
+
+    }
+    public function assignDisciplinaryInfo($updateDisciplinary, $request)
+    {
+        $updateDisciplinary->type = $request->disciplinary_type;
+        $updateDisciplinary->level = $request->disciplinary_level;
+        $updateDisciplinary->date = $this->convertToDate($request->disciplinary_date);
+        $updateDisciplinary->cost_center = $request->disciplinary_cost_center;
+        $updateDisciplinary->issued_by = $request->disciplinary_issued_by;
+        $updateDisciplinary->comments = $request->disciplinary_comments;
+    }
+    public function updateDisciplinaryInfo($employee, $request)
+    {
+        $disciplinary = Disciplinary::find($request->disciplinary_id);
+        $this->assignDisciplinaryInfo($disciplinary, $request);
+        $employee->disciplinary()->save($disciplinary);
+    }
+    public function deleteDisciplinary($employee, $request)
+    {
+        // dd($employee);
+        Disciplinary::where('id', $request->disciplinary_id)->delete();
+    }
 }

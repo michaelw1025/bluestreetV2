@@ -14,6 +14,7 @@ return array(
     'App\\DentalPlan' => $baseDir . '/app/DentalPlan.php',
     'App\\DentalPlanInsuranceCoverage' => $baseDir . '/app/DentalPlanInsuranceCoverage.php',
     'App\\Dependant' => $baseDir . '/app/Dependant.php',
+    'App\\Disciplinary' => $baseDir . '/app/Disciplinary.php',
     'App\\EmergencyContact' => $baseDir . '/app/EmergencyContact.php',
     'App\\Employee' => $baseDir . '/app/Employee.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',

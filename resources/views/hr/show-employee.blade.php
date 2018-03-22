@@ -53,6 +53,9 @@
             <!-- Include parking permit form -->
             @include('hr.forms.employee-parking-permit-form')
 
+            <!-- Include disciplinary form -->
+            @include('hr.forms.employee-disciplinary-form')
+
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             
