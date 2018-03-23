@@ -60,6 +60,7 @@ return array(
     'App\\Shift' => $baseDir . '/app/Shift.php',
     'App\\Spouse' => $baseDir . '/app/Spouse.php',
     'App\\Team' => $baseDir . '/app/Team.php',
+    'App\\Termination' => $baseDir . '/app/Termination.php',
     'App\\Traits\\FormatsHelper' => $baseDir . '/app/Traits/FormatsHelper.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\VisionPlan' => $baseDir . '/app/VisionPlan.php',

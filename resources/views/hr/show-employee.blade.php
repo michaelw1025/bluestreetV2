@@ -70,6 +70,9 @@
             <!-- Include disciplinary form -->
             @include('hr.forms.employee-disciplinary-form')
 
+            <!-- Include termination form -->
+            @include('hr.forms.employee-termination-form')
+
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             

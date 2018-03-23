@@ -329,6 +329,11 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\CostCenter', 'cost_center_night_team_leader');
     }
+    // Termination relationship
+    public function termination()
+    {
+        return $this->hasMany('App\Termination')->orderBy('created_at', 'desc');
+    }
 
     // ----------------Custom Queries----------------
     

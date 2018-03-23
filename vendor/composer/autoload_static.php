@@ -373,6 +373,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\Shift' => __DIR__ . '/../..' . '/app/Shift.php',
         'App\\Spouse' => __DIR__ . '/../..' . '/app/Spouse.php',
         'App\\Team' => __DIR__ . '/../..' . '/app/Team.php',
+        'App\\Termination' => __DIR__ . '/../..' . '/app/Termination.php',
         'App\\Traits\\FormatsHelper' => __DIR__ . '/../..' . '/app/Traits/FormatsHelper.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
         'App\\VisionPlan' => __DIR__ . '/../..' . '/app/VisionPlan.php',

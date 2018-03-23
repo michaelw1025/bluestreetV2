@@ -166,7 +166,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
         $positions = $position->all();
         $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
@@ -209,7 +209,6 @@ class EmployeeController extends Controller
         }
         $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employee->costCenter[0]->id);
 
-// return $employee->teamManager;
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
@@ -321,6 +320,10 @@ class EmployeeController extends Controller
             if($request->disciplinary_update){
                 $this->buildDisciplinary($employee, $request);
             }
+            // Update termination
+            if($request->termination_update){
+                $this->buildTermination($employee, $request);
+            }
             \Session::flash('status', 'Employee edited.');
         }else{
             \Session::flash('error', 'Employee not edited.');
@@ -412,6 +415,40 @@ class EmployeeController extends Controller
             $this->updateDisciplinaryInfo($employee, $request);
         }elseif($request->has('disciplinary')){
             $this->deleteDisciplinary($employee, $request);
+        }else{
+
+        }
+        return redirect()->route('hr.employees', $request->employee_id);
+    }
+
+    /**
+     * Search for specified termination.
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function showTermination(Employee $employee, $employeeID, $terminationID)
+    {
+        $termination = $employee->find($employeeID)->termination()->where('id', $terminationID)->with('employee:id,first_name,last_name')->first();
+        return view('hr.show-employee-termination', [
+            'termination' => $termination,
+        ]);
+    }
+
+    /**
+     * Update or delete the specified disciplinary.
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function updateTermination(Request $request, Employee $employee)
+    {
+        // return $request;
+        $employee = $employee->find($request->employee_id);
+        if($request->has('termination_update')){
+            $this->updateTerminationInfo($employee, $request);
+        }elseif($request->has('termination')){
+            $this->deleteTermination($employee, $request);
         }else{
 
         }

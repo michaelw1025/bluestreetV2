@@ -11,6 +11,7 @@ use App\VisionVoucher;
 use App\Beneficiary;
 use App\ParkingPermit;
 use App\Disciplinary;
+use App\Termination;
 
 
 trait FormatsHelper
@@ -532,5 +533,48 @@ trait FormatsHelper
     {
         // dd($employee);
         Disciplinary::where('id', $request->disciplinary_id)->delete();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Termination update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildTermination($employee, $request)
+    {
+            // $storeDisciplinaries = array();
+            // foreach($request->disciplinary as $disciplinaryArray){
+            //     if(isset($disciplinaryArray['update'])){
+            //         if(isset($disciplinaryArray['id'])){
+            //             $updateTermination = Disciplinary::find($disciplinaryArray['id']);
+            //             $this->assignDisciplinaryInfo($updateTermination, $disciplinaryArray, $request);
+            //         }else{
+                        $updateTermination = new Termination();
+                        $this->assignTerminationInfo($updateTermination, $request);
+                    // }
+                    $employee->termination()->save($updateTermination);
+                    // $storeDisciplinaries[] = $updateTermination->id;
+            //     }
+            // }
+            // Disciplinary::where('employee_id', $employee->id)->whereNotIn('id', $storeDisciplinaries)->delete();
+
+    }
+    public function assignTerminationInfo($updateTermination, $request)
+    {
+        $updateTermination->type = $request->termination_type;
+        $updateTermination->date = $this->convertToDate($request->termination_date);
+        $updateTermination->last_day = $this->convertToDate($request->termination_last_day);
+        $updateTermination->comments = $request->termination_comments;
+    }
+    public function updateTerminationInfo($employee, $request)
+    {
+        $termination = Termination::find($request->termination_id);
+        $this->assignTerminationInfo($termination, $request);
+        $employee->termination()->save($termination);
+    }
+    public function deleteTermination($employee, $request)
+    {
+        // dd($employee);
+        Termination::where('id', $request->termination_id)->delete();
     }
 }
