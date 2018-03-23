@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CostCenter;
+use App\Employee;
+use App\Position;
+use App\Job;
 
 class CostCenterController extends Controller
 {
@@ -12,11 +15,17 @@ class CostCenterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, CostCenter $costCenter)
+    public function index(Request $request, CostCenter $costCenter, Position $position, Job $job)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $costCenters = $costCenter->orderBy('number', 'asc')->get();
+        $costCenters = $costCenter->orderBy('number', 'asc')->with(
+            'employeeStaffManager:employee_id,first_name,last_name',
+            'employeeDayTeamManager:employee_id,first_name,last_name',
+            'employeeNightTeamManager:employee_id,first_name,last_name',
+            'employeeDayTeamLeader:employee_id,first_name,last_name',
+            'employeeNightTeamLeader:employee_id,first_name,last_name'
+        )->get();
         return view('hr.cost-centers', [
             'costCenters' => $costCenters,
         ]);
@@ -65,14 +74,25 @@ class CostCenterController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, CostCenter $costCenter, $id)
+    public function show(Request $request, CostCenter $costCenter, Position $position, Job $job, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
 
-        $costCenter = $costCenter->find($id);
+        $costCenter = $costCenter->with(
+            'employeeStaffManager:employee_id,first_name,last_name',
+            'employeeDayTeamManager:employee_id,first_name,last_name',
+            'employeeNightTeamManager:employee_id,first_name,last_name',
+            'employeeDayTeamLeader:employee_id,first_name,last_name',
+            'employeeNightTeamLeader:employee_id,first_name,last_name'
+        )->find($id);
+        $salaryPositions = $position->with('employee:first_name,last_name')->where('description', 'salary')->get();
+        $salaryJobs = $job->with('employee:first_name,last_name')->where('description', 'specialist operations')->get();
+        $salaryEmployees = $salaryPositions->concat($salaryJobs);
+        // return $salaryJobs;
         return view('hr.show-cost-center', [
             'costCenter' => $costCenter,
+            'salaryEmployees' => $salaryEmployees,
         ]);
     }
 
@@ -99,7 +119,7 @@ class CostCenterController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
+// return $request;
         $this->validate($request,[
             'number' => 'required|string|max:255|unique:cost_centers,number,'.$id,
             'description' => 'required|string|max:255',
@@ -108,6 +128,26 @@ class CostCenterController extends Controller
         $costCenter->number = $request->number;
         $costCenter->description = $request->description;
         if($costCenter->save()){
+            // Sync staff manager
+            if(!is_null($request->staff_manager)){
+                $costCenter->employeeStaffManager()->sync($request->staff_manager);
+            }
+            // Sync day team manager
+            if(!is_null($request->day_team_manager)){
+                $costCenter->employeeDayTeamManager()->sync($request->day_team_manager);
+            }
+            // Sync night team manager
+            if(!is_null($request->night_team_manager)){
+                $costCenter->employeeNightTeamManager()->sync($request->night_team_manager);
+            }
+            // Sync day team leader
+            if(!is_null($request->day_team_leader)){
+                $costCenter->employeeDayTeamLeader()->sync($request->day_team_leader);
+            }
+            // Sync night team leader
+            if(!is_null($request->night_team_leader)){
+                $costCenter->employeeNightTeamLeader()->sync($request->night_team_leader);
+            }
             \Session::flash('status', 'Cost Center edited.');
         }else{
             \Session::flash('error', 'Cost Center not edited.');
@@ -128,6 +168,11 @@ class CostCenterController extends Controller
 
         $costCenter = $costCenter->find($id);
         if($costCenter->delete()){
+            $costCenter->employeeStaffManager()->sync([]);
+            $costCenter->employeeDayTeamManager()->sync([]);
+            $costCenter->employeeNightTeamManager()->sync([]);
+            $costCenter->employeeDayTeamLeader()->sync([]);
+            $costCenter->employeeNightTeamLeader()->sync([]);
             \Session::flash('status', 'Cost Center deleted.');
         }else{
             \Session::flash('error', 'Cost Center not deleted.');

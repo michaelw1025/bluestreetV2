@@ -43,6 +43,11 @@
                     <tr>
                         <th scope="col">Number</th>
                         <th scope="col">Description</th>
+                        <th scope="col">Staff Manager</th>
+                        <th scope="col">Day TM</th>
+                        <th scope="col">Night TM</th>
+                        <th scope="col">Day TL</th>
+                        <th scope="col">Night TL</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +55,11 @@
                     <tr class="clickable-row" data-href="{{ url('hr.cost-centers/'.$costCenter->id) }}">
                         <td>{{$costCenter->number}}</td>
                         <td>{{$costCenter->description}}</td>
+                        <td>{{$costCenter->employeeStaffManager->isNotEmpty() ? $costCenter->employeeStaffManager[0]->first_name.' '.$costCenter->employeeStaffManager[0]->last_name : ''}}</td>
+                        <td>{{$costCenter->employeeDayTeamManager->isNotEmpty() ? $costCenter->employeeDayTeamManager[0]->first_name.' '.$costCenter->employeeDayTeamManager[0]->last_name : ''}}</td>
+                        <td>{{$costCenter->employeeNightTeamManager->isNotEmpty() ? $costCenter->employeeNightTeamManager[0]->first_name.' '.$costCenter->employeeNightTeamManager[0]->last_name : ''}}</td>
+                        <td>{{$costCenter->employeeDayTeamLeader->isNotEmpty() ? $costCenter->employeeDayTeamLeader[0]->first_name.' '.$costCenter->employeeDayTeamLeader[0]->last_name : ''}}</td>
+                        <td>{{$costCenter->employeeNightTeamLeader->isNotEmpty() ? $costCenter->employeeNightTeamLeader[0]->first_name.' '.$costCenter->employeeNightTeamLeader[0]->last_name : ''}}</td>
                     </tr>
                 @endforeach
                 <tbody>
