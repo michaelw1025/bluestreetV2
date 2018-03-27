@@ -334,6 +334,11 @@ class Employee extends Model
     {
         return $this->hasMany('App\Termination')->orderBy('created_at', 'desc');
     }
+    // Reduction relationship
+    public function reduction()
+    {
+        return $this->hasMany('App\Reduction')->orderBy('created_at', 'desc');
+    }
 
     // ----------------Custom Queries----------------
     

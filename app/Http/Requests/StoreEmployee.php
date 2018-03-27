@@ -149,7 +149,7 @@ class StoreEmployee extends FormRequest
 
         /*
             |--------------------------------------------------------------------------
-            | Dependant validation rules
+            | Disciplinary validation rules
             |--------------------------------------------------------------------------
         */
         $rulesArray += [
@@ -160,6 +160,31 @@ class StoreEmployee extends FormRequest
             'disciplinary_issued_by' => 'required_with:disciplinary_update',
             'disciplinary_comments' => 'required_with:disciplinary_update',
         ];
+
+        /*
+            |--------------------------------------------------------------------------
+            | Termination validation rules
+            |--------------------------------------------------------------------------
+        */
+        $rulesArray += [
+            'termination_type' => 'required_with:termination_update',
+            'termination_date' => 'required_with:termination_update',
+            'termination_last_day' => 'required_with:termination_update',
+            'termination_comments' => 'required_with:termination_update',
+        ];
+
+        /*
+            |--------------------------------------------------------------------------
+            | Reduction validation rules
+            |--------------------------------------------------------------------------
+        */
+        // $rulesArray += [
+        //     'reduction_type' => 'required_with:reduction_update',
+        //     'reduction_displacement' => 'required_with:reduction_update',
+        //     'reduction_date' => 'required_with:reduction_update',
+        //     'reduction_home_cost_center' => 'required_with:reduction_update',
+        //     'reduction_comments' => 'required_with:reduction_update',
+        // ];
 
         // dd($rulesArray);
         return $rulesArray;

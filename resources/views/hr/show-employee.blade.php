@@ -73,6 +73,9 @@
             <!-- Include termination form -->
             @include('hr.forms.employee-termination-form')
 
+            <!-- Include reduction form -->
+            @include('hr.forms.employee-reduction-form')
+
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
             

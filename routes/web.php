@@ -212,3 +212,7 @@ Route::post('hr.employee-disciplinary-update', 'EmployeeController@updateDiscipl
 Route::get('hr.employee-termination/{employeeID}/{terminationID}', 'EmployeeController@showTermination')->name('hr.employee-termination');
 // Update or delete termination
 Route::post('hr.employee-termination-update', 'EmployeeController@updateTermination')->name('hr.employee-termination-update');
+// Show employee reduction
+Route::get('hr.employee-reduction/{employeeID}/{reductionID}', 'EmployeeController@showReduction')->name('hr.employee-reduction');
+// Update or delete reduction
+Route::post('hr.employee-reduction-update', 'EmployeeController@updateReduction')->name('hr.employee-reduction-update');

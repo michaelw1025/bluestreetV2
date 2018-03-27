@@ -369,6 +369,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Reduction' => __DIR__ . '/../..' . '/app/Reduction.php',
         'App\\Role' => __DIR__ . '/../..' . '/app/Role.php',
         'App\\Shift' => __DIR__ . '/../..' . '/app/Shift.php',
         'App\\Spouse' => __DIR__ . '/../..' . '/app/Spouse.php',

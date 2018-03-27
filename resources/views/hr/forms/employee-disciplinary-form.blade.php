@@ -179,6 +179,22 @@
                     <td>{{$disciplinary->type}}</td>
                     <td>{{$disciplinary->level}}</td>
                     <td>{{$disciplinary->date->format('m-d-Y')}}</td>
+                    @if(isset($costCenters))
+                    @foreach($costCenters as $costCenter)
+                    @if($disciplinary->cost_center == $costCenter->id)
+                    <td>{{$costCenter->number}}</td>
+                    @endif
+                    @endforeach
+                    @endif
+                    @if(isset($salaryPositions))
+                    @foreach($salaryPositions as $salaryPosition)
+                    @foreach($salaryPosition->employee as $salaryEmployee)
+                    @if($disciplinary->issued_by == $salaryEmployee->pivot->employee_id)
+                    <td>{{$salaryEmployee->first_name}} {{$salaryEmployee->last_name}}</td>
+                    @endif
+                    @endforeach
+                    @endforeach
+                    @endif
                 </tr>
         @endif
         @endforeach

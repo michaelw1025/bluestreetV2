@@ -166,7 +166,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
         $positions = $position->all();
         $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
@@ -324,6 +324,10 @@ class EmployeeController extends Controller
             if($request->termination_update){
                 $this->buildTermination($employee, $request);
             }
+            // Update reduction
+            if($request->reduction_update){
+                $this->buildReduction($employee, $request);
+            }
             \Session::flash('status', 'Employee edited.');
         }else{
             \Session::flash('error', 'Employee not edited.');
@@ -412,6 +416,14 @@ class EmployeeController extends Controller
         // return $request;
         $employee = $employee->find($request->employee_id);
         if($request->has('disciplinary_update')){
+            $request->validate([
+                'disciplinary_type' => 'required',
+                'disciplinary_level' => 'required',
+                'disciplinary_date' => 'required',
+                'disciplinary_cost_center' => 'required',
+                'disciplinary_issued_by' => 'required',
+                'disciplinary_comments' => 'required',
+            ]);
             $this->updateDisciplinaryInfo($employee, $request);
         }elseif($request->has('disciplinary')){
             $this->deleteDisciplinary($employee, $request);
@@ -436,7 +448,7 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Update or delete the specified disciplinary.
+     * Update or delete the specified termination.
      *
      * @param  int  $status
      * @return \Illuminate\Http\Response
@@ -446,9 +458,60 @@ class EmployeeController extends Controller
         // return $request;
         $employee = $employee->find($request->employee_id);
         if($request->has('termination_update')){
+            $request->validate([
+                'termination_type' => 'required',
+                'termination_date' => 'required',
+                'termination_last_day' => 'required',
+                'termination_comments' => 'required',
+            ]);
             $this->updateTerminationInfo($employee, $request);
         }elseif($request->has('termination')){
             $this->deleteTermination($employee, $request);
+        }else{
+
+        }
+        return redirect()->route('hr.employees', $request->employee_id);
+    }
+
+    /**
+     * Search for specified reduction.
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function showReduction(Employee $employee, CostCenter $costCenter, Shift $shift, $employeeID, $reductionID)
+    {
+        $reduction = $employee->find($employeeID)->reduction()->where('id', $reductionID)->with('employee:id,first_name,last_name')->first();
+        $costCenters = $costCenter->all();
+        $shifts = $shift->all();
+        return view('hr.show-employee-reduction', [
+            'reduction' => $reduction,
+            'costCenters' => $costCenters,
+            'shifts' => $shifts,
+        ]);
+    }
+
+    /**
+     * Update or delete the specified reduction.
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function updateReduction(Request $request, Employee $employee)
+    {
+        // return $request;
+        $employee = $employee->find($request->employee_id);
+        if($request->has('update_reduction')){
+            $request->validate([
+                'reduction_type' => 'required',
+                'reduction_displacement' => 'required',
+                'reduction_date' => 'required',
+                'reduction_home_cost_center' => 'required',
+                'reduction_comments' => 'required',
+            ]);
+            $this->updateReductionInfo($employee, $request);
+        }elseif($request->has('reduction')){
+            $this->deleteReduction($employee, $request);
         }else{
 
         }

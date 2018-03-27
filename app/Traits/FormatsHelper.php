@@ -12,6 +12,7 @@ use App\Beneficiary;
 use App\ParkingPermit;
 use App\Disciplinary;
 use App\Termination;
+use App\Reduction;
 
 
 trait FormatsHelper
@@ -576,5 +577,46 @@ trait FormatsHelper
     {
         // dd($employee);
         Termination::where('id', $request->termination_id)->delete();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reduction update and delete methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildReduction($employee, $request)
+    {
+        $updateReduction = new Reduction();
+        $this->assignReductionInfo($updateReduction, $request);
+        $employee->reduction()->save($updateReduction);
+    }
+    public function assignReductionInfo($updateReduction, $request)
+    {
+        if($request->reduction_update){
+            $updateReduction->currently_active = 1;
+        }else{
+            $updateReduction->currently_active = 0;
+        }
+        $updateReduction->type = $request->reduction_type;
+        $updateReduction->displacement = $request->reduction_displacement;
+        $updateReduction->date = $this->convertToDate($request->reduction_date);
+        $updateReduction->home_cost_center = $request->reduction_home_cost_center;
+        $updateReduction->bump_to_cost_center = $request->reduction_bump_to_cost_center;
+        $updateReduction->home_shift = $request->reduction_home_shift;
+        $updateReduction->bump_to_shift = $request->reduction_bump_to_shift;
+        $updateReduction->fiscal_week = $request->reduction_fiscal_week;
+        $updateReduction->fiscal_year = $request->reduction_fiscal_year;
+        $updateReduction->comments = $request->reduction_comments;
+    }
+    public function updateReductionInfo($employee, $request)
+    {
+        $reduction = Reduction::find($request->reduction_id);
+        $this->assignReductionInfo($reduction, $request);
+        $employee->reduction()->save($reduction);
+    }
+    public function deleteReduction($employee, $request)
+    {
+        // dd($employee);
+        Reduction::where('id', $request->reduction_id)->delete();
     }
 }

@@ -56,6 +56,7 @@ return array(
     'App\\Providers\\BroadcastServiceProvider' => $baseDir . '/app/Providers/BroadcastServiceProvider.php',
     'App\\Providers\\EventServiceProvider' => $baseDir . '/app/Providers/EventServiceProvider.php',
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
+    'App\\Reduction' => $baseDir . '/app/Reduction.php',
     'App\\Role' => $baseDir . '/app/Role.php',
     'App\\Shift' => $baseDir . '/app/Shift.php',
     'App\\Spouse' => $baseDir . '/app/Spouse.php',
