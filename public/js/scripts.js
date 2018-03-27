@@ -268,3 +268,51 @@ function calculateBeneficiaryTotal(){
     $('#beneficiary-total').attr('value', sum);
 }
 // ----------------End beneficiary----------------
+
+// ----------------Select columns for alphabetical employee table----------------
+$('.alphabetical-column').on('click', function(){
+    var column = $(this).attr('id');
+    $(this).toggleClass(' btn-outline-primary btn-primary');
+    $('.'+column).toggleClass('d-none');
+});
+// ----------------End select columns for alphabetical employee table----------------
+
+// ----------------Select columns for reviews table----------------
+$('.review-column').on('click', function(){
+    var column = $(this).attr('id');
+    $('.review-column').removeClass('btn-primary').addClass('btn-outline-primary prevent-print');
+    $(this).removeClass('btn-outline-primary prevent-print').addClass('btn-primary');
+    $('.thirty-day').addClass('d-none');
+    $('.sixty-day').addClass('d-none');
+    $('.'+column).removeClass('d-none');
+});
+// ----------------End select columns for reviews table----------------
+
+// ----------------Select columns for reductions table----------------
+$('.reduction-type-column').on('click', function(){
+    var column = $(this).attr('id');
+    $('.reduction-type-column').removeClass('btn-primary').addClass('btn-outline-primary');
+    $(this).removeClass('btn-outline-primary').addClass('btn-primary');
+    $('.reduction-type-row').addClass('d-none');
+    $('.reduction-displacement-column').removeClass('btn-success').addClass('btn-outline-success');
+    $('.'+column).removeClass('d-none');
+
+});
+$('.reduction-displacement-column').on('click', function(){
+    var column = $(this).attr('id');
+    
+    if($('#voluntary').hasClass('btn-primary')){
+        if($(this).hasClass('btn-success')){
+            $(this).removeClass('btn-success').addClass('btn-outline-success');
+            $('.'+column).addClass('d-none');
+        }else{
+            $(this).removeClass('btn-outline-success').addClass('btn-success');
+            $('.'+column).removeClass('d-none');
+        }
+    }else if($('#involuntary').hasClass('btn-primary')){
+
+    }else{
+
+    }
+});
+// ----------------End select columns for reductions table----------------

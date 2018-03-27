@@ -216,3 +216,10 @@ Route::post('hr.employee-termination-update', 'EmployeeController@updateTerminat
 Route::get('hr.employee-reduction/{employeeID}/{reductionID}', 'EmployeeController@showReduction')->name('hr.employee-reduction');
 // Update or delete reduction
 Route::post('hr.employee-reduction-update', 'EmployeeController@updateReduction')->name('hr.employee-reduction-update');
+
+// Query all employees
+Route::get('hr.query-employees-alphabetical', 'EmployeeController@queryEmployeesAlphabetical')->name('hr.query-employees-alphabetical');
+// Query reviews
+Route::get('hr.query-reviews', 'EmployeeController@queryReviews')->name('hr.query-reviews');
+// Query reductions
+Route::get('hr.query-reductions', 'EmployeeController@queryReductions')->name('hr.query-reductions');
