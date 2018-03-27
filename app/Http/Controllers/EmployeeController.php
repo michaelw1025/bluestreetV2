@@ -630,7 +630,7 @@ class EmployeeController extends Controller
      * @param  int  $status
      * @return \Illuminate\Http\Response
      */
-    public function queryReductions(Employee $employee, CostCenter $costCenter)
+    public function queryReductions(Employee $employee, CostCenter $costCenter, Shift $shift)
     {
         $employees = $employee->whereHas('reduction', function($query) {
             $query->where('currently_active', '1');
@@ -638,10 +638,23 @@ class EmployeeController extends Controller
             $query->where('currently_active', '1');
         }])->orderBy('hire_date', 'asc')->get();
         $costCenters = $costCenter->all();
+        $shifts = $shift->all();
         // return $employees;
         return view('hr.query-reductions', [
             'employees' => $employees,
             'costCenters' => $costCenters,
+            'shifts' => $shifts,
         ]);
+    }
+
+    /**
+     * Query turnover
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function queryTurnover(Employee $employee)
+    {
+        
     }
 }
