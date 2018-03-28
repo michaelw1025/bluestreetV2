@@ -218,8 +218,10 @@ Route::get('hr.employee-reduction/{employeeID}/{reductionID}', 'EmployeeControll
 Route::post('hr.employee-reduction-update', 'EmployeeController@updateReduction')->name('hr.employee-reduction-update');
 
 // Query all employees
-Route::get('hr.query-employees-alphabetical', 'EmployeeController@queryEmployeesAlphabetical')->name('hr.query-employees-alphabetical');
+Route::get('hr.query-employees-alphabetical', 'HRQueryController@queryEmployeesAlphabetical')->name('hr.query-employees-alphabetical');
 // Query reviews
-Route::get('hr.query-reviews', 'EmployeeController@queryReviews')->name('hr.query-reviews');
+Route::get('hr.query-reviews', 'HRQueryController@queryReviews')->name('hr.query-reviews');
 // Query reductions
-Route::get('hr.query-reductions', 'EmployeeController@queryReductions')->name('hr.query-reductions');
+Route::get('hr.query-reductions', 'HRQueryController@queryReductions')->name('hr.query-reductions');
+// Query reductions
+Route::get('hr.query-turnovers', 'HRQueryController@queryTurnovers')->name('hr.query-turnovers');

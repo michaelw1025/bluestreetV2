@@ -12,6 +12,7 @@ use App\Position;
 use App\Job;
 use App\CostCenter;
 use App\Shift;
+use App\Termination;
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -295,6 +296,15 @@ class EmployeesTableSeeder extends Seeder
             $shiftTitle = $faker->randomElement($array = $shiftsArray);
             $shiftInfo = Shift::where('description', $shiftTitle)->first();
             $employee->shift()->sync($shiftInfo->id);
+
+            if($employee->status == 0){
+                $termination = new Termination();
+                $termination->type = $faker->randomElement($array = array('volunatary', 'involuntary'));
+                $termination->date = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
+                $termination->last_day = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
+                $termination->comments = $faker->text($maxNbChars = 100);
+                $employee->termination()->save($termination);
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ use App\ParkingPermit;
 use App\Disciplinary;
 use App\Termination;
 use App\Reduction;
+use App\CostCenter;
 
 
 trait FormatsHelper
@@ -26,6 +27,45 @@ trait FormatsHelper
     {
         $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
         return Carbon::parse($date);
+    }
+
+    public function setTeamManagerTeamLeader($employee)
+    {
+        if($employee->shift->isNotEmpty()){
+            if($employee->shift[0]->description == 'Day'){
+                $teamManager = CostCenter::with('employeeDayTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
+                if($teamManager->employeeDayTeamManager->isNotEmpty()){
+                    $employee->team_manager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
+                }else{
+                    $employee->team_manager = '';
+                }
+                $teamLeader = CostCenter::with('employeeDayTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
+                if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
+                    $employee->team_leader = $teamLeader->employeeDayteamLeader[0]->first_name.' '.$teamLeader->employeeDayteamLeader[0]->last_name;
+                }else{
+                    $employee->team_leader = '';
+                }
+            }elseif($employee->shift[0]->description == 'Night'){
+                $teamManager = CostCenter::with('employeeNightTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
+                if($teamManager->employeeNightTeamManager->isNotEmpty()){
+                    $employee->team_manager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
+                }else{
+                    $employee->team_manager = '';
+                }
+                $teamLeader = CostCenter::with('employeeNightTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
+                if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
+                    $employee->team_leader = $teamLeader->employeeNightteamLeader[0]->first_name.' '.$teamLeader->employeeNightteamLeader[0]->last_name;
+                }else{
+                    $employee->team_leader = '';
+                }
+            }else{
+                $employee->team_manager = '';
+                $employee->team_leader = '';
+            }
+        }else{
+            $employee->team_manager = '';
+            $employee->team_leader = '';
+        }
     }
 
     /*
@@ -543,22 +583,9 @@ trait FormatsHelper
     */
     public function buildTermination($employee, $request)
     {
-            // $storeDisciplinaries = array();
-            // foreach($request->disciplinary as $disciplinaryArray){
-            //     if(isset($disciplinaryArray['update'])){
-            //         if(isset($disciplinaryArray['id'])){
-            //             $updateTermination = Disciplinary::find($disciplinaryArray['id']);
-            //             $this->assignDisciplinaryInfo($updateTermination, $disciplinaryArray, $request);
-            //         }else{
-                        $updateTermination = new Termination();
-                        $this->assignTerminationInfo($updateTermination, $request);
-                    // }
-                    $employee->termination()->save($updateTermination);
-                    // $storeDisciplinaries[] = $updateTermination->id;
-            //     }
-            // }
-            // Disciplinary::where('employee_id', $employee->id)->whereNotIn('id', $storeDisciplinaries)->delete();
-
+        $updateTermination = new Termination();
+        $this->assignTerminationInfo($updateTermination, $request);
+        $employee->termination()->save($updateTermination);
     }
     public function assignTerminationInfo($updateTermination, $request)
     {
