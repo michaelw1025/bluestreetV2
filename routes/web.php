@@ -217,11 +217,15 @@ Route::get('hr.employee-reduction/{employeeID}/{reductionID}', 'EmployeeControll
 // Update or delete reduction
 Route::post('hr.employee-reduction-update', 'EmployeeController@updateReduction')->name('hr.employee-reduction-update');
 
-// Query all employees
+// Query all employees alphabetical
 Route::get('hr.query-employees-alphabetical', 'HRQueryController@queryEmployeesAlphabetical')->name('hr.query-employees-alphabetical');
+// Query all employees seniority
+Route::get('hr.query-employees-seniority', 'HRQueryController@queryEmployeesSeniority')->name('hr.query-employees-seniority');
 // Query reviews
 Route::get('hr.query-reviews', 'HRQueryController@queryReviews')->name('hr.query-reviews');
 // Query reductions
 Route::get('hr.query-reductions', 'HRQueryController@queryReductions')->name('hr.query-reductions');
-// Query reductions
+// Query turnovers
 Route::get('hr.query-turnovers', 'HRQueryController@queryTurnovers')->name('hr.query-turnovers');
+// Query anniversaries
+Route::get('hr.query-anniversaries', 'HRQueryController@queryAnniversaries')->name('hr.query-anniversaries');

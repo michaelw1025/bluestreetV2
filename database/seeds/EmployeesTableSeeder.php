@@ -162,7 +162,7 @@ class EmployeesTableSeeder extends Seeder
 
         $shiftsArray = array('day', 'night');
 
-        for($i = 0; $i <= 100; $i++)
+        for($i = 0; $i <= 200; $i++)
         {
             $employee = new Employee();
 
@@ -175,7 +175,9 @@ class EmployeesTableSeeder extends Seeder
             $employee->ssn = $faker->ssn;
             $employee->oracle_number = $faker->randomNumber($nbDigits = 6, $strict = false);
             $employee->birth_date = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
-            $employee->hire_date = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
+            // $employee->hire_date = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
+            $year = rand(1990, 2018);
+            $employee->hire_date = Carbon::create($year, $faker->month, $faker->dayOfMonth, 0, 0, 0);
             $employee->service_date = $faker->year($max = 'now').'-'.$faker->month.'-'.$faker->dayOfMonth;
             if($firstName == 'female'){
                 $employee->maiden_name = $faker->lastName;

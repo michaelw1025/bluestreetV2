@@ -66,9 +66,59 @@ class HRQueryController extends Controller
     }
 
     /**
+     * Query all employees seniority
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function queryEmployeesSeniority(Employee $employee, CostCenter $costCenter)
+    {
+        $employees = $employee->with('costCenter', 'shift', 'job', 'position')->where('status' , '1')->orderBy('hire_date', 'asc')->get();
+        foreach($employees as $employee){
+            if($employee->shift->isNotEmpty()){
+                if($employee->shift[0]->description == 'Day'){
+                    $teamManager = $costCenter->with('employeeDayTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
+                    if($teamManager->employeeDayTeamManager->isNotEmpty()){
+                        $employee->team_manager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
+                    }else{
+                        $employee->team_manager = '';
+                    }
+                    $teamLeader = $costCenter->with('employeeDayTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
+                    if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
+                        $employee->team_leader = $teamLeader->employeeDayteamLeader[0]->first_name.' '.$teamLeader->employeeDayteamLeader[0]->last_name;
+                    }else{
+                        $employee->team_leader = '';
+                    }
+                }elseif($employee->shift[0]->description == 'Night'){
+                    $teamManager = $costCenter->with('employeeNightTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
+                    if($teamManager->employeeNightTeamManager->isNotEmpty()){
+                        $employee->team_manager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
+                    }else{
+                        $employee->team_manager = '';
+                    }
+                    $teamLeader = $costCenter->with('employeeNightTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
+                    if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
+                        $employee->team_leader = $teamLeader->employeeNightteamLeader[0]->first_name.' '.$teamLeader->employeeNightteamLeader[0]->last_name;
+                    }else{
+                        $employee->team_leader = '';
+                    }
+                }else{
+                    $employee->team_manager = '';
+                    $employee->team_leader = '';
+                }
+            }else{
+                $employee->team_manager = '';
+                $employee->team_leader = '';
+            }
+        }
+        // return $employees;
+        return view('hr.query-employees-alphabetical', [
+            'employees' => $employees,
+        ]);
+    }
+
+    /**
      * Query reviews
      *
-     * @param  int  $status
      * @return \Illuminate\Http\Response
      */
     public function queryReviews(Employee $employee, CostCenter $costCenter)
@@ -88,7 +138,6 @@ class HRQueryController extends Controller
     /**
      * Query reductions
      *
-     * @param  int  $status
      * @return \Illuminate\Http\Response
      */
     public function queryReductions(Employee $employee, CostCenter $costCenter, Shift $shift)
@@ -111,7 +160,6 @@ class HRQueryController extends Controller
     /**
      * Query turnover
      *
-     * @param  int  $status
      * @return \Illuminate\Http\Response
      */
     public function queryTurnovers(Request $request, Employee $employee, CostCenter $costCenter)
@@ -138,6 +186,47 @@ class HRQueryController extends Controller
             ]);
         }else{
             return view('hr.query-turnovers', [
+
+            ]);
+        }
+    }
+
+    /**
+     * Query anniversaries
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function queryAnniversaries(Request $request, Employee $employee, CostCenter $costCenter)
+    {
+        if(isset($request->submit_anniversary_search)){
+            $searchMonth = $request->search_month;
+            $searchYear = $request->search_year;
+            $searchDate = Carbon::create($request->search_year, $request->search_month, 1, 0);
+            $employees = $employee->with('costCenter', 'shift')->get();
+            $monthEmployees = $employees->filter(function($employee) use ($searchDate) {
+                if($employee->hire_date->month == $searchDate->month){
+                    return $employee;
+                }
+            });
+            $yearEmployees = $monthEmployees->filter(function($monthEmployee) use ($searchDate) {
+                $diff = $monthEmployee->hire_date->diffInYears($searchDate) + 1;
+                if($diff % 5 == 0){
+                    $monthEmployee->diff = $diff;
+                    return $monthEmployee;
+                }
+            });
+            foreach($yearEmployees as $yearEmployee){
+                $this->setTeamManagerTeamLeader($yearEmployee);
+            }
+            $costCenters = $costCenter->all();
+            return view('hr.query-anniversaries', [
+                'employees' => $yearEmployees,
+                'costCenters' => $costCenters,
+                'searchMonth' => $searchMonth,
+                'searchYear' => $searchYear,
+            ]);
+        }else{
+            return view('hr.query-anniversaries', [
 
             ]);
         }

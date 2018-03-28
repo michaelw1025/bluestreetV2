@@ -300,3 +300,11 @@ $('.reduction-column').on('click', function(){
     }
 });
 // ----------------End select columns for reductions table----------------
+
+// ----------------Select columns for anniversaries table----------------
+$('.anniversary-column').on('click', function(){
+    var column = $(this).attr('id');
+    $(this).toggleClass('btn-outline-primary btn-primary');
+    $('.'+column).toggleClass('d-none');
+});
+// ----------------end select columns for anniversaries table----------------
