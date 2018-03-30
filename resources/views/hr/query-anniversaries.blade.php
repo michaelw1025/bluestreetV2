@@ -74,7 +74,7 @@
                 <tbody>
                     @php $years = array('5', '10', '15', '20', '25', '30', '35', '40', '45', '50') @endphp
                     @foreach($years as $year)
-                    <tr class="d-none {{ $year == '5' ? 'five' : ($year == '10' ? 'ten' : ($year == '15' ? 'fifteen' : ($year == '20' ? 'twenty' : ($year == '25' ? 'twenty-five' : ($year == '30' ? 'thirty' : ($year == '35' ? 'thirty-five' : $year == '40' ? 'forty' : ($year == '45' ? 'forty-five' : ($year == '50' ? 'fifty' : '')))))))) }}">
+                    <tr class="d-none {{ $year == '5' ? 'five' : ($year == '10' ? 'ten' : ($year == '15' ? 'fifteen' : ($year == '20' ? 'twenty' : ($year == '25' ? 'twenty-five' : ($year == '30' ? 'thirty' : ($year == '35' ? 'thirty-five' : ($year == '40' ? 'forty' : ($year == '45' ? 'forty-five' : ($year == '50' ? 'fifty' : ''))))))))) }}">
                         <td colspan="5" class="text-center table-info">{{$year}} Years</td>
                     </tr>
                     @foreach($employees as $employee)

@@ -202,7 +202,7 @@ class HRQueryController extends Controller
             $searchMonth = $request->search_month;
             $searchYear = $request->search_year;
             $searchDate = Carbon::create($request->search_year, $request->search_month, 1, 0);
-            $employees = $employee->with('costCenter', 'shift')->get();
+            $employees = $employee->where('status', '1')->with('costCenter', 'shift')->get();
             $monthEmployees = $employees->filter(function($employee) use ($searchDate) {
                 if($employee->hire_date->month == $searchDate->month){
                     return $employee;
@@ -228,6 +228,103 @@ class HRQueryController extends Controller
         }else{
             return view('hr.query-anniversaries', [
 
+            ]);
+        }
+    }
+
+    /**
+     * Query birthdays
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function queryBirthdays(Request $request, Employee $employee, CostCenter $costCenter)
+    {
+        if(isset($request->submit_birthday_search)){
+            $searchMonth = $request->search_month;
+            $employees = $employee->where('status', '1')->with('costCenter', 'shift')->orderBy('birth_date', 'asc')->get();
+            $monthEmployees = $employees->filter(function($employee) use ($searchMonth) {
+                if($employee->birth_date->month == $searchMonth){
+                    $employee->birth_day = $employee->birth_date->day;
+                    return $employee;
+                }
+            });
+            $monthEmployees = $monthEmployees->sortBy('birth_day');
+            foreach($monthEmployees as $monthEmployee){
+                $this->setTeamManagerTeamLeader($monthEmployee);
+            }
+            $costCenters = $costCenter->all();
+            return view('hr.query-birthdays', [
+                'employees' => $monthEmployees,
+                'costCenters' => $costCenters,
+                'searchMonth' => $searchMonth,
+            ]);
+        }else{
+            return view('hr.query-birthdays', [
+
+            ]);
+        }
+    }
+
+    /**
+     * Query hire date
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function queryHireDate(Request $request, Employee $employee, CostCenter $costCenter)
+    {
+        if(isset($request->submit_hire_date_search)){
+            $beginSearchDate = $this->convertToDateForSearch($request->search_begin_date);
+            if(!is_null($request->search_end_date)){
+                $endSearchDate = $this->convertToDateForSearch($request->search_end_date);
+            }else{
+                $endSearchDate = Carbon::now();
+            }
+            $employees = $employee->wherebetween('hire_date', [$beginSearchDate, $endSearchDate])->orderBy('hire_date', 'asc')->with('costCenter')->get();
+            foreach($employees as $employee){
+                $this->setTeamManagerTeamLeader($employee);
+            }
+            $costCenters = $costCenter->all();
+            return view('hr.query-hire-date', [
+                'employees' => $employees,
+                'beginSearchDate' => $beginSearchDate,
+                'endSearchDate' => $endSearchDate,
+                'costCenters' => $costCenters,
+            ]);
+        }else{
+            return view('hr.query-hire-date', [
+
+            ]);
+        }
+    }
+
+    /**
+     * Query cost center
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function queryCostCenter(Request $request, CostCenter $costCenter)
+    {
+        if(isset($request->submit_cost_center_search)){
+            $searchCostCenter = $request->search_cost_center;
+            $employeeCostCenters = $costCenter->where('id', $request->search_cost_center)->with(['employeeStaffManager', 'employeeDayTeamManager', 'employeeNightTeamManager', 'employeeDayTeamLeader', 'employeeNightTeamLeader', 'employee' => function($query){
+                $query->where('status', '1');
+            }])->get();
+            foreach($employeeCostCenters as $costCenter){
+                foreach($costCenter->employee as $employee){
+                    $employee->load('job', 'shift', 'position');
+                }
+            }
+            $costCenters = $costCenter->all();
+            // return $employeeCostCenters;
+            return view('hr.query-cost-center', [
+                'employeeCostCenters' => $employeeCostCenters,
+                'costCenters' => $costCenters,
+                'searchCostCenter' => $searchCostCenter,
+            ]);
+        }else{
+            $costCenters = $costCenter->all();
+            return view('hr.query-cost-center', [
+                'costCenters' => $costCenters,
             ]);
         }
     }

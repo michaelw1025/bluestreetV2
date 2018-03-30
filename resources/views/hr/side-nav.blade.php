@@ -10,7 +10,7 @@
                 </div>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle {{ Route::is('hr.query-employees-seniority') ? 'active' : '' }} {{ Route::is('hr.query-turnovers') ? 'active' : '' }} {{ Route::is('hr.query-turnovers') ? 'active' : '' }} {{ Route::is('hr.query-reductions') ? 'active' : '' }} {{ Route::is('hr.query-reviews') ? 'active' : '' }} {{ Route::is('hr.query-employees-alphabetical') ? 'active' : '' }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Queries</a>
+                <a class="nav-link dropdown-toggle {{ Route::is('hr.query-cost-center') ? 'active' : '' }} {{ Route::is('hr.query-hire-date') ? 'active' : '' }} {{ Route::is('hr.query-birthdays') ? 'active' : '' }} {{ Route::is('hr.query-employees-seniority') ? 'active' : '' }} {{ Route::is('hr.query-turnovers') ? 'active' : '' }} {{ Route::is('hr.query-turnovers') ? 'active' : '' }} {{ Route::is('hr.query-reductions') ? 'active' : '' }} {{ Route::is('hr.query-reviews') ? 'active' : '' }} {{ Route::is('hr.query-employees-alphabetical') ? 'active' : '' }}" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Queries</a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="{{ url('hr.query-employees-alphabetical') }}">Employee List - Aphabetical</a>
                     <a class="dropdown-item" href="{{ url('hr.query-employees-seniority') }}">Employee List - Seniority</a>
@@ -18,6 +18,9 @@
                     <a class="dropdown-item" href="{{ url('hr.query-reductions') }}">Reductions</a>
                     <a class="dropdown-item" href="{{ url('hr.query-turnovers') }}">Turnover</a>
                     <a class="dropdown-item" href="{{ url('hr.query-anniversaries') }}">Anniversaries</a>
+                    <a class="dropdown-item" href="{{ url('hr.query-birthdays') }}">Birthdays</a>
+                    <a class="dropdown-item" href="{{ url('hr.query-hire-date') }}">Hire Date</a>
+                    <a class="dropdown-item" href="{{ url('hr.query-cost-center') }}">Cost Center</a>
                 </div>
             </li>
             <li class="nav-item dropdown">

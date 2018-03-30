@@ -229,3 +229,9 @@ Route::get('hr.query-reductions', 'HRQueryController@queryReductions')->name('hr
 Route::get('hr.query-turnovers', 'HRQueryController@queryTurnovers')->name('hr.query-turnovers');
 // Query anniversaries
 Route::get('hr.query-anniversaries', 'HRQueryController@queryAnniversaries')->name('hr.query-anniversaries');
+// Query birthdays
+Route::get('hr.query-birthdays', 'HRQueryController@queryBirthdays')->name('hr.query-birthdays');
+// Query hire date
+Route::get('hr.query-hire-date', 'HRQueryController@queryHireDate')->name('hr.query-hire-date');
+// Query cost center
+Route::get('hr.query-cost-center', 'HRQueryController@queryCostCenter')->name('hr.query-cost-center');

@@ -64,4 +64,9 @@ class CostCenter extends Model
     {
         return $this->belongsToMany('App\Employee', 'cost_center_night_team_leader');
     }
+    // Employee relationship
+    public function employee()
+    {
+        return $this->belongsToMany('App\Employee');
+    }
 }
