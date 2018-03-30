@@ -1,7 +1,8 @@
 @extends('layouts.welcome-layout')
 
 @section('content')
-    
+<div class="jumbotron jumbotron-fluid home-jumbotron">
+  <div class="container">
     <form class="form-signin" method="POST" action="{{ route('login') }}">
         {{ csrf_field() }}
 
@@ -34,5 +35,7 @@
 
 
     </form>
+</div>
+</div>
 
 @endsection

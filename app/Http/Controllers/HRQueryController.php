@@ -9,6 +9,8 @@ use Carbon\Carbon;
 use App\Employee;
 use App\CostCenter;
 use App\Shift;
+use App\Spouse;
+use App\Dependant;
 
 class HRQueryController extends Controller
 {
@@ -59,7 +61,6 @@ class HRQueryController extends Controller
                 $employee->team_leader = '';
             }
         }
-        // return $employees;
         return view('hr.query-employees-alphabetical', [
             'employees' => $employees,
         ]);
@@ -111,7 +112,7 @@ class HRQueryController extends Controller
             }
         }
         // return $employees;
-        return view('hr.query-employees-alphabetical', [
+        return view('hr.query-employees-seniority', [
             'employees' => $employees,
         ]);
     }
@@ -325,6 +326,39 @@ class HRQueryController extends Controller
             $costCenters = $costCenter->all();
             return view('hr.query-cost-center', [
                 'costCenters' => $costCenters,
+            ]);
+        }
+    }
+
+    /**
+     * Query cost center
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function querySSN(Request $request, Employee $employee, Spouse $spouse, Dependant $dependant)
+    {
+        if(isset($request->submit_ssn_search)){
+            $searchSSN = $request->ssn;
+            if($employee->where('ssn', $searchSSN)->first()){
+                $employee = $employee->where('ssn', $searchSSN)->first();
+            }elseif($spouse->where('ssn', $searchSSN)->first()){
+                $spouse = $spouse->where('ssn', $searchSSN)->with('employee')->first();
+                $employee = $employee->find($spouse->employee->id);
+            }elseif($dependant->where('ssn', $searchSSN)->first()){
+                $dependant = $dependant->where('ssn', $searchSSN)->with('employee')->first();
+                $employee = $employee->find($dependant->employee->id);
+            }else{
+                return view('hr.query-ssn', [
+
+                ]);
+            }
+            return view('hr.query-ssn', [
+                'searchSSN' => $searchSSN,
+                'employee' => $employee,
+            ]);
+        }else{
+            return view('hr.query-ssn', [
+
             ]);
         }
     }

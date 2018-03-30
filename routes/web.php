@@ -235,3 +235,5 @@ Route::get('hr.query-birthdays', 'HRQueryController@queryBirthdays')->name('hr.q
 Route::get('hr.query-hire-date', 'HRQueryController@queryHireDate')->name('hr.query-hire-date');
 // Query cost center
 Route::get('hr.query-cost-center', 'HRQueryController@queryCostCenter')->name('hr.query-cost-center');
+// Query ssn
+Route::get('hr.query-ssn', 'HRQueryController@querySSN')->name('hr.query-ssn');

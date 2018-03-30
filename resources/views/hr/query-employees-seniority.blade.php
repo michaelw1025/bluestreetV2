@@ -5,7 +5,7 @@
 
     <!-- Content for main window must go within this div -->
     <div class="col mr-sm-3">
-        <h1 class="">Alphabetical List Of Employees<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
+        <h1 class="">Seniority List Of Employees<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="ssn">SSN</button>

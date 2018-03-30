@@ -186,6 +186,8 @@ class StoreEmployee extends FormRequest
         //     'reduction_comments' => 'required_with:reduction_update',
         // ];
 
+
+
         // dd($rulesArray);
         return $rulesArray;
     }

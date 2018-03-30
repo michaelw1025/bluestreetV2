@@ -21,7 +21,7 @@
     <body class="bg-light">
     @include('layouts.main-nav')
 
-            <main role="main" class="">
+            <main role="main" class="text-center">
                 @yield('content')
             </main>
 

@@ -158,6 +158,10 @@ return [
         'emergency_contact.*.number' => [
             'required_with' => 'Number must be present if Add Emergency Contact is checked'
         ],
+        // Insurance
+        'medical_coverage_type.*' => [
+            'required_with' => 'Coverage Type cannot be empty if Medical Plan is other than Waived'
+        ]
     ],
 
     /*

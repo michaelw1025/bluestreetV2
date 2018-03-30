@@ -409,6 +409,10 @@ trait FormatsHelper
             }
         }
     }
+    public function unsyncMedicalInsurance($employee)
+    {
+        $employee->insuranceCoverageMedicalPlan()->sync([]);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -423,6 +427,10 @@ trait FormatsHelper
             }
         }
     }
+    public function unsyncDentalInsurance($employee)
+    {
+        $employee->dentalPlanInsuranceCoverage()->sync([]);
+    }
 
     /*
     |--------------------------------------------------------------------------
@@ -436,6 +444,10 @@ trait FormatsHelper
                 $employee->insuranceCoverageVisionPlan()->sync($visionCoverage);
             }
         }
+    }
+    public function unsyncVisionInsurance($employee)
+    {
+        $employee->insuranceCoverageVisionPlan()->sync([]);
     }
 
     /*

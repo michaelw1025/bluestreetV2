@@ -143,7 +143,7 @@
             <tbody>
         @foreach($employee->disciplinary as $disciplinary)
         @if($disciplinary->type == 'attendance')
-                <tr class="clickable-row table-warning" data-href="{{ url('hr.employee-disciplinary/'.$employee->id.'/'.$disciplinary->id) }}">
+                <tr class="clickable-row table-secondary" data-href="{{ url('hr.employee-disciplinary/'.$employee->id.'/'.$disciplinary->id) }}">
                     <td>{{$disciplinary->type}}</td>
                     <td>{{$disciplinary->level}}</td>
                     <td>{{$disciplinary->date->format('m-d-Y')}}</td>
@@ -175,7 +175,7 @@
                 </tr>
         @foreach($employee->disciplinary as $disciplinary)
         @if($disciplinary->type == 'performance')
-                <tr class="clickable-row table-danger" data-href="{{ url('hr.employee-disciplinary/'.$employee->id.'/'.$disciplinary->id) }}">
+                <tr class="clickable-row table-warning" data-href="{{ url('hr.employee-disciplinary/'.$employee->id.'/'.$disciplinary->id) }}">
                     <td>{{$disciplinary->type}}</td>
                     <td>{{$disciplinary->level}}</td>
                     <td>{{$disciplinary->date->format('m-d-Y')}}</td>

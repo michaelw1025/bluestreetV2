@@ -176,7 +176,9 @@ class EmployeeController extends Controller
         $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
         $visionPlans = $visionPlan->with('insuranceCoverage')->get();
         $accidentalCoverages = $accidentalCoverage->all();
-        $salaryPositions = $position->with('employee:first_name,last_name')->where('description', 'salary')->get();
+        $salaryPositions = $position->with(['employee' => function($query){
+            $query->orderBy('last_name', 'asc');
+        }])->where('description', 'salary')->get();
         if($employee->shift[0]->description == 'Day'){
             $teamManager = $costCenter->with('employeeDayTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
             if($teamManager->employeeDayTeamManager->isNotEmpty()){
@@ -292,15 +294,27 @@ class EmployeeController extends Controller
             }
             // Sync medical insurance
             if($request->medical_coverage_type){
-                $this->syncMedicalInsurance($employee, $request->medical_coverage_type);
+                if($request->medical_plan == 'Waived'){
+                    $this->unsyncMedicalInsurance($employee);
+                }else{
+                    $this->syncMedicalInsurance($employee, $request->medical_coverage_type);
+                }
             }
             // Sync dental insurance
             if($request->dental_coverage_type){
-                $this->syncDentalInsurance($employee, $request->dental_coverage_type);
+                if($request->dental_plan == 'Waived'){
+                    $this->unsyncDentalInsurance($employee);
+                }else{
+                    $this->syncDentalInsurance($employee, $request->dental_coverage_type);
+                }
             }
             // Sync vision insurance
             if($request->vision_coverage_type){
-                $this->syncVisionInsurance($employee, $request->vision_coverage_type);
+                if($request->vision_plan == 'Waived'){
+                    $this->unsyncVisionInsurance($employee);
+                }else{
+                    $this->syncVisionInsurance($employee, $request->vision_coverage_type);
+                }
             }
             // Update vision voucher
             if(!is_null($request->voucher_number)){
@@ -396,8 +410,9 @@ class EmployeeController extends Controller
     {
         $disciplinary = $employee->find($employeeID)->disciplinary()->where('id', $disciplinaryID)->with('employee:id,first_name,last_name')->first();
         $costCenters = $costCenter->all();
-        $salaryPositions = $position->with('employee:first_name,last_name')->where('description', 'salary')->get();
-        // return $disciplinary;
+        $salaryPositions = $position->with(['employee' => function($query){
+            $query->orderBy('last_name', 'asc');
+        }])->where('description', 'salary')->get();
         return view('hr.show-employee-disciplinary', [
             'disciplinary' => $disciplinary,
             'costCenters' => $costCenters,
