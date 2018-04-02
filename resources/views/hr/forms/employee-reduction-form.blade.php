@@ -1,6 +1,7 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-reduction">Reduction</h5>
-        <div class="form-row align-items-center employee-reduction {{ $errors->has('reduction_type') ? '' : ($errors->has('reduction_displacement') ? '' : ($errors->has('reduction_date') ? '' : ($errors->has('reduction_home_cost_center') ? '' : ($errors->has('reduction_bump_to_cost_center') ? '' : ($errors->has('reduction_home_shift') ? '' : ($errors->has('reduction_bump_to_shift') ? '' : ($errors->has('reduction_fiscal_week') ? '' : ($errors->has('reduction_fiscal_year') ? '' : ($errors->has('reduction_comments') ? '' : 'd-none'))))))))) }}">
+        <p class="text-info prevent-print employee-reduction d-none">* indicates a required field if Add Reduction is checked</p>
+        <div class="print-section form-row align-items-center employee-reduction {{ $errors->has('reduction_type') ? '' : ($errors->has('reduction_displacement') ? '' : ($errors->has('reduction_date') ? '' : ($errors->has('reduction_home_cost_center') ? '' : ($errors->has('reduction_bump_to_cost_center') ? '' : ($errors->has('reduction_home_shift') ? '' : ($errors->has('reduction_bump_to_shift') ? '' : ($errors->has('reduction_fiscal_week') ? '' : ($errors->has('reduction_fiscal_year') ? '' : ($errors->has('reduction_comments') ? '' : 'd-none'))))))))) }}">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="reduction_update">Add Reduction</label>
@@ -19,7 +20,7 @@
                 <label class="sr-only" for="reduction_type">Reduction Type</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Reduction Type</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Reduction Type</div>
                     </div>
                     <select class="form-control" name="reduction_type">
                         <option></option>
@@ -34,7 +35,7 @@
                 <label class="sr-only" for="reduction_displacement">Reduction Displacement</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Reduction Displacement</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Reduction Displacement</div>
                     </div>
                     <select class="form-control" name="reduction_displacement">
                         <option></option>
@@ -49,7 +50,7 @@
                 <label class="sr-only" for="reduction_date">Reduction Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Reduction Date</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Reduction Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="reduction_date" value="{{old('reduction_date')}}">
                 </div>
@@ -61,7 +62,7 @@
                 <label class="sr-only" for="reduction_home_cost_center">Home Cost Center</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Home Cost Center</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Home Cost Center</div>
                     </div>
                     <select class="form-control" name="reduction_home_cost_center">
                         <option></option>
@@ -97,7 +98,7 @@
                 <label class="sr-only" for="reduction_home_shift">Home Shift</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Home Shift</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Home Shift</div>
                     </div>
                     <select class="form-control" name="reduction_home_shift">
                         <option></option>
@@ -132,7 +133,7 @@
                 <label class="sr-only" for="reduction_fiscal_week">Fiscal Week</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Fiscal Week</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Fiscal Week</div>
                     </div>
                     <input type="text" class="form-control" name="reduction_fiscal_week" value="{{old('reduction_fiscal_week')}}">
                 </div>
@@ -143,7 +144,7 @@
                 <label class="sr-only" for="reduction_fiscal_year">Fiscal Year</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Fiscal Year</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Fiscal Year</div>
                     </div>
                     <input type="text" class="form-control" name="reduction_fiscal_year" value="{{old('reduction_fiscal_year')}}">
                 </div>
@@ -152,7 +153,7 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Reduction Comments</span>
+                    <span class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Reduction Comments</span>
                 </div>
                 <textarea class="form-control" name="reduction_comments">{{old('reduction_comments')}}</textarea>
             </div>
@@ -180,9 +181,9 @@
         
 
         @if($employee->reduction->isNotEmpty())
-        <hr class="border-info mt-4 mb-4 employee-reduction {{ $errors->has('reduction_type') ? '' : ($errors->has('reduction_displacement') ? '' : ($errors->has('reduction_date') ? '' : ($errors->has('reduction_home_cost_center') ? '' : ($errors->has('reduction_bump_to_cost_center') ? '' : ($errors->has('reduction_home_shift') ? '' : ($errors->has('reduction_bump_to_shift') ? '' : ($errors->has('reduction_fiscal_week') ? '' : ($errors->has('reduction_fiscal_year') ? '' : ($errors->has('reduction_comments') ? '' : 'd-none'))))))))) }}"/>
+        <hr class="print-section border-info mt-4 mb-4 employee-reduction {{ $errors->has('reduction_type') ? '' : ($errors->has('reduction_displacement') ? '' : ($errors->has('reduction_date') ? '' : ($errors->has('reduction_home_cost_center') ? '' : ($errors->has('reduction_bump_to_cost_center') ? '' : ($errors->has('reduction_home_shift') ? '' : ($errors->has('reduction_bump_to_shift') ? '' : ($errors->has('reduction_fiscal_week') ? '' : ($errors->has('reduction_fiscal_year') ? '' : ($errors->has('reduction_comments') ? '' : 'd-none'))))))))) }}"/>
         
-        <table class="table table-hover employee-reduction {{ $errors->has('reduction_type') ? '' : ($errors->has('reduction_displacement') ? '' : ($errors->has('reduction_date') ? '' : ($errors->has('reduction_home_cost_center') ? '' : ($errors->has('reduction_bump_to_cost_center') ? '' : ($errors->has('reduction_home_shift') ? '' : ($errors->has('reduction_bump_to_shift') ? '' : ($errors->has('reduction_fiscal_week') ? '' : ($errors->has('reduction_fiscal_year') ? '' : ($errors->has('reduction_comments') ? '' : 'd-none'))))))))) }}">
+        <table class="print-section table table-hover employee-reduction {{ $errors->has('reduction_type') ? '' : ($errors->has('reduction_displacement') ? '' : ($errors->has('reduction_date') ? '' : ($errors->has('reduction_home_cost_center') ? '' : ($errors->has('reduction_bump_to_cost_center') ? '' : ($errors->has('reduction_home_shift') ? '' : ($errors->has('reduction_bump_to_shift') ? '' : ($errors->has('reduction_fiscal_week') ? '' : ($errors->has('reduction_fiscal_year') ? '' : ($errors->has('reduction_comments') ? '' : 'd-none'))))))))) }}">
             <thead>
                 <tr>
                     <th scope="col">Type</th>

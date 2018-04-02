@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-life-insurance">Life Insurance</h5>
-        <div class="form-row align-items-center employee-life-insurance d-none">
+        <div class="print-section form-row align-items-center employee-life-insurance d-none">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="employee_optional_life">Employee Optional Life</label>
@@ -61,13 +61,13 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-life-insurance mt-4 mb-4 d-none"/>
+        <hr class="print-section half-rule employee-life-insurance mt-4 mb-4 d-none"/>
 
         
 
         @if(isset($employee))
         @foreach($employee->beneficiary as $beneficiary)
-        <div class="form-row align-items-center employee-life-insurance d-none">
+        <div class="print-section form-row align-items-center employee-life-insurance d-none">
 
             <div class="col-xl-4 my-1 d-none">
                 <label class="sr-only" for="beneficiary[{{$loop->index}}][id]">ID</label>
@@ -106,7 +106,7 @@
         @endif
 
         @for($i; $i <= 3; $i++)
-        <div class="form-row align-items-center employee-life-insurance d-none">
+        <div class="print-section form-row align-items-center employee-life-insurance d-none">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="beneficiary[{{$i}}]">Beneficiary</label>
@@ -126,7 +126,7 @@
         </div> <!-- end form row -->
         @endfor
 
-        <div class="form-row align-items-center employee-life-insurance d-none">
+        <div class="print-section form-row align-items-center employee-life-insurance d-none">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="beneficiary_total">Total Percentage</label>

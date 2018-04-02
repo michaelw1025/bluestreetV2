@@ -34,9 +34,6 @@ $('.delete-item').on('click', function(e){
     }
 });
 
-
-
-
 // ----------------SSN validation----------------
 // trap keypress - only allow numbers
 $('.ssn-format').on('keypress', function(event){

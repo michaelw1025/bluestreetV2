@@ -1,6 +1,7 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-dental-insurance">Dental Insurance</h5>
-        <div class="form-row align-items-center employee-dental-insurance {{ $errors->has('dental_plan') ? '' : ($errors->has('dental_coverage_type') ? '' : 'd-none') }}">
+        <p class="text-info prevent-print employee-dental-insurance d-none">* indicates a required field if Dental Plan is any value other than Waived</p>
+        <div class="print-section form-row align-items-center employee-dental-insurance {{ $errors->has('dental_plan') ? '' : ($errors->has('dental_coverage_type') ? '' : 'd-none') }}">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="dental_plan">Dental Plan</label>
@@ -24,7 +25,7 @@
                 <label class="sr-only" for="dental_coverage_type">Coverage Type</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Coverage Type</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Coverage Type</div>
                     </div>
                     @if(isset($dentalPlans))
                     @foreach($dentalPlans as $dentalPlan)

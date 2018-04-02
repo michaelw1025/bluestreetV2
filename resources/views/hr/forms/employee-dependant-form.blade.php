@@ -3,7 +3,7 @@
 
 @if(isset($employee))
 @foreach($employee->dependant as $dependant)
-        <div class="form-row align-items-center employee-dependant {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}">
+        <div class="print-section form-row align-items-center employee-dependant {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="dependant[{{$loop->index}}][update]">Add Dependant</label>
@@ -100,7 +100,7 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-dependant mt-4 mb-4 {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}"/>
+        <hr class="print-section half-rule employee-dependant mt-4 mb-4 {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}"/>
 @endforeach
 @endif
 
@@ -114,7 +114,7 @@
 @endif
 
 @for($i; $i <= 4; $i++)
-        <div class="form-row align-items-center employee-dependant {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}">
+        <div class="print-section form-row align-items-center employee-dependant {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}">
 
 
             <div class="col-xl-4 my-1">
@@ -202,5 +202,5 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-dependant mt-4 mb-4 {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}"/>
+        <hr class="print-section half-rule employee-dependant mt-4 mb-4 {{ $errors->has('dependant.*.*') ? '' : 'd-none' }}"/>
 @endfor

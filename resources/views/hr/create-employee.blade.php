@@ -18,6 +18,12 @@
             <!-- Include employee demographic form -->
             @include('hr.forms.employee-demographic-form')
 
+            <!-- Include job contact form -->
+            @include('hr.forms.employee-job-form')
+
+            <!-- Include wage contact form -->
+            @include('hr.forms.employee-wage-form')
+
             <!-- Include employee spouse form -->
             @include('hr.forms.employee-spouse-form')
 
@@ -29,12 +35,6 @@
 
             <!-- Include employee emergency contact form -->
             @include('hr.forms.employee-emergency-contact-form')
-
-            <!-- Include job contact form -->
-            @include('hr.forms.employee-job-form')
-
-            <!-- Include wage contact form -->
-            @include('hr.forms.employee-wage-form')
 
             <!-- Include health insurance form -->
             @include('hr.forms.employee-health-insurance-form')

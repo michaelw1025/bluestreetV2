@@ -1,6 +1,6 @@
         @if(isset($employee))
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-bidding">Bidding</h5>
-        <div class="form-row align-items-center employee-bidding {{ $errors->has('bid_eligible') ? '' : ($errors->has('bid_eligible_date') ? '' : ($errors->has('bid_eligible_comment') ? '' : 'd-none') ) }}">
+        <div class="print-section form-row align-items-center employee-bidding {{ $errors->has('bid_eligible') ? '' : ($errors->has('bid_eligible_date') ? '' : ($errors->has('bid_eligible_comment') ? '' : 'd-none') ) }}">
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="bid_eligible">Bid Eligible</label>
                 <div class="input-group {{ $employee->bid_eligible == '1' ? 'border border-success' : 'border border-danger' }}">

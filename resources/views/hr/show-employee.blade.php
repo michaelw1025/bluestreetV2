@@ -31,6 +31,12 @@
             <!-- Include employee demographic form -->
             @include('hr.forms.employee-demographic-form')
 
+            <!-- Include job contact form -->
+            @include('hr.forms.employee-job-form')
+
+            <!-- Include wage contact form -->
+            @include('hr.forms.employee-wage-form')
+
             <!-- Include employee spouse form -->
             @include('hr.forms.employee-spouse-form')
 
@@ -42,12 +48,6 @@
 
             <!-- Include employee emergency contact form -->
             @include('hr.forms.employee-emergency-contact-form')
-
-            <!-- Include job contact form -->
-            @include('hr.forms.employee-job-form')
-
-            <!-- Include wage contact form -->
-            @include('hr.forms.employee-wage-form')
 
             <!-- Include health insurance form -->
             @include('hr.forms.employee-health-insurance-form')
@@ -83,7 +83,7 @@
             <div class="col-sm-10 col-md-8 col-lg-6">
                 <input type="text" class="d-none" name="update_employee" value="update">
                 <button type="submit" class="btn btn-warning update-employee" formaction="{{url('hr.employees/'.$employee['id'].'/update')}}">Edit Employee</button>
-                <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.employees/'.$employee['id'].'/delete')}}" name="employee">Delete Employee</button>
+                <!-- <button type="submit" class="btn btn-danger delete-employee" formaction="{{url('hr.employees/'.$employee['id'].'/delete')}}" name="employee">Set As Inactive</button> -->
             </div>
         </div>
 

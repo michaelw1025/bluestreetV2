@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-parking-permit">Parking Permit</h5>
-        <div class="form-row align-items-center employee-parking-permit {{ $errors->has('parking_permit_number') ? '' : 'd-none' }}">
+        <div class="print-section form-row align-items-center employee-parking-permit {{ $errors->has('parking_permit_number') ? '' : 'd-none' }}">
         
         <div class="col-xl-4 my-1">
                 <label class="sr-only" for="parking_permit_number">Permit Number</label>
@@ -17,13 +17,13 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-parking-permit mt-4 mb-4 d-none"/>
+        <hr class="print-section half-rule employee-parking-permit mt-4 mb-4 d-none"/>
 
         
 
         @if(isset($employee))
             @foreach($employee->parkingPermit as $parkingPermit)
-            <div class="form-row align-items-center employee-parking-permit {{ $errors->has('parking_permit_number') ? '' : 'd-none' }}">
+            <div class="print-section form-row align-items-center employee-parking-permit {{ $errors->has('parking_permit_number') ? '' : 'd-none' }}">
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="parking_permit_number_{{$parkingPermit->id}}">{{ $parkingPermit->created_at->format('m-d-Y') }}</label>
                 <div class="input-group">

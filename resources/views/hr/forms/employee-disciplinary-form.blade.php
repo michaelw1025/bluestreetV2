@@ -1,6 +1,7 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-disciplinary">Disciplinary</h5>
-        <div class="form-row align-items-center employee-disciplinary {{ $errors->has('disciplinary_type') ? '' : ($errors->has('disciplinary_level') ? '' : ($errors->has('disciplinary_date') ? '' : ($errors->has('disciplinary_cost_center') ? '' : ($errors->has('disciplinary_issued_by') ? '' : ($errors->has('disciplinary_comments') ? '' : 'd-none'))))) }}">
+        <p class="text-info prevent-print employee-disciplinary d-none">* indicates a required field if Add Disciplinary is checked</p>
+        <div class="print-section form-row align-items-center employee-disciplinary {{ $errors->has('disciplinary_type') ? '' : ($errors->has('disciplinary_level') ? '' : ($errors->has('disciplinary_date') ? '' : ($errors->has('disciplinary_cost_center') ? '' : ($errors->has('disciplinary_issued_by') ? '' : ($errors->has('disciplinary_comments') ? '' : 'd-none'))))) }}">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="disciplinary_update">Add Disciplinary</label>
@@ -19,7 +20,7 @@
                 <label class="sr-only" for="disciplinary_type">Disciplinary Type</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Disciplinary Type</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Disciplinary Type</div>
                     </div>
                     <select class="form-control" name="disciplinary_type">
                         <option></option>
@@ -34,7 +35,7 @@
                 <label class="sr-only" for="disciplinary_level">Disciplinary Level</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Disciplinary Level</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Disciplinary Level</div>
                     </div>
                     <select class="form-control" name="disciplinary_level">
                         <option></option>
@@ -53,7 +54,7 @@
                 <label class="sr-only" for="disciplinary_date">Disciplinary Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Disciplinary Date</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Disciplinary Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="disciplinary_date" value="{{old('disciplinary_date')}}">
                 </div>
@@ -65,7 +66,7 @@
                 <label class="sr-only" for="disciplinary_cost_center">Cost Center</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Cost Center</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Cost Center</div>
                     </div>
                     <select class="form-control" name="disciplinary_cost_center">
                         <option></option>
@@ -83,7 +84,7 @@
                 <label class="sr-only" for="disciplinary_issued_by">Issued By</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Issued By</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Issued By</div>
                     </div>
                     <select class="form-control" name="disciplinary_issued_by">
                         <option></option>
@@ -100,7 +101,7 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Disciplinary Comments</span>
+                    <span class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Disciplinary Comments</span>
                 </div>
                 <textarea class="form-control" name="disciplinary_comments">{{old('disciplinary_comments')}}</textarea>
             </div>
@@ -128,9 +129,9 @@
         
 
         @if($employee->disciplinary->isNotEmpty())
-        <hr class="border-info mt-4 mb-4 employee-disciplinary {{ $errors->has('disciplinary_type') ? '' : ($errors->has('disciplinary_level') ? '' : ($errors->has('disciplinary_date') ? '' : ($errors->has('disciplinary_cost_center') ? '' : ($errors->has('disciplinary_issued_by') ? '' : ($errors->has('disciplinary_comments') ? '' : 'd-none'))))) }}"/>
+        <hr class="print-section border-info mt-4 mb-4 employee-disciplinary {{ $errors->has('disciplinary_type') ? '' : ($errors->has('disciplinary_level') ? '' : ($errors->has('disciplinary_date') ? '' : ($errors->has('disciplinary_cost_center') ? '' : ($errors->has('disciplinary_issued_by') ? '' : ($errors->has('disciplinary_comments') ? '' : 'd-none'))))) }}"/>
         
-        <table class="table table-hover employee-disciplinary {{ $errors->has('disciplinary_type') ? '' : ($errors->has('disciplinary_level') ? '' : ($errors->has('disciplinary_date') ? '' : ($errors->has('disciplinary_cost_center') ? '' : ($errors->has('disciplinary_issued_by') ? '' : ($errors->has('disciplinary_comments') ? '' : 'd-none'))))) }}">
+        <table class="print-section table table-hover employee-disciplinary {{ $errors->has('disciplinary_type') ? '' : ($errors->has('disciplinary_level') ? '' : ($errors->has('disciplinary_date') ? '' : ($errors->has('disciplinary_cost_center') ? '' : ($errors->has('disciplinary_issued_by') ? '' : ($errors->has('disciplinary_comments') ? '' : 'd-none'))))) }}">
             <thead>
                 <tr>
                     <th scope="col">Type</th>

@@ -1,5 +1,6 @@
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-medical-insurance">Medical Insurance</h5>
-        <div class="form-row align-items-center employee-medical-insurance {{ $errors->has('medical_plan') ? '' : ($errors->has('medical_coverage_type.*') ? '' : 'd-none') }}">
+        <p class="text-info prevent-print employee-medical-insurance d-none">* indicates a required field if Medical Plan is any value other than Waived</p>
+        <div class="print-section form-row align-items-center employee-medical-insurance {{ $errors->has('medical_plan') ? '' : ($errors->has('medical_coverage_type.*') ? '' : 'd-none') }}">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="medical_plan">Medical Plan</label>
@@ -23,7 +24,7 @@
                 <label class="sr-only" for="medical_coverage_type">Coverage Type</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Coverage Type</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Coverage Type</div>
                     </div>
                     @if(isset($medicalPlans))
                     @foreach($medicalPlans as $medicalPlan)

@@ -3,7 +3,7 @@
 
 @if(isset($employee))
 @foreach($employee->emergencyContact as $emergencyContact)
-        <div class="form-row align-items-center employee-emergency-contact {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}">
+        <div class="print-section form-row align-items-center employee-emergency-contact {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="emergency_contact[{{$loop->index}}][update]">Add Emergency Contact</label>
@@ -56,7 +56,7 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-emergency-contact mt-4 mb-4 {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}"/>
+        <hr class="print-section half-rule employee-emergency-contact mt-4 mb-4 {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}"/>
 @endforeach
 @endif
 
@@ -70,7 +70,7 @@
 @endif
 
 @for($i; $i <= 3; $i++)
-        <div class="form-row align-items-center employee-emergency-contact {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}">
+        <div class="print-section form-row align-items-center employee-emergency-contact {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}">
 
 
             <div class="col-xl-4 my-1">
@@ -114,5 +114,5 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-emergency-contact mt-4 mb-4 {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}"/>
+        <hr class="print-section half-rule employee-emergency-contact mt-4 mb-4 {{ $errors->has('emergency_contact.*.*') ? '' : 'd-none' }}"/>
 @endfor

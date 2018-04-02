@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-job">Job</h5>
-        <div class="form-row align-items-center employee-job {{ $errors->has('position') ? '' : ($errors->has('job') ? '' : ($errors->has('cost_center') ? '' : ($errors->has('shift') ? '' : 'd-none'))) }}">
+        <div class="print-section form-row align-items-center employee-job {{ $errors->has('position') ? '' : ($errors->has('job') ? '' : ($errors->has('cost_center') ? '' : ($errors->has('shift') ? '' : 'd-none'))) }}">
         
             @if(isset($positions))
             <div class="col-xl-4 my-1">

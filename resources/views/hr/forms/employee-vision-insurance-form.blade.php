@@ -1,6 +1,7 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-vision-insurance">Vision Insurance</h5>
-        <div class="form-row align-items-center employee-vision-insurance {{ $errors->has('vision_plan') ? '' : ($errors->has('vision_coverage_type') ? '' : ($errors->has('voucher_number') ? '' : 'd-none')) }}">
+        <p class="text-info prevent-print employee-vision-insurance d-none">* indicates a required field if Medical Plan is any value other than Waived</p>
+        <div class="print-section form-row align-items-center employee-vision-insurance {{ $errors->has('vision_plan') ? '' : ($errors->has('vision_coverage_type') ? '' : ($errors->has('voucher_number') ? '' : 'd-none')) }}">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="vision_plan">Vision Plan</label>
@@ -24,7 +25,7 @@
                 <label class="sr-only" for="vision_coverage_type">Coverage Type</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Coverage Type</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Coverage Type</div>
                     </div>
                     @if(isset($visionPlans))
                     @foreach($visionPlans as $visionPlan)
@@ -46,8 +47,8 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-vision-insurance mt-4 mb-4 d-none"/>
-        <div class="form-row align-items-center employee-vision-insurance d-none">
+        <hr class="print-section half-rule employee-vision-insurance mt-4 mb-4 d-none"/>
+        <div class="print-section form-row align-items-center employee-vision-insurance d-none">
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="voucher_number">Voucher Number</label>
                 <div class="input-group">

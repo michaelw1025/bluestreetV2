@@ -1,6 +1,6 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-health-insurance">Health Insurance</h5>
-        <div class="form-row align-items-center employee-health-insurance {{ $errors->has('vitality_incentive') ? '' : ($errors->has('flex_spending_amount') ? '' : ($errors->has('hsa_amount') ? '' : ($errors->has('child_care_spending_amount') ? '' : 'd-none'))) }}">
+        <div class="print-section form-row align-items-center employee-health-insurance {{ $errors->has('vitality_incentive') ? '' : ($errors->has('flex_spending_amount') ? '' : ($errors->has('hsa_amount') ? '' : ($errors->has('child_care_spending_amount') ? '' : 'd-none'))) }}">
         
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="vitality_incentive">Vitality Incentive</label>
@@ -55,8 +55,8 @@
         </div> <!-- end form row -->
 @if(isset($employee))
         @if(!empty($employee->spouse))
-        <hr class="half-rule employee-health-insurance mt-4 mb-4 d-none"/>
-        <div class="mt-3 form-row align-items-center employee-health-insurance d-none">
+        <hr class="print-section half-rule employee-health-insurance mt-4 mb-4 d-none"/>
+        <div class="print-section mt-3 form-row align-items-center employee-health-insurance d-none">
 
             <div class="col-xl-12 my-1">
                 <label class="sr-only" for="">Spouse</label>
@@ -103,8 +103,8 @@
         @endif
 
         @if(!empty($employee->dependant))
-        <hr class="half-rule employee-health-insurance mt-4 mb-4 d-none"/>
-        <div class="mt-3 form-row align-items-center employee-health-insurance d-none">
+        <hr class="print-section half-rule employee-health-insurance mt-4 mb-4 d-none"/>
+        <div class="print-section mt-3 form-row align-items-center employee-health-insurance d-none">
         @foreach($employee->dependant as $dependant)
             <div class="col-xl-12 my-1 mt-4">
                 <label class="sr-only" for="">Dependant</label>

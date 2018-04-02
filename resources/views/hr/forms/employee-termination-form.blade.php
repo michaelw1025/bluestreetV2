@@ -1,6 +1,7 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-termination">Termination</h5>
-        <div class="form-row align-items-center employee-termination {{ $errors->has('termination_type') ? '' : ($errors->has('termination_date') ? '' : ($errors->has('termination_last_day') ? '' : ($errors->has('termination_comments') ? '' : 'd-none'))) }}">
+        <p class="text-info prevent-print employee-termination d-none">* indicates a required field if Add Termination is checked</p>
+        <div class="print-section form-row align-items-center employee-termination {{ $errors->has('termination_type') ? '' : ($errors->has('termination_date') ? '' : ($errors->has('termination_last_day') ? '' : ($errors->has('termination_comments') ? '' : 'd-none'))) }}">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="termination_update">Add Termination</label>
@@ -19,7 +20,7 @@
                 <label class="sr-only" for="termination_type">Termination Type</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Termination Type</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Termination Type</div>
                     </div>
                     <select class="form-control" name="termination_type">
                         <option></option>
@@ -34,7 +35,7 @@
                 <label class="sr-only" for="termination_date">Termination Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Termination Date</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Termination Date</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="termination_date" value="{{old('termination_date')}}">
                 </div>
@@ -45,7 +46,7 @@
                 <label class="sr-only" for="termination_last_day">Last Day Worked</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Last Day Worked</div>
+                        <div class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Last Day Worked</div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="termination_last_day" value="{{old('termination_last_day')}}">
                 </div>
@@ -54,7 +55,7 @@
 
             <div class="input-group">
                 <div class="input-group-prepend">
-                    <span class="input-group-text">Termination Comments</span>
+                    <span class="input-group-text"><span class="text-info prevent-print">*</span>&nbsp;Termination Comments</span>
                 </div>
                 <textarea class="form-control" name="termination_comments">{{old('termination_comments')}}</textarea>
             </div>
@@ -82,9 +83,9 @@
         
 
         @if($employee->termination->isNotEmpty())
-        <hr class="border-info mt-4 mb-4 employee-termination {{ $errors->has('termination_type') ? '' : ($errors->has('termination_date') ? '' : ($errors->has('termination_last_day') ? '' : ($errors->has('termination_comments') ? '' : 'd-none'))) }}"/>
+        <hr class="print-section border-info mt-4 mb-4 employee-termination {{ $errors->has('termination_type') ? '' : ($errors->has('termination_date') ? '' : ($errors->has('termination_last_day') ? '' : ($errors->has('termination_comments') ? '' : 'd-none'))) }}"/>
         
-        <table class="table table-hover employee-termination {{ $errors->has('termination_type') ? '' : ($errors->has('termination_date') ? '' : ($errors->has('termination_last_day') ? '' : ($errors->has('termination_comments') ? '' : 'd-none'))) }}">
+        <table class="print-section table table-hover employee-termination {{ $errors->has('termination_type') ? '' : ($errors->has('termination_date') ? '' : ($errors->has('termination_last_day') ? '' : ($errors->has('termination_comments') ? '' : 'd-none'))) }}">
             <thead>
                 <tr>
                     <th scope="col">Type</th>

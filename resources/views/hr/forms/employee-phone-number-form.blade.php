@@ -3,7 +3,7 @@
 
 @if(isset($employee))
 @foreach($employee->phoneNumber as $phoneNumber)
-        <div class="form-row align-items-center employee-phone-number {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}">
+        <div class="print-section form-row align-items-center employee-phone-number {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}">
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="phone_number[{{$loop->index}}][update]">Add Phone Number</label>
@@ -45,7 +45,7 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-phone-number mt-4 mb-4 {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}"/>
+        <hr class="print-section half-rule employee-phone-number mt-4 mb-4 {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}"/>
 @endforeach
 @endif
 
@@ -59,7 +59,7 @@
 @endif
 
 @for($i; $i <= 3; $i++)
-        <div class="form-row align-items-center employee-phone-number {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}">
+        <div class="print-section form-row align-items-center employee-phone-number {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}">
 
 
             <div class="col-xl-4 my-1">
@@ -92,5 +92,5 @@
 
         </div> <!-- end form row -->
 
-        <hr class="half-rule employee-phone-number mt-4 mb-4 {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}"/>
+        <hr class="print-section half-rule employee-phone-number mt-4 mb-4 {{ $errors->has('phone_number.*.*') ? '' : 'd-none' }}"/>
 @endfor

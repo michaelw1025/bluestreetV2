@@ -360,10 +360,11 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($id);
-        if($employee->delete()){
-            \Session::flash('status', 'Employee deleted.');
+        $employee->status = 0;
+        if($employee->save()){
+            \Session::flash('status', 'Employee set as Inactive.');
         }else{
-            \Session::flash('error', 'Employee not deleted.');
+            \Session::flash('error', 'Employee not set as Inactive.');
         }
         return redirect()->route('hr.all-employees', 'active');
     }

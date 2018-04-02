@@ -27,4 +27,7 @@ body{
     .prevent-print{
       display: none !important;
     }
+    .print-section{
+        display: block !important;
+    }
   }
