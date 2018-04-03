@@ -202,7 +202,7 @@
                 </div>
                 @endisset
 
-                <div class="input-group ml-1 mr-1 mt-1 mb-1">
+                <div class="input-group col-xl-12 mt-1 mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Essential Duties and Responsibilities</span>
                     </div>
@@ -210,7 +210,7 @@
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_essential_duties') }}</small>
 
-                <div class="input-group col-xl-6 mt-1">
+                <div class="input-group col-xl-6 mt-1 mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Summary</span>
                     </div>
@@ -218,7 +218,7 @@
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_summary') }}</small>
 
-                <div class="input-group col-xl-6 mt-1">
+                <div class="input-group col-xl-6 mt-1 mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Qualifications</span>
                     </div>
@@ -226,7 +226,7 @@
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_qualification') }}</small>
 
-                <div class="input-group col-xl-6 mt-1">
+                <div class="input-group col-xl-6 mt-1 mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Math Skills</span>
                     </div>
@@ -234,7 +234,7 @@
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_math_skills') }}</small>
 
-                <div class="input-group col-xl-6 mt-1">
+                <div class="input-group col-xl-6 mt-1 mb-1">
                     <div class="input-group-prepend">
                         <span class="input-group-text">Physical Demands</span>
                     </div>
