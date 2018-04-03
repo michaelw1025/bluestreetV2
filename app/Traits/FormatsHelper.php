@@ -70,7 +70,7 @@ trait FormatsHelper
 
     public function getWageStatus($employee)
     {
-        $wageDate = $employee->service_date;
+        $wageDate = $employee->hire_date;
         $today = Carbon::today();
         $employee->wage_difference = $today->diffInMonths($wageDate);
         if($employee->wage_difference > 42){
