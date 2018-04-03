@@ -10,7 +10,7 @@
                     <tr>
                         <th scope="col"></th>
                         @foreach($wageTitle->wageProgression as $wageProgression)
-                        <th scope="col" class="text-center">{{$wageProgression->month}}</th>
+                        <th scope="col" class="text-center {{ isset($employee) ? ($employee->wage_difference == $wageProgression->month ? 'bg-danger text-white' : '') : '' }}">{{$wageProgression->month}}</th>
                         @endforeach
                     </tr>
                 </thead>

@@ -237,3 +237,8 @@ Route::get('hr.query-hire-date', 'HRQueryController@queryHireDate')->name('hr.qu
 Route::get('hr.query-cost-center', 'HRQueryController@queryCostCenter')->name('hr.query-cost-center');
 // Query ssn
 Route::get('hr.query-ssn', 'HRQueryController@querySSN')->name('hr.query-ssn');
+
+// Show create bid form
+Route::get('hr.create-bid', 'BidController@create')->name('hr.create-bid');
+// Store new bid
+Route::post('hr.store-bid', 'BidController@store')->name('hr.store-bid');

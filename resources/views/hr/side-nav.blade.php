@@ -40,7 +40,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Bidding</a>
                 <div class="dropdown-menu">
-                    <a class="dropdown-item" href="">Create Bid</a>
+                    <a class="dropdown-item" href="{{ url('hr.create-bid') }}">Create Bid</a>
                 </div>
             </li>
         </ul>

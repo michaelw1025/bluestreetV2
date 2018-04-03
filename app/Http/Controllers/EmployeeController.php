@@ -179,38 +179,9 @@ class EmployeeController extends Controller
         $salaryPositions = $position->with(['employee' => function($query){
             $query->orderBy('last_name', 'asc');
         }])->where('description', 'salary')->get();
-        if($employee->shift[0]->description == 'Day'){
-            $teamManager = $costCenter->with('employeeDayTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-            if($teamManager->employeeDayTeamManager->isNotEmpty()){
-                $employee->teamManager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
-            }else{
-                $employee->teamManager = null;
-            }
-            $teamLeader = $costCenter->with('employeeDayTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-            if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
-                $employee->teamLeader = $teamLeader->employeeDayTeamLeader[0]->first_name.' '.$teamLeader->employeeDayTeamLeader[0]->last_name;
-            }else{
-                $employee->teamLeader = null;
-            }
-        }elseif($employee->shift[0]->description == 'Night'){
-            $teamManager = $costCenter->with('employeeNightTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-            if($teamManager->employeeNightTeamManager->isNotEmpty()){
-                $employee->teamManager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
-            }else{
-                $employee->teamManager = null;
-            }
-            $teamLeader = $costCenter->with('employeeNightTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-            if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
-                $employee->teamLeader = $teamLeader->employeeNightTeamLeader[0]->first_name.' '.$teamLeader->employeeNightTeamLeader[0]->last_name;
-            }else{
-                $employee->teamLeader = null;
-            }
-        }else{
-            $employee->teamManager = null;
-            $employee->teamLeader = null;
-        }
+        $this->setTeamManagerTeamLeader($employee);
+        $this->getWageStatus($employee);
         $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employee->costCenter[0]->id);
-
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
@@ -224,8 +195,6 @@ class EmployeeController extends Controller
             'accidentalCoverages' => $accidentalCoverages,
             'salaryPositions' => $salaryPositions,
             'staffManager' => $staffManager,
-            'teamManager' => $teamManager,
-            'teamLeader' => $teamLeader,
         ]);
     }
 

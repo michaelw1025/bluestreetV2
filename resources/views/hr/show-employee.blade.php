@@ -13,11 +13,11 @@
         @if($staffManager->employeeStaffManager->isNotEmpty())
             <li class="list-group-item list-group-item-primary h5"><span class="text-Primary">Staff Manager:</span>&nbsp&nbsp  {{$staffManager->employeeStaffManager[0]->first_name}} {{$staffManager->employeeStaffManager[0]->last_name}}</li>
         @endif
-        @if(!is_null($employee->teamManager))
-            <li class="list-group-item list-group-item-info h5"><span class="text-Primary">Team Manager:</span>&nbsp&nbsp  {{$employee->teamManager}}</li>
+        @if(!is_null($employee->team_manager))
+            <li class="list-group-item list-group-item-info h5"><span class="text-Primary">Team Manager:</span>&nbsp&nbsp  {{$employee->team_manager}}</li>
         @endif
-        @if(!is_null($employee->teamLeader))
-            <li class="list-group-item list-group-item-secondary h5"><span class="text-Primary">Team Leader:</span>&nbsp&nbsp  {{$employee->teamLeader}}</li>
+        @if(!is_null($employee->team_leader))
+            <li class="list-group-item list-group-item-secondary h5"><span class="text-Primary">Team Leader:</span>&nbsp&nbsp  {{$employee->team_leader}}</li>
         @endif
         </ul>
         <hr class="border-info"/>

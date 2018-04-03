@@ -37,34 +37,44 @@ trait FormatsHelper
                 if($teamManager->employeeDayTeamManager->isNotEmpty()){
                     $employee->team_manager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
                 }else{
-                    $employee->team_manager = '';
+                    $employee->team_manager = null;
                 }
                 $teamLeader = CostCenter::with('employeeDayTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
                 if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
                     $employee->team_leader = $teamLeader->employeeDayteamLeader[0]->first_name.' '.$teamLeader->employeeDayteamLeader[0]->last_name;
                 }else{
-                    $employee->team_leader = '';
+                    $employee->team_leader = null;
                 }
             }elseif($employee->shift[0]->description == 'Night'){
                 $teamManager = CostCenter::with('employeeNightTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
                 if($teamManager->employeeNightTeamManager->isNotEmpty()){
                     $employee->team_manager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
                 }else{
-                    $employee->team_manager = '';
+                    $employee->team_manager = null;
                 }
                 $teamLeader = CostCenter::with('employeeNightTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
                 if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
                     $employee->team_leader = $teamLeader->employeeNightteamLeader[0]->first_name.' '.$teamLeader->employeeNightteamLeader[0]->last_name;
                 }else{
-                    $employee->team_leader = '';
+                    $employee->team_leader = null;
                 }
             }else{
-                $employee->team_manager = '';
-                $employee->team_leader = '';
+                $employee->team_manager = null;
+                $employee->team_leader = null;
             }
         }else{
-            $employee->team_manager = '';
-            $employee->team_leader = '';
+            $employee->team_manager = null;
+            $employee->team_leader = null;
+        }
+    }
+
+    public function getWageStatus($employee)
+    {
+        $wageDate = $employee->service_date;
+        $today = Carbon::today();
+        $employee->wage_difference = $today->diffInMonths($wageDate);
+        if($employee->wage_difference > 42){
+            $employee->wage_difference = 42;
         }
     }
 
