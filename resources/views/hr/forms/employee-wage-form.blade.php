@@ -1,5 +1,5 @@
 
-        <h5 class="alert alert-info mt-5 toggle-section" id="employee-wage">Wage</h5>
+        <h5 class="alert alert-info mt-5 toggle-section" id="employee-wage">Wage Progression</h5>
         <div class="print-section form-row align-items-center employee-wage {{ $errors->has('progression') ? '' : 'd-none' }}">
         
         @if($wageTitles)

@@ -305,3 +305,25 @@ $('.anniversary-column').on('click', function(){
     $('.'+column).toggleClass('d-none');
 });
 // ----------------end select columns for anniversaries table----------------
+
+// ----------------Clear wage event scale table----------------
+$('.clear-wage-event-scale').on('click', function(){
+    if(!confirm('Please confirm clearing the wage event scale.')){
+        
+    }else{
+        $('.wage-event-scale-date').val('');
+    }
+});
+// ----------------End clear wage event scale table----------------
+
+// ----------------Set wage event scale table----------------
+// $('.wage-event-scale-date').on('change', function(){
+//     var scaleDate = '';
+//     var previousItem = false;
+//     $('.wage-event-scale-date').each(function(){
+//         if($(this).val()){
+
+//         }
+//     })
+// });
+// ----------------End set wage event scale table----------------

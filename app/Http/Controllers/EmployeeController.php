@@ -16,6 +16,7 @@ use App\MedicalPlan;
 use App\DentalPlan;
 use App\VisionPlan;
 use App\AccidentalCoverage;
+use App\WageProgression;
 
 class EmployeeController extends Controller
 {
@@ -162,11 +163,11 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage, $id)
+    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage, WageProgression $wageProgression, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary', 'wageProgression')->find($id);
         $positions = $position->all();
         $jobs = $job->with('wageTitle')->get();
         $costCenters = $costCenter->all();
@@ -181,7 +182,9 @@ class EmployeeController extends Controller
         }])->where('description', 'salary')->get();
         $this->setTeamManagerTeamLeader($employee);
         $this->getWageStatus($employee);
+        $this->setWageEventDate($employee);
         $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employee->costCenter[0]->id);
+        $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
@@ -195,6 +198,7 @@ class EmployeeController extends Controller
             'accidentalCoverages' => $accidentalCoverages,
             'salaryPositions' => $salaryPositions,
             'staffManager' => $staffManager,
+            'wageProgressions' => $wageProgressions,
         ]);
     }
 
@@ -311,6 +315,8 @@ class EmployeeController extends Controller
             if($request->reduction_update){
                 $this->buildReduction($employee, $request);
             }
+            // Sync wage event scale
+            $this->buildWageEventScale($employee, $request);
             \Session::flash('status', 'Employee edited.');
         }else{
             \Session::flash('error', 'Employee not edited.');

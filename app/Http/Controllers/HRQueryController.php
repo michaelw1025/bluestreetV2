@@ -11,6 +11,7 @@ use App\CostCenter;
 use App\Shift;
 use App\Spouse;
 use App\Dependant;
+use App\WageProgression;
 
 class HRQueryController extends Controller
 {
@@ -361,5 +362,32 @@ class HRQueryController extends Controller
 
             ]);
         }
+    }
+
+    /**
+     * Query wage progression
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function queryEmployeesWageProgression(WageProgression $wageProgression)
+    {
+        // $employees = $employee->where('status', '1')->with('wageProgression')->get();
+
+        // $threeMonthEmployees = $employees->filter(function($employee)  {
+        //     foreach($employee->wageProgression as $employeeProgression){
+        //         if($employeeProgression->id == 2){
+        //             return $employee;
+        //             break;
+        //         }
+        //     }
+        // });
+
+        // return $threeMonthEmployees;
+
+        $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
+
+        return view('hr.query-employees-wage-progression', [
+            'wageProgressions' => $wageProgressions,
+        ]);
     }
 }

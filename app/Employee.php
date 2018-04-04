@@ -339,7 +339,12 @@ class Employee extends Model
     {
         return $this->hasMany('App\Reduction')->orderBy('created_at', 'desc');
     }
+    //Wage progression relationship
+    public function wageProgression()
+    {
+        return $this->belongsToMany('App\WageProgression')->withPivot('date');
+    }
 
-    // ----------------Custom Queries----------------
+
     
 }

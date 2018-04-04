@@ -237,6 +237,8 @@ Route::get('hr.query-hire-date', 'HRQueryController@queryHireDate')->name('hr.qu
 Route::get('hr.query-cost-center', 'HRQueryController@queryCostCenter')->name('hr.query-cost-center');
 // Query ssn
 Route::get('hr.query-ssn', 'HRQueryController@querySSN')->name('hr.query-ssn');
+// Query all employees wage progression
+Route::get('hr.query-employees-wage-progression', 'HRQueryController@queryEmployeesWageProgression')->name('hr.query-employees-wage-progression');
 
 // Show create bid form
 Route::get('hr.create-bid', 'BidController@create')->name('hr.create-bid');

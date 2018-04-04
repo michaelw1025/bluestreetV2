@@ -31,11 +31,14 @@
             <!-- Include employee demographic form -->
             @include('hr.forms.employee-demographic-form')
 
-            <!-- Include job contact form -->
+            <!-- Include job form -->
             @include('hr.forms.employee-job-form')
 
-            <!-- Include wage contact form -->
+            <!-- Include wage form -->
             @include('hr.forms.employee-wage-form')
+
+            <!-- Include wage event form -->
+            @include('hr.forms.employee-wage-event-form')
 
             <!-- Include employee spouse form -->
             @include('hr.forms.employee-spouse-form')

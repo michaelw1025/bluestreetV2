@@ -20,7 +20,10 @@ trait FormatsHelper
 {
     public function convertToDate($date)
     {
-        return Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+        // return Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+        // return Carbon::createFromFormat('m-d-Y', $date);
+        $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+        return Carbon::parse($date);
     }
 
     public function convertToDateForSearch($date)
@@ -667,5 +670,33 @@ trait FormatsHelper
     {
         // dd($employee);
         Reduction::where('id', $request->reduction_id)->delete();
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | Wage Event Scale update methods
+    |--------------------------------------------------------------------------
+    */
+    public function buildWageEventScale($employee, $request)
+    {
+        if($request->has('create_employee')){
+
+        }elseif($request->has('update_employee')){
+            $eventArray = array();
+            foreach($request->wage_event as $wageEvent){
+                if(!is_null($wageEvent['date'])){
+                    $wageDate = $this->convertToDate($wageEvent['date']);
+                    $eventArray[$wageEvent['month']] = (['date' => $wageDate]);
+                }
+            }
+            $employee->wageProgression()->sync($eventArray);
+        }
+    }
+
+    public function setWageEventDate($employee)
+    {
+        foreach($employee->wageProgression as $employeeProgression){
+            $employeeProgression->pivot->date = Carbon::parse($employeeProgression->pivot->date);
+        }
     }
 }
