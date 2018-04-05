@@ -304,6 +304,7 @@ class HRQueryController extends Controller
      */
     public function queryEmployeesWageProgression(Request $request, WageProgression $wageProgression, Employee $employee, WageProgressionWageTitle $wageProgressionWageTitle)
     {
+
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
         if($request->has('submit_wage_event_search')){
@@ -346,7 +347,7 @@ class HRQueryController extends Controller
                 ])->get();
                 $this->setTeamManagerTeamLeader($searchEmployee);
             }
-// return $searchEmployees;
+
             return view('hr.query-employees-wage-progression', [
                 'wageProgressions' => $wageProgressions,
                 'searchMonth' => $searchMonth,

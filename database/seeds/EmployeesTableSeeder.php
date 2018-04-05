@@ -162,7 +162,7 @@ class EmployeesTableSeeder extends Seeder
 
         $shiftsArray = array('day', 'night');
 
-        for($i = 0; $i <= 300; $i++)
+        for($i = 0; $i <= 500; $i++)
         {
             $employee = new Employee();
 
@@ -307,6 +307,7 @@ class EmployeesTableSeeder extends Seeder
                 $termination->comments = $faker->text($maxNbChars = 100);
                 $employee->termination()->save($termination);
             }
+
         }
     }
 }
