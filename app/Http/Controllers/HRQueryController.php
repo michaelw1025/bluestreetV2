@@ -23,8 +23,10 @@ class HRQueryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function queryEmployeesAlphabetical(Employee $employee, CostCenter $costCenter)
+    public function queryEmployeesAlphabetical(Request $request, Employee $employee, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employees = $employee->with('costCenter', 'shift', 'job', 'position')->where('status' , '1')->orderBy('last_name', 'asc')->get();
         foreach($employees as $employee){
             $this->setTeamManagerTeamLeader($employee);
@@ -39,8 +41,10 @@ class HRQueryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function queryEmployeesSeniority(Employee $employee, CostCenter $costCenter)
+    public function queryEmployeesSeniority(Request $request, Employee $employee, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employees = $employee->with('costCenter', 'shift', 'job', 'position')->where('status' , '1')->orderBy('hire_date', 'asc')->get();
         foreach($employees as $employee){
             $this->setTeamManagerTeamLeader($employee);
@@ -56,8 +60,10 @@ class HRQueryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function queryReviews(Employee $employee, CostCenter $costCenter)
+    public function queryReviews(Request $request, Employee $employee, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employees = $employee->with('costCenter', 'shift', 'job', 'position')->
         where([['status' , '1'],['thirty_day_review', '0']])->
         orWhere([['status' , '1'],['sixty_day_review', '0']])->orderBy('last_name', 'asc')->get();
@@ -75,8 +81,10 @@ class HRQueryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function queryReductions(Employee $employee, CostCenter $costCenter, Shift $shift)
+    public function queryReductions(Request $request, Employee $employee, CostCenter $costCenter, Shift $shift)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employees = $employee->whereHas('reduction', function($query) {
             $query->where('currently_active', '1');
         })->with(['reduction' => function($query) {
@@ -99,6 +107,8 @@ class HRQueryController extends Controller
      */
     public function queryTurnovers(Request $request, Employee $employee, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_turnover_search)){
             $beginSearchDate = $this->convertToDateForSearch($request->search_begin_date);
             if(!is_null($request->search_end_date)){
@@ -133,6 +143,8 @@ class HRQueryController extends Controller
      */
     public function queryAnniversaries(Request $request, Employee $employee, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_anniversary_search)){
             $searchMonth = $request->search_month;
             $searchYear = $request->search_year;
@@ -174,6 +186,8 @@ class HRQueryController extends Controller
      */
     public function queryBirthdays(Request $request, Employee $employee, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_birthday_search)){
             $searchMonth = $request->search_month;
             $employees = $employee->where('status', '1')->with('costCenter', 'shift')->orderBy('birth_date', 'asc')->get();
@@ -207,6 +221,8 @@ class HRQueryController extends Controller
      */
     public function queryHireDate(Request $request, Employee $employee, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_hire_date_search)){
             $beginSearchDate = $this->convertToDateForSearch($request->search_begin_date);
             if(!is_null($request->search_end_date)){
@@ -239,6 +255,8 @@ class HRQueryController extends Controller
      */
     public function queryCostCenter(Request $request, CostCenter $costCenter)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_cost_center_search)){
             $searchCostCenter = $request->search_cost_center;
             $employeeCostCenters = $costCenter->where('id', $request->search_cost_center)->with(['employeeStaffManager', 'employeeDayTeamManager', 'employeeNightTeamManager', 'employeeDayTeamLeader', 'employeeNightTeamLeader', 'employee' => function($query){
@@ -271,6 +289,8 @@ class HRQueryController extends Controller
      */
     public function querySSN(Request $request, Employee $employee, Spouse $spouse, Dependant $dependant)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_ssn_search)){
             $searchSSN = $request->ssn;
             if($employee->where('ssn', $searchSSN)->first()){
@@ -304,7 +324,8 @@ class HRQueryController extends Controller
      */
     public function queryEmployeesWageProgression(Request $request, WageProgression $wageProgression, Employee $employee, WageProgressionWageTitle $wageProgressionWageTitle)
     {
-
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
         if($request->has('submit_wage_event_search')){
