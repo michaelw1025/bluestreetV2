@@ -20,9 +20,18 @@
                     </div>
                     <select class="form-control" name="search_month" required>
                         <option></option>
-                        @for($i = 1; $i <= 12; $i++)
-                        <option {{ isset($searchMonth) ? ($searchMonth == $i ? 'selected' : '') : old('search_month') }} value="{{$i}}">{{$i}}</option>
-                        @endfor
+                        <option {{ isset($searchMonth) ? ($searchMonth == 1 ? 'selected' : '') : old('search_month') }} value="1">January</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 2 ? 'selected' : '') : old('search_month') }} value="2">February</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 3 ? 'selected' : '') : old('search_month') }} value="3">March</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 4 ? 'selected' : '') : old('search_month') }} value="4">April</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 5 ? 'selected' : '') : old('search_month') }} value="5">May</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 6 ? 'selected' : '') : old('search_month') }} value="6">June</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 7 ? 'selected' : '') : old('search_month') }} value="7">July</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 8 ? 'selected' : '') : old('search_month') }} value="8">August</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 9 ? 'selected' : '') : old('search_month') }} value="9">September</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 10 ? 'selected' : '') : old('search_month') }} value="10">October</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 11 ? 'selected' : '') : old('search_month') }} value="11">November</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 12 ? 'selected' : '') : old('search_month') }} value="12">December</option>
                     </select>
                 </div>
                 <small class="text-danger">{{ $errors->first('search_month') }}</small>
@@ -43,10 +52,10 @@
                 <small class="text-danger">{{ $errors->first('search_year') }}</small>
             </div>
             <div class="col-xl-4 my-1">
-                <label class="sr-only" for="search_progression">Progression</label>
+                <label class="sr-only" for="search_progression">Progression Month</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Progression</div>
+                        <div class="input-group-text">Progression Month</div>
                     </div>
                     <select class="form-control" name="search_progression" required>
                         <option></option>
@@ -59,7 +68,7 @@
                 </div>
                 <small class="text-danger">{{ $errors->first('search_progression') }}</small>
             </div>
-            <button type="submit" class="btn btn-outline-success prevent-print ml-1 mt-1" name="submit_anniversary_search" value="search">Search</button>
+            <button type="submit" class="btn btn-outline-success prevent-print ml-1 mt-1" name="submit_wage_event_search" value="search">Search</button>
         </div>
         </form>
 
@@ -76,6 +85,8 @@
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="shift">Shift</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="job">Job</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="position">Position</button>
+        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="current-wage">Current Wage</button>
+        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="next-wage">Next Wage</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="team-manager">Team Manager</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="team-leader">Team Leader</button>
         <hr class="border-info prevent-print"/>
@@ -97,6 +108,8 @@
                         <th scope="col" class="shift d-none">Shift</th>
                         <th scope="col" class="job d-none">Job</th>
                         <th scope="col" class="position d-none">Position</th>
+                        <th scope="col" class="current-wage d-none">Current Wage</th>
+                        <th scope="col" class="next-wage d-none">Next Wage</th>
                         <th scope="col" class="team-manager d-none">Team Manager</th>
                         <th scope="col" class="team-leader d-none">Team Leader</th>
                     </tr>
@@ -117,6 +130,8 @@
                         <td class="shift d-none">{{$employee->shift[0]->description}}</td>
                         <td class="job d-none">{{$employee->job[0]->description}}</td>
                         <td class="position d-none">{{$employee->position[0]->description}}</td>
+                        <td class="current-wage d-none">{{$employee->wageProgressionWageTitle[0]->amount}}</td>
+                        <td class="next-wage d-none">{{$employee->next_progression[0]->amount}}</td>
                         <td class="team-manager d-none">{{$employee->team_manager}}</td>
                         <td class="team-leader d-none">{{$employee->team_leader}}</td>
                     </tr>

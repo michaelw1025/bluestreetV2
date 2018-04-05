@@ -12,6 +12,7 @@ use App\Shift;
 use App\Spouse;
 use App\Dependant;
 use App\WageProgression;
+use App\WageProgressionWageTitle;
 
 class HRQueryController extends Controller
 {
@@ -26,41 +27,7 @@ class HRQueryController extends Controller
     {
         $employees = $employee->with('costCenter', 'shift', 'job', 'position')->where('status' , '1')->orderBy('last_name', 'asc')->get();
         foreach($employees as $employee){
-            if($employee->shift->isNotEmpty()){
-                if($employee->shift[0]->description == 'Day'){
-                    $teamManager = $costCenter->with('employeeDayTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamManager->employeeDayTeamManager->isNotEmpty()){
-                        $employee->team_manager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
-                    }else{
-                        $employee->team_manager = '';
-                    }
-                    $teamLeader = $costCenter->with('employeeDayTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
-                        $employee->team_leader = $teamLeader->employeeDayteamLeader[0]->first_name.' '.$teamLeader->employeeDayteamLeader[0]->last_name;
-                    }else{
-                        $employee->team_leader = '';
-                    }
-                }elseif($employee->shift[0]->description == 'Night'){
-                    $teamManager = $costCenter->with('employeeNightTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamManager->employeeNightTeamManager->isNotEmpty()){
-                        $employee->team_manager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
-                    }else{
-                        $employee->team_manager = '';
-                    }
-                    $teamLeader = $costCenter->with('employeeNightTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
-                        $employee->team_leader = $teamLeader->employeeNightteamLeader[0]->first_name.' '.$teamLeader->employeeNightteamLeader[0]->last_name;
-                    }else{
-                        $employee->team_leader = '';
-                    }
-                }else{
-                    $employee->team_manager = '';
-                    $employee->team_leader = '';
-                }
-            }else{
-                $employee->team_manager = '';
-                $employee->team_leader = '';
-            }
+            $this->setTeamManagerTeamLeader($employee);
         }
         return view('hr.query-employees-alphabetical', [
             'employees' => $employees,
@@ -76,41 +43,7 @@ class HRQueryController extends Controller
     {
         $employees = $employee->with('costCenter', 'shift', 'job', 'position')->where('status' , '1')->orderBy('hire_date', 'asc')->get();
         foreach($employees as $employee){
-            if($employee->shift->isNotEmpty()){
-                if($employee->shift[0]->description == 'Day'){
-                    $teamManager = $costCenter->with('employeeDayTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamManager->employeeDayTeamManager->isNotEmpty()){
-                        $employee->team_manager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
-                    }else{
-                        $employee->team_manager = '';
-                    }
-                    $teamLeader = $costCenter->with('employeeDayTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
-                        $employee->team_leader = $teamLeader->employeeDayteamLeader[0]->first_name.' '.$teamLeader->employeeDayteamLeader[0]->last_name;
-                    }else{
-                        $employee->team_leader = '';
-                    }
-                }elseif($employee->shift[0]->description == 'Night'){
-                    $teamManager = $costCenter->with('employeeNightTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamManager->employeeNightTeamManager->isNotEmpty()){
-                        $employee->team_manager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
-                    }else{
-                        $employee->team_manager = '';
-                    }
-                    $teamLeader = $costCenter->with('employeeNightTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-                    if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
-                        $employee->team_leader = $teamLeader->employeeNightteamLeader[0]->first_name.' '.$teamLeader->employeeNightteamLeader[0]->last_name;
-                    }else{
-                        $employee->team_leader = '';
-                    }
-                }else{
-                    $employee->team_manager = '';
-                    $employee->team_leader = '';
-                }
-            }else{
-                $employee->team_manager = '';
-                $employee->team_leader = '';
-            }
+            $this->setTeamManagerTeamLeader($employee);
         }
         // return $employees;
         return view('hr.query-employees-seniority', [
@@ -369,25 +302,63 @@ class HRQueryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function queryEmployeesWageProgression(WageProgression $wageProgression)
+    public function queryEmployeesWageProgression(Request $request, WageProgression $wageProgression, Employee $employee, WageProgressionWageTitle $wageProgressionWageTitle)
     {
-        // $employees = $employee->where('status', '1')->with('wageProgression')->get();
-
-        // $threeMonthEmployees = $employees->filter(function($employee)  {
-        //     foreach($employee->wageProgression as $employeeProgression){
-        //         if($employeeProgression->id == 2){
-        //             return $employee;
-        //             break;
-        //         }
-        //     }
-        // });
-
-        // return $threeMonthEmployees;
-
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
-        return view('hr.query-employees-wage-progression', [
-            'wageProgressions' => $wageProgressions,
-        ]);
+        if($request->has('submit_wage_event_search')){
+            // Get current search items
+            $searchMonth = (int)$request->search_month;
+            $searchYear = (int)$request->search_year;
+            $searchProgression = (int)$request->search_progression;
+
+            // Get the searched progression
+            $progression = $wageProgression->find($searchProgression);
+
+            // Get all employees who have a wage event at the searched progression level
+            $employees = $employee->whereHas('wageProgression', function($query) use($progression) {
+                $query->where('wage_progression_id', $progression->id);
+            })->with(['wageProgression' => function($query) use($progression) {
+                $query->where('wage_progression_id', $progression->id);
+            }])->where('status', 1)->get();
+
+            // Filter out employees whose wage event does not match the searched month and year
+            $searchEmployees = $employees->filter(function($employee) use ($searchMonth, $searchYear) {
+                foreach($employee->wageProgression as $employeeProgression){
+                    $employeeProgression->pivot->date = Carbon::parse($employeeProgression->pivot->date);
+                    // Filter by month
+                    if($employeeProgression->pivot->date->month == $searchMonth){
+                        // Filter by year
+                        if($employeeProgression->pivot->date->year == $searchYear){
+                            return $employee;
+                            break;
+                        }
+                    }
+                }
+            });
+
+            // for each employee left eager load the required relationships, get current wage for wage title, and get next wage for wage title
+            foreach($searchEmployees as $searchEmployee){
+                $searchEmployee->loadMissing('costCenter', 'shift', 'job', 'wageProgressionWageTitle');
+                $searchEmployee->next_progression = $wageProgressionWageTitle->where([
+                    ['wage_title_id', $searchEmployee->wageProgressionWageTitle[0]->wage_title_id],
+                    ['wage_progression_id', $progression->id],
+                ])->get();
+                $this->setTeamManagerTeamLeader($searchEmployee);
+            }
+// return $searchEmployees;
+            return view('hr.query-employees-wage-progression', [
+                'wageProgressions' => $wageProgressions,
+                'searchMonth' => $searchMonth,
+                'searchYear' => $searchYear,
+                'searchProgression' => $searchProgression,
+                'employees' => $searchEmployees,
+            ]);
+        }else{
+            return view('hr.query-employees-wage-progression', [
+                'wageProgressions' => $wageProgressions,
+            ]);
+        }
+
     }
 }
