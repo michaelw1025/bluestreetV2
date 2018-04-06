@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Traits\FormatsHelper;
+use App\Exports\WageExport;
+use Excel;
+
 
 use Carbon\Carbon;
 use App\Employee;
@@ -327,6 +330,18 @@ class HRQueryController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
+
+
+
+
+
+       
+        // return Excel::download(new WageExport, 'wages.xlsx');
+
+
+
+
+
 
         if($request->has('submit_wage_event_search')){
             // Get current search items
