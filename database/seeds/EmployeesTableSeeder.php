@@ -162,7 +162,7 @@ class EmployeesTableSeeder extends Seeder
 
         $shiftsArray = array('day', 'night');
 
-        for($i = 0; $i <= 300; $i++)
+        for($i = 0; $i <= 200; $i++)
         {
             $employee = new Employee();
 

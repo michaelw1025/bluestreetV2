@@ -169,6 +169,17 @@
                 <small class="text-danger">{{ $errors->first('reduction_fiscal_year') }}</small>
             </div>
 
+            <div class="col-xl-4 my-1">
+                <label class="sr-only" for="reduction_return_date">Return Date</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">Return Date</div>
+                    </div>
+                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="reduction_return_date" value="{{ isset($reduction->return_date) ? $reduction->return_date->format('m-d-Y') : ''}}">
+                </div>
+                <small class="text-danger">{{ $errors->first('reduction_return_date') }}</small>
+            </div>
+
         <div class="input-group my-1 ml-1 mr-1">
             <div class="input-group-prepend">
                 <span class="input-group-text">Reduction Comments</span>

@@ -48,7 +48,7 @@ class StoreEmployee extends FormRequest
         ];
         if(isset($this->update_employee)){
             $rulesArray += [
-                'ssn' => 'required|unique:spouses|unique:dependants|unique:employees,ssn,'.$this->id,
+                'ssn' => 'required|unique:employees,ssn,'.$this->id,
                 'oracle_number' => 'nullable|unique:employees,oracle_number,'.$this->id,
                 'service_date' => 'required',
                 'status' => 'required',
@@ -59,7 +59,7 @@ class StoreEmployee extends FormRequest
             ];
         }else{
             $rulesArray += [
-                'ssn' => 'required|unique:employees|unique:spouses|unique:dependants',
+                'ssn' => 'required|unique:employees',
                 'oracle_number' => 'nullable|unique:employees',
             ];
         }
@@ -79,11 +79,11 @@ class StoreEmployee extends FormRequest
         foreach($this->spouse as $spouse){
             if(isset($spouse['id'])){
                 $rulesArray += [
-                    'spouse.*.ssn' => 'required_with:spouse.*.update|unique:employees|unique:dependants|unique:spouses,ssn,'.$spouse['id'],
+                    'spouse.*.ssn' => 'required_with:spouse.*.update|unique:spouses,ssn,'.$spouse['id'],
                 ];
             }else{
                 $rulesArray += [
-                    'spouse.*.ssn' => 'required_with:spouse.*.update|unique:employees|unique:dependants|unique:spouses',
+                    'spouse.*.ssn' => 'required_with:spouse.*.update|unique:spouses',
                 ];
             }
         }
@@ -105,11 +105,11 @@ class StoreEmployee extends FormRequest
                 ];
                 if(isset($dependant['id'])){
                     $rulesArray += [
-                        'dependant.'.$d.'.ssn' => 'required_with:dependant.'.$d.'.update|unique:employees,ssn|unique:spouses,ssn|unique:dependants,ssn,'.$dependant['id'],
+                        'dependant.'.$d.'.ssn' => 'required_with:dependant.'.$d.'.update|unique:dependants,ssn,'.$dependant['id'],
                     ];
                 }else{
                     $rulesArray += [
-                        'dependant.'.$d.'.ssn' => 'required_with:dependant.'.$d.'.update|unique:employees,ssn|unique:spouses,ssn|unique:dependants,ssn',
+                        'dependant.'.$d.'.ssn' => 'required_with:dependant.'.$d.'.update|unique:dependants,ssn',
                     ];
                 }
             }

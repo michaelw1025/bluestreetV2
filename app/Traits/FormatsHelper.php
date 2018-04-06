@@ -563,22 +563,9 @@ trait FormatsHelper
     */
     public function buildDisciplinary($employee, $request)
     {
-            // $storeDisciplinaries = array();
-            // foreach($request->disciplinary as $disciplinaryArray){
-            //     if(isset($disciplinaryArray['update'])){
-            //         if(isset($disciplinaryArray['id'])){
-            //             $updateDisciplinary = Disciplinary::find($disciplinaryArray['id']);
-            //             $this->assignDisciplinaryInfo($updateDisciplinary, $disciplinaryArray, $request);
-            //         }else{
-                        $updateDisciplinary = new Disciplinary();
-                        $this->assignDisciplinaryInfo($updateDisciplinary, $request);
-                    // }
-                    $employee->disciplinary()->save($updateDisciplinary);
-                    // $storeDisciplinaries[] = $updateDisciplinary->id;
-            //     }
-            // }
-            // Disciplinary::where('employee_id', $employee->id)->whereNotIn('id', $storeDisciplinaries)->delete();
-
+        $updateDisciplinary = new Disciplinary();
+        $this->assignDisciplinaryInfo($updateDisciplinary, $request);
+        $employee->disciplinary()->save($updateDisciplinary);
     }
     public function assignDisciplinaryInfo($updateDisciplinary, $request)
     {
@@ -659,6 +646,12 @@ trait FormatsHelper
         $updateReduction->fiscal_week = $request->reduction_fiscal_week;
         $updateReduction->fiscal_year = $request->reduction_fiscal_year;
         $updateReduction->comments = $request->reduction_comments;
+        if($request->has('reduction_return_date')){
+            $updateReduction->return_date = $this->convertToDate($request->reduction_return_date);
+        }else{
+            $returnDate = ('01-01-2050');
+            $updateReduction->return_date = $this->convertToDate($returnDate);
+        }
     }
     public function updateReductionInfo($employee, $request)
     {

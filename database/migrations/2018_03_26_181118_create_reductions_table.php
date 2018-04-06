@@ -26,6 +26,7 @@ class CreateReductionsTable extends Migration
             $table->string('bump_to_shift')->nullable();
             $table->string('fiscal_week')->nullable();
             $table->string('fiscal_year')->nullable();
+            $table->dateTime('return_date')->nullable();
             $table->longText('comments');
             $table->timestamps();
         });

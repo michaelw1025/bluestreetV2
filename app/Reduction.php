@@ -22,6 +22,7 @@ class Reduction extends Model
         'home_shift',
         'fiscal_week',
         'fiscal_year',
+        'return_date',
         'comments',
     ];
 
@@ -41,6 +42,7 @@ class Reduction extends Model
      */
     protected $dates = [
         'date',
+        'return_date',
     ];
 
     // ----------------Mutators----------------
@@ -60,6 +62,12 @@ class Reduction extends Model
     public function setDateAttribute($date)
     {
         $this->attributes['date'] = Carbon::parse($date);
+    }
+
+    // Set return date format
+    public function setReturnDateAttribute($date)
+    {
+        $this->attributes['return_date'] = Carbon::parse($date);
     }
 
     // ----------------End Mutators----------------
