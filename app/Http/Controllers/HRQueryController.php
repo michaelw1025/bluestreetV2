@@ -34,7 +34,7 @@ class HRQueryController extends Controller
         foreach($employees as $employee){
             $this->setTeamManagerTeamLeader($employee);
         }
-        return view('hr.query-employees-alphabetical', [
+        return view('hr.queries.query-employees-alphabetical', [
             'employees' => $employees,
         ]);
     }
@@ -53,7 +53,7 @@ class HRQueryController extends Controller
             $this->setTeamManagerTeamLeader($employee);
         }
         // return $employees;
-        return view('hr.query-employees-seniority', [
+        return view('hr.queries.query-employees-seniority', [
             'employees' => $employees,
         ]);
     }
@@ -74,7 +74,7 @@ class HRQueryController extends Controller
             $this->setTeamManagerTeamLeader($employee);
         }
         // return $employees;
-        return view('hr.query-reviews', [
+        return view('hr.queries.query-reviews', [
             'employees' => $employees,
         ]);
     }
@@ -96,7 +96,7 @@ class HRQueryController extends Controller
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
         // return $employees;
-        return view('hr.query-reductions', [
+        return view('hr.queries.query-reductions', [
             'employees' => $employees,
             'costCenters' => $costCenters,
             'shifts' => $shifts,
@@ -126,14 +126,14 @@ class HRQueryController extends Controller
                 $this->setTeamManagerTeamLeader($employee);
             }
             $costCenters = $costCenter->all();
-            return view('hr.query-turnovers', [
+            return view('hr.queries.query-turnovers', [
                 'employees' => $employees,
                 'beginSearchDate' => $beginSearchDate,
                 'endSearchDate' => $endSearchDate,
                 'costCenters' => $costCenters,
             ]);
         }else{
-            return view('hr.query-turnovers', [
+            return view('hr.queries.query-turnovers', [
 
             ]);
         }
@@ -169,14 +169,14 @@ class HRQueryController extends Controller
                 $this->setTeamManagerTeamLeader($yearEmployee);
             }
             $costCenters = $costCenter->all();
-            return view('hr.query-anniversaries', [
+            return view('hr.queries.query-anniversaries', [
                 'employees' => $yearEmployees,
                 'costCenters' => $costCenters,
                 'searchMonth' => $searchMonth,
                 'searchYear' => $searchYear,
             ]);
         }else{
-            return view('hr.query-anniversaries', [
+            return view('hr.queries.query-anniversaries', [
 
             ]);
         }
@@ -205,13 +205,13 @@ class HRQueryController extends Controller
                 $this->setTeamManagerTeamLeader($monthEmployee);
             }
             $costCenters = $costCenter->all();
-            return view('hr.query-birthdays', [
+            return view('hr.queries.query-birthdays', [
                 'employees' => $monthEmployees,
                 'costCenters' => $costCenters,
                 'searchMonth' => $searchMonth,
             ]);
         }else{
-            return view('hr.query-birthdays', [
+            return view('hr.queries.query-birthdays', [
 
             ]);
         }
@@ -238,14 +238,14 @@ class HRQueryController extends Controller
                 $this->setTeamManagerTeamLeader($employee);
             }
             $costCenters = $costCenter->all();
-            return view('hr.query-hire-date', [
+            return view('hr.queries.query-hire-date', [
                 'employees' => $employees,
                 'beginSearchDate' => $beginSearchDate,
                 'endSearchDate' => $endSearchDate,
                 'costCenters' => $costCenters,
             ]);
         }else{
-            return view('hr.query-hire-date', [
+            return view('hr.queries.query-hire-date', [
 
             ]);
         }
@@ -272,21 +272,21 @@ class HRQueryController extends Controller
             }
             $costCenters = $costCenter->all();
             // return $employeeCostCenters;
-            return view('hr.query-cost-center', [
+            return view('hr.queries.query-cost-center', [
                 'employeeCostCenters' => $employeeCostCenters,
                 'costCenters' => $costCenters,
                 'searchCostCenter' => $searchCostCenter,
             ]);
         }else{
             $costCenters = $costCenter->all();
-            return view('hr.query-cost-center', [
+            return view('hr.queries.query-cost-center', [
                 'costCenters' => $costCenters,
             ]);
         }
     }
 
     /**
-     * Query cost center
+     * Query ssn
      *
      * @return \Illuminate\Http\Response
      */
@@ -305,16 +305,16 @@ class HRQueryController extends Controller
                 $dependant = $dependant->where('ssn', $searchSSN)->with('employee')->first();
                 $employee = $employee->find($dependant->employee->id);
             }else{
-                return view('hr.query-ssn', [
+                return view('hr.queries.query-ssn', [
 
                 ]);
             }
-            return view('hr.query-ssn', [
+            return view('hr.queries.query-ssn', [
                 'searchSSN' => $searchSSN,
                 'employee' => $employee,
             ]);
         }else{
-            return view('hr.query-ssn', [
+            return view('hr.queries.query-ssn', [
 
             ]);
         }
@@ -384,7 +384,7 @@ class HRQueryController extends Controller
                 $this->setTeamManagerTeamLeader($searchEmployee);
             }
 
-            return view('hr.query-employees-wage-progression', [
+            return view('hr.queries.query-employees-wage-progression', [
                 'wageProgressions' => $wageProgressions,
                 'searchMonth' => $searchMonth,
                 'searchYear' => $searchYear,
@@ -392,10 +392,37 @@ class HRQueryController extends Controller
                 'employees' => $searchEmployees,
             ]);
         }else{
-            return view('hr.query-employees-wage-progression', [
+            return view('hr.queries.query-employees-wage-progression', [
                 'wageProgressions' => $wageProgressions,
             ]);
         }
 
+    }
+
+    /**
+     * Query bonus hours
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function queryEmployeesBonusHours(Employee $employee)
+    {
+        $now = Carbon::now();
+        $searchYear = $now->copy()->subYears(5)->year;
+
+        // return $searchYear;
+        $employees = $employee->where('status', 1)->get();
+
+        $filteredEmployees = $employees->filter(function($employee) use ($searchYear) {
+            $employeeHireDate = $employee->hire_date;
+            if($employeeHireDate->year <= $searchYear){
+                
+            }
+        });
+
+        return $filteredEmployees;
+
+        return view('hr.queries.query-employees-bonus-hours', [
+        
+        ]);
     }
 }

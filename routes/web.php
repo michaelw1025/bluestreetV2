@@ -217,6 +217,11 @@ Route::get('hr.employee-reduction/{employeeID}/{reductionID}', 'EmployeeControll
 // Update or delete reduction
 Route::post('hr.employee-reduction-update', 'EmployeeController@updateReduction')->name('hr.employee-reduction-update');
 
+/*
+    |--------------------------------------------------------------------------
+    | HR Query routes
+    |--------------------------------------------------------------------------
+*/
 // Query all employees alphabetical
 Route::get('hr.query-employees-alphabetical', 'HRQueryController@queryEmployeesAlphabetical')->name('hr.query-employees-alphabetical');
 // Query all employees seniority
@@ -239,8 +244,35 @@ Route::get('hr.query-cost-center', 'HRQueryController@queryCostCenter')->name('h
 Route::get('hr.query-ssn', 'HRQueryController@querySSN')->name('hr.query-ssn');
 // Query all employees wage progression
 Route::get('hr.query-employees-wage-progression', 'HRQueryController@queryEmployeesWageProgression')->name('hr.query-employees-wage-progression');
+// Query bonus hours
+Route::get('hr.query-employees-bonus-hours', 'HRQueryController@queryEmployeesBonusHours')->name('hr.query-employees-bonus-hours');
 
+/*
+    |--------------------------------------------------------------------------
+    | Bidding routes
+    |--------------------------------------------------------------------------
+*/
 // Show create bid form
 Route::get('hr.create-bid', 'BidController@create')->name('hr.create-bid');
 // Store new bid
 Route::post('hr.store-bid', 'BidController@store')->name('hr.store-bid');
+
+/*
+    |--------------------------------------------------------------------------
+    | Contractor routes
+    |--------------------------------------------------------------------------
+*/
+// Show create contractor form
+Route::get('hr.create-contractor', 'ContractorController@create')->name('hr.create-contractor');
+// Store contractor
+Route::post('hr.store-contractor', 'ContractorController@store')->name('hr.store-contractor');
+// Show Contractor
+Route::get('hr.show-contractor/{id}', 'ContractorController@show')->name('hr.show-contractor');
+// Update selected contractor
+Route::post('hr.contractor/{id}/update', 'ContractorController@update')->name('hr.update-contractor');
+// Delete selected contractor
+Route::post('hr.contractor/{id}/delete', 'ContractorController@destroy');
+// Show create contractor employee form
+Route::get('hr.create-contractor-employee', 'ContractorController@createEmployee')->name('hr.create-contractor-employee');
+// Store contractor employee
+Route::post('hr.store-contractor-employee', 'ContractorController@storeEmployee')->name('hr.store-contractor-employee');

@@ -214,7 +214,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Summary</span>
                     </div>
-                    <textarea class="form-control" name="bid_summary">{{old('bid_summary')}}</textarea>
+                    <textarea class="form-control" name="bid_summary" rows="8">{{old('bid_summary')}}</textarea>
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_summary') }}</small>
 
@@ -222,7 +222,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Qualifications</span>
                     </div>
-                    <textarea class="form-control" name="bid_qualification">{{old('bid_qualification')}}</textarea>
+                    <textarea class="form-control" name="bid_qualification" rows="8">{{old('bid_qualification')}}</textarea>
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_qualification') }}</small>
 
@@ -230,7 +230,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Math Skills</span>
                     </div>
-                    <textarea class="form-control" name="bid_math_skills">{{old('bid_math_skills')}}</textarea>
+                    <textarea class="form-control" name="bid_math_skills" rows="8">{{old('bid_math_skills')}}</textarea>
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_math_skills') }}</small>
 
@@ -238,7 +238,7 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text">Physical Demands</span>
                     </div>
-                    <textarea class="form-control" name="bid_physical_demands">{{old('bid_physical_demands')}}</textarea>
+                    <textarea class="form-control" name="bid_physical_demands" rows="8">{{old('bid_physical_demands')}}</textarea>
                 </div>
                 <small class="text-danger">{{ $errors->first('bid_physical_demands') }}</small>
             
