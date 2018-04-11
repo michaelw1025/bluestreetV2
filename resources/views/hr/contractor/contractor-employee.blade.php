@@ -79,7 +79,7 @@
 
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="contractor_employee_status">Status</label>
-                <div class="input-group ">
+                <div class="input-group border border-dark">
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Status</div>
                     </div>
@@ -110,24 +110,24 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Contact</th>
-                        <th scope="col">Contact Email</th>
-                        <th scope="col">Contact Phone</th>
-                        <th scope="col">GL Ins</th>
-                        <th scope="col">WC Ins</th>
+                        <th scope="col">Contractor</th>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col">Training Completion</th>
+                        <th scope="col">Training Due</th>
+                        <th scope="col">Active</th>
                     </tr>
                 </thead>
                 <tbody>
                 @foreach($contractors as $contractor)
-                    <tr class="clickable-row" data-href="{{ url('hr.show-contractor/'.$contractor->id) }}">
+                    @foreach($contractor->contractorTraining as $contractorEmployee)
+                    <tr class="clickable-row" data-href="{{ url('hr.show-contractor-employee/'.$contractorEmployee->id) }}">
                         <td>{{$contractor->contractor_name}}</td>
-                        <td>{{$contractor->contact_first_name}} {{$contractor->contact_last_name}}</td>
-                        <td>{{$contractor->contact_email}}</td>
-                        <td>{{$contractor->contact_phone_number}}</td>
-                        <td>{{$contractor->general_liability_insurance_date->format('m-d-Y')}}</td>
-                        <td>{{$contractor->work_comp_employment_insurance_date->format('m-d-Y')}}</td>
+                        <td>{{$contractorEmployee->contractor_employee_first_name}} {{$contractorEmployee->contractor_employee_last_name}}</td>
+                        <td>{{$contractorEmployee->training_completion_date->format('m-d-Y')}}</td>
+                        <td>{{$contractorEmployee->re_training_due_date->format('m-d-Y')}}</td>
+                        <td class="{{$contractorEmployee->active == 1 ? '' : 'text-danger'}}">{{$contractorEmployee->active == 1 ? 'Yes' : 'No'}}</td>
                     </tr>
+                    @endforeach
                 @endforeach
                 <tbody>
             </table>

@@ -156,7 +156,7 @@ class ContractorController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $contractors = $contractor->all();
+        $contractors = $contractor->with('contractorTraining')->get();
         return view('hr.contractor.contractor-employee', [
             'contractors' => $contractors,
         ]);
@@ -186,6 +186,74 @@ class ContractorController extends Controller
         }
         
         return redirect('hr.create-contractor-employee');
+    }
 
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function showEmployee(Request $request, Contractor $contractor, ContractorTraining $contractorTraining, $id)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $contractorEmployee = $contractorTraining->with('contractor')->find($id);
+        $contractors = $contractor->all();
+
+        return view('hr.contractor.show-contractor-employee', [
+            'contractorEmployee' => $contractorEmployee,
+            'contractors' => $contractors,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateEmployee(Request $request, Contractor $contractor, ContractorTraining $contractorTraining, $id)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $contractors = $contractor->all();
+        $contractor = $contractor->find($request->contractor_employee_contractors);
+        
+        $contractorEmployee = $contractorTraining->find($id);
+        $contractorEmployee->contractor_employee_first_name = $request->contractor_employee_first_name;
+        $contractorEmployee->contractor_employee_last_name = $request->contractor_employee_last_name;
+        $contractorEmployee->training_completion_date = $this->convertToDate($request->contractor_employee_training_completion_date);
+        $contractorEmployee->re_training_due_date = $this->convertToDate($request->contractor_employee_re_training_due_date);
+        $contractorEmployee->active = $request->contractor_employee_status;
+        if($contractor->contractorTraining()->save($contractorEmployee)){
+            \Session::flash('status', 'Contractor Employee edited.');
+        }else{
+            \Session::flash('error', 'Contractor Employee not edited.');
+        }
+        return view('hr.contractor.show-contractor-employee', [
+            'contractorEmployee' => $contractorEmployee,
+            'contractors' => $contractors,
+        ]);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyEmployee(Request $request, ContractorTraining $contractorTraining, $id)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $contractorEmployee = $contractorTraining->find($id);
+        if($contractorEmployee->delete()){
+            \Session::flash('status', 'Contractor Employee deleted.');
+        }else{
+            \Session::flash('error', 'Contractor Employee not deleted.');
+        }
+        return redirect('hr.create-contractor-employee');
     }
 }

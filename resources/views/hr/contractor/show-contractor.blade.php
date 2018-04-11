@@ -9,16 +9,16 @@
         <hr class="border-info"/>
         @include('layouts.session-messages')
 
-        <h3 class="prevent-print">Add Contractor</h3>
+        <h3 class="prevent-print">Edit Contractor</h3>
         <!-- <form> -->
-        <form method="post" action="" class="prevent-print">
+        <form method="post" action="" class="">
         {{ csrf_field() }}
         <div class="form-row align-items-center">
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="contractor_name">Contractor Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Contractor Name</div>
+                        <div class="input-group-text"><span class="text-danger ">*</span>&nbsp;Contractor Name</div>
                     </div>
                     <input type="text" class="form-control" name="contractor_name" required value="{{ isset($contractor) ? $contractor->contractor_name : old('contractor_name') }}">
                 </div>
@@ -29,7 +29,7 @@
                 <label class="sr-only" for="contact_first_name">Contact First Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Contact First Name</div>
+                        <div class="input-group-text"><span class="text-danger ">*</span>&nbsp;Contact First Name</div>
                     </div>
                     <input type="text" class="form-control" name="contact_first_name" required value="{{ isset($contractor) ? $contractor->contact_first_name : old('contact_first_name') }}">
                 </div>
@@ -40,7 +40,7 @@
                 <label class="sr-only" for="contact_last_name">Contact Last Name</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Contact Last Name</div>
+                        <div class="input-group-text"><span class="text-danger ">*</span>&nbsp;Contact Last Name</div>
                     </div>
                     <input type="text" class="form-control" name="contact_last_name" required value="{{ isset($contractor) ? $contractor->contact_last_name : old('contact_last_name') }}">
                 </div>
@@ -51,7 +51,7 @@
                 <label class="sr-only" for="contact_email">Contact Email</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Contact Email</div>
+                        <div class="input-group-text"><span class="text-danger ">*</span>&nbsp;Contact Email</div>
                     </div>
                     <input type="text" class="form-control" name="contact_email" required value="{{ isset($contractor) ? $contractor->contact_email : old('contact_email') }}">
                 </div>
@@ -62,7 +62,7 @@
                 <label class="sr-only" for="contact_phone_number">Contractor Phone Number</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Contractor Phone Number</div>
+                        <div class="input-group-text"><span class="text-danger ">*</span>&nbsp;Contractor Phone Number</div>
                     </div>
                     <input type="text" class="form-control" name="contact_phone_number" required value="{{ isset($contractor) ? $contractor->contact_phone_number : old('contact_phone_number') }}">
                 </div>

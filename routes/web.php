@@ -276,3 +276,9 @@ Route::post('hr.contractor/{id}/delete', 'ContractorController@destroy');
 Route::get('hr.create-contractor-employee', 'ContractorController@createEmployee')->name('hr.create-contractor-employee');
 // Store contractor employee
 Route::post('hr.store-contractor-employee', 'ContractorController@storeEmployee')->name('hr.store-contractor-employee');
+// Show contractor employee
+Route::get('hr.show-contractor-employee/{id}', 'ContractorController@showEmployee')->name('hr.show-contractor-employee');
+// Update selected contractor employee
+Route::post('hr.contractor-employee/{id}/update', 'ContractorController@updateEmployee')->name('hr.update-contractor-employee');
+// Delete selected contractor employee
+Route::post('hr.contractor-employee/{id}/delete', 'ContractorController@destroyEmployee');
