@@ -406,6 +406,20 @@ class HRQueryController extends Controller
      */
     public function queryEmployeesBonusHours(Employee $employee)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+
+        // Get today's date
+        // Get five years before now
+        // Get all employees with a hire date greater than or equal to five years before now
+        // Check if employee has a disciplinary in any of the previous 4 quarters
+
+
+
+
+
+
+
         $now = Carbon::now();
         $searchYear = $now->copy()->subYears(5)->year;
 
