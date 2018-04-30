@@ -404,39 +404,58 @@ class HRQueryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function queryEmployeesBonusHours(Employee $employee)
+    public function queryEmployeesBonusHours(Request $request, Employee $employee)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
 
-        // Get today's date
-        // Get five years before now
-        // Get all employees with a hire date greater than or equal to five years before now
-        // Check if employee has a disciplinary in any of the previous 4 quarters
-
-
-
-
-
-
-
+        // Today's date
         $now = Carbon::now();
-        $searchYear = $now->copy()->subYears(5)->year;
+        // First day of the current quarter
+        $firstOfCurrentQuarter = $now->firstOfQuarter();
+        // Subtract one day to get a date in the previous quarter
+        $dateInPreviousQuarter = $firstOfCurrentQuarter->copy()->subDay();
+        // Use date in previous quarter to calculate last day of previous quarter - should be the same as dateInPreviousQuarter but calculate to be sure
+        $lastOfPreviousQuarter = $dateInPreviousQuarter->copy()->lastOfQuarter();
+        // Get first day of previous quarter for disciplinary comparison
+        $firstOfPreviousQuarter = $dateInPreviousQuarter->copy()->firstOfQuarter();
+        // Subtract 5 years to get minimum hire date
+        $fiveYearHireDate = $lastOfPreviousQuarter->copy()->subYears(5);
+        // Subtract 3 years from fiveYearHireDate to get the eightYearHireDate
+        $eightYearHireDate = $fiveYearHireDate->copy()->subYears(3);
 
-        // return $searchYear;
-        $employees = $employee->where('status', 1)->get();
+        // Get all employees with a hire date greater than or equal to fiveYearHireDate
+        $employees = $employee->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
 
-        $filteredEmployees = $employees->filter(function($employee) use ($searchYear) {
-            $employeeHireDate = $employee->hire_date;
-            if($employeeHireDate->year <= $searchYear){
-                
+
+        foreach($employees as $employee){
+            if($employee->hire_date <= $eightYearHireDate){
+                // If employee hire date is greater than or equal to 8 years
+                $employee->bonus_years = 8;
+            }else{
+                // If employee hire date is between 5 and 7 years
+                $employee->bonus_years = 5;
+            }
+        }
+
+        $filteredEmployees = $employees->filter(function($employee) use ($lastOfPreviousQuarter, $firstOfPreviousQuarter){
+            if($employee->disciplinary->isEmpty()){
+                return $employee;
+            }else{
+                foreach($employee->disciplinary as $disciplinary){
+                    if($disciplinary->date->between($lastOfPreviousQuarter, $firstOfPreviousQuarter)){
+                        
+                    }else{
+                        return $employee;
+                    }
+                }
             }
         });
 
-        return $filteredEmployees;
+        // return $filteredEmployees;
 
         return view('hr.queries.query-employees-bonus-hours', [
-        
+            'employees' => $filteredEmployees,
         ]);
     }
 }

@@ -8,20 +8,8 @@
         <h1 class="">Alphabetical List Of Employees<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
-        <!-- <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="ssn">SSN</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="hire-date">Hire Date</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="birth-date">Birth Date</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="service-date">Service Date</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="address">Address</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="bid-eligible">Bid Eligible</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="vitality">Vitality</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="cost-center">Cost Center</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="shift">Shift</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="job">Job</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="position">Position</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="team-manager">Team Manager</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="team-leader">Team Leader</button> -->
-        <hr class="border-info prevent-print"/>
+
+        <!-- <hr class="border-info prevent-print"/> -->
 
         @if(isset($employees))
             <table class="table table-sm table-striped table-bordered table-hover">
@@ -29,40 +17,33 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">ID</th>
-                        <!-- <th scope="col" class="ssn d-none">SSN</th>
-                        <th scope="col" class="hire-date d-none">Hire Date</th>
-                        <th scope="col" class="birth-date d-none">Birth Date</th>
-                        <th scope="col" class="service-date d-none">Service Date</th>
-                        <th scope="col" class="address d-none">Address</th>
-                        <th scope="col" class="bid-eligible d-none">Bid Eligible</th>
-                        <th scope="col" class="vitality d-none">Vitality</th>
-                        <th scope="col" class="cost-center d-none">Cost Center</th>
-                        <th scope="col" class="shift d-none">Shift</th>
-                        <th scope="col" class="job d-none">Job</th>
-                        <th scope="col" class="position d-none">Position</th>
-                        <th scope="col" class="team-manager d-none">Team Manager</th>
-                        <th scope="col" class="team-leader d-none">Team Leader</th> -->
+                        <th scope="col">Hire Date</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr class="">
+                        <td colspan="3" class="text-center table-info">5-7 Years</td>
+                    </tr>
                 @foreach($employees as $employee)
+                @if($employee->bonus_years == 5)
                     <tr class="clickable-row" data-href="{{ url('hr.employees/'.$employee->id) }}">
                         <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                         <td>{{$employee->id}}</td>
-                        <!-- <td class="ssn d-none">{{$employee->ssn}}</td>
-                        <td class="hire-date d-none">{{$employee->hire_date->format('m-d-Y')}}</td>
-                        <td class="birth-date d-none">{{$employee->birth_date->format('m-d-Y')}}</td>
-                        <td class="service-date d-none">{{$employee->service_date->format('m-d-Y')}}</td>
-                        <td class="address d-none">{{$employee->address_1}} {{$employee->address_2}}, {{$employee->city}}, {{$employee->state}}, {{$employee->zip_code}}</td>
-                        <td class="bid-eligible d-none">{{$employee->bid_eligible == '0' ? 'No' : 'Yes'}}</td>
-                        <td class="vitality d-none">{{$employee->vitality_incentive == '1' ? 'Yes' : 'No'}}</td>
-                        <td class="cost-center d-none">{{$employee->costCenter[0]->number}}</td>
-                        <td class="shift d-none">{{$employee->shift[0]->description}}</td>
-                        <td class="job d-none">{{$employee->job[0]->description}}</td>
-                        <td class="position d-none">{{$employee->position[0]->description}}</td>
-                        <td class="team-manager d-none">{{$employee->team_manager}}</td>
-                        <td class="team-leader d-none">{{$employee->team_leader}}</td> -->
+                        <td>{{$employee->hire_date->format('m-d-Y')}}</td>
                     </tr>
+                @endif
+                @endforeach
+                    <tr class="">
+                        <td colspan="3" class="text-center table-info">8+ Years</td>
+                    </tr>
+                @foreach($employees as $employee)
+                @if($employee->bonus_years == 8)
+                    <tr class="clickable-row" data-href="{{ url('hr.employees/'.$employee->id) }}">
+                        <td>{{$employee->first_name}} {{$employee->last_name}}</td>
+                        <td>{{$employee->id}}</td>
+                        <td>{{$employee->hire_date->format('m-d-Y')}}</td>
+                    </tr>
+                @endif
                 @endforeach
                 <tbody>
             </table>
