@@ -12,7 +12,7 @@
         <p class="text-danger prevent-print">* indicates a required field</p>
 
         <!-- <form> -->
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <!-- Include employee demographic form -->

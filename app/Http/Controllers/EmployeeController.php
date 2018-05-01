@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Traits\FormatsHelper;
 use App\Http\Requests\StoreEmployee;
+use Illuminate\Support\Facades\Storage;
 
 use App\Employee;
 use App\Position;
@@ -165,6 +166,8 @@ class EmployeeController extends Controller
      */
     public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage, WageProgression $wageProgression, $id)
     {
+        // $file = Storage::url('yqegUCOB1xjlhhYreLzGqeCqZrvoiho5MxqgyJVD.png');
+        // return($file);
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary', 'wageProgression')->find($id);
@@ -185,6 +188,9 @@ class EmployeeController extends Controller
         $this->setWageEventDate($employee);
         $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employee->costCenter[0]->id);
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
+
+        $employee->link = str_replace('public', 'storage' ,$employee->photo_link);
+
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,
@@ -226,7 +232,17 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($id);
-// return $request;
+
+        if($request->hasFile('file')){
+            $path = $request->file('file')->store('public');
+            $employee->photo_link = $path;
+        }else{
+
+        }
+
+        // $path = $request->file('file')->store('public/photos');
+
+        // dd($path);
         $this->buildEmployee($request, $employee);
         if($employee->save()){
             // Update spouse
@@ -507,6 +523,17 @@ class EmployeeController extends Controller
 
         }
         return redirect()->route('hr.employees', $request->employee_id);
+    }
+
+    /**
+     * Get employee photo.
+     *
+     * @param  int  $status
+     * @return \Illuminate\Http\Response
+     */
+    public function employeePhoto(Request $request, Employee $employee)
+    {
+        
     }
 
     

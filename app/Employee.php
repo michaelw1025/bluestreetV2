@@ -35,6 +35,7 @@ class Employee extends Model
         'rehire',
         'bid_eligible',
         'bid_eligible_date',
+        'photo_link',
     ];
 
     /**

@@ -25,9 +25,35 @@
 
         <p class="text-danger prevent-print">* indicates a required field</p>
 
+        <!-- <form method="post" action="" enctype="multipart/form-data">
+            <label>Select Image</label>
+            <input type="file" name="file" id="file">
+            <input type="submit" value="upload" name="submit_photo">
+        </form> -->
+
         <!-- <form> -->
-        <form method="post" action="">
+        <form method="post" action="" enctype="multipart/form-data">
             {{ csrf_field() }}
+
+
+            @if(is_null($employee->photo_link))
+            <div class="form-group ">
+                <div class="input-group input-file" name="file">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default btn-choose" type="button">Choose</button>
+                    </span>
+                    <input type="text" class="form-control" placeholder='Choose a file...' />
+                    <span class="input-group-btn">
+                        <button class="btn btn-warning btn-reset" type="button">Reset</button>
+                    </span>
+                </div>
+            </div>
+            @else
+            <!-- <img src="/{{$employee->link}}"> -->
+            <img src="{{URL::to('/')}}/{{$employee->photo_link}}">
+            @endif
+
+
             <!-- Include employee demographic form -->
             @include('hr.forms.employee-demographic-form')
 

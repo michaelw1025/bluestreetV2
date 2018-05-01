@@ -47,6 +47,7 @@ class CreateEmployeesTable extends Migration
             $table->string('employee_optional_life')->nullable();
             $table->decimal('spouse_optional_life', 8, 2)->nullable();
             $table->decimal('dependant_optional_life', 8, 2)->nullable();
+            $table->string('photo_link')->nullable();
 
             $table->timestamps();
         });
