@@ -189,7 +189,7 @@ class EmployeeController extends Controller
         $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employee->costCenter[0]->id);
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
-        $employee->link = str_replace('public', 'storage' ,$employee->photo_link);
+        $employee->link = '/storage/'.$employee->photo_link;
 
         return view('hr.show-employee', [
             'employee' => $employee,
@@ -235,14 +235,11 @@ class EmployeeController extends Controller
 
         if($request->hasFile('file')){
             $path = $request->file('file')->store('public');
-            $employee->photo_link = $path;
+            $employee->photo_link = $request->file('file')->hashName();
         }else{
 
         }
 
-        // $path = $request->file('file')->store('public/photos');
-
-        // dd($path);
         $this->buildEmployee($request, $employee);
         if($employee->save()){
             // Update spouse
@@ -526,14 +523,23 @@ class EmployeeController extends Controller
     }
 
     /**
-     * Get employee photo.
+     * Delete employee photo.
      *
      * @param  int  $status
      * @return \Illuminate\Http\Response
      */
-    public function employeePhoto(Request $request, Employee $employee)
+    public function destroyPhoto(Request $request, Employee $employee, $id)
     {
-        
+        $employee = $employee->find($id);
+        $photo = $employee->photo_link;
+        $employee->photo_link = null;
+        if($employee->save()){
+            Storage::delete('/public/'.$photo);
+            \Session::flash('status', 'Employee photo deleted.');
+        }else{
+            \Session::flash('error', 'Employee photo not deleted.');
+        }
+        return redirect()->route('hr.employees', $employee->id);
     }
 
     

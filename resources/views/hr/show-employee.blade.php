@@ -22,22 +22,14 @@
         </ul>
         <hr class="border-info"/>
 
-
         <p class="text-danger prevent-print">* indicates a required field</p>
 
-        <!-- <form method="post" action="" enctype="multipart/form-data">
-            <label>Select Image</label>
-            <input type="file" name="file" id="file">
-            <input type="submit" value="upload" name="submit_photo">
-        </form> -->
-
-        <!-- <form> -->
         <form method="post" action="" enctype="multipart/form-data">
             {{ csrf_field() }}
 
 
             @if(is_null($employee->photo_link))
-            <div class="form-group ">
+            <div class="form-group prevent-print">
                 <div class="input-group input-file" name="file">
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-choose" type="button">Choose</button>
@@ -49,8 +41,10 @@
                 </div>
             </div>
             @else
-            <!-- <img src="/{{$employee->link}}"> -->
-            <img src="{{URL::to('/')}}/{{$employee->photo_link}}">
+            <figure class="figure">
+                <img src="{{$employee->link}}" class="img-thumbnail" width="120" height="162">
+                <figcaption class="figure-caption text-right"><a href="{{ url('hr.employee-photo-destroy/'.$employee->id) }}" class="text-info">Delete</a></figcaption>
+            </figure>
             @endif
 
 

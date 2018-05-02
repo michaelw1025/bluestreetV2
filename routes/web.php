@@ -216,6 +216,8 @@ Route::post('hr.employee-termination-update', 'EmployeeController@updateTerminat
 Route::get('hr.employee-reduction/{employeeID}/{reductionID}', 'EmployeeController@showReduction')->name('hr.employee-reduction');
 // Update or delete reduction
 Route::post('hr.employee-reduction-update', 'EmployeeController@updateReduction')->name('hr.employee-reduction-update');
+// Delete employee photo
+Route::get('hr.employee-photo-destroy/{employeeID}', 'EmployeeController@destroyPhoto')->name('hr.employee-photo-destroy');
 
 /*
     |--------------------------------------------------------------------------
