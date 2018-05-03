@@ -32,6 +32,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+
         if($status == 'inactive'){
             $employees = $employee->where('status', 0)->orderBy('last_name', 'asc')->get();
         }else{

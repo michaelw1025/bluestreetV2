@@ -5,7 +5,7 @@
 
     <!-- Content for main window must go within this div -->
     <div class="col mr-sm-3">
-        <h1 class="">Anniversary<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
+        <h1 class="">Anniversary<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button>@if(isset($employees)) <button type="button" class="mr-2 btn btn-success pl- pr-3 float-right btn-lg excel-export prevent-print" onclick="location.href='{{ url('hr.export-employees-anniversary/'.$searchMonth.'/'.$searchYear) }}'">Export To Excel</button> @endif</h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
         <form method="get" action="{{url('hr.query-anniversaries')}}">

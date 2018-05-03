@@ -20,8 +20,6 @@ trait FormatsHelper
 {
     public function convertToDate($date)
     {
-        // return Carbon::createFromFormat('m-d-Y', $date)->toDateString();
-        // return Carbon::createFromFormat('m-d-Y', $date);
         $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
         return Carbon::parse($date);
     }

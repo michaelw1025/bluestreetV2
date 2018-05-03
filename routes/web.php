@@ -284,3 +284,15 @@ Route::get('hr.show-contractor-employee/{id}', 'ContractorController@showEmploye
 Route::post('hr.contractor-employee/{id}/update', 'ContractorController@updateEmployee')->name('hr.update-contractor-employee');
 // Delete selected contractor employee
 Route::post('hr.contractor-employee/{id}/delete', 'ContractorController@destroyEmployee');
+
+/*
+    |--------------------------------------------------------------------------
+    | Excel Exports
+    |--------------------------------------------------------------------------
+*/
+// Export employees by alphabetical
+Route::get('hr.export-employees-alphabetical', 'ExportController@employeesAlphabetical')->name('hr.export-employees-alphabetical');
+// Export employees by seniority
+Route::get('hr.export-employees-seniority', 'ExportController@employeesSeniority')->name('hr.export-employees-seniority');
+// Export employees by anniversary
+Route::get('hr.export-employees-anniversary/{searchMonth}/{searchYear}', 'ExportController@employeesAnniversary')->name('hr.export-employees-anniversary');
