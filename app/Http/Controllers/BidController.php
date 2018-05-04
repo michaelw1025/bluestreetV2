@@ -16,9 +16,10 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
     }
 
     /**
@@ -26,8 +27,11 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Team $team, Job $job, Shift $shift, WageTitle $wageTitle)
+    public function create(Request $request, Team $team, Job $job, Shift $shift, WageTitle $wageTitle)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+
         $year = Carbon::today();
         $teams = $team->all();
         $jobs = $job->with('wageTitle')->get();
@@ -51,6 +55,8 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         return $request;
     }
 
@@ -60,9 +66,10 @@ class BidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
     }
 
     /**
@@ -71,9 +78,10 @@ class BidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -85,7 +93,8 @@ class BidController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -94,8 +103,9 @@ class BidController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 }

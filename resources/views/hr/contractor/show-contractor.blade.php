@@ -93,12 +93,14 @@
             
             
         </div>
+        @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser']))
         <div class="form-group form-row prevent-print">
             <div class="col-sm-10 col-md-8 col-lg-6 mt-1">
                 <button type="submit" class="btn btn-warning" formaction="{{url('hr.contractor/'.$contractor['id'].'/update')}}">Edit Contractor</button>
                 <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.contractor/'.$contractor['id'].'/delete')}}" name="contractor">Delete Contractor</button>
             </div>
         </div>
+        @endif
         </form>
         <!-- </form> -->        
         

@@ -55,9 +55,10 @@ Route::post('admin.roles/{id}/delete', 'RoleController@destroy');
     |--------------------------------------------------------------------------
 */
 // HR home page
-Route::get('hr.home', function(){
-    return view('hr.home');
-})->name('hr.home');
+Route::get('hr.home', 'HRController@index')->name('hr.home');
+// Route::get('hr.home', function(){
+//     return view('hr.home');
+// })->name('hr.home');
 
 // Show all cost centers
 Route::get('hr.cost-centers', 'CostCenterController@index')->name('hr.all-cost-centers');

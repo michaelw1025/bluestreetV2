@@ -46,7 +46,7 @@ class ContractorController extends Controller
     public function store(Request $request, Contractor $contractor)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $newContractor = new Contractor();
         $newContractor->contractor_name = $request->contractor_name;
         $newContractor->contact_first_name = $request->contact_first_name;
@@ -88,7 +88,7 @@ class ContractorController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -101,7 +101,7 @@ class ContractorController extends Controller
     public function update(Request $request, Contractor $contractor, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $updateContractor = $contractor->find($id);
         $updateContractor->contractor_name = $request->contractor_name;
         $updateContractor->contact_first_name = $request->contact_first_name;
@@ -129,7 +129,7 @@ class ContractorController extends Controller
     public function destroy(Request $request, Contractor $contractor, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $destroyContractor = $contractor->find($id);
         if($destroyContractor->delete()){
             \Session::flash('status', 'Contractor deleted.');
@@ -171,7 +171,7 @@ class ContractorController extends Controller
     public function storeEmployee(Request $request, Contractor $contractor, ContractorTraining $contractorTraining)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $contractor = $contractor->find((int)$request->contractor_employee_contractors);
         $contractorEmployee = new ContractorTraining();
         $contractorEmployee->contractor_employee_first_name = $request->contractor_employee_first_name;
@@ -217,7 +217,7 @@ class ContractorController extends Controller
     public function updateEmployee(Request $request, Contractor $contractor, ContractorTraining $contractorTraining, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $contractors = $contractor->all();
         $contractor = $contractor->find($request->contractor_employee_contractors);
         
@@ -247,7 +247,7 @@ class ContractorController extends Controller
     public function destroyEmployee(Request $request, ContractorTraining $contractorTraining, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $contractorEmployee = $contractorTraining->find($id);
         if($contractorEmployee->delete()){
             \Session::flash('status', 'Contractor Employee deleted.');

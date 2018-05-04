@@ -51,7 +51,7 @@ class CostCenterController extends Controller
     public function store(Request $request, CostCenter $costCenter)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
 
         $this->validate($request,[
             'number' => 'required|string|max:255|unique:cost_centers',
@@ -77,7 +77,7 @@ class CostCenterController extends Controller
     public function show(Request $request, CostCenter $costCenter, Position $position, Job $job, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
 
         $costCenter = $costCenter->with(
             'employeeStaffManager:employee_id,first_name,last_name',
@@ -118,8 +118,7 @@ class CostCenterController extends Controller
     public function update(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
-// return $request;
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'number' => 'required|string|max:255|unique:cost_centers,number,'.$id,
             'description' => 'required|string|max:255',
@@ -164,7 +163,7 @@ class CostCenterController extends Controller
     public function destroy(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
 
         $costCenter = $costCenter->find($id);
         if($costCenter->delete()){
