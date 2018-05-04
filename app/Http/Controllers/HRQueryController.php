@@ -49,7 +49,6 @@ class HRQueryController extends Controller
         foreach($employees as $employee){
             $this->setTeamManagerTeamLeader($employee);
         }
-        // return $employees;
         return view('hr.queries.query-employees-seniority', [
             'employees' => $employees,
         ]);
@@ -70,7 +69,6 @@ class HRQueryController extends Controller
         foreach($employees as $employee){
             $this->setTeamManagerTeamLeader($employee);
         }
-        // return $employees;
         return view('hr.queries.query-reviews', [
             'employees' => $employees,
         ]);
@@ -92,7 +90,6 @@ class HRQueryController extends Controller
         }])->orderBy('hire_date', 'asc')->get();
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
-        // return $employees;
         return view('hr.queries.query-reductions', [
             'employees' => $employees,
             'costCenters' => $costCenters,
@@ -110,9 +107,9 @@ class HRQueryController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_turnover_search)){
-            $beginSearchDate = $this->convertToDateForSearch($request->search_begin_date);
+            $beginSearchDate = $this->convertToDate($request->search_begin_date);
             if(!is_null($request->search_end_date)){
-                $endSearchDate = $this->convertToDateForSearch($request->search_end_date);
+                $endSearchDate = $this->convertToDate($request->search_end_date);
             }else{
                 $endSearchDate = Carbon::now();
             }
@@ -130,9 +127,7 @@ class HRQueryController extends Controller
                 'costCenters' => $costCenters,
             ]);
         }else{
-            return view('hr.queries.query-turnovers', [
-
-            ]);
+            return view('hr.queries.query-turnovers');
         }
     }
 
@@ -173,9 +168,7 @@ class HRQueryController extends Controller
                 'searchYear' => $searchYear,
             ]);
         }else{
-            return view('hr.queries.query-anniversaries', [
-
-            ]);
+            return view('hr.queries.query-anniversaries');
         }
     }
 
@@ -208,9 +201,7 @@ class HRQueryController extends Controller
                 'searchMonth' => $searchMonth,
             ]);
         }else{
-            return view('hr.queries.query-birthdays', [
-
-            ]);
+            return view('hr.queries.query-birthdays');
         }
     }
 
@@ -224,9 +215,9 @@ class HRQueryController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_hire_date_search)){
-            $beginSearchDate = $this->convertToDateForSearch($request->search_begin_date);
+            $beginSearchDate = $this->convertToDate($request->search_begin_date);
             if(!is_null($request->search_end_date)){
-                $endSearchDate = $this->convertToDateForSearch($request->search_end_date);
+                $endSearchDate = $this->convertToDate($request->search_end_date);
             }else{
                 $endSearchDate = Carbon::now();
             }
@@ -242,9 +233,7 @@ class HRQueryController extends Controller
                 'costCenters' => $costCenters,
             ]);
         }else{
-            return view('hr.queries.query-hire-date', [
-
-            ]);
+            return view('hr.queries.query-hire-date');
         }
     }
 
@@ -268,7 +257,6 @@ class HRQueryController extends Controller
                 }
             }
             $costCenters = $costCenter->all();
-            // return $employeeCostCenters;
             return view('hr.queries.query-cost-center', [
                 'employeeCostCenters' => $employeeCostCenters,
                 'costCenters' => $costCenters,
@@ -333,17 +321,14 @@ class HRQueryController extends Controller
             $searchMonth = (int)$request->search_month;
             $searchYear = (int)$request->search_year;
             $searchProgression = (int)$request->search_progression;
-
             // Get the searched progression
             $progression = $wageProgression->find($searchProgression);
-
             // Get all employees who have a wage event at the searched progression level
             $employees = $employee->whereHas('wageProgression', function($query) use($progression) {
                 $query->where('wage_progression_id', $progression->id);
             })->with(['wageProgression' => function($query) use($progression) {
                 $query->where('wage_progression_id', $progression->id);
             }])->where('status', 1)->get();
-
             // Filter out employees whose wage event does not match the searched month and year
             $searchEmployees = $employees->filter(function($employee) use ($searchMonth, $searchYear) {
                 foreach($employee->wageProgression as $employeeProgression){
@@ -368,7 +353,6 @@ class HRQueryController extends Controller
                 ])->get();
                 $this->setTeamManagerTeamLeader($searchEmployee);
             }
-
             return view('hr.queries.query-employees-wage-progression', [
                 'wageProgressions' => $wageProgressions,
                 'searchMonth' => $searchMonth,
@@ -381,7 +365,6 @@ class HRQueryController extends Controller
                 'wageProgressions' => $wageProgressions,
             ]);
         }
-
     }
 
     /**
@@ -408,11 +391,8 @@ class HRQueryController extends Controller
         $fiveYearHireDate = $lastOfPreviousQuarter->copy()->subYears(5);
         // Subtract 3 years from fiveYearHireDate to get the eightYearHireDate
         $eightYearHireDate = $fiveYearHireDate->copy()->subYears(3);
-
         // Get all employees with a hire date greater than or equal to fiveYearHireDate
         $employees = $employee->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
-
-
         foreach($employees as $employee){
             if($employee->hire_date <= $eightYearHireDate){
                 // If employee hire date is greater than or equal to 8 years
@@ -422,7 +402,6 @@ class HRQueryController extends Controller
                 $employee->bonus_years = 5;
             }
         }
-
         $filteredEmployees = $employees->filter(function($employee) use ($lastOfPreviousQuarter, $firstOfPreviousQuarter){
             if($employee->disciplinary->isEmpty()){
                 return $employee;
@@ -436,9 +415,6 @@ class HRQueryController extends Controller
                 }
             }
         });
-
-        // return $filteredEmployees;
-
         return view('hr.queries.query-employees-bonus-hours', [
             'employees' => $filteredEmployees,
         ]);

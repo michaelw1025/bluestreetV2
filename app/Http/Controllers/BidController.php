@@ -37,7 +37,6 @@ class BidController extends Controller
         $jobs = $job->with('wageTitle')->get();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('job', 'wageProgression')->get();
-        // return($wageTitles);
         return view('hr.bidding.create-bid', [
             'year' => $year,
             'teams' => $teams,
@@ -57,7 +56,6 @@ class BidController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
-        return $request;
     }
 
     /**

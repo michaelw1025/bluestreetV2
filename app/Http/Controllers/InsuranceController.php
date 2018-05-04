@@ -43,7 +43,7 @@ class InsuranceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createInsuranceCoverage()
+    public function createInsuranceCoverage(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -94,7 +94,7 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editInsuranceCoverage($id)
+    public function editInsuranceCoverage(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -160,7 +160,7 @@ class InsuranceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createMedicalPlan()
+    public function createMedicalPlan(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -213,7 +213,7 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editMedicalPlan($id)
+    public function editMedicalPlan(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -268,23 +268,6 @@ class InsuranceController extends Controller
         return redirect('hr.insurances');
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // ****************************************************************************************
     // --------------------------------Dental Plans--------------------------------
     // ****************************************************************************************
@@ -294,7 +277,7 @@ class InsuranceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createDentalPlan()
+    public function createDentalPlan(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -347,7 +330,7 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editDentalPlan($id)
+    public function editDentalPlan(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -402,29 +385,6 @@ class InsuranceController extends Controller
         return redirect('hr.insurances');
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // ****************************************************************************************
     // --------------------------------Vision Plans--------------------------------
     // ****************************************************************************************
@@ -434,7 +394,7 @@ class InsuranceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createVisionPlan()
+    public function createVisionPlan(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -487,7 +447,7 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editVisionPlan($id)
+    public function editVisionPlan(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -542,15 +502,6 @@ class InsuranceController extends Controller
         return redirect('hr.insurances');
     }
 
-
-
-
-
-
-
-
-
-
     // ****************************************************************************************
     // --------------------------------Accidental Coverage Types--------------------------------
     // ****************************************************************************************
@@ -560,7 +511,7 @@ class InsuranceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createAccidentalCoverage()
+    public function createAccidentalCoverage(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -611,7 +562,7 @@ class InsuranceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function editAccidentalCoverage($id)
+    public function editAccidentalCoverage(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);

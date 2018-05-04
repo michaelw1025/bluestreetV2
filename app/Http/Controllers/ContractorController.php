@@ -200,7 +200,6 @@ class ContractorController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $contractorEmployee = $contractorTraining->with('contractor')->find($id);
         $contractors = $contractor->all();
-
         return view('hr.contractor.show-contractor-employee', [
             'contractorEmployee' => $contractorEmployee,
             'contractors' => $contractors,
@@ -220,7 +219,6 @@ class ContractorController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $contractors = $contractor->all();
         $contractor = $contractor->find($request->contractor_employee_contractors);
-        
         $contractorEmployee = $contractorTraining->find($id);
         $contractorEmployee->contractor_employee_first_name = $request->contractor_employee_first_name;
         $contractorEmployee->contractor_employee_last_name = $request->contractor_employee_last_name;

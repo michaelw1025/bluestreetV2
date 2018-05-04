@@ -34,7 +34,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
@@ -62,7 +62,6 @@ class UserController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $user = $user->with('role')->find($id);
         $roles = $role->all();
         return view('admin.show-user', [
@@ -77,7 +76,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
@@ -94,7 +93,6 @@ class UserController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $this->validate($request,[
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
@@ -123,7 +121,6 @@ class UserController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $user = $user->find($id);
         $user->role()->sync([]);
 

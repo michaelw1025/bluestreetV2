@@ -25,9 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home');
     |--------------------------------------------------------------------------
 */
 // Admin home page
-Route::get('admin.index', function(){
-    return view('admin.index');
-})->name('admin.index');
+Route::get('admin.index', 'AdminController@index')->name('admin.index');
 
 // Show all site users
 Route::get('admin.users', 'UserController@index')->name('admin.all-users');
@@ -56,9 +54,6 @@ Route::post('admin.roles/{id}/delete', 'RoleController@destroy');
 */
 // HR home page
 Route::get('hr.home', 'HRController@index')->name('hr.home');
-// Route::get('hr.home', function(){
-//     return view('hr.home');
-// })->name('hr.home');
 
 // Show all cost centers
 Route::get('hr.cost-centers', 'CostCenterController@index')->name('hr.all-cost-centers');

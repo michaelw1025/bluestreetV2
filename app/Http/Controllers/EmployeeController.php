@@ -34,10 +34,13 @@ class EmployeeController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
 
         if($status == 'inactive'){
+            // Search all inactive
             $employees = $employee->where('status', 0)->orderBy('last_name', 'asc')->get();
         }else{
+            // Search all active
             $employees = $employee->where('status', 1)->orderBy('last_name', 'asc')->get();
         }
+        // Determines whether the employee search button searches active or inactive employees
         $routeName = $request->path();
         return view('hr.employees', [
             'employees' => $employees,
@@ -63,7 +66,6 @@ class EmployeeController extends Controller
         $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
         $visionPlans = $visionPlan->with('insuranceCoverage')->get();
         $accidentalCoverages = $accidentalCoverage->all();
-        // return $dentalPlans;
         return view('hr.create-employee', [
             'positions' => $positions,
             'jobs' => $jobs,
@@ -167,8 +169,6 @@ class EmployeeController extends Controller
      */
     public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage, WageProgression $wageProgression, $id)
     {
-        // $file = Storage::url('yqegUCOB1xjlhhYreLzGqeCqZrvoiho5MxqgyJVD.png');
-        // return($file);
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary', 'wageProgression')->find($id);
@@ -369,16 +369,15 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $routeName = $request->path();
-
         if(!is_null($request->search_last_name)){
-            $employees = $employee->where('last_name', $request->search_last_name)->get();
+            $employees = $employee->where('last_name', 'LIKE', '%'.$request->search_last_name.'%')->get();
         }elseif(!is_null($request->search_ssn)){
             $employees = $employee->where('ssn', $request->search_ssn)->get();
         }elseif(!is_null($request->search_birth_date)){
-            $date = $this->convertToDateForSearch($request->search_birth_date);
+            $date = $this->convertToDate($request->search_birth_date);
             $employees = $employee->where('birth_date', $date)->get();
         }elseif(!is_null($request->search_hire_date)){
-            $date = $this->convertToDateForSearch($request->search_hire_date);
+            $date = $this->convertToDate($request->search_hire_date);
             $employees = $employee->where('hire_date', $date)->get();
         }else{
             $employees = '';
@@ -396,8 +395,10 @@ class EmployeeController extends Controller
      * @param  int  $status
      * @return \Illuminate\Http\Response
      */
-    public function showDisciplinary(Employee $employee, CostCenter $costCenter, Position $position, $employeeID, $disciplinaryID)
+    public function showDisciplinary(Request $request, Employee $employee, CostCenter $costCenter, Position $position, $employeeID, $disciplinaryID)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $disciplinary = $employee->find($employeeID)->disciplinary()->where('id', $disciplinaryID)->with('employee:id,first_name,last_name')->first();
         $costCenters = $costCenter->all();
         $salaryPositions = $position->with(['employee' => function($query){
@@ -418,7 +419,8 @@ class EmployeeController extends Controller
      */
     public function updateDisciplinary(Request $request, Employee $employee)
     {
-        // return $request;
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($request->employee_id);
         if($request->has('disciplinary_update')){
             $request->validate([
@@ -444,8 +446,10 @@ class EmployeeController extends Controller
      * @param  int  $status
      * @return \Illuminate\Http\Response
      */
-    public function showTermination(Employee $employee, $employeeID, $terminationID)
+    public function showTermination(Request $request, Employee $employee, $employeeID, $terminationID)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $termination = $employee->find($employeeID)->termination()->where('id', $terminationID)->with('employee:id,first_name,last_name')->first();
         return view('hr.show-employee-termination', [
             'termination' => $termination,
@@ -460,7 +464,8 @@ class EmployeeController extends Controller
      */
     public function updateTermination(Request $request, Employee $employee)
     {
-        // return $request;
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($request->employee_id);
         if($request->has('termination_update')){
             $request->validate([
@@ -484,8 +489,10 @@ class EmployeeController extends Controller
      * @param  int  $status
      * @return \Illuminate\Http\Response
      */
-    public function showReduction(Employee $employee, CostCenter $costCenter, Shift $shift, $employeeID, $reductionID)
+    public function showReduction(Request $request, Employee $employee, CostCenter $costCenter, Shift $shift, $employeeID, $reductionID)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $reduction = $employee->find($employeeID)->reduction()->where('id', $reductionID)->with('employee:id,first_name,last_name')->first();
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
@@ -504,7 +511,8 @@ class EmployeeController extends Controller
      */
     public function updateReduction(Request $request, Employee $employee)
     {
-        // return $request;
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($request->employee_id);
         if($request->has('update_reduction')){
             $request->validate([
@@ -531,6 +539,8 @@ class EmployeeController extends Controller
      */
     public function destroyPhoto(Request $request, Employee $employee, $id)
     {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->find($id);
         $photo = $employee->photo_link;
         $employee->photo_link = null;

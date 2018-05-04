@@ -52,7 +52,6 @@ class CostCenterController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
-
         $this->validate($request,[
             'number' => 'required|string|max:255|unique:cost_centers',
             'description' => 'required|string|max:255',
@@ -78,7 +77,6 @@ class CostCenterController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $costCenter = $costCenter->with(
             'employeeStaffManager:employee_id,first_name,last_name',
             'employeeDayTeamManager:employee_id,first_name,last_name',
@@ -89,7 +87,6 @@ class CostCenterController extends Controller
         $salaryPositions = $position->with('employee:first_name,last_name')->where('description', 'salary')->get();
         $salaryJobs = $job->with('employee:first_name,last_name')->where('description', 'specialist operations')->get();
         $salaryEmployees = $salaryPositions->concat($salaryJobs);
-        // return $salaryJobs;
         return view('hr.show-cost-center', [
             'costCenter' => $costCenter,
             'salaryEmployees' => $salaryEmployees,
@@ -164,13 +161,17 @@ class CostCenterController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
-
         $costCenter = $costCenter->find($id);
         if($costCenter->delete()){
+            // Clear staff manager for deleted cost center
             $costCenter->employeeStaffManager()->sync([]);
+            // Clear day team manager for deleted cost center
             $costCenter->employeeDayTeamManager()->sync([]);
+            // Clear night team manager for deleted cost center
             $costCenter->employeeNightTeamManager()->sync([]);
+            // Clear day team leader for deleted cost center
             $costCenter->employeeDayTeamLeader()->sync([]);
+            // Clear night team leader for deleted cost center
             $costCenter->employeeNightTeamLeader()->sync([]);
             \Session::flash('status', 'Cost Center deleted.');
         }else{

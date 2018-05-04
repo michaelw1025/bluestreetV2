@@ -16,7 +16,6 @@ class RoleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $roles = $role->all();
         return view('admin.roles', [
             'roles' => $roles,
@@ -44,12 +43,10 @@ class RoleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $this->validate($request,[
             'name' => 'required|string|max:255|unique:roles',
             'description' => 'required|string|max:255',
         ]);
-
         $role = new Role();
         $role->name = $request->name;
         $role->description = $request->description;
@@ -71,7 +68,6 @@ class RoleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $role = $role->find($id);
         return view('admin.show-role', [
             'role' => $role,
@@ -101,7 +97,6 @@ class RoleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $this->validate($request,[
             'name' => 'required|string|max:255|unique:roles,name,'.$id,
             'description' => 'required|string|max:255',
@@ -127,7 +122,6 @@ class RoleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin']);
-
         $role = $role->find($id);
         if($role->delete()){
             \Session::flash('status', 'Role deleted.');

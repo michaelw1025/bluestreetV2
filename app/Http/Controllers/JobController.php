@@ -33,7 +33,7 @@ class JobController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -49,7 +49,6 @@ class JobController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:jobs',
         ]);
@@ -64,7 +63,6 @@ class JobController extends Controller
             \Session::flash('error', 'Job not created.');
             return redirect()->back();
         }
-        
     }
 
     /**
@@ -77,7 +75,6 @@ class JobController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $job = $job->with('position', 'wageTitle')->find($id);
         $positions = $position->all();
         $wageTitles = $wageTitle->all();
@@ -94,7 +91,7 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -111,7 +108,6 @@ class JobController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:jobs,description,'.$id,
         ]);
@@ -137,7 +133,6 @@ class JobController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $job = $job->find($id);
         $job->position()->sync([]);
         $job->wageTitle()->sync([]);

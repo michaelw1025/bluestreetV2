@@ -24,12 +24,6 @@ trait FormatsHelper
         return Carbon::parse($date);
     }
 
-    public function convertToDateForSearch($date)
-    {
-        $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
-        return Carbon::parse($date);
-    }
-
     public function setTeamManagerTeamLeader($employee)
     {
         if($employee->shift->isNotEmpty()){
@@ -478,10 +472,6 @@ trait FormatsHelper
     {
         $updateVoucher->voucher_number = $voucherNumber;
     }
-    // public function deleteVisionVoucher($employee)
-    // {
-    //     $employee->visionVoucher()->delete();
-    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -549,10 +539,6 @@ trait FormatsHelper
     {
         $updateParkingPermit->number = $parkingPermitNumber;
     }
-    // public function deleteVisionVoucher($employee)
-    // {
-    //     $employee->visionVoucher()->delete();
-    // }
 
     /*
     |--------------------------------------------------------------------------
@@ -582,7 +568,6 @@ trait FormatsHelper
     }
     public function deleteDisciplinary($employee, $request)
     {
-        // dd($employee);
         Disciplinary::where('id', $request->disciplinary_id)->delete();
     }
 
@@ -612,7 +597,6 @@ trait FormatsHelper
     }
     public function deleteTermination($employee, $request)
     {
-        // dd($employee);
         Termination::where('id', $request->termination_id)->delete();
     }
 
@@ -659,7 +643,6 @@ trait FormatsHelper
     }
     public function deleteReduction($employee, $request)
     {
-        // dd($employee);
         Reduction::where('id', $request->reduction_id)->delete();
     }
 
