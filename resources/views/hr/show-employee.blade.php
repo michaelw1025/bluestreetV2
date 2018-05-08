@@ -43,7 +43,7 @@
             @else
             <figure class="figure">
                 <img src="{{$employee->link}}" class="img-thumbnail" width="200" height="200">
-                <figcaption class="figure-caption text-right"><a href="{{ url('hr.employee-photo-destroy/'.$employee->id) }}" class="text-info">Delete</a></figcaption>
+                <figcaption class="figure-caption text-right prevent-print"><a href="{{ url('hr.employee-photo-destroy/'.$employee->id) }}" class="text-info">Delete</a></figcaption>
             </figure>
             @endif
 
