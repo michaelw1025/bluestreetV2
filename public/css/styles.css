@@ -2,7 +2,6 @@ body{
     margin-top: 60px;
 }
 
-
 .home-jumbotron{
     position: absolute;
     top: 50%;
@@ -19,6 +18,7 @@ body{
 .clickable-row:hover, .toggle-section:hover{
     cursor: pointer;
 }
+
 
 @media print{
     body{
