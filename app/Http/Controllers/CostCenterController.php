@@ -161,22 +161,22 @@ class CostCenterController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
-        $costCenter = $costCenter->find($id);
-        if($costCenter->delete()){
-            // Clear staff manager for deleted cost center
-            $costCenter->employeeStaffManager()->sync([]);
-            // Clear day team manager for deleted cost center
-            $costCenter->employeeDayTeamManager()->sync([]);
-            // Clear night team manager for deleted cost center
-            $costCenter->employeeNightTeamManager()->sync([]);
-            // Clear day team leader for deleted cost center
-            $costCenter->employeeDayTeamLeader()->sync([]);
-            // Clear night team leader for deleted cost center
-            $costCenter->employeeNightTeamLeader()->sync([]);
-            \Session::flash('status', 'Cost Center deleted.');
-        }else{
-            \Session::flash('error', 'Cost Center not deleted.');
-        }
+        // $costCenter = $costCenter->find($id);
+        // if($costCenter->delete()){
+        //     // Clear staff manager for deleted cost center
+        //     $costCenter->employeeStaffManager()->sync([]);
+        //     // Clear day team manager for deleted cost center
+        //     $costCenter->employeeDayTeamManager()->sync([]);
+        //     // Clear night team manager for deleted cost center
+        //     $costCenter->employeeNightTeamManager()->sync([]);
+        //     // Clear day team leader for deleted cost center
+        //     $costCenter->employeeDayTeamLeader()->sync([]);
+        //     // Clear night team leader for deleted cost center
+        //     $costCenter->employeeNightTeamLeader()->sync([]);
+        //     \Session::flash('status', 'Cost Center deleted.');
+        // }else{
+        //     \Session::flash('error', 'Cost Center not deleted.');
+        // }
         return redirect('hr.cost-centers');
     }
 }

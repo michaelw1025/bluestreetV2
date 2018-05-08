@@ -118,12 +118,12 @@ class TeamController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $team = $team->find($id);
-        if($team->delete()){
-            \Session::flash('status', 'Team deleted.');
-        }else{
-            \Session::flash('error', 'Team not deleted.');
-        }
+        // $team = $team->find($id);
+        // if($team->delete()){
+        //     \Session::flash('status', 'Team deleted.');
+        // }else{
+        //     \Session::flash('error', 'Team not deleted.');
+        // }
         return redirect('hr.teams');
     }
 }

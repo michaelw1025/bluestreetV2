@@ -25,7 +25,7 @@
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.shifts/'.$shift['id'].'/update')}}">Edit Shift</button>
-                    <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.shifts/'.$shift['id'].'/delete')}}" name="shift">Delete Shift</button>
+                    <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.shifts/'.$shift['id'].'/delete')}}" name="shift">Delete Shift</button> -->
                 </div>
             </div>
         </form>

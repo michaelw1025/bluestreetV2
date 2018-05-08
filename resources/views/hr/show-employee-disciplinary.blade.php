@@ -105,10 +105,10 @@
                     <div class="input-group-text">Issued By</div>
                 </div>
                 <select class="form-control" name="disciplinary_issued_by">
-                    <option></option>
+                    <option value="@if(!empty($disciplinary->issued_by)) {{$disciplinary->issued_by}} @endif">@if(!empty($disciplinary->issued_by_name)) {{$disciplinary->issued_by_name}} @endif</option>
                     @foreach($salaryPositions as $salaryPosition)
                     @foreach($salaryPosition->employee as $salaryEmployee)
-                    <option {{$disciplinary->issued_by == $salaryEmployee->pivot->employee_id ? 'selected' : ''}} value="{{$salaryEmployee->pivot->employee_id}}">{{$salaryEmployee->first_name}} {{$salaryEmployee->last_name}}</option>
+                    <option value="{{$salaryEmployee->pivot->employee_id}}">{{$salaryEmployee->first_name}} {{$salaryEmployee->last_name}}</option>
                     @endforeach
                     @endforeach
                 </select>

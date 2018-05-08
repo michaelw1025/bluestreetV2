@@ -118,12 +118,12 @@ class WageProgressionController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $wageProgression = $wageProgression->find($id);
-        if($wageProgression->delete()){
-            \Session::flash('status', 'Wage Progression deleted.');
-        }else{
-            \Session::flash('error', 'Wage Progression not deleted.');
-        }
+        // $wageProgression = $wageProgression->find($id);
+        // if($wageProgression->delete()){
+        //     \Session::flash('status', 'Wage Progression deleted.');
+        // }else{
+        //     \Session::flash('error', 'Wage Progression not deleted.');
+        // }
         return redirect('hr.wage-progressions');
     }
 }

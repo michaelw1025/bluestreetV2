@@ -64,7 +64,7 @@ Route::get('hr.cost-centers/{id}', 'CostCenterController@show')->name('hr.cost-c
 // Update selected cost center
 Route::post('hr.cost-centers/{id}/update', 'CostCenterController@update')->name('hr.update-cost-center');
 // Delete selected cost center
-Route::post('hr.cost-centers/{id}/delete', 'CostCenterController@destroy');
+// Route::post('hr.cost-centers/{id}/delete', 'CostCenterController@destroy');
 
 // Show all jobs
 Route::get('hr.jobs', 'JobController@index')->name('hr.all-jobs');
@@ -75,7 +75,7 @@ Route::get('hr.jobs/{id}', 'JobController@show')->name('hr.jobs');
 // Update selected job
 Route::post('hr.jobs/{id}/update', 'JobController@update')->name('hr.update-job');
 // Delete selected job
-Route::post('hr.jobs/{id}/delete', 'JobController@destroy');
+// Route::post('hr.jobs/{id}/delete', 'JobController@destroy');
 
 // Show all positions
 Route::get('hr.positions', 'PositionController@index')->name('hr.all-positions');
@@ -86,7 +86,7 @@ Route::get('hr.positions/{id}', 'PositionController@show')->name('hr.positions')
 // Update selected position
 Route::post('hr.positions/{id}/update', 'PositionController@update')->name('hr.update-position');
 // Delete selected position
-Route::post('hr.positions/{id}/delete', 'PositionController@destroy');
+// Route::post('hr.positions/{id}/delete', 'PositionController@destroy');
 
 // Show all shifts
 Route::get('hr.shifts', 'ShiftController@index')->name('hr.all-shifts');
@@ -97,7 +97,7 @@ Route::get('hr.shifts/{id}', 'ShiftController@show')->name('hr.shifts');
 // Update selected shift
 Route::post('hr.shifts/{id}/update', 'ShiftController@update')->name('hr.update-shift');
 // Delete selected shift
-Route::post('hr.shifts/{id}/delete', 'ShiftController@destroy');
+// Route::post('hr.shifts/{id}/delete', 'ShiftController@destroy');
 
 // Show all teams
 Route::get('hr.teams', 'TeamController@index')->name('hr.all-teams');
@@ -108,7 +108,7 @@ Route::get('hr.teams/{id}', 'TeamController@show')->name('hr.teams');
 // Update selected team
 Route::post('hr.teams/{id}/update', 'TeamController@update')->name('hr.update-team');
 // Delete selected team
-Route::post('hr.teams/{id}/delete', 'TeamController@destroy');
+// Route::post('hr.teams/{id}/delete', 'TeamController@destroy');
 
 // Show all wage progressions
 Route::get('hr.wage-progressions', 'WageProgressionController@index')->name('hr.all-wage-progressions');
@@ -119,7 +119,7 @@ Route::get('hr.wage-progressions/{id}', 'WageProgressionController@show')->name(
 // Update selected wage progression
 Route::post('hr.wage-progressions/{id}/update', 'WageProgressionController@update')->name('hr.update-wage-progression');
 // Delete selected wage progression
-Route::post('hr.wage-progressions/{id}/delete', 'WageProgressionController@destroy');
+// Route::post('hr.wage-progressions/{id}/delete', 'WageProgressionController@destroy');
 
 // Show all wage titles
 Route::get('hr.wage-titles', 'WageTitleController@index')->name('hr.all-wage-titles');
@@ -130,7 +130,7 @@ Route::get('hr.wage-titles/{id}', 'WageTitleController@show')->name('hr.wage-tit
 // Update selected wage title
 Route::post('hr.wage-titles/{id}/update', 'WageTitleController@update')->name('hr.update-wage-title');
 // Delete selected wage title
-Route::post('hr.wage-titles/{id}/delete', 'WageTitleController@destroy');
+// Route::post('hr.wage-titles/{id}/delete', 'WageTitleController@destroy');
 
 // Show insurances home page
 Route::get('hr.insurances', 'InsuranceController@index')->name('hr.all-insurances');
@@ -142,7 +142,7 @@ Route::post('hr.insurance-coverages', 'InsuranceController@storeInsuranceCoverag
 // Update selected insurance coverage
 Route::post('hr.insurance-coverages/{id}/update', 'InsuranceController@updateInsuranceCoverage')->name('hr.update-insurance-coverage');
 // Delete selected insurance coverage
-Route::post('hr.insurance-coverages/{id}/delete', 'InsuranceController@destroyInsuranceCoverage');
+// Route::post('hr.insurance-coverages/{id}/delete', 'InsuranceController@destroyInsuranceCoverage');
 // ----------------Medical Plans----------------
 // Show selected medical plan
 Route::get('hr.medical-plans/{id}', 'InsuranceController@showMedicalPlan')->name('hr.medical-plans');
@@ -151,7 +151,7 @@ Route::post('hr.medical-plans', 'InsuranceController@storeMedicalPlan')->name('h
 // Update selected medical plan
 Route::post('hr.medical-plans/{id}/update', 'InsuranceController@updateMedicalPlan')->name('hr.update-medical-plan');
 // Delete selected medical plan
-Route::post('hr.medical-plans/{id}/delete', 'InsuranceController@destroyMedicalPlan');
+// Route::post('hr.medical-plans/{id}/delete', 'InsuranceController@destroyMedicalPlan');
 // ----------------Dental Plans----------------
 // Show selected dental plan
 Route::get('hr.dental-plans/{id}', 'InsuranceController@showDentalPlan')->name('hr.dental-plans');
@@ -160,7 +160,7 @@ Route::post('hr.dental-plans', 'InsuranceController@storeDentalPlan')->name('hr.
 // Update selected dental plan
 Route::post('hr.dental-plans/{id}/update', 'InsuranceController@updateDentalPlan')->name('hr.update-dental-plan');
 // Delete selected dental plan
-Route::post('hr.dental-plans/{id}/delete', 'InsuranceController@destroyDentalPlan');
+// Route::post('hr.dental-plans/{id}/delete', 'InsuranceController@destroyDentalPlan');
 // ----------------Vision Plans----------------
 // Show selected vision plan
 Route::get('hr.vision-plans/{id}', 'InsuranceController@showVisionPlan')->name('hr.vision-plans');
@@ -169,7 +169,7 @@ Route::post('hr.vision-plans', 'InsuranceController@storeVisionPlan')->name('hr.
 // Update selected vision plan
 Route::post('hr.vision-plans/{id}/update', 'InsuranceController@updateVisionPlan')->name('hr.update-vision-plan');
 // Delete selected vision plan
-Route::post('hr.vision-plans/{id}/delete', 'InsuranceController@destroyVisionPlan');
+// Route::post('hr.vision-plans/{id}/delete', 'InsuranceController@destroyVisionPlan');
 
 // ----------------Accidental Coverage----------------
 // Show selected accidental coverage
@@ -179,7 +179,7 @@ Route::post('hr.accidental-coverages', 'InsuranceController@storeAccidentalCover
 // Update selected accidental coverage
 Route::post('hr.accidental-coverages/{id}/update', 'InsuranceController@updateAccidentalCoverage')->name('hr.update-accidental-coverage');
 // Delete selected accidental coverage
-Route::post('hr.accidental-coverages/{id}/delete', 'InsuranceController@destroyAccidentalCoverage');
+// Route::post('hr.accidental-coverages/{id}/delete', 'InsuranceController@destroyAccidentalCoverage');
 
 /*
     |--------------------------------------------------------------------------

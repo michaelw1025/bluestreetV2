@@ -256,14 +256,14 @@ class HRQueryController extends Controller
                     $employee->load('job', 'shift', 'position');
                 }
             }
-            $costCenters = $costCenter->all();
+            $costCenters = $costCenter->orderBy('number', 'asc')->get();
             return view('hr.queries.query-cost-center', [
                 'employeeCostCenters' => $employeeCostCenters,
                 'costCenters' => $costCenters,
                 'searchCostCenter' => $searchCostCenter,
             ]);
         }else{
-            $costCenters = $costCenter->all();
+            $costCenters = $costCenter->orderBy('number', 'asc')->get();
             return view('hr.queries.query-cost-center', [
                 'costCenters' => $costCenters,
             ]);
@@ -408,8 +408,10 @@ class HRQueryController extends Controller
             }else{
                 foreach($employee->disciplinary as $disciplinary){
                     if($disciplinary->date->between($lastOfPreviousQuarter, $firstOfPreviousQuarter)){
-                        
+                        $employee->active_disciplinary = 1;
+                        return $employee;
                     }else{
+                        $employee->active_disciplinary = 0;
                         return $employee;
                     }
                 }

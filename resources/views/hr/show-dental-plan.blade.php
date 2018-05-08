@@ -57,7 +57,7 @@
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.dental-plans/'.$dentalPlan['id'].'/update')}}">Edit Dental Plan</button>
-                    <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.dental-plans/'.$dentalPlan['id'].'/delete')}}" name="dental plan">Delete Dental Plan</button>
+                    <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.dental-plans/'.$dentalPlan['id'].'/delete')}}" name="dental plan">Delete Dental Plan</button> -->
                 </div>
             </div>
         </form>

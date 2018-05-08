@@ -187,7 +187,9 @@ class EmployeeController extends Controller
         $this->setTeamManagerTeamLeader($employee);
         $this->getWageStatus($employee);
         $this->setWageEventDate($employee);
-        $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employee->costCenter[0]->id);
+        foreach($employee->costCenter as $employeeCostCenter){
+            $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employeeCostCenter->id);
+        }
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
         $employee->link = '/storage/'.$employee->photo_link;
@@ -400,6 +402,8 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $disciplinary = $employee->find($employeeID)->disciplinary()->where('id', $disciplinaryID)->with('employee:id,first_name,last_name')->first();
+        $issuer_name = $employee->select('first_name', 'last_name')->where('id', $disciplinary->issued_by)->get();
+        $disciplinary->issued_by_name = $issuer_name[0]->first_name.' '.$issuer_name[0]->last_name;
         $costCenters = $costCenter->all();
         $salaryPositions = $position->with(['employee' => function($query){
             $query->orderBy('last_name', 'asc');

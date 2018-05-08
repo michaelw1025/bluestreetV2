@@ -25,7 +25,7 @@
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.insurance-coverages/'.$insuranceCoverage['id'].'/update')}}">Edit Insurance Coverage</button>
-                    <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.insurance-coverages/'.$insuranceCoverage['id'].'/delete')}}" name="insurance coverage">Delete Insurance Coverage</button>
+                    <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.insurance-coverages/'.$insuranceCoverage['id'].'/delete')}}" name="insurance coverage">Delete Insurance Coverage</button> -->
                 </div>
             </div>
         </form>

@@ -118,12 +118,12 @@ class PositionController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $position = $position->find($id);
-        if($position->delete()){
-            \Session::flash('status', 'Position deleted.');
-        }else{
-            \Session::flash('error', 'Position not deleted.');
-        }
+        // $position = $position->find($id);
+        // if($position->delete()){
+        //     \Session::flash('status', 'Position deleted.');
+        // }else{
+        //     \Session::flash('error', 'Position not deleted.');
+        // }
         return redirect('hr.positions');
     }
 }

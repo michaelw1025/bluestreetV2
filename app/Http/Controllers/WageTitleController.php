@@ -130,12 +130,12 @@ class WageTitleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $wageTitle = $wageTitle->find($id);
-        if($wageTitle->delete()){
-            \Session::flash('status', 'Wage Title deleted.');
-        }else{
-            \Session::flash('error', 'Wage Title not deleted.');
-        }
+        // $wageTitle = $wageTitle->find($id);
+        // if($wageTitle->delete()){
+        //     \Session::flash('status', 'Wage Title deleted.');
+        // }else{
+        //     \Session::flash('error', 'Wage Title not deleted.');
+        // }
         return redirect('hr.wage-titles');
     }
 }

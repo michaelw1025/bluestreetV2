@@ -31,8 +31,12 @@
                         <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                         <td>{{$employee->id}}</td>
                         <td class="hire-date">{{$employee->hire_date->format('m-d-Y')}}</td>
-                        <td class="cost-center">{{$employee->costCenter[0]->number}}</td>
-                        <td class="shift">{{$employee->shift[0]->description}}</td>
+                        @foreach($employee->costCenter as $costCenter)
+                        <td class="cost-center">{{$costCenter->number}}</td>
+                        @endforeach
+                        @foreach($employee->shift as $shift)
+                        <td class="shift">{{$shift->description}}</td>
+                        @endforeach
                         <td class="team-manager">{{$employee->team_manager}}</td>
                         <td class="team-leader">{{$employee->team_leader}}</td>
                     </tr>

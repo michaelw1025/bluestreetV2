@@ -134,15 +134,15 @@ class InsuranceController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $insuranceCoverage = $insuranceCoverage->find($id);
-        if($insuranceCoverage->delete()){
-            $insuranceCoverage->medicalPlan()->detach();
-            $insuranceCoverage->dentalPlan()->detach();
-            $insuranceCoverage->visionPlan()->detach();
-            \Session::flash('status', 'Insurance Coverage Type deleted.');
-        }else{
-            \Session::flash('error', 'Insurance Coverage Type not deleted.');
-        }
+        // $insuranceCoverage = $insuranceCoverage->find($id);
+        // if($insuranceCoverage->delete()){
+        //     $insuranceCoverage->medicalPlan()->detach();
+        //     $insuranceCoverage->dentalPlan()->detach();
+        //     $insuranceCoverage->visionPlan()->detach();
+        //     \Session::flash('status', 'Insurance Coverage Type deleted.');
+        // }else{
+        //     \Session::flash('error', 'Insurance Coverage Type not deleted.');
+        // }
         return redirect('hr.insurances');
     }
 
@@ -258,13 +258,13 @@ class InsuranceController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $medicalPlan = $medicalPlan->find($id);
-        if($medicalPlan->delete()){
-            $medicalPlan->insuranceCoverage()->sync([]);
-            \Session::flash('status', 'Medical Plan deleted.');
-        }else{
-            \Session::flash('error', 'Medical Plan not deleted.');
-        }
+        // $medicalPlan = $medicalPlan->find($id);
+        // if($medicalPlan->delete()){
+        //     $medicalPlan->insuranceCoverage()->sync([]);
+        //     \Session::flash('status', 'Medical Plan deleted.');
+        // }else{
+        //     \Session::flash('error', 'Medical Plan not deleted.');
+        // }
         return redirect('hr.insurances');
     }
 
@@ -375,13 +375,13 @@ class InsuranceController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $dentalPlan = $dentalPlan->find($id);
-        if($dentalPlan->delete()){
-            $dentalPlan->insuranceCoverage()->sync([]);
-            \Session::flash('status', 'Dental Plan deleted.');
-        }else{
-            \Session::flash('error', 'Dental Plan not deleted.');
-        }
+        // $dentalPlan = $dentalPlan->find($id);
+        // if($dentalPlan->delete()){
+        //     $dentalPlan->insuranceCoverage()->sync([]);
+        //     \Session::flash('status', 'Dental Plan deleted.');
+        // }else{
+        //     \Session::flash('error', 'Dental Plan not deleted.');
+        // }
         return redirect('hr.insurances');
     }
 
@@ -492,13 +492,13 @@ class InsuranceController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $visionPlan = $visionPlan->find($id);
-        if($visionPlan->delete()){
-            $visionPlan->insuranceCoverage()->sync([]);
-            \Session::flash('status', 'Vision Plan deleted.');
-        }else{
-            \Session::flash('error', 'Vision Plan not deleted.');
-        }
+        // $visionPlan = $visionPlan->find($id);
+        // if($visionPlan->delete()){
+        //     $visionPlan->insuranceCoverage()->sync([]);
+        //     \Session::flash('status', 'Vision Plan deleted.');
+        // }else{
+        //     \Session::flash('error', 'Vision Plan not deleted.');
+        // }
         return redirect('hr.insurances');
     }
 
@@ -602,12 +602,12 @@ class InsuranceController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $accidentalCoverage = $accidentalCoverage->find($id);
-        if($accidentalCoverage->delete()){
-            \Session::flash('status', 'Accidental Coverage Type deleted.');
-        }else{
-            \Session::flash('error', 'Accidental Coverage Type not deleted.');
-        }
+        // $accidentalCoverage = $accidentalCoverage->find($id);
+        // if($accidentalCoverage->delete()){
+        //     \Session::flash('status', 'Accidental Coverage Type deleted.');
+        // }else{
+        //     \Session::flash('error', 'Accidental Coverage Type not deleted.');
+        // }
         return redirect('hr.insurances');
     }
 }

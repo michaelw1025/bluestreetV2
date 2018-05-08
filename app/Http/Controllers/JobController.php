@@ -133,14 +133,14 @@ class JobController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $job = $job->find($id);
-        $job->position()->sync([]);
-        $job->wageTitle()->sync([]);
-        if($job->delete()){
-            \Session::flash('status', 'Job deleted.');
-        }else{
-            \Session::flash('error', 'Job not deleted.');
-        }
+        // $job = $job->find($id);
+        // $job->position()->sync([]);
+        // $job->wageTitle()->sync([]);
+        // if($job->delete()){
+        //     \Session::flash('status', 'Job deleted.');
+        // }else{
+        //     \Session::flash('error', 'Job not deleted.');
+        // }
         return redirect('hr.jobs');
     }
 }

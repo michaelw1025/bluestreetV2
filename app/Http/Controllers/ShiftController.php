@@ -118,12 +118,12 @@ class ShiftController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $shift = $shift->find($id);
-        if($shift->delete()){
-            \Session::flash('status', 'Shift deleted.');
-        }else{
-            \Session::flash('error', 'Shift not deleted.');
-        }
+        // $shift = $shift->find($id);
+        // if($shift->delete()){
+        //     \Session::flash('status', 'Shift deleted.');
+        // }else{
+        //     \Session::flash('error', 'Shift not deleted.');
+        // }
         return redirect('hr.shifts');
     }
 }

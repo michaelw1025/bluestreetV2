@@ -26,7 +26,7 @@
                     </tr>
                 @foreach($employees as $employee)
                 @if($employee->bonus_years == 5)
-                    <tr class="clickable-row" data-href="{{ url('hr.employees/'.$employee->id) }}">
+                    <tr class="clickable-row {{$employee->active_disciplinary == 1 ? 'table-danger' : ''}}" data-href="{{ url('hr.employees/'.$employee->id) }}">
                         <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                         <td>{{$employee->id}}</td>
                         <td>{{$employee->hire_date->format('m-d-Y')}}</td>
@@ -38,7 +38,7 @@
                     </tr>
                 @foreach($employees as $employee)
                 @if($employee->bonus_years == 8)
-                    <tr class="clickable-row" data-href="{{ url('hr.employees/'.$employee->id) }}">
+                    <tr class="clickable-row {{$employee->active_disciplinary == 1 ? 'table-danger' : ''}}" data-href="{{ url('hr.employees/'.$employee->id) }}">
                         <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                         <td>{{$employee->id}}</td>
                         <td>{{$employee->hire_date->format('m-d-Y')}}</td>

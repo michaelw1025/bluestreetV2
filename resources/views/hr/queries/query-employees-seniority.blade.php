@@ -56,10 +56,18 @@
                         <td class="address d-none">{{$employee->address_1}} {{$employee->address_2}}, {{$employee->city}}, {{$employee->state}}, {{$employee->zip_code}}</td>
                         <td class="bid-eligible d-none">{{$employee->bid_eligible == '0' ? 'No' : 'Yes'}}</td>
                         <td class="vitality d-none">{{$employee->vitality_incentive == '1' ? 'Yes' : 'No'}}</td>
-                        <td class="cost-center d-none">{{$employee->costCenter[0]->number}}</td>
-                        <td class="shift d-none">{{$employee->shift[0]->description}}</td>
-                        <td class="job d-none">{{$employee->job[0]->description}}</td>
-                        <td class="position d-none">{{$employee->position[0]->description}}</td>
+                        @foreach($employee->costCenter as $costCenter)
+                        <td class="cost-center d-none">{{$costCenter->number}}</td>
+                        @endforeach
+                        @foreach($employee->shift as $shift)
+                        <td class="shift d-none">{{$shift->description}}</td>
+                        @endforeach
+                        @foreach($employee->job as $job)
+                        <td class="job d-none">{{$job->description}}</td>
+                        @endforeach
+                        @foreach($employee->position as $position)
+                        <td class="position d-none">{{$position->description}}</td>
+                        @endforeach
                         <td class="team-manager d-none">{{$employee->team_manager}}</td>
                         <td class="team-leader d-none">{{$employee->team_leader}}</td>
                     </tr>

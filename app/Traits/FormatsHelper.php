@@ -27,39 +27,58 @@ trait FormatsHelper
     public function setTeamManagerTeamLeader($employee)
     {
         if($employee->shift->isNotEmpty()){
-            if($employee->shift[0]->description == 'Day'){
-                $teamManager = CostCenter::with('employeeDayTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-                if($teamManager->employeeDayTeamManager->isNotEmpty()){
-                    $employee->team_manager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
-                }else{
-                    $employee->team_manager = null;
+            foreach($employee->shift as $shift){
+                foreach($employee->costCenter as $costCenter){
+
+                    if($shift->description == 'Day'){
+                        $teamManager = CostCenter::with('employeeDayTeamManager')->find($costCenter->id);
+                        if($teamManager->employeeDayTeamManager->isNotEmpty()){
+                            $employee->team_manager = $teamManager->employeeDayTeamManager[0]->first_name.' '.$teamManager->employeeDayTeamManager[0]->last_name;
+                            $employee->team_manager_id = $teamManager->employeeDayTeamManager[0]->id;
+                        }else{
+                            $employee->team_manager = null;
+                            $employee->team_manager_id = null;
+                        }
+                        $teamLeader = CostCenter::with('employeeDayTeamLeader')->find($costCenter->id);
+                        if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
+                            $employee->team_leader = $teamLeader->employeeDayteamLeader[0]->first_name.' '.$teamLeader->employeeDayteamLeader[0]->last_name;
+                            $employee->team_leader_id = $teamLeader->employeeDayTeamLeader[0]->id;
+                        }else{
+                            $employee->team_leader = null;
+                            $employee->team_leader_id = null;
+                        }
+                    }elseif($employee->shift[0]->description == 'Night'){
+                        $teamManager = CostCenter::with('employeeNightTeamManager')->find($costCenter->id);
+                        if($teamManager->employeeNightTeamManager->isNotEmpty()){
+                            $employee->team_manager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
+                            $employee->team_manager_id = $teamManager->employeeNightTeamManager[0]->id;
+                        }else{
+                            $employee->team_manager = null;
+                            $employee->team_manager_id = null;
+                        }
+                        $teamLeader = CostCenter::with('employeeNightTeamLeader')->find($costCenter->id);
+                        if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
+                            $employee->team_leader = $teamLeader->employeeNightteamLeader[0]->first_name.' '.$teamLeader->employeeNightteamLeader[0]->last_name;
+                            $employee->team_leader_id = $teamLeader->employeeNightTeamLeader[0]->id;
+                        }else{
+                            $employee->team_leader = null;
+                            $employee->team_leader_id = null;
+                        }
+                    }else{
+                        $employee->team_manager = null;
+                        $employee->team_manager_id = null;
+                        $employee->team_leader = null;
+                        $employee->team_leader_id = null;
+                    }
+
                 }
-                $teamLeader = CostCenter::with('employeeDayTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-                if($teamLeader->employeeDayTeamLeader->isNotEmpty()){
-                    $employee->team_leader = $teamLeader->employeeDayteamLeader[0]->first_name.' '.$teamLeader->employeeDayteamLeader[0]->last_name;
-                }else{
-                    $employee->team_leader = null;
-                }
-            }elseif($employee->shift[0]->description == 'Night'){
-                $teamManager = CostCenter::with('employeeNightTeamManager:first_name,last_name')->find($employee->costCenter[0]->id);
-                if($teamManager->employeeNightTeamManager->isNotEmpty()){
-                    $employee->team_manager = $teamManager->employeeNightTeamManager[0]->first_name.' '.$teamManager->employeeNightTeamManager[0]->last_name;
-                }else{
-                    $employee->team_manager = null;
-                }
-                $teamLeader = CostCenter::with('employeeNightTeamLeader:first_name,last_name')->find($employee->costCenter[0]->id);
-                if($teamLeader->employeeNightTeamLeader->isNotEmpty()){
-                    $employee->team_leader = $teamLeader->employeeNightteamLeader[0]->first_name.' '.$teamLeader->employeeNightteamLeader[0]->last_name;
-                }else{
-                    $employee->team_leader = null;
-                }
-            }else{
-                $employee->team_manager = null;
-                $employee->team_leader = null;
             }
+
         }else{
             $employee->team_manager = null;
-            $employee->team_leader = null;
+                $employee->team_manager_id = null;
+                $employee->team_leader = null;
+                $employee->team_leader_id = null;
         }
     }
 
