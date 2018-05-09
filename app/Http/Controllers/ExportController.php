@@ -8,6 +8,7 @@ use App\Exports\EmployeesAlphabetical;
 use App\Exports\EmployeesSeniority;
 use App\Exports\EmployeesAnniversary;
 use App\Exports\EmployeesWageProgression;
+use App\Exports\EmployeesBonusHours;
 use App\Employee;
 use App\Traits\FormatsHelper;
 use Carbon\Carbon;
@@ -95,6 +96,60 @@ class ExportController extends Controller
         
         return (new EmployeesWageProgression($searchEmployees))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'-m|'.$searchMonth.'-y|'.$searchYear.'-p|'.$progression->month.'.xlsx');
         
+    }
+
+    public function employeesBonusHours(Request $request, Employee $employee)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+
+        // Today's date
+        $now = Carbon::now();
+        // First day of the current quarter
+        $firstOfCurrentQuarter = $now->firstOfQuarter();
+        // Subtract one day to get a date in the previous quarter
+        $dateInPreviousQuarter = $firstOfCurrentQuarter->copy()->subDay();
+        // Use date in previous quarter to calculate last day of previous quarter - should be the same as dateInPreviousQuarter but calculate to be sure
+        $lastOfPreviousQuarter = $dateInPreviousQuarter->copy()->lastOfQuarter();
+        // Get first day of previous quarter for disciplinary comparison
+        $firstOfPreviousQuarter = $dateInPreviousQuarter->copy()->firstOfQuarter();
+        // Subtract 5 years to get minimum hire date
+        $fiveYearHireDate = $lastOfPreviousQuarter->copy()->subYears(5);
+        // Subtract 3 years from fiveYearHireDate to get the eightYearHireDate
+        $eightYearHireDate = $fiveYearHireDate->copy()->subYears(3);
+
+        // Get all employees with a hire date greater than or equal to fiveYearHireDate
+        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
+        foreach($employees as $employee){
+            if($employee->hire_date <= $eightYearHireDate){
+                // If employee hire date is greater than or equal to 8 years
+                $employee->bonus_years = 8;
+            }else{
+                // If employee hire date is between 5 and 7 years
+                $employee->bonus_years = 5;
+            }
+        }
+        $filteredEmployees = $employees->filter(function($employee) use ($lastOfPreviousQuarter, $firstOfPreviousQuarter){
+            if($employee->disciplinary->isEmpty()){
+                return $employee;
+            }else{
+                foreach($employee->disciplinary as $disciplinary){
+                    if($disciplinary->date->between($lastOfPreviousQuarter, $firstOfPreviousQuarter)){
+                        // $employee->active_disciplinary = 1;
+                        // return $employee;
+                    }else{
+                        $employee->active_disciplinary = 0;
+                        return $employee;
+                    }
+                }
+            }
+        });
+        foreach($filteredEmployees as $filteredEmployee){
+            unset($filteredEmployee['disciplinary']);
+            $filteredEmployee->load('costCenter', 'shift', 'job', 'position');
+        }
+        $this->employeeInfoOne($filteredEmployees);
+        return (new EmployeesBonusHours($filteredEmployees))->download('employees-bonus-hours-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
 

@@ -1,7 +1,11 @@
 v 1.0.0 
--5/7/18
+-5-7-18
 -Initial stable realease
 
 v 1.1.0
 -5-8-18
 -Added wage progression excel export
+
+v 1.2.0
+-5-9-18
+-Added bonus hours excel export

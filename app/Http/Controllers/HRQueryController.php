@@ -381,7 +381,7 @@ class HRQueryController extends Controller
         // Today's date
         $now = Carbon::now();
         // First day of the current quarter
-        $firstOfCurrentQuarter = $now->firstOfQuarter();
+        $firstOfCurrentQuarter = $now->copy()->firstOfQuarter();
         // Subtract one day to get a date in the previous quarter
         $dateInPreviousQuarter = $firstOfCurrentQuarter->copy()->subDay();
         // Use date in previous quarter to calculate last day of previous quarter - should be the same as dateInPreviousQuarter but calculate to be sure
@@ -403,14 +403,15 @@ class HRQueryController extends Controller
                 $employee->bonus_years = 5;
             }
         }
+
         $filteredEmployees = $employees->filter(function($employee) use ($lastOfPreviousQuarter, $firstOfPreviousQuarter){
             if($employee->disciplinary->isEmpty()){
                 return $employee;
             }else{
                 foreach($employee->disciplinary as $disciplinary){
                     if($disciplinary->date->between($lastOfPreviousQuarter, $firstOfPreviousQuarter)){
-                        $employee->active_disciplinary = 1;
-                        return $employee;
+                        // $employee->active_disciplinary = 1;
+                        // return $employee;
                     }else{
                         $employee->active_disciplinary = 0;
                         return $employee;

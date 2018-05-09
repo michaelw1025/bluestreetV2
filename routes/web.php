@@ -294,3 +294,5 @@ Route::get('hr.export-employees-seniority', 'ExportController@employeesSeniority
 Route::get('hr.export-employees-anniversary/{searchMonth}/{searchYear}', 'ExportController@employeesAnniversary')->name('hr.export-employees-anniversary');
 // Export employees wage progressions
 Route::get('hr.export-employees-wage-progressions/{searchMonth}/{searchYear}/{searchProgression}', 'ExportController@employeesWageProgressions')->name('hr.export-employees-wage-progressions');
+// Export employees bonus hours
+Route::get('hr.export-employees-bonus-hours', 'ExportController@employeesBonusHours')->name('hr.export-employees-bonus-hours');
