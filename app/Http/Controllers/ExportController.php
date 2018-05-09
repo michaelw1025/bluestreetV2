@@ -138,7 +138,7 @@ class ExportController extends Controller
                         // $employee->active_disciplinary = 1;
                         // return $employee;
                     }else{
-                        $employee->active_disciplinary = 0;
+                        // $employee->active_disciplinary = 0;
                         return $employee;
                     }
                 }
@@ -149,6 +149,7 @@ class ExportController extends Controller
             $filteredEmployee->load('costCenter', 'shift', 'job', 'position');
         }
         $this->employeeInfoOne($filteredEmployees);
+        return $filteredEmployees;
         return (new EmployeesBonusHours($filteredEmployees))->download('employees-bonus-hours-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 

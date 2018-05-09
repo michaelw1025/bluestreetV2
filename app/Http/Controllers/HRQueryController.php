@@ -410,8 +410,8 @@ class HRQueryController extends Controller
             }else{
                 foreach($employee->disciplinary as $disciplinary){
                     if($disciplinary->date->between($lastOfPreviousQuarter, $firstOfPreviousQuarter)){
-                        // $employee->active_disciplinary = 1;
-                        // return $employee;
+                        $employee->active_disciplinary = 1;
+                        return $employee;
                     }else{
                         $employee->active_disciplinary = 0;
                         return $employee;
