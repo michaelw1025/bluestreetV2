@@ -26,13 +26,13 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="search_birth_date" class="col-sm-2 col-form-label">Date of Birth</label>
+                <label for="search_birth_date" class="col-sm-2 col-form-label">Date of Birth <span class="text-muted">(mm-dd-yyyy)</span></label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="search_birth_date">
                 </div>
             </div>
             <div class="form-group row">
-                <label for="search_hire_date" class="col-sm-2 col-form-label">Date of Hire</label>
+                <label for="search_hire_date" class="col-sm-2 col-form-label">Date of Hire <span class="text-muted">(mm-dd-yyyy)</span></label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="search_hire_date">
                 </div>

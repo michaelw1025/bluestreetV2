@@ -5,7 +5,7 @@
 
     <!-- Content for main window must go within this div -->
     <div class="col mr-sm-3">
-        <h1 class="">Alphabetical List Of Employees<button type="button" class="btn btn-info pr-3 float-right btn-lg print-button prevent-print">Print</button><button type="button" class="mr-2 btn btn-success pl- pr-3 float-right btn-lg excel-export prevent-print" onclick="location.href='{{ url('hr.export-employees-alphabetical') }}'">Export To Excel</button></h1>
+        <h1 class="">Alphabetical List Of Employees<button type="button" class="btn btn-info pr-3 float-right btn-lg print-button prevent-print">Print</button><button type="button" class="mr-2 btn btn-success pl- pr-3 float-right btn-lg excel-export prevent-print" onclick="location.href='{{ url('hr.export-employees-wage-progressions') }}'">Export To Excel</button></h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="ssn">SSN</button>

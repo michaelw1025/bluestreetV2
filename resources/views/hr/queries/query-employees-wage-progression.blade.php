@@ -5,7 +5,7 @@
 
     <!-- Content for main window must go within this div -->
     <div class="col mr-sm-3">
-        <h1 class="">Alphabetical List Of Employees<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
+        <h1 class="">Wage Progressions<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button>@if(isset($employees))<button type="button" class="mr-2 btn btn-success pl- pr-3 float-right btn-lg excel-export prevent-print" onclick="location.href='{{ url('hr.export-employees-wage-progressions/'.$searchMonth.'/'.$searchYear.'/'.$searchProgression) }}'" name="export-excel">Export To Excel</button>@endif</h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
         
@@ -44,7 +44,7 @@
                     </div>
                     <select class="form-control" name="search_year" required>
                         <option></option>
-                        @for($i = 2015; $i <= 2025; $i++)
+                        @for($i = 2015; $i <= 2030; $i++)
                         <option {{ isset($searchYear) ? ($searchYear == $i ? 'selected' : '') : old('search_year') }} value="{{$i}}">{{$i}}</option>
                         @endfor
                     </select>

@@ -15,7 +15,7 @@
                 <label class="sr-only" for="search_begin_date">Begin Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">Begin Date</div>
+                        <div class="input-group-text">Begin Date <span class="text-muted">(mm-dd-yyyy)</span></div>
                     </div>
                     <input type="text" class="form-control ui-datepicker-prev date-pick" name="search_begin_date" value="{{ isset($beginSearchDate) ? $beginSearchDate->format('m-d-Y') : old('search_begin_date') }}">
                 </div>
@@ -25,9 +25,9 @@
                 <label class="sr-only" for="search_end_date">End Date</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
-                        <div class="input-group-text">End Date</div>
+                        <div class="input-group-text">End Date <span class="text-muted">(mm-dd-yyyy)</span></div>
                     </div>
-                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="search_end_date" value="{{isset($endSearchDate) ? $endSearchDate->format('m-d-Y') : old('search_end_date') }}">
+                    <input type="text" class="form-control ui-datepicker-prev date-pick" name="search_end_date" value="{{isset($endSearchDate) ? $endSearchDate->format('m-d-Y') : old('search_end_date') }}" placeholder="defaults to today's date">
                 </div>
                 <small class="text-danger">{{ $errors->first('search_end_date') }}</small>
             </div>

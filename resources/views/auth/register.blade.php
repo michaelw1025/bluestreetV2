@@ -1,11 +1,16 @@
 @extends('layouts.welcome-layout')
 
 @section('content')
+<div class="jumbotron jumbotron-fluid home-jumbotron">
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Register</div>
+                <div class="card-header">
+                    <h3>Register</h3>
+                    <small class="text-muted">Registration for this site is limited to Emerson Lebanon employees with a valid corporate email address.  If you are unsure if you meet the required criteria please contact the local IT department.</small>
+                </div>
+
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -87,5 +92,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

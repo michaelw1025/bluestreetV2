@@ -34,10 +34,17 @@
                     <label for="staff_manager" class="col-sm-2 col-form-label">Staff Manager</label>
                     <div class="col-sm-10 col-md-8 col-lg-6">
                         <select class="form-control" name="staff_manager">
-                        <option></option>
+                            @if($costCenter->employeeStaffManager->isNotEmpty())
+                                @foreach($costCenter->employeeStaffManager as $staffManager)
+                                <option value="{{$staffManager->employee_id}}" "selected">{{$staffManager->first_name}} {{$staffManager->last_name}}</option>
+                                @endforeach
+                            @else
+                                <option></option>
+                            @endif
+
                             @foreach($salaryEmployees as $salaryEmployee)
                             @foreach($salaryEmployee->employee as $employee)
-                            <option {{ $costCenter->employeeStaffManager->isNotEmpty() ? ($costCenter->employeeStaffManager[0]->employee_id == $employee->pivot->employee_id ? 'selected' : '') : '' }} value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                            <option value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
                             @endforeach
                             @endforeach
                         </select>
@@ -49,10 +56,17 @@
                     <label for="day_team_manager" class="col-sm-2 col-form-label">Day Team Manager</label>
                     <div class="col-sm-10 col-md-8 col-lg-6">
                         <select class="form-control" name="day_team_manager">
-                        <option></option>
+                            @if($costCenter->employeeDayTeamManager->isNotEmpty())
+                                @foreach($costCenter->employeeDayTeamManager as $dayTeamManager)
+                                <option value="{{$dayTeamManager->employee_id}}" "selected">{{$dayTeamManager->first_name}} {{$dayTeamManager->last_name}}</option>
+                                @endforeach
+                            @else
+                                <option></option>
+                            @endif
+
                             @foreach($salaryEmployees as $salaryEmployee)
                             @foreach($salaryEmployee->employee as $employee)
-                            <option {{ $costCenter->employeeDayTeamManager->isNotEmpty() ? ($costCenter->employeeDayTeamManager[0]->employee_id == $employee->pivot->employee_id ? 'selected' : '') : '' }} value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                            <option value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
                             @endforeach
                             @endforeach
                         </select>
@@ -64,10 +78,17 @@
                     <label for="night_team_manager" class="col-sm-2 col-form-label">Night Team Manager</label>
                     <div class="col-sm-10 col-md-8 col-lg-6">
                         <select class="form-control" name="night_team_manager">
-                        <option></option>
+                            @if($costCenter->employeeNightTeamManager->isNotEmpty())
+                                @foreach($costCenter->employeeNightTeamManager as $nightTeamManager)
+                                <option value="{{$nightTeamManager->employee_id}}" "selected">{{$nightTeamManager->first_name}} {{$nightTeamManager->last_name}}</option>
+                                @endforeach
+                            @else
+                                <option></option>
+                            @endif
+
                             @foreach($salaryEmployees as $salaryEmployee)
                             @foreach($salaryEmployee->employee as $employee)
-                            <option {{ $costCenter->employeeNightTeamManager->isNotEmpty() ? ($costCenter->employeeNightTeamManager[0]->employee_id == $employee->pivot->employee_id ? 'selected' : '') : '' }} value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                            <option value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
                             @endforeach
                             @endforeach
                         </select>
@@ -79,10 +100,17 @@
                     <label for="day_team_leader" class="col-sm-2 col-form-label">Day Team Leader</label>
                     <div class="col-sm-10 col-md-8 col-lg-6">
                         <select class="form-control" name="day_team_leader">
-                        <option></option>
+                            @if($costCenter->employeeDayTeamLeader->isNotEmpty())
+                                @foreach($costCenter->employeeDayTeamLeader as $dayTeamLeader)
+                                <option value="{{$dayTeamLeader->employee_id}}" "selected">{{$dayTeamLeader->first_name}} {{$dayTeamLeader->last_name}}</option>
+                                @endforeach
+                            @else
+                                <option></option>
+                            @endif
+
                             @foreach($salaryEmployees as $salaryEmployee)
                             @foreach($salaryEmployee->employee as $employee)
-                            <option {{ $costCenter->employeeDayTeamLeader->isNotEmpty() ? ($costCenter->employeeDayTeamLeader[0]->employee_id == $employee->pivot->employee_id ? 'selected' : '') : '' }} value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                            <option value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
                             @endforeach
                             @endforeach
                         </select>
@@ -94,16 +122,24 @@
                     <label for="night_team_leader" class="col-sm-2 col-form-label">Night Team Leader</label>
                     <div class="col-sm-10 col-md-8 col-lg-6">
                         <select class="form-control" name="night_team_leader">
-                        <option></option>
+                            @if($costCenter->employeeNightTeamLeader->isNotEmpty())
+                                @foreach($costCenter->employeeNightTeamLeader as $nightTeamLeader)
+                                <option value="{{$nightTeamLeader->employee_id}}" "selected">{{$nightTeamLeader->first_name}} {{$nightTeamLeader->last_name}}</option>
+                                @endforeach
+                            @else
+                                <option></option>
+                            @endif
+
                             @foreach($salaryEmployees as $salaryEmployee)
                             @foreach($salaryEmployee->employee as $employee)
-                            <option {{ $costCenter->employeeNightTeamLeader->isNotEmpty() ? ($costCenter->employeeNightTeamLeader[0]->employee_id == $employee->pivot->employee_id ? 'selected' : '') : '' }} value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                            <option value="{{$employee->pivot->employee_id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
                             @endforeach
                             @endforeach
                         </select>
                         
                     </div>
                 </div>
+                
             @endif
 
             @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser']))
@@ -117,7 +153,7 @@
         </form>
             <!-- </form> -->
 
-            @endif
+    @endif
 
 
     </div>

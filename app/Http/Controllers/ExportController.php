@@ -7,9 +7,11 @@ use Excel;
 use App\Exports\EmployeesAlphabetical;
 use App\Exports\EmployeesSeniority;
 use App\Exports\EmployeesAnniversary;
+use App\Exports\EmployeesWageProgression;
 use App\Employee;
 use App\Traits\FormatsHelper;
 use Carbon\Carbon;
+use App\WageProgression;
 
 class ExportController extends Controller
 {
@@ -55,6 +57,46 @@ class ExportController extends Controller
         return (new EmployeesAnniversary($yearEmployees))->download('employees-by-anniversary-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
+    public function employeesWageProgressions(Request $request, Employee $employee, WageProgression $wageProgression, $searchMonth, $searchYear, $searchProgression)
+    {
+        //Check if user is authorized to access this page
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        // Get current search items
+        $searchMonth = (int)$searchMonth;
+        $searchYear = (int)$searchYear;
+        $searchProgression = (int)$searchProgression;
+        // Get the searched progression
+        $progression = $wageProgression->find($searchProgression);
+        // Get all employees who have a wage event at the searched progression level
+        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->whereHas('wageProgression', function($query) use($progression) {
+            $query->where('wage_progression_id', $progression->id);
+        })->with(['wageProgression' => function($query) use($progression) {
+            $query->where('wage_progression_id', $progression->id);
+        }])->where('status', 1)->get();
+        // Filter out employees whose wage event does not match the searched month and year
+        $searchEmployees = $employees->filter(function($employee) use ($searchMonth, $searchYear) {
+            foreach($employee->wageProgression as $employeeProgression){
+                $employeeProgression->pivot->date = Carbon::parse($employeeProgression->pivot->date);
+                // Filter by month
+                if($employeeProgression->pivot->date->month == $searchMonth){
+                    // Filter by year
+                    if($employeeProgression->pivot->date->year == $searchYear){
+                        return $employee;
+                        break;
+                    }
+                }
+            }
+        });
+        foreach($searchEmployees as $searchEmployee){
+            unset($searchEmployee['wageProgression']);
+            $searchEmployee->load('costCenter', 'shift', 'job', 'position');
+        }
+        $this->employeeInfoOne($searchEmployees);
+        
+        return (new EmployeesWageProgression($searchEmployees))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'-m|'.$searchMonth.'-y|'.$searchYear.'-p|'.$progression->month.'.xlsx');
+        
+    }
+
 
 
     
@@ -85,6 +127,8 @@ class ExportController extends Controller
             unset($employee['birth_date']);
             unset($employee['hire_date']);
             unset($employee['service_date']);
+            unset($employee['team_manager_id']);
+            unset($employee['team_leader_id']);
         }
     }
 }

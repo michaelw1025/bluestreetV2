@@ -84,8 +84,12 @@ class CostCenterController extends Controller
             'employeeDayTeamLeader:employee_id,first_name,last_name',
             'employeeNightTeamLeader:employee_id,first_name,last_name'
         )->find($id);
-        $salaryPositions = $position->with('employee:first_name,last_name')->where('description', 'salary')->get();
-        $salaryJobs = $job->with('employee:first_name,last_name')->where('description', 'specialist operations')->get();
+        $salaryPositions = $position->with(['employee' => function ($query){
+            $query->select('first_name', 'last_name')->where('status', 1);
+        }])->where('description', 'salary')->get();
+        $salaryJobs = $job->with(['employee' => function ($query){
+            $query->select('first_name', 'last_name')->where('status', 1);
+        }])->where('description', 'specialist operations')->get();
         $salaryEmployees = $salaryPositions->concat($salaryJobs);
         return view('hr.show-cost-center', [
             'costCenter' => $costCenter,
