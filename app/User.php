@@ -51,7 +51,7 @@ class User extends Authenticatable
     // Get last name format
     public function getLastNameAttribute($lastName)
     {
-        return ucfirst($lastName);
+        return ucwords($lastName);
     }
     // ----------------End Mutators----------------
 

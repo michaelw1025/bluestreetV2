@@ -21,9 +21,9 @@
         </li>
         @endif
         @endif
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link" href="">Bidding</a>
-        </li>
+        </li> -->
         </ul>
 
         <ul class="navbar-nav mr-md-4">

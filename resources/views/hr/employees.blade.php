@@ -9,7 +9,7 @@
         <hr class="border-info"/>
         @include('layouts.session-messages')
 
-        <h3 class="prevent-print">Search Employee</h3>
+        <h3 class="prevent-print">Search Employee {{$routeName == 'hr.all-employees/inactive' ? '(inactive)' : ($routeName == 'hr.search-employees/inactive' ? '(inactive)' : '(active)')  }}</h3>
         <!-- <form> -->
         <form method="get" action="" class="prevent-print">
         {{ csrf_field() }}
