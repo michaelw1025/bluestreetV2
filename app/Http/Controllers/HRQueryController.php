@@ -183,7 +183,7 @@ class HRQueryController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_birthday_search)){
             $searchMonth = $request->search_month;
-            $employees = $employee->where('status', '1')->with('costCenter', 'shift')->orderBy('birth_date', 'asc')->get();
+            $employees = $employee->where('status', '1')->with('costCenter', 'shift', 'job', 'position')->orderBy('birth_date', 'asc')->get();
             $monthEmployees = $employees->filter(function($employee) use ($searchMonth) {
                 if($employee->birth_date->month == $searchMonth){
                     $employee->birth_day = $employee->birth_date->day;
@@ -194,10 +194,8 @@ class HRQueryController extends Controller
             foreach($monthEmployees as $monthEmployee){
                 $this->setTeamManagerTeamLeader($monthEmployee);
             }
-            $costCenters = $costCenter->all();
             return view('hr.queries.query-birthdays', [
                 'employees' => $monthEmployees,
-                'costCenters' => $costCenters,
                 'searchMonth' => $searchMonth,
             ]);
         }else{
