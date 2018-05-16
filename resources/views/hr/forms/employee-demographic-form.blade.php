@@ -150,6 +150,10 @@
                         <option {{ isset($employee) ? ($employee->suffix == 'mr' ? 'selected' : '') : '' }} value="mr">Mr</option>
                         <option {{ isset($employee) ? ($employee->suffix == 'mrs' ? 'selected' : '') : '' }} value="mrs">Mrs</option>
                         <option {{ isset($employee) ? ($employee->suffix == 'miss' ? 'selected' : '') : '' }} value="miss">Miss</option>
+                        <option {{ isset($employee) ? ($employee->suffix == 'jr' ? 'selected' : '') : '' }} value="jr">Jr</option>
+                        <option {{ isset($employee) ? ($employee->suffix == 'sr' ? 'selected' : '') : '' }} value="sr">Sr</option>
+                        <option {{ isset($employee) ? ($employee->suffix == 'ii' ? 'selected' : '') : '' }} value="ii">II</option>
+                        <option {{ isset($employee) ? ($employee->suffix == 'iii' ? 'selected' : '') : '' }} value="iii">III</option>
                     </select>
                 </div>
                 <small class="text-danger">{{ $errors->first('suffix') }}</small>
