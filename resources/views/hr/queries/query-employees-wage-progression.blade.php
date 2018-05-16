@@ -20,18 +20,18 @@
                     </div>
                     <select class="form-control" name="search_month" required>
                         <option></option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 1 ? 'selected' : '') : old('search_month') }} value="1">January</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 2 ? 'selected' : '') : old('search_month') }} value="2">February</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 3 ? 'selected' : '') : old('search_month') }} value="3">March</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 4 ? 'selected' : '') : old('search_month') }} value="4">April</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 5 ? 'selected' : '') : old('search_month') }} value="5">May</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 6 ? 'selected' : '') : old('search_month') }} value="6">June</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 7 ? 'selected' : '') : old('search_month') }} value="7">July</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 8 ? 'selected' : '') : old('search_month') }} value="8">August</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 9 ? 'selected' : '') : old('search_month') }} value="9">September</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 10 ? 'selected' : '') : old('search_month') }} value="10">October</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 11 ? 'selected' : '') : old('search_month') }} value="11">November</option>
-                        <option {{ isset($searchMonth) ? ($searchMonth == 12 ? 'selected' : '') : old('search_month') }} value="12">December</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 1 ? 'selected' : '') : old('search_month') }} value="1">January 01</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 2 ? 'selected' : '') : old('search_month') }} value="2">February 02</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 3 ? 'selected' : '') : old('search_month') }} value="3">March 03</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 4 ? 'selected' : '') : old('search_month') }} value="4">April 04</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 5 ? 'selected' : '') : old('search_month') }} value="5">May 05</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 6 ? 'selected' : '') : old('search_month') }} value="6">June 06</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 7 ? 'selected' : '') : old('search_month') }} value="7">July 07</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 8 ? 'selected' : '') : old('search_month') }} value="8">August 08</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 9 ? 'selected' : '') : old('search_month') }} value="9">September 09</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 10 ? 'selected' : '') : old('search_month') }} value="10">October 10</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 11 ? 'selected' : '') : old('search_month') }} value="11">November 11</option>
+                        <option {{ isset($searchMonth) ? ($searchMonth == 12 ? 'selected' : '') : old('search_month') }} value="12">December 12</option>
                     </select>
                 </div>
                 <small class="text-danger">{{ $errors->first('search_month') }}</small>

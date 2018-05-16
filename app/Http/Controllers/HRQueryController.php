@@ -333,11 +333,10 @@ class HRQueryController extends Controller
                 foreach($employee->wageProgression as $employeeProgression){
                     $employeeProgression->pivot->date = Carbon::parse($employeeProgression->pivot->date);
                     // Filter by month
-                    if($employeeProgression->pivot->date->month == $searchMonth){
+                    if($employeeProgression->pivot->date->month === $searchMonth){
                         // Filter by year
-                        if($employeeProgression->pivot->date->year == $searchYear){
+                        if($employeeProgression->pivot->date->year === $searchYear){
                             return $employee;
-                            break;
                         }
                     }
                 }
