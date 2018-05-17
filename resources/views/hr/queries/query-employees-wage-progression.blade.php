@@ -97,6 +97,7 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">ID</th>
+                        <th scope="col">Progression Date</th>
                         <th scope="col" class="ssn d-none">SSN</th>
                         <th scope="col" class="hire-date d-none">Hire Date</th>
                         <th scope="col" class="birth-date d-none">Birth Date</th>
@@ -119,6 +120,9 @@
                     <tr class="clickable-row" data-href="{{ url('hr.employees/'.$employee->id) }}">
                         <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                         <td>{{$employee->id}}</td>
+                        @foreach($employee->wageProgression as $employeeProgressionDate)
+                        <td>{{$employeeProgressionDate->pivot->date->format('m-d-Y')}}</td>
+                        @endforeach
                         <td class="ssn d-none">{{$employee->ssn}}</td>
                         <td class="hire-date d-none">{{$employee->hire_date->format('m-d-Y')}}</td>
                         <td class="birth-date d-none">{{$employee->birth_date->format('m-d-Y')}}</td>
