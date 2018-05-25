@@ -79,7 +79,7 @@ class PositionController extends Controller
         $jobs = $job->all();
         $wageTitles = $wageTitle->all();
         return view('hr.show-position', [
-            'jobs' => $job,
+            'jobs' => $jobs,
             'position' => $position,
             'wageTitles' => $wageTitles,
         ]);

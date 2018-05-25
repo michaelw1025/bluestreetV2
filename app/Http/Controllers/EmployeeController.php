@@ -171,7 +171,7 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary', 'wageProgression')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'position.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary', 'wageProgression')->find($id);
         $jobs = $job->all();
         $positions = $position->with('wageTitle')->get();
         $costCenters = $costCenter->all();
@@ -205,7 +205,7 @@ class EmployeeController extends Controller
             'dentalPlans' => $dentalPlans,
             'visionPlans' => $visionPlans,
             'accidentalCoverages' => $accidentalCoverages,
-            'salaryPositions' => $salaryPositions,
+            'salaryJobs' => $salaryJobs,
             'staffManager' => $staffManager,
             'wageProgressions' => $wageProgressions,
         ]);
