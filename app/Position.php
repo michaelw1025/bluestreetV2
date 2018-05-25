@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Job;
 
 class Position extends Model
 {
@@ -43,6 +44,11 @@ class Position extends Model
     public function job()
     {
         return $this->belongsToMany('App\Job');
+    }
+    // Wage Title relationship
+    public function wageTitle()
+    {
+        return $this->belongsToMany('App\WageTitle');
     }
     //Employee relationship
     public function employee()

@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CostCenter;
 use App\Employee;
-use App\Position;
 use App\Job;
+use App\Position;
 
 class CostCenterController extends Controller
 {
@@ -15,7 +15,7 @@ class CostCenterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, CostCenter $costCenter, Position $position, Job $job)
+    public function index(Request $request, CostCenter $costCenter)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -84,13 +84,13 @@ class CostCenterController extends Controller
             'employeeDayTeamLeader:employee_id,first_name,last_name',
             'employeeNightTeamLeader:employee_id,first_name,last_name'
         )->find($id);
-        $salaryPositions = $position->with(['employee' => function ($query){
-            $query->select('first_name', 'last_name')->where('status', 1);
-        }])->where('description', 'salary')->get();
         $salaryJobs = $job->with(['employee' => function ($query){
             $query->select('first_name', 'last_name')->where('status', 1);
+        }])->where('description', 'salary')->get();
+        $salaryPositions = $position->with(['employee' => function ($query){
+            $query->select('first_name', 'last_name')->where('status', 1);
         }])->where('description', 'specialist operations')->get();
-        $salaryEmployees = $salaryPositions->concat($salaryJobs);
+        $salaryEmployees = $salaryJobs->concat($salaryPositions);
         return view('hr.show-cost-center', [
             'costCenter' => $costCenter,
             'salaryEmployees' => $salaryEmployees,

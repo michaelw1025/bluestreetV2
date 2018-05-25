@@ -107,23 +107,23 @@
                 </div>
 
                 <div class="col-xl-4 my-1">
-                    <label class="sr-only" for="bid_job">Job</label>
+                    <label class="sr-only" for="bid_position">Position</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
-                            <div class="input-group-text">Job</div>
+                            <div class="input-group-text">Position</div>
                         </div>
-                        <select class="form-control bid-job-select" name="bid_job">
+                        <select class="form-control bid-position-select" name="bid_position">
                             <option></option>
                             @isset($wageTitles)
                             @foreach($wageTitles as $wageTitle)
-                            @foreach($wageTitle->job as $job)
-                            <option value="{{$job->id}}">{{$job->description}}</option>
+                            @foreach($wageTitle->position as $position)
+                            <option value="{{$position->id}}">{{$position->description}}</option>
                             @endforeach
                             @endforeach
                             @endisset
                         </select>
                     </div>
-                    <small class="text-danger">{{ $errors->first('bid_job') }}</small>
+                    <small class="text-danger">{{ $errors->first('bid_position') }}</small>
                 </div>
 
                 <div class="col-xl-4 my-1">

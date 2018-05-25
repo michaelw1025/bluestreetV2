@@ -39,10 +39,10 @@ class WageTitle extends Model
     // ----------------End Mutators----------------
 
     // ----------------Relationships----------------
-    // Job relationship
-    public function job()
+    // Position relationship
+    public function position()
     {
-        return $this->belongsToMany('App\Job');
+        return $this->belongsToMany('App\Position');
     }
 
     // Wage Progression relationship

@@ -79,7 +79,7 @@
             </div>
             @endif
 
-            @if(isset($salaryPositions))
+            @if(isset($salaryJobs))
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="disciplinary_issued_by">Issued By</label>
                 <div class="input-group">
@@ -88,8 +88,8 @@
                     </div>
                     <select class="form-control" name="disciplinary_issued_by">
                         <option></option>
-                        @foreach($salaryPositions as $salaryPosition)
-                        @foreach($salaryPosition->employee as $salaryEmployee)
+                        @foreach($salaryJobs as $salaryJob)
+                        @foreach($salaryJob->employee as $salaryEmployee)
                         <option {{ old('disciplinary_issued_by') == $salaryEmployee->pivot->employee_id ? 'selected' : '' }} value="{{$salaryEmployee->pivot->employee_id}}">{{$salaryEmployee->first_name}} {{$salaryEmployee->last_name}}</option>
                         @endforeach
                         @endforeach
@@ -155,9 +155,9 @@
                     @endif
                     @endforeach
                     @endif
-                    @if(isset($salaryPositions))
-                    @foreach($salaryPositions as $salaryPosition)
-                    @foreach($salaryPosition->employee as $salaryEmployee)
+                    @if(isset($salaryJobs))
+                    @foreach($salaryJobs as $salaryJob)
+                    @foreach($salaryJob->employee as $salaryEmployee)
                     @if($disciplinary->issued_by == $salaryEmployee->pivot->employee_id)
                     <td>{{$salaryEmployee->first_name}} {{$salaryEmployee->last_name}}</td>
                     @endif
@@ -187,9 +187,9 @@
                     @endif
                     @endforeach
                     @endif
-                    @if(isset($salaryPositions))
-                    @foreach($salaryPositions as $salaryPosition)
-                    @foreach($salaryPosition->employee as $salaryEmployee)
+                    @if(isset($salaryJobs))
+                    @foreach($salaryJobs as $salaryJob)
+                    @foreach($salaryJob->employee as $salaryEmployee)
                     @if($disciplinary->issued_by == $salaryEmployee->pivot->employee_id)
                     <td>{{$salaryEmployee->first_name}} {{$salaryEmployee->last_name}}</td>
                     @endif

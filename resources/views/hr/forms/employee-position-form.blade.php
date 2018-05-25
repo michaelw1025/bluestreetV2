@@ -1,25 +1,7 @@
 
-        <h5 class="alert alert-info mt-5 toggle-section" id="employee-job">Job</h5>
-        <div class="print-section form-row align-items-center employee-job {{ $errors->has('position') ? '' : ($errors->has('job') ? '' : ($errors->has('cost_center') ? '' : ($errors->has('shift') ? '' : 'd-none'))) }}">
+        <h5 class="alert alert-info mt-5 toggle-section" id="employee-position">Position</h5>
+        <div class="print-section form-row align-items-center employee-position {{ $errors->has('job') ? '' : ($errors->has('position') ? '' : ($errors->has('cost_center') ? '' : ($errors->has('shift') ? '' : 'd-none'))) }}">
         
-            @if(isset($positions))
-            <div class="col-xl-4 my-1">
-                <label class="sr-only" for="position">Position</label>
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Position</div>
-                    </div>
-                    <select class="form-control" name="position" required>
-                        <option></option>
-                        @foreach($positions as $position)
-                        <option {{ isset($employee->position) ? ($employee->position[0]->id == $position->id ? 'selected' : '') : (old('position') == $position->id ? 'selected' : '') }} value="{{$position->id}}">{{$position->description}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <small class="text-danger">{{ $errors->first('position') }}</small>
-            </div>
-            @endif
-
             @if(isset($jobs))
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="job">Job</label>
@@ -27,14 +9,32 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Job</div>
                     </div>
-                    <select class="form-control job-select" name="job" required>
+                    <select class="form-control" name="job" required>
                         <option></option>
                         @foreach($jobs as $job)
-                        <option id="title-{{$job->wageTitle[0]->id}}-{{$job->wageTitle[0]->description}}" {{ isset($employee->job) ? ($employee->job[0]->id == $job->id ? 'selected' : '') : (old('job') == $job->id ? 'selected' : '') }} value="{{$job->id}}">{{$job->description}}</option>
+                        <option {{ isset($employee->job) ? ($employee->job[0]->id == $job->id ? 'selected' : '') : (old('job') == $job->id ? 'selected' : '') }} value="{{$job->id}}">{{$job->description}}</option>
                         @endforeach
                     </select>
                 </div>
                 <small class="text-danger">{{ $errors->first('job') }}</small>
+            </div>
+            @endif
+
+            @if(isset($positions))
+            <div class="col-xl-4 my-1">
+                <label class="sr-only" for="position">Position</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Position</div>
+                    </div>
+                    <select class="form-control position-select" name="position" required>
+                        <option></option>
+                        @foreach($positions as $position)
+                        <option id="title-{{$position->wageTitle[0]->id}}-{{$position->wageTitle[0]->description}}" {{ isset($employee->position) ? ($employee->position[0]->id == $position->id ? 'selected' : '') : (old('position') == $position->id ? 'selected' : '') }} value="{{$position->id}}">{{$position->description}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <small class="text-danger">{{ $errors->first('position') }}</small>
             </div>
             @endif
 

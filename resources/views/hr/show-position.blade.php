@@ -17,15 +17,53 @@
             <div class="form-group row">
                 <label for="description" class="col-sm-2 col-form-label">Position Description</label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="description" required value="{{$position['description']}}">
+                    <input type="text" class="form-control" name="description" required value="{{$position->description}}">
                     <small class="text-danger">{{ $errors->first('description') }}</small>
                 </div>
             </div>
 
+            @if($jobs)
+                <div class="form-group row">
+                    <label for="job" class="col-sm-2 col-form-label">Position Job</label>
+                    <div class="col-sm-10 col-md-8 col-lg-6">
+                        <select class="form-control" name="job" required >
+                        <option></option>
+                            @foreach($jobs as $job)
+                            <option @foreach($position->job as $positionJob) {{$positionJob->id == $job->id ? 'selected' : ''}} @endforeach value="{{$job->id}}">{{$job->description}}</option>
+                            @endforeach
+                        </select>
+                        <small class="text-danger">{{ $errors->first('job') }}</small>
+                    </div>
+                </div>
+            @endif
+
+            @if($wageTitles)
+                <div class="form-group row">
+                    <label for="wage_title" class="col-sm-2 col-form-label">Position wage Title</label>
+                    <div class="col-sm-10 col-md-8 col-lg-6">
+                        <select class="form-control" name="wage_title" required >
+                        <option></option>
+                            @foreach($wageTitles as $wageTitle)
+                            <option @foreach($position->wageTitle as $positionWageTitle) {{$positionWageTitle->id == $wageTitle->id ? 'selected' : ''}} @endforeach value="{{$wageTitle->id}}">{{$wageTitle->description}}</option>
+                            @endforeach
+                        </select>
+                        <small class="text-danger">{{ $errors->first('wage_title') }}</small>
+                    </div>
+                </div>
+            @endif
+
+            <div class="form-group row">
+                    <div class="col-sm-10 col-md-8 col-lg-6">
+                    @foreach($position->job as $positionJob)
+                        <p>{{$positionJob->description}}</p>
+                        @endforeach
+                    </div>
+                </div>
+
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <button type="submit" class="btn btn-warning" formaction="{{url('hr.positions/'.$position['id'].'/update')}}">Edit Position</button>
-                    <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.positions/'.$position['id'].'/delete')}}" name="position">Delete Position</button> -->
+                    <button type="submit" class="btn btn-warning" formaction="{{url('hr.positions/'.$position->id.'/update')}}">Edit Position</button>
+                    <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.positions/'.$position->id.'/delete')}}" name="position">Delete Position</button> -->
                 </div>
             </div>
         </form>

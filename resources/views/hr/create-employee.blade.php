@@ -18,8 +18,8 @@
             <!-- Include employee demographic form -->
             @include('hr.forms.employee-demographic-form')
 
-            <!-- Include job contact form -->
-            @include('hr.forms.employee-job-form')
+            <!-- Include position contact form -->
+            @include('hr.forms.employee-position-form')
 
             <!-- Include wage contact form -->
             @include('hr.forms.employee-wage-form')

@@ -12,12 +12,120 @@ class PositionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $position1 = new Position();
-        $position1->description = 'hourly';
-        $position1->save();
+        // Jobs
+        $hourly = 1;
+        $salary = 2;
 
-        $position2 = new Position();
-        $position2->description = 'salary';
-        $position2->save();
+        $assemblyPositions = array(
+            'assembler',
+        );
+        foreach($assemblyPositions as $assemblyPosition){
+            $addPosition = new Position();
+            $addPosition->description = $assemblyPosition;
+            $addPosition->save();
+            $addPosition->job()->sync([$hourly]);
+            $addPosition->wageTitle()->sync([2]);
+        }
+
+        $technicalPositions = array(
+            'checmical floor support technician',
+            'floor support technician',
+            'machine operator component',
+            'machine operator scroll',
+            'material handler',
+            'production quality auditor',
+            'support documentation',
+        );
+        foreach($technicalPositions as $technicalPosition){
+            $addPosition = new Position();
+            $addPosition->description = $technicalPosition;
+            $addPosition->save();
+            $addPosition->job()->sync([$hourly]);
+            $addPosition->wageTitle()->sync([3]);
+        }
+
+        $specialistPositions = array(
+            'specialist guage',
+            'specialist iso',
+            'specialist maintenance',
+            'specialist manufacturing',
+            'specialist operations',
+            'specialist teardown',
+            'specialist welding',
+        );
+        foreach($specialistPositions as $specialistPosition){
+            $addPosition = new Position();
+            $addPosition->description = $specialistPosition;
+            $addPosition->save();
+            $addPosition->job()->sync([$hourly]);
+            $addPosition->wageTitle()->sync([4]);
+        }
+
+        $maintenancePositions = array(
+            'machinist',
+            'maintenance assemly',
+            'maintenance component',
+            'maintenance facilities', 
+            'maintenance scroll', 
+            'maintenance leader',
+        );
+        foreach($maintenancePositions as $maintenancePosition){
+            $addPosition = new Position();
+            $addPosition->description = $maintenancePosition;
+            $addPosition->save();
+            $addPosition->job()->sync([$hourly]);
+            $addPosition->wageTitle()->sync([5]);
+        }
+
+        $salaryPositions = array(
+            'administrative assistant',
+            'administrator it lan sr',
+            'analyst financial',
+            'analyst it',
+            'analyst materials',
+            'clerk payroll',
+            'college student',
+            'controller plant', 
+            'controller plant assistant',
+            'coordinator engineering change',
+            'coordinator hr',
+            'coordinator project administrative',
+            'engineer environmental',
+            'engineer industrial',
+            'engineer lead',
+            'engineer manufacturing',
+            'engineer manufacturing sr',
+            'engineer production',
+            'engineer quality',
+            'generalist hr',
+            'manager employee relations',
+            'manager facilities and maintenance',
+            'manager hr',
+            'manager manufacturing services',
+            'manager materials',
+            'manager operations',
+            'manager quality',
+            'manager team',
+            'manager technical team',
+            'materials coordinator',
+            'project leader materials',
+            'scheduler',
+            'supervisor materials',
+            'team leader assembly',
+            'team leader iso and quality systems',
+            'team leader machining',
+            'team leader materials',
+            'team leader quality',
+            'technician calorimeter',
+            'technician project'
+        );
+
+        foreach($salaryPositions as $salaryPosition){
+            $addPosition = new Position();
+            $addPosition->description = $salaryPosition;
+            $addPosition->save();
+            $addPosition->job()->sync([$salary]);
+            $addPosition->wageTitle()->sync([1]);
+        }
     }
 }

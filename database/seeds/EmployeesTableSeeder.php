@@ -25,10 +25,10 @@ class EmployeesTableSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $hourly = Position::where('description', 'hourly')->first();
-        $salary = Position::where('description', 'salary')->first();
+        $hourly = Job::where('description', 'hourly')->first();
+        $salary = Job::where('description', 'salary')->first();
 
-        $hourlyJobsArray = array('assembler',
+        $hourlyPositionsArray = array('assembler',
             'checmical floor support technician',
             'floor support technician',
             'machine operator component',
@@ -51,7 +51,7 @@ class EmployeesTableSeeder extends Seeder
             'maintenance leader',
         );
 
-        $salaryJobsArray = array(
+        $salaryPositionsArray = array(
             'administrative assistant',
             'administrator it lan sr',
             'analyst financial',
@@ -162,7 +162,7 @@ class EmployeesTableSeeder extends Seeder
 
         $shiftsArray = array('day', 'night');
 
-        for($i = 0; $i <= 200; $i++)
+        for($i = 0; $i <= 25; $i++)
         {
             $employee = new Employee();
 
@@ -278,17 +278,17 @@ class EmployeesTableSeeder extends Seeder
                 $employee->emergencyContact()->save($contact);
             }
 
-            $employeePosition = $faker->randomElement($array = array($hourly, $salary));
-            $employee->position()->sync([$employeePosition->id]);
+            $employeeJob = $faker->randomElement($array = array($hourly, $salary));
+            $employee->job()->sync([$employeeJob->id]);
 
-            if($employeePosition == $hourly){
-                $jobTitle = $faker->randomElement($array = $hourlyJobsArray);
-                $jobInfo = Job::where('description', $jobTitle)->first();
-                $employee->job()->sync($jobInfo->id);
+            if($employeeJob == $hourly){
+                $positionTitle = $faker->randomElement($array = $hourlyPositionsArray);
+                $positionInfo = Position::where('description', $positionTitle)->first();
+                $employee->position()->sync($positionInfo->id);
             }else{
-                $jobTitle = $faker->randomElement($array = $salaryJobsArray);
-                $jobInfo = Job::where('description', $jobTitle)->first();
-                $employee->job()->sync($jobInfo->id);
+                $positionTitle = $faker->randomElement($array = $salaryPositionsArray);
+                $positionInfo = Position::where('description', $positionTitle)->first();
+                $employee->position()->sync($positionInfo->id);
             }
 
             $costCenterTitle = $faker->randomElement($array = $costCenterArray);

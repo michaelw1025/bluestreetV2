@@ -97,7 +97,7 @@
         </div>
         @endif
 
-        @if(isset($salaryPositions))
+        @if(isset($salaryJobs))
         <div class="col-xl-4 my-1">
             <label class="sr-only" for="disciplinary_issued_by">Issued By</label>
             <div class="input-group">
@@ -106,8 +106,8 @@
                 </div>
                 <select class="form-control" name="disciplinary_issued_by">
                     <option value="@if(!empty($disciplinary->issued_by)) {{$disciplinary->issued_by}} @endif">@if(!empty($disciplinary->issued_by_name)) {{$disciplinary->issued_by_name}} @endif</option>
-                    @foreach($salaryPositions as $salaryPosition)
-                    @foreach($salaryPosition->employee as $salaryEmployee)
+                    @foreach($salaryJobs as $salaryJob)
+                    @foreach($salaryJob->employee as $salaryEmployee)
                     <option value="{{$salaryEmployee->pivot->employee_id}}">{{$salaryEmployee->first_name}} {{$salaryEmployee->last_name}}</option>
                     @endforeach
                     @endforeach

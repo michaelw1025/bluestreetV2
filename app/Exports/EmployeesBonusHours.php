@@ -49,8 +49,8 @@ class EmployeesBonusHours implements FromCollection, WithHeadings
             'Team Manager',
             'Team Leader',
             'Shift',
-            'Job',
             'Position',
+            'Job',
         ];
     }
 

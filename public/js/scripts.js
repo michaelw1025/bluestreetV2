@@ -198,14 +198,14 @@ $('.emergency-contact-primary-button').on('click', function(){
 });
 // ----------------End set primary emergency contact----------------
 
-// ----------------Set wage table based on job chosen----------------
-$('.job-select').change(function(){
+// ----------------Set wage table based on position chosen----------------
+$('.position-select').change(function(){
     var item = $(this).find(':selected').attr('id');
     item = item.split('-').pop();
     $('.wage-progression-table').addClass('d-none');
     $('.progression-'+item).removeClass('d-none');
 });
-// ----------------End set wage table based on job chosen----------------
+// ----------------End set wage table based on position chosen----------------
 
 // ----------------Show medical insurance coverages based on medical plan chosen----------------
 $('.medical-plan-select').change(function(){

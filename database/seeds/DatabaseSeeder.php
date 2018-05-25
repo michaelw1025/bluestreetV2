@@ -17,13 +17,13 @@ class DatabaseSeeder extends Seeder
 
         $this->call(CostCentersTableSeeder::class);
 
-        $this->call(PositionsTableSeeder::class);
+        $this->call(JobsTableSeeder::class);
 
         $this->call(WageProgressionsTableSeeder::class);
 
         $this->call(WageTitlesTableSeeder::class);
 
-        $this->call(JobsTableSeeder::class);
+        $this->call(PositionsTableSeeder::class);
 
         $this->call(ShiftsTableSeeder::class);
 

@@ -5,7 +5,7 @@
         
         @if($wageTitles)
             @foreach($wageTitles as $wageTitle)
-            <table class="table table-bordered table-sm progression-{{$wageTitle->description}} wage-progression-table {{isset($employee->job) ? ($employee->job[0]->wageTitle[0]->id == $wageTitle->id ? '' : 'd-none') : 'd-none'}}">
+            <table class="table table-bordered table-sm progression-{{$wageTitle->description}} wage-progression-table {{isset($employee->position) ? ($employee->position[0]->wageTitle[0]->id == $wageTitle->id ? '' : 'd-none') : 'd-none'}}">
                 <caption><span class="text-info">Current Wage</span></caption>
                 <thead class="thead-light">
                     <tr>

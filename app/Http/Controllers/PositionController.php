@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Job;
 use App\Position;
+use App\WageTitle;
 
 class PositionController extends Controller
 {
@@ -12,13 +14,17 @@ class PositionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, Position $position)
+    public function index(Request $request, Job $job, Position $position, WageTitle $wageTitle)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $positions = $position->orderBy('description', 'asc')->get();
+        $positions = $position->orderBy('description', 'asc')->with('job')->get();
+        $jobs = $job->all();
+        $wageTitles = $wageTitle->all();
         return view('hr.positions', [
+            'jobs' => $jobs,
             'positions' => $positions,
+            'wageTitles' => $wageTitles,
         ]);
     }
 
@@ -49,11 +55,14 @@ class PositionController extends Controller
         $position = new Position();
         $position->description = $request->description;
         if($position->save()){
+            $position->position()->sync([$request->position]);
+            $position->wageTitle()->sync([$request->wage_title]);
             \Session::flash('status', 'Position created.');
+            return redirect('hr.positions');
         }else{
             \Session::flash('error', 'Position not created.');
+            return redirect()->back();
         }
-        return redirect('hr.positions');
     }
 
     /**
@@ -62,13 +71,17 @@ class PositionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Position $position, $id)
+    public function show(Request $request, Job $job, Position $position, WageTitle $wageTitle, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $position = $position->find($id);
+        $position = $position->with('job', 'wageTitle')->find($id);
+        $jobs = $job->all();
+        $wageTitles = $wageTitle->all();
         return view('hr.show-position', [
+            'jobs' => $job,
             'position' => $position,
+            'wageTitles' => $wageTitles,
         ]);
     }
 
@@ -101,6 +114,8 @@ class PositionController extends Controller
         $position = $position->find($id);
         $position->description = $request->description;
         if($position->save()){
+            $positions->job()->sync([$request->position]);
+            $position->wageTitle()->sync([$request->wage_title]);
             \Session::flash('status', 'Position edited.');
         }else{
             \Session::flash('error', 'Position not edited.');
@@ -119,6 +134,8 @@ class PositionController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         // $position = $position->find($id);
+        // $position->job()->sync([]);
+        // $position->wageTitle()->sync([]);
         // if($position->delete()){
         //     \Session::flash('status', 'Position deleted.');
         // }else{

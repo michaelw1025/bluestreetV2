@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Position;
 
 class Job extends Model
 {
@@ -40,19 +39,15 @@ class Job extends Model
     // ----------------End Mutators----------------
 
     // ----------------Relationships----------------
-    // Postion relationship
+    // Position relationship
     public function position()
     {
         return $this->belongsToMany('App\Position');
-    }
-    // Wage Title relationship
-    public function wageTitle()
-    {
-        return $this->belongsToMany('App\WageTitle');
     }
     //Employee relationship
     public function employee()
     {
         return $this->belongsToMany('App\Employee');
     }
+    
 }

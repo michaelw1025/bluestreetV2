@@ -172,8 +172,8 @@ class EmployeeController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'job.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary', 'wageProgression')->find($id);
-        $positions = $position->all();
-        $jobs = $job->with('wageTitle')->get();
+        $jobs = $job->all();
+        $positions = $position->with('wageTitle')->get();
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('wageProgression')->get();
@@ -181,7 +181,7 @@ class EmployeeController extends Controller
         $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
         $visionPlans = $visionPlan->with('insuranceCoverage')->get();
         $accidentalCoverages = $accidentalCoverage->all();
-        $salaryPositions = $position->with(['employee' => function($query){
+        $salaryJobs = $job->with(['employee' => function($query){
             $query->orderBy('last_name', 'asc');
         }])->where('description', 'salary')->get();
         $this->setTeamManagerTeamLeader($employee);
@@ -397,7 +397,7 @@ class EmployeeController extends Controller
      * @param  int  $status
      * @return \Illuminate\Http\Response
      */
-    public function showDisciplinary(Request $request, Employee $employee, CostCenter $costCenter, Position $position, $employeeID, $disciplinaryID)
+    public function showDisciplinary(Request $request, Employee $employee, CostCenter $costCenter, Job $job, $employeeID, $disciplinaryID)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -405,13 +405,13 @@ class EmployeeController extends Controller
         $issuer_name = $employee->select('first_name', 'last_name')->where('id', $disciplinary->issued_by)->get();
         $disciplinary->issued_by_name = $issuer_name[0]->first_name.' '.$issuer_name[0]->last_name;
         $costCenters = $costCenter->all();
-        $salaryPositions = $position->with(['employee' => function($query){
+        $salaryJobs = $job->with(['employee' => function($query){
             $query->orderBy('last_name', 'asc');
         }])->where('description', 'salary')->get();
         return view('hr.show-employee-disciplinary', [
             'disciplinary' => $disciplinary,
             'costCenters' => $costCenters,
-            'salaryPositions' => $salaryPositions,
+            'salaryJobs' => $salaryJobs,
         ]);
     }
 

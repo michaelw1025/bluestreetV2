@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateJobWageTitleTable extends Migration
+class CreatePositionWageTitleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateJobWageTitleTable extends Migration
      */
     public function up()
     {
-        Schema::create('job_wage_title', function (Blueprint $table) {
+        Schema::create('position_wage_title', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('job_id')->unsigned();
+            $table->integer('position_id')->unsigned();
             $table->integer('wage_title_id')->unsigned();
             $table->timestamps();
         });
@@ -28,6 +28,6 @@ class CreateJobWageTitleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('job_wage_title');
+        Schema::dropIfExists('position_wage_title');
     }
 }

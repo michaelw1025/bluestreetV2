@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Team;
-use App\Job;
+use App\Position;
 use App\Shift;
 use App\WageTitle;
 
@@ -27,20 +27,20 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Team $team, Job $job, Shift $shift, WageTitle $wageTitle)
+    public function create(Request $request, Team $team, Position $position, Shift $shift, WageTitle $wageTitle)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
 
         $year = Carbon::today();
         $teams = $team->all();
-        $jobs = $job->with('wageTitle')->get();
+        $positions = $position->with('wageTitle')->get();
         $shifts = $shift->all();
-        $wageTitles = $wageTitle->with('job', 'wageProgression')->get();
+        $wageTitles = $wageTitle->with('position', 'wageProgression')->get();
         return view('hr.bidding.create-bid', [
             'year' => $year,
             'teams' => $teams,
-            'jobs' => $jobs,
+            'positions' => $positions,
             'shifts' => $shifts,
             'wageTitles' => $wageTitles,
         ]);

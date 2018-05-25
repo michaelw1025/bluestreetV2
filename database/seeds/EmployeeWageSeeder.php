@@ -18,10 +18,10 @@ class EmployeeWageSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        $employees = Employee::with('job.wageTitle')->get();
+        $employees = Employee::with('position.wageTitle')->get();
         foreach($employees as $employee){
             $wageProgressionID = $faker->numberBetween($min = 1, $max = 15);
-            $wageTitleID = $employee->job[0]->wageTitle[0]->id;
+            $wageTitleID = $employee->position[0]->wageTitle[0]->id;
             $employeeWage = WageProgressionWageTitle::where([
                 ['wage_title_id', $wageTitleID],
                 ['wage_progression_id', $wageProgressionID],
