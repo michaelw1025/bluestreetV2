@@ -52,14 +52,6 @@
                 </div>
             @endif
 
-            <div class="form-group row">
-                    <div class="col-sm-10 col-md-8 col-lg-6">
-                    @foreach($position->job as $positionJob)
-                        <p>{{$positionJob->description}}</p>
-                        @endforeach
-                    </div>
-                </div>
-
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.positions/'.$position->id.'/update')}}">Edit Position</button>

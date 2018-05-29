@@ -55,7 +55,7 @@ class PositionController extends Controller
         $position = new Position();
         $position->description = $request->description;
         if($position->save()){
-            $position->position()->sync([$request->position]);
+            $position->job()->sync([$request->job]);
             $position->wageTitle()->sync([$request->wage_title]);
             \Session::flash('status', 'Position created.');
             return redirect('hr.positions');
@@ -114,7 +114,7 @@ class PositionController extends Controller
         $position = $position->find($id);
         $position->description = $request->description;
         if($position->save()){
-            $positions->job()->sync([$request->position]);
+            $position->job()->sync([$request->job]);
             $position->wageTitle()->sync([$request->wage_title]);
             \Session::flash('status', 'Position edited.');
         }else{

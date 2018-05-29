@@ -14,7 +14,7 @@
         <form method="post" action="" class="prevent-print">
         {{ csrf_field() }}
             <div class="form-group row">
-                <label for="description" class="col-sm-2 col-form-label">job Description</label>
+                <label for="description" class="col-sm-2 col-form-label">Job Description</label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <input type="text" class="form-control" name="description" required value="{{old('description')}}">
                     <small class="text-danger">{{ $errors->first('description') }}</small>
