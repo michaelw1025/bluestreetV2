@@ -1,3 +1,8 @@
+v 1.3.0
+-5-29-18
+-swapped job and position throughout site and db
+-added progression date and month to wage progression excel export
+
 v 1.2.1
 -5-17-18
 -Added progression date to wage progression query

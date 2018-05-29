@@ -69,7 +69,7 @@ class ExportController extends Controller
         // Get the searched progression
         $progression = $wageProgression->find($searchProgression);
         // Get all employees who have a wage event at the searched progression level
-        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->whereHas('wageProgression', function($query) use($progression) {
+        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date')->whereHas('wageProgression', function($query) use($progression) {
             $query->where('wage_progression_id', $progression->id);
         })->with(['wageProgression' => function($query) use($progression) {
             $query->where('wage_progression_id', $progression->id);
@@ -89,10 +89,22 @@ class ExportController extends Controller
             }
         });
         foreach($searchEmployees as $searchEmployee){
+            foreach($searchEmployee->wageProgression as $progression){
+                $searchEmployee->progression_date = $progression->pivot->date->format('m-d-Y');
+                $searchEmployee->progression_month = $progression->month;
+            }
             unset($searchEmployee['wageProgression']);
             $searchEmployee->load('costCenter', 'shift', 'job', 'position');
         }
         $this->employeeInfoOne($searchEmployees);
+        
+        foreach($searchEmployees as $searchEmployee){
+            unset($searchEmployee['team_manager']);
+            unset($searchEmployee['team_leader']);
+            unset($searchEmployee['date_of_birth']);
+            unset($searchEmployee['date_of_service']);
+        }
+        // return $searchEmployees;
         
         return (new EmployeesWageProgression($searchEmployees))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'-m|'.$searchMonth.'-y|'.$searchYear.'-p|'.$progression->month.'.xlsx');
         
