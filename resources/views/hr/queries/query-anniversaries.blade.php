@@ -67,6 +67,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Hire Date</th>
                         <th scope="col">Cost Center</th>
+                        <th scope="col">Shift</th>
                         <th scope="col">Team Manager</th>
                         <th scope="col">Team Leader</th>
                     </tr>
@@ -82,7 +83,9 @@
                     <tr class="clickable-row d-none {{ $year == '5' ? 'five' : ($year == '10' ? 'ten' : ($year == '15' ? 'fifteen' : ($year == '20' ? 'twenty' : ($year == '25' ? 'twenty-five' : ($year == '30' ? 'thirty' : ($year == '35' ? 'thirty-five' : $year == '40' ? 'forty' : ($year == '45' ? 'forty-five' : ($year == '50' ? 'fifty' : '')))))))) }}" data-href="{{ url('hr.employees/'.$employee->id) }}">
                         <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                         <td>{{$employee->hire_date->format('m-d-Y')}}</td>
-                        <td>@foreach($costCenters as $costCenter) {{$employee->costCenter[0]->id == $costCenter->id ? $costCenter->number : ''}} @endforeach</td>
+                        <!-- <td>@foreach($costCenters as $costCenter) {{$employee->costCenter[0]->id == $costCenter->id ? $costCenter->number : ''}} @endforeach</td> -->
+                        <td>@foreach($employee->costCenter as $costCenter) {{$costCenter->number}} @endforeach</td>
+                        <td>@foreach($employee->shift as $shift) {{$shift->description}} @endforeach</td>
                         <td>{{$employee->team_manager}}</td>
                         <td>{{$employee->team_leader}}</td>
                     </tr>

@@ -5,7 +5,7 @@
 
     <!-- Content for main window must go within this div -->
     <div class="col mr-sm-3">
-        <h1 class="">Wage Titles<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
+        <h1 class="">Wage Titles <small class="text-muted">(Manage)</small><button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
 
@@ -43,7 +43,7 @@
                 <tbody>
             </table>
             @endif
-            
+
             <div class="form-group row">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-success" formaction="{{url('hr.wage-titles')}}">Create Wage Title</button>
