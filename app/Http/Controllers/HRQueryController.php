@@ -19,6 +19,16 @@ class HRQueryController extends Controller
     use FormatsHelper;
 
     /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
+    /**
      * Query all employees alphabetical
      *
      * @return \Illuminate\Http\Response

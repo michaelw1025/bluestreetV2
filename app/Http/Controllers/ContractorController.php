@@ -12,6 +12,16 @@ class ContractorController extends Controller
     use FormatsHelper;
 
     /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -184,7 +194,7 @@ class ContractorController extends Controller
         }else{
             \Session::flash('error', 'Contractor Employee Not Created.');
         }
-        
+
         return redirect('hr.create-contractor-employee');
     }
 

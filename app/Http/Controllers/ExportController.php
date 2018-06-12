@@ -18,13 +18,23 @@ class ExportController extends Controller
 {
     use FormatsHelper;
 
+    /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
     public function employeesAlphabetical(Request $request, Employee $employee)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->where('status', 1)->orderBy('hire_date', 'asc')->with('costCenter', 'shift', 'job', 'position')->get();
         $this->employeeInfoOne($employees);
-        return (new EmployeesAlphabetical($employees))->download('employees-by-alphabetical-'.Carbon::now()->format('m-d-Y').'.xlsx');  
+        return (new EmployeesAlphabetical($employees))->download('employees-by-alphabetical-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 
     public function employeesSeniority(Request $request, Employee $employee)
@@ -97,7 +107,7 @@ class ExportController extends Controller
             $searchEmployee->load('costCenter', 'shift', 'job', 'position');
         }
         $this->employeeInfoOne($searchEmployees);
-        
+
         foreach($searchEmployees as $searchEmployee){
             unset($searchEmployee['team_manager']);
             unset($searchEmployee['team_leader']);
@@ -105,9 +115,9 @@ class ExportController extends Controller
             unset($searchEmployee['date_of_service']);
         }
         // return $searchEmployees;
-        
+
         return (new EmployeesWageProgression($searchEmployees))->download('employees-wage-progression-'.Carbon::now()->format('m-d-Y').'-m|'.$searchMonth.'-y|'.$searchYear.'-p|'.$progression->month.'.xlsx');
-        
+
     }
 
     public function employeesBonusHours(Request $request, Employee $employee)
@@ -167,7 +177,7 @@ class ExportController extends Controller
 
 
 
-    
+
 
     private function employeeInfoOne($employees)
     {

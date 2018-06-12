@@ -24,6 +24,16 @@ class EmployeeController extends Controller
     use FormatsHelper;
 
     /**
+    * Create a new controller instance.
+    *
+    * @return void
+    */
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -557,5 +567,5 @@ class EmployeeController extends Controller
         return redirect()->route('hr.employees', $employee->id);
     }
 
-    
+
 }
