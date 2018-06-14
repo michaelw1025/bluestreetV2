@@ -322,22 +322,26 @@ class HRQueryController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
         if($request->has('submit_wage_event_search')){
             // Get current search items
             $searchMonth = (int)$request->search_month;
+
             $searchYear = (int)$request->search_year;
+
             $searchProgression = (int)$request->search_progression;
+
             // Get the searched progression
             $progression = $wageProgression->find($searchProgression);
+
             // Get all employees who have a wage event at the searched progression level
             $employees = $employee->whereHas('wageProgression', function($query) use($progression) {
                 $query->where('wage_progression_id', $progression->id);
             })->with(['wageProgression' => function($query) use($progression) {
                 $query->where('wage_progression_id', $progression->id);
             }])->where('status', 1)->get();
+
             // Filter out employees whose wage event does not match the searched month and year
             $searchEmployees = $employees->filter(function($employee) use ($searchMonth, $searchYear) {
                 foreach($employee->wageProgression as $employeeProgression){
@@ -355,12 +359,14 @@ class HRQueryController extends Controller
             // for each employee left eager load the required relationships, get current wage for wage title, and get next wage for wage title
             foreach($searchEmployees as $searchEmployee){
                 $searchEmployee->loadMissing('costCenter', 'shift', 'job', 'wageProgressionWageTitle');
-                $searchEmployee->next_progression = $wageProgressionWageTitle->where([
-                    ['wage_title_id', $searchEmployee->wageProgressionWageTitle[0]->wage_title_id],
-                    ['wage_progression_id', $progression->id],
-                ])->get();
+
+                // $searchEmployee->next_progression = $wageProgressionWageTitle->where([
+                //     ['wage_title_id', $searchEmployee->wageProgressionWageTitle[0]->wage_title_id],
+                //     ['wage_progression_id', $progression->id],
+                // ])->get();
                 $this->setTeamManagerTeamLeader($searchEmployee);
             }
+
             return view('hr.queries.query-employees-wage-progression', [
                 'wageProgressions' => $wageProgressions,
                 'searchMonth' => $searchMonth,

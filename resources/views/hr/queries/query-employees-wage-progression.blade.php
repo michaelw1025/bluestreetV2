@@ -127,12 +127,24 @@
                         <td class="service-date d-none">{{$employee->service_date->format('m-d-Y')}}</td>
                         <td class="address d-none">{{$employee->address_1}} {{$employee->address_2}}, {{$employee->city}}, {{$employee->state}}, {{$employee->zip_code}}</td>
                         <td class="bid-eligible d-none">{{$employee->bid_eligible == '0' ? 'No' : 'Yes'}}</td>
-                        <td class="cost-center d-none">{{$employee->costCenter[0]->number}}</td>
-                        <td class="shift d-none">{{$employee->shift[0]->description}}</td>
-                        <td class="job d-none">{{$employee->job[0]->description}}</td>
-                        <td class="position d-none">{{$employee->position[0]->description}}</td>
-                        <td class="current-wage d-none">{{$employee->wageProgressionWageTitle[0]->amount}}</td>
-                        <td class="next-wage d-none">{{$employee->next_progression[0]->amount}}</td>
+
+                        @foreach($employee->costCenter as $employeeCostCenter)
+                        <td class="cost-center d-none">{{$employeeCostCenter->number}}</td>
+                        @endforeach
+                        @foreach($employee->shift as $employeeShift)
+                        <td class="shift d-none">{{$employeeShift->description}}</td>
+                        @endforeach
+                        @foreach($employee->job as $employeeJob)
+                        <td class="job d-none">{{$employeeJob->description}}</td>
+                        @endforeach
+                        @foreach($employee->position as $employeePosition)
+                        <td class="job d-none">{{$employeeJob->description}}</td>
+                        <td class="position d-none">{{$employeePosition->description}}</td>
+                        @endforeach
+                        @foreach($employee->wageProgressionWageTitle as $employeeNextWage)
+                        <td class="next-wage d-none">{{$employeeNextWage->amount}}</td>
+                        @endforeach
+
                         <td class="team-manager d-none">{{$employee->team_manager}}</td>
                         <td class="team-leader d-none">{{$employee->team_leader}}</td>
                     </tr>
