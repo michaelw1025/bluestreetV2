@@ -1,0 +1,267 @@
+
+'assembler' => 	"Aassembler"
+				"Assembler"
+			"Assembly"
+			"Assmebler"
+			
+
+'checmical floor support technician' =>	"Chem Team"
+
+
+'floor support technician' =>	"Assembly -  FST"
+								"Assembly - FST"
+								"Assembly FST"
+								
+
+'machine operator component' =>	"Machine Oper Comp"
+								"Machine Operator Comp"
+
+
+'machine operator scroll' =>	"Machine Operator - Scroll"
+								"Machine Operator Scroll"
+								"Scroll Mach Oper"
+								"Scroll Machine Operator"
+
+
+'material handler' =>	"Assembly Material Handler"
+						"Material Handler"
+						"Material Handler - Assembly"
+						"Material Handler-Assembly"
+
+
+'production quality auditor' =>	"Quality Auditor"
+								"Quality Auditor - FST"
+
+
+'support documentation' =>	"HR Support"
+
+
+'specialist guage' =>	"Gauge Specialist"
+
+
+'specialist iso' =>	"ISO Specialist"
+
+
+'specialist maintenance' =>	"Maintenance Specialist - Assembly"
+							"Maintenance Specialist - Comp"
+							"Maintenance Specialist - Scroll"
+
+
+'specialist manufacturing' =>	"Manufacturing Specialist - Assembly"
+								"Manufacturing Specialist - Comp"
+								"Manufacturing Specialist - Quality"
+								"Manufacturing Specialist - Scroll"
+								"Manufacturing Specialist - Tool Room"
+
+
+'specialist operations' =>	"Operation Specialist - Assembly"
+							"Operation Specialist - Chem"
+							"Operation Specialist - Materials"
+							"Operations Specialist - Scroll"
+
+
+'specialist teardown' =>	"Teardown Specialist"
+
+
+'specialist welding' =>	"Welding Specialist - Assembly"
+
+
+'machinist' =>	"Machinist - Tool Room"
+				"Machinist -Tool Room"
+
+
+'maintenance assemly' =>	"Maintenance - Assembly"
+
+
+'maintenance component' =>	"Maintenance -  Component"
+							"Maintenance - Component"
+
+
+'maintenance facilities' =>	"Maintenance - Facilities"
+
+'maintenance scroll' =>	"Maintenance - Scroll"
+
+
+'maintenance leader'
+
+
+'administrative assistant' =>	"Admin. Asst."
+
+
+'administrator it lan sr' =>	"MIS - Analyst"
+
+
+'analyst financial' =>	"Finance"
+						"Sr. Financial Analyst"
+
+
+'analyst it' =>	"MIS Analyst"
+
+
+'analyst materials' =>	"Material Analyst"
+
+
+'clerk payroll' =>	"Payroll Clerk"
+
+
+'clerk hr' =>	"H.R. Clerk"
+
+
+'college student' =>	"Assembly - Co-op"
+						"Co-op"
+						"Engineering Co-op"
+						
+
+'controller plant' =>	"Controller"
+
+
+'controller plant assistant'
+
+
+'coordinator engineering change'
+
+
+'coordinator hr' =>	"H.R. Cordinator"
+					"HR Coordinator"
+					
+
+'coordinator project administrative' =>	"Project Control Coordinator"
+
+
+'engineer environmental' =>	"Environmental Engineer"
+
+
+'engineer industrial' =>	"IE"
+							"Ind Engineer"
+							"Industrial Engineer"
+							
+
+'engineer lead'
+
+
+'engineer manufacturing' => "Eng. MFG"
+							"Engineer - MFG"
+							"Engineer Mfg"
+							"Manufacturing Engineer - Scroll"
+							"Mfg Eng"
+							"MFG Engineer"
+							
+
+'engineer manufacturing sr' =>	"Sr. Mfg Engineer"
+
+
+'engineer production' =>	"Engineer-Prodn"
+							"Production Engineer"
+							"Production Engineer - Assembly"
+							"Production Engineer - Machining"
+							"Production Engineer- Assembly"
+
+
+'engineer quality' =>	"Engineer - Quality"
+						"Quality Engineer"
+
+
+'generalist hr' =>	"HR Generalist"
+
+
+'manager employee relations' => "Employee Relations Mgr"
+
+
+'manager facilities and maintenance'
+
+
+'manager hr' =>	"HR Manager"
+
+
+'manager manufacturing services' =>	"Mgr MFG"
+
+
+'manager materials'
+
+
+'manager operations' =>	"Assembly Manager"
+						"Scroll Manager"
+
+
+'manager quality' =>	"Quality Manager"
+
+
+'manager team' =>	"TM Assembly"
+					"TM Component"
+					"TM Materials"
+					"TM Scroll"
+					"TM Tech"
+					"TM Warehouse"
+
+
+'manager technical team'
+
+
+'materials coordinator'
+
+
+'project leader materials'
+
+
+'scheduler' =>	"Scheduler"
+
+
+'supervisor materials'
+
+
+'team leader assembly' =>	"TL Assembly"
+
+
+'team leader iso and quality systems' =>	"TL ISO Quality"
+
+
+'team leader machining' =>	"Scroll Team Leader"
+							"TL Component"
+							"TL Scroll"
+
+
+'team leader materials' =>	"Materials Supervisor"
+							"TL Materials"
+
+
+'team leader quality' =>	"TL Quality"
+
+
+'technician calorimeter' =>	"Cal Lab Tech"
+
+
+'technician project' =>	"Project Tech"
+
+
+'corporate sydney' =>	"Corporate Sidney"
+						"Leader-Project"
+						"Sidney Employee"
+
+
+'manager customer service' => "Customer Service Mgr."
+
+
+'customer service representative' =>	"Customer Service Rep"
+										"Customer Service Spec"
+										"Customer Service Specialist"
+										"Customer Service Rep."
+										"Int Co CSR"
+										
+							
+'director of operations' =>	"Dir-Operations-Missouri"
+
+
+'engineer automation' =>	"Engineer Automation"
+
+
+'engineer safety' =>	"Engineer Mfg Safety"
+
+'lean champion' =>	"Lean Champion"
+
+'engineer lean' =>	"Lean Engineer"
+
+'engineer special projects' =>	"Spec Prod Engineer"
+
+'engineer lean sr' =>	"Sr. Lean Engineer"
+
+'team leader assembly maintenance' =>	"TL Maintenance - Assembly"

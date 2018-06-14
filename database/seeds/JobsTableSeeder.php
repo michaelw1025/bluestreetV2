@@ -19,5 +19,9 @@ class JobsTableSeeder extends Seeder
         $job2 = new Job();
         $job2->description = 'salary';
         $job2->save();
+
+        $job3 = new Job();
+        $job3->description = 'corporate';
+        $job3->save();
     }
 }

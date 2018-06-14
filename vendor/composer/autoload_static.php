@@ -17,6 +17,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
+        '9e4824c5afbdc1482b6025ce3d4dfde8' => __DIR__ . '/..' . '/league/csv/src/functions_include.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -81,6 +82,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'L' => 
         array (
             'League\\Flysystem\\' => 17,
+            'League\\Csv\\' => 11,
             'Laravel\\Tinker\\' => 15,
         ),
         'I' => 
@@ -245,6 +247,10 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
+        'League\\Csv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/league/csv/src',
+        ),
         'Laravel\\Tinker\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
@@ -342,16 +348,11 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
     );
 
     public static $classMap = array (
-        'AccidentalCoveragesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/AccidentalCoveragesTableSeeder.php',
-        'App\\AccidentalCoverage' => __DIR__ . '/../..' . '/app/AccidentalCoverage.php',
-        'App\\Beneficiary' => __DIR__ . '/../..' . '/app/Beneficiary.php',
         'App\\Bid' => __DIR__ . '/../..' . '/app/Bid.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Contractor' => __DIR__ . '/../..' . '/app/Contractor.php',
         'App\\ContractorTraining' => __DIR__ . '/../..' . '/app/ContractorTraining.php',
         'App\\CostCenter' => __DIR__ . '/../..' . '/app/CostCenter.php',
-        'App\\DentalPlan' => __DIR__ . '/../..' . '/app/DentalPlan.php',
-        'App\\DentalPlanInsuranceCoverage' => __DIR__ . '/../..' . '/app/DentalPlanInsuranceCoverage.php',
         'App\\Dependant' => __DIR__ . '/../..' . '/app/Dependant.php',
         'App\\Disciplinary' => __DIR__ . '/../..' . '/app/Disciplinary.php',
         'App\\EmergencyContact' => __DIR__ . '/../..' . '/app/EmergencyContact.php',
@@ -376,7 +377,6 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\Http\\Controllers\\HRController' => __DIR__ . '/../..' . '/app/Http/Controllers/HRController.php',
         'App\\Http\\Controllers\\HRQueryController' => __DIR__ . '/../..' . '/app/Http/Controllers/HRQueryController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
-        'App\\Http\\Controllers\\InsuranceController' => __DIR__ . '/../..' . '/app/Http/Controllers/InsuranceController.php',
         'App\\Http\\Controllers\\JobController' => __DIR__ . '/../..' . '/app/Http/Controllers/JobController.php',
         'App\\Http\\Controllers\\PositionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PositionController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
@@ -392,11 +392,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\StoreEmployee' => __DIR__ . '/../..' . '/app/Http/Requests/StoreEmployee.php',
-        'App\\InsuranceCoverage' => __DIR__ . '/../..' . '/app/InsuranceCoverage.php',
-        'App\\InsuranceCoverageMedicalPlan' => __DIR__ . '/../..' . '/app/InsuranceCoverageMedicalPlan.php',
-        'App\\InsuranceCoverageVisionPlan' => __DIR__ . '/../..' . '/app/InsuranceCoverageVisionPlan.php',
         'App\\Job' => __DIR__ . '/../..' . '/app/Job.php',
-        'App\\MedicalPlan' => __DIR__ . '/../..' . '/app/MedicalPlan.php',
         'App\\ParkingPermit' => __DIR__ . '/../..' . '/app/ParkingPermit.php',
         'App\\PhoneNumber' => __DIR__ . '/../..' . '/app/PhoneNumber.php',
         'App\\Position' => __DIR__ . '/../..' . '/app/Position.php',
@@ -413,7 +409,6 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'App\\Termination' => __DIR__ . '/../..' . '/app/Termination.php',
         'App\\Traits\\FormatsHelper' => __DIR__ . '/../..' . '/app/Traits/FormatsHelper.php',
         'App\\User' => __DIR__ . '/../..' . '/app/User.php',
-        'App\\VisionPlan' => __DIR__ . '/../..' . '/app/VisionPlan.php',
         'App\\VisionVoucher' => __DIR__ . '/../..' . '/app/VisionVoucher.php',
         'App\\WageProgression' => __DIR__ . '/../..' . '/app/WageProgression.php',
         'App\\WageProgressionWageTitle' => __DIR__ . '/../..' . '/app/WageProgressionWageTitle.php',
@@ -456,7 +451,6 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'DeepCopy\\TypeFilter\\Spl\\SplDoublyLinkedListFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/Spl/SplDoublyLinkedListFilter.php',
         'DeepCopy\\TypeFilter\\TypeFilter' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeFilter/TypeFilter.php',
         'DeepCopy\\TypeMatcher\\TypeMatcher' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/TypeMatcher/TypeMatcher.php',
-        'DentalPlansTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DentalPlansTableSeeder.php',
         'Doctrine\\Common\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Common/Inflector/Inflector.php',
         'Doctrine\\Common\\Lexer\\AbstractLexer' => __DIR__ . '/..' . '/doctrine/lexer/lib/Doctrine/Common/Lexer/AbstractLexer.php',
         'Doctrine\\Instantiator\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator/Exception/ExceptionInterface.php',
@@ -535,6 +529,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
+        'EmployeeCSVSeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeeCSVSeeder.php',
         'EmployeeWageSeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeeWageSeeder.php',
         'EmployeesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeesTableSeeder.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',
@@ -1829,7 +1824,6 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
-        'InsuranceCoveragesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/InsuranceCoveragesTableSeeder.php',
         'JakubOnderka\\PhpConsoleColor\\ConsoleColor' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/ConsoleColor.php',
         'JakubOnderka\\PhpConsoleColor\\InvalidStyleException' => __DIR__ . '/..' . '/jakub-onderka/php-console-color/src/JakubOnderka/PhpConsoleColor/InvalidStyleException.php',
         'JakubOnderka\\PhpConsoleHighlighter\\Highlighter' => __DIR__ . '/..' . '/jakub-onderka/php-console-highlighter/src/JakubOnderka/PhpConsoleHighlighter/Highlighter.php',
@@ -1838,6 +1832,23 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
         'Laravel\\Tinker\\TinkerCaster' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerCaster.php',
         'Laravel\\Tinker\\TinkerServiceProvider' => __DIR__ . '/..' . '/laravel/tinker/src/TinkerServiceProvider.php',
+        'League\\Csv\\AbstractCsv' => __DIR__ . '/..' . '/league/csv/src/AbstractCsv.php',
+        'League\\Csv\\ByteSequence' => __DIR__ . '/..' . '/league/csv/src/ByteSequence.php',
+        'League\\Csv\\CannotInsertRecord' => __DIR__ . '/..' . '/league/csv/src/CannotInsertRecord.php',
+        'League\\Csv\\CharsetConverter' => __DIR__ . '/..' . '/league/csv/src/CharsetConverter.php',
+        'League\\Csv\\ColumnConsistency' => __DIR__ . '/..' . '/league/csv/src/ColumnConsistency.php',
+        'League\\Csv\\EncloseField' => __DIR__ . '/..' . '/league/csv/src/EncloseField.php',
+        'League\\Csv\\EscapeFormula' => __DIR__ . '/..' . '/league/csv/src/EscapeFormula.php',
+        'League\\Csv\\Exception' => __DIR__ . '/..' . '/league/csv/src/Exception.php',
+        'League\\Csv\\HTMLConverter' => __DIR__ . '/..' . '/league/csv/src/HTMLConverter.php',
+        'League\\Csv\\MapIterator' => __DIR__ . '/..' . '/league/csv/src/MapIterator.php',
+        'League\\Csv\\RFC4180Field' => __DIR__ . '/..' . '/league/csv/src/RFC4180Field.php',
+        'League\\Csv\\Reader' => __DIR__ . '/..' . '/league/csv/src/Reader.php',
+        'League\\Csv\\ResultSet' => __DIR__ . '/..' . '/league/csv/src/ResultSet.php',
+        'League\\Csv\\Statement' => __DIR__ . '/..' . '/league/csv/src/Statement.php',
+        'League\\Csv\\Stream' => __DIR__ . '/..' . '/league/csv/src/Stream.php',
+        'League\\Csv\\Writer' => __DIR__ . '/..' . '/league/csv/src/Writer.php',
+        'League\\Csv\\XMLConverter' => __DIR__ . '/..' . '/league/csv/src/XMLConverter.php',
         'League\\Flysystem\\AdapterInterface' => __DIR__ . '/..' . '/league/flysystem/src/AdapterInterface.php',
         'League\\Flysystem\\Adapter\\AbstractAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractAdapter.php',
         'League\\Flysystem\\Adapter\\AbstractFtpAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Adapter/AbstractFtpAdapter.php',
@@ -1923,7 +1934,6 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'Maatwebsite\\Excel\\QueuedWriter' => __DIR__ . '/..' . '/maatwebsite/excel/src/QueuedWriter.php',
         'Maatwebsite\\Excel\\Sheet' => __DIR__ . '/..' . '/maatwebsite/excel/src/Sheet.php',
         'Maatwebsite\\Excel\\Writer' => __DIR__ . '/..' . '/maatwebsite/excel/src/Writer.php',
-        'MedicalPlansTableSeeder' => __DIR__ . '/../..' . '/database/seeds/MedicalPlansTableSeeder.php',
         'Mockery' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery.php',
         'Mockery\\Adapter\\Phpunit\\MockeryPHPUnitIntegration' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryPHPUnitIntegration.php',
         'Mockery\\Adapter\\Phpunit\\MockeryTestCase' => __DIR__ . '/..' . '/mockery/mockery/library/Mockery/Adapter/Phpunit/MockeryTestCase.php',
@@ -3930,7 +3940,6 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
         'UserTableSeeder' => __DIR__ . '/../..' . '/database/seeds/UserTableSeeder.php',
-        'VisionPlansTableSeeder' => __DIR__ . '/../..' . '/database/seeds/VisionPlansTableSeeder.php',
         'WageProgressionsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/WageProgressionsTableSeeder.php',
         'WageTitlesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/WageTitlesTableSeeder.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',

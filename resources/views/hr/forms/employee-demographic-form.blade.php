@@ -11,7 +11,7 @@
                 </div>
             </div>
             @endif
-            
+
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="first_name">First Name</label>
                 <div class="input-group">
@@ -134,6 +134,7 @@
                         <option></option>
                         <option {{ isset($employee) ? ($employee->gender == 'male' ? 'selected' : '') : (old('gender') == 'male' ? 'selected' : '') }} value="male">Male</option>
                         <option {{ isset($employee) ? ($employee->gender == 'female' ? 'selected' : '') : (old('gender') == 'female' ? 'selected' : '') }} value="female">Female</option>
+                        <option {{ isset($employee) ? ($employee->gender == 'none' ? 'selected' : '') : (old('gender') == 'none' ? 'selected' : '') }} value="none">None</option>
                     </select>
                 </div>
                 <small class="text-danger">{{ $errors->first('gender') }}</small>
@@ -336,5 +337,3 @@
 
             @endif
             </div> <!-- end form row -->
-
-        

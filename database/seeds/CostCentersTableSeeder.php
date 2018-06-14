@@ -327,5 +327,10 @@ class CostCentersTableSeeder extends Seeder
         $cc63->number = 3406;
         $cc63->description = 'vss assembly line 6';
         $cc63->save();
+
+        $cc64 = new CostCenter();
+        $cc64->number = 0000;
+        $cc64->description = 'corporate';
+        $cc64->save();
     }
 }

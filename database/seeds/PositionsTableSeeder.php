@@ -63,10 +63,10 @@ class PositionsTableSeeder extends Seeder
 
         $maintenancePositions = array(
             'machinist',
-            'maintenance assemly',
+            'maintenance assembly',
             'maintenance component',
-            'maintenance facilities', 
-            'maintenance scroll', 
+            'maintenance facilities',
+            'maintenance scroll',
             'maintenance leader',
         );
         foreach($maintenancePositions as $maintenancePosition){
@@ -83,13 +83,16 @@ class PositionsTableSeeder extends Seeder
             'analyst financial',
             'analyst it',
             'analyst materials',
+            'clerk hr',
             'clerk payroll',
             'college student',
-            'controller plant', 
+            'controller plant',
             'controller plant assistant',
             'coordinator engineering change',
             'coordinator hr',
             'coordinator project administrative',
+            'corporate sydney',
+            'customer service representative',
             'engineer environmental',
             'engineer industrial',
             'engineer lead',
@@ -98,6 +101,7 @@ class PositionsTableSeeder extends Seeder
             'engineer production',
             'engineer quality',
             'generalist hr',
+            'manager customer service',
             'manager employee relations',
             'manager facilities and maintenance',
             'manager hr',
@@ -116,8 +120,16 @@ class PositionsTableSeeder extends Seeder
             'team leader machining',
             'team leader materials',
             'team leader quality',
+            'team leader assembly maintenance',
             'technician calorimeter',
-            'technician project'
+            'technician project',
+            'director of operations',
+            'engineer automation',
+            'engineer safety',
+            'lean champion',
+            'engineer lean',
+            'engineer special projects',
+            'engineer lean sr',
         );
 
         foreach($salaryPositions as $salaryPosition){
