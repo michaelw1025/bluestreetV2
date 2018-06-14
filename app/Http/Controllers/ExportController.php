@@ -32,7 +32,7 @@ class ExportController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->where('status', 1)->orderBy('hire_date', 'asc')->with('costCenter', 'shift', 'job', 'position')->get();
+        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county')->where('status', 1)->orderBy('last_name', 'asc')->with('costCenter', 'shift', 'job', 'position')->get();
         $this->employeeInfoOne($employees);
         return (new EmployeesAlphabetical($employees))->download('employees-by-alphabetical-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
@@ -41,7 +41,7 @@ class ExportController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->where('status', 1)->orderBy('hire_date', 'asc')->with('costCenter', 'shift', 'job', 'position')->get();
+        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county')->where('status', 1)->orderBy('hire_date', 'asc')->with('costCenter', 'shift', 'job', 'position')->get();
         $this->employeeInfoOne($employees);
         return (new EmployeesSeniority($employees))->download('employees-by-seniority-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
@@ -51,7 +51,7 @@ class ExportController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $searchDate = Carbon::create($searchYear, $searchMonth, 1, 0);
-        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->where('status', 1)->orderBy('hire_date', 'asc')->with('costCenter', 'shift', 'job', 'position')->get();
+        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county')->where('status', 1)->orderBy('hire_date', 'asc')->with('costCenter', 'shift', 'job', 'position')->get();
         $monthEmployees = $employees->filter(function($employee) use ($searchDate) {
             if($employee->hire_date->month == $searchDate->month){
                 return $employee;
@@ -141,7 +141,7 @@ class ExportController extends Controller
         $eightYearHireDate = $fiveYearHireDate->copy()->subYears(3);
 
         // Get all employees with a hire date greater than or equal to fiveYearHireDate
-        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county', 'vitality_incentive')->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
+        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county')->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
         foreach($employees as $employee){
             if($employee->hire_date <= $eightYearHireDate){
                 // If employee hire date is greater than or equal to 8 years
@@ -171,7 +171,6 @@ class ExportController extends Controller
             $filteredEmployee->load('costCenter', 'shift', 'job', 'position');
         }
         $this->employeeInfoOne($filteredEmployees);
-        return $filteredEmployees;
         return (new EmployeesBonusHours($filteredEmployees))->download('employees-bonus-hours-'.Carbon::now()->format('m-d-Y').'.xlsx');
     }
 

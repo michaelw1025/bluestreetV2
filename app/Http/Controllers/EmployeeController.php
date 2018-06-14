@@ -13,10 +13,6 @@ use App\Job;
 use App\CostCenter;
 use App\Shift;
 use App\WageTitle;
-use App\MedicalPlan;
-use App\DentalPlan;
-use App\VisionPlan;
-use App\AccidentalCoverage;
 use App\WageProgression;
 
 class EmployeeController extends Controller
@@ -63,7 +59,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage)
+    public function create(Request $request, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
@@ -72,20 +68,12 @@ class EmployeeController extends Controller
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('wageProgression')->get();
-        $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
-        $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
-        $visionPlans = $visionPlan->with('insuranceCoverage')->get();
-        $accidentalCoverages = $accidentalCoverage->all();
         return view('hr.create-employee', [
             'positions' => $positions,
             'jobs' => $jobs,
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'wageTitles' => $wageTitles,
-            'medicalPlans' => $medicalPlans,
-            'dentalPlans' => $dentalPlans,
-            'visionPlans' => $visionPlans,
-            'accidentalCoverages' => $accidentalCoverages,
         ]);
     }
 
@@ -138,27 +126,9 @@ class EmployeeController extends Controller
             if($request->progression){
                 $this->syncWage($employee, $request->progression);
             }
-            // Sync medical insurance
-            if($request->medical_coverage_type){
-                $this->syncMedicalInsurance($employee, $request->medical_coverage_type);
-            }
-            // Sync dental insurance
-            if($request->dental_coverage_type){
-                $this->syncDentalInsurance($employee, $request->dental_coverage_type);
-            }
-            // Sync vision insurance
-            if($request->vision_coverage_type){
-                $this->syncVisionInsurance($employee, $request->vision_coverage_type);
-            }
             // Update vision voucher
             if(!is_null($request->voucher_number)){
                 $this->buildVisionVoucher($employee, $request->voucher_number);
-            }
-            // Update accidental insurance
-            $this->attachAccidentalInsurance($employee, $request);
-            // Update beneficiary
-            if($request->beneficiary){
-                $this->buildBeneficiary($employee, $request->beneficiary);
             }
             // Update parking permit
             if(!is_null($request->parking_permit_number)){
@@ -177,20 +147,16 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, MedicalPlan $medicalPlan, DentalPlan $dentalPlan, VisionPlan $visionPlan, AccidentalCoverage $accidentalCoverage, WageProgression $wageProgression, $id)
+    public function show(Request $request, Employee $employee, Position $position, Job $job, CostCenter $costCenter, Shift $shift, WageTitle $wageTitle, WageProgression $wageProgression, $id)
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'position.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'insuranceCoverageMedicalPlan', 'dentalPlanInsuranceCoverage', 'insuranceCoverageVisionPlan', 'visionVoucher', 'accidentalCoverage', 'beneficiary', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'beneficiary', 'wageProgression')->find($id);
+        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'position.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'visionVoucher', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'wageProgression')->find($id);
         $jobs = $job->all();
         $positions = $position->with('wageTitle')->get();
         $costCenters = $costCenter->all();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('wageProgression')->get();
-        $medicalPlans = $medicalPlan->with('insuranceCoverage')->get();
-        $dentalPlans = $dentalPlan->with('insuranceCoverage')->get();
-        $visionPlans = $visionPlan->with('insuranceCoverage')->get();
-        $accidentalCoverages = $accidentalCoverage->all();
         $salaryJobs = $job->with(['employee' => function($query){
             $query->orderBy('last_name', 'asc');
         }])->where('description', 'salary')->get();
@@ -211,10 +177,6 @@ class EmployeeController extends Controller
             'costCenters' => $costCenters,
             'shifts' => $shifts,
             'wageTitles' => $wageTitles,
-            'medicalPlans' => $medicalPlans,
-            'dentalPlans' => $dentalPlans,
-            'visionPlans' => $visionPlans,
-            'accidentalCoverages' => $accidentalCoverages,
             'salaryJobs' => $salaryJobs,
             'staffManager' => $staffManager,
             'wageProgressions' => $wageProgressions,
@@ -291,39 +253,9 @@ class EmployeeController extends Controller
             if($request->progression){
                 $this->syncWage($employee, $request->progression);
             }
-            // Sync medical insurance
-            if($request->medical_coverage_type){
-                if($request->medical_plan == 'Waived'){
-                    $this->unsyncMedicalInsurance($employee);
-                }else{
-                    $this->syncMedicalInsurance($employee, $request->medical_coverage_type);
-                }
-            }
-            // Sync dental insurance
-            if($request->dental_coverage_type){
-                if($request->dental_plan == 'Waived'){
-                    $this->unsyncDentalInsurance($employee);
-                }else{
-                    $this->syncDentalInsurance($employee, $request->dental_coverage_type);
-                }
-            }
-            // Sync vision insurance
-            if($request->vision_coverage_type){
-                if($request->vision_plan == 'Waived'){
-                    $this->unsyncVisionInsurance($employee);
-                }else{
-                    $this->syncVisionInsurance($employee, $request->vision_coverage_type);
-                }
-            }
             // Update vision voucher
             if(!is_null($request->voucher_number)){
                 $this->buildVisionVoucher($employee, $request->voucher_number);
-            }
-            // Update accidental insurance
-            $this->attachAccidentalInsurance($employee, $request);
-            // Update beneficiary
-            if($request->beneficiary){
-                $this->buildBeneficiary($employee, $request->beneficiary);
             }
             // Update parking permit
             if(!is_null($request->parking_permit_number)){

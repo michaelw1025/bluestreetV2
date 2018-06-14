@@ -24,7 +24,7 @@ class EmployeesBonusHours implements FromCollection, WithHeadings
     public function headings(): array
     {
         return[
-            'id', 
+            'id',
             'First Name',
             'Last Name',
             'MI',
@@ -40,7 +40,6 @@ class EmployeesBonusHours implements FromCollection, WithHeadings
             'State',
             'Zip Code',
             'County',
-            'Vitality',
             'Bonus Year',
             'Date of Birth',
             'Hire Date',

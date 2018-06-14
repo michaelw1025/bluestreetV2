@@ -44,7 +44,7 @@ class Employee extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     /**
@@ -53,7 +53,7 @@ class Employee extends Model
      * @var array
      */
     protected $dates = [
-        'birth_date', 
+        'birth_date',
         'hire_date',
         'service_date',
         'bid_eligible_date',
@@ -265,35 +265,10 @@ class Employee extends Model
     {
         return $this->belongsToMany('App\WageProgressionWageTitle');
     }
-    //InsuranceCoverageMedicalPlan relationship
-    public function insuranceCoverageMedicalPlan()
-    {
-        return $this->belongsToMany('App\InsuranceCoverageMedicalPlan');
-    }
-    //InsuranceCoverageVisionPlan relationship
-    public function insuranceCoverageVisionPlan()
-    {
-        return $this->belongsToMany('App\InsuranceCoverageVisionPlan');
-    }
-    //DentalPlanInsuranceCoverage relationship
-    public function dentalPlanInsuranceCoverage()
-    {
-        return $this->belongsToMany('App\DentalPlanInsuranceCoverage');
-    }
     // Vision voucher relationship
     public function visionVoucher()
     {
         return $this->hasMany('App\VisionVoucher');
-    }
-    //Accidental coverage relationship
-    public function accidentalCoverage()
-    {
-        return $this->belongsToMany('App\AccidentalCoverage')->withPivot('amount');
-    }
-    // Beneficiary relationship
-    public function beneficiary()
-    {
-        return $this->hasMany('App\Beneficiary');
     }
     // Parking permit relationship
     public function parkingPermit()
@@ -347,5 +322,5 @@ class Employee extends Model
     }
 
 
-    
+
 }

@@ -22,10 +22,6 @@ class CreateDependantsTable extends Migration
             $table->string('ssn');
             $table->dateTime('birth_date');
             $table->string('gender');
-            $table->boolean('has_medical')->nullable();
-            $table->boolean('has_dental')->nullable();
-            $table->boolean('has_vision')->nullable();
-            $table->boolean('court_ordered')->nullable();
             $table->timestamps();
         });
     }

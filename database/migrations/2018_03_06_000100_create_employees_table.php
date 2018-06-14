@@ -40,18 +40,11 @@ class CreateEmployeesTable extends Migration
             $table->text('bid_eligible_comment')->nullable();
             $table->boolean('thirty_day_review')->nullable();
             $table->boolean('sixty_day_review')->nullable();
-            $table->boolean('vitality_incentive')->nullable();
-            $table->decimal('flex_spending_amount', 8, 2)->nullable();
-            $table->decimal('hsa_amount', 8, 2)->nullable();
-            $table->decimal('child_care_spending_amount', 8, 2)->nullable();
-            $table->string('employee_optional_life')->nullable();
-            $table->decimal('spouse_optional_life', 8, 2)->nullable();
-            $table->decimal('dependant_optional_life', 8, 2)->nullable();
             $table->string('photo_link')->nullable();
 
             $table->timestamps();
         });
-           
+
     }
 
     /**

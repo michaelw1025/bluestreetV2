@@ -72,20 +72,8 @@
             <!-- Include employee emergency contact form -->
             @include('hr.forms.employee-emergency-contact-form')
 
-            <!-- Include health insurance form -->
-            @include('hr.forms.employee-health-insurance-form')
-
-            <!-- Include medical insurance form -->
-            @include('hr.forms.employee-medical-insurance-form')
-
-            <!-- Include dental insurance form -->
-            @include('hr.forms.employee-dental-insurance-form')
-
-            <!-- Include vision insurance form -->
-            @include('hr.forms.employee-vision-insurance-form')
-
-            <!-- Include life insurance form -->
-            @include('hr.forms.employee-life-insurance-form')
+            <!-- Include vision voucher form -->
+            @include('hr.forms.employee-vision-voucher-form')
 
             <!-- Include parking permit form -->
             @include('hr.forms.employee-parking-permit-form')
@@ -101,7 +89,7 @@
 
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
-            
+
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">
                 <input type="text" class="d-none" name="update_employee" value="update">

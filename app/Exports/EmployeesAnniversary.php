@@ -24,7 +24,7 @@ class EmployeesAnniversary implements FromCollection, WithHeadings
     public function headings(): array
     {
         return[
-            'id', 
+            'id',
             'First Name',
             'Last Name',
             'MI',
@@ -40,7 +40,6 @@ class EmployeesAnniversary implements FromCollection, WithHeadings
             'State',
             'Zip Code',
             'County',
-            'Vitality',
             'Years',
             'Date of Birth',
             'Hire Date',

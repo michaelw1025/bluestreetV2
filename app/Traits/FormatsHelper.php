@@ -8,7 +8,6 @@ use App\Dependant;
 use App\PhoneNumber;
 use App\EmergencyContact;
 use App\VisionVoucher;
-use App\Beneficiary;
 use App\ParkingPermit;
 use App\Disciplinary;
 use App\Termination;
@@ -115,18 +114,6 @@ trait FormatsHelper
         $employee->zip_code = $request->zip_code;
         $employee->county = $request->county;
         $employee->bid_eligible_comment = $request->bid_eligible_comment;
-        $employee->flex_spending_amount = $request->flex_spending_amount;
-        $employee->hsa_amount = $request->hsa_amount;
-        $employee->child_care_spending_amount = $request->child_care_spending_amount;
-        $employee->employee_optional_life = $request->employee_optional_life;
-        $employee->spouse_optional_life = $request->spouse_optional_life;
-        $employee->dependant_optional_life = $request->dependant_optional_life;
-
-        if($request->has('vitality_incentive')){
-            $employee->vitality_incentive = 1;
-        }else{
-            $employee->vitality_incentive = 0;
-        }
 
         if($request->has('create_employee')){
             $employee->birth_date = $this->convertToDate($request->birth_date);
@@ -207,26 +194,6 @@ trait FormatsHelper
         $updateSpouse->birth_date = $this->convertToDate($spouseArray['birth_date']);
         $updateSpouse->gender = $spouseArray['gender'];
         $updateSpouse->domestic_partner = $spouseArray['domestic_partner'];
-        if($request->has('spouse_medical_'.$updateSpouse->id)){
-            $updateSpouse->has_medical = 1;
-        }else{
-            $updateSpouse->has_medical = 0;
-        }
-        if($request->has('spouse_dental_'.$updateSpouse->id)){
-            $updateSpouse->has_dental = 1;
-        }else{
-            $updateSpouse->has_dental = 0;
-        }
-        if($request->has('spouse_vision_'.$updateSpouse->id)){
-            $updateSpouse->has_vision = 1;
-        }else{
-            $updateSpouse->has_vision = 0;
-        }
-        if($request->has('spouse_court_ordered_'.$updateSpouse->id)){
-            $updateSpouse->court_ordered = 1;
-        }else{
-            $updateSpouse->court_ordered = 0;
-        }
     }
     public function deleteSpouse($employee)
     {
@@ -265,26 +232,6 @@ trait FormatsHelper
         $updateDependant->ssn = $dependantArray['ssn'];
         $updateDependant->birth_date = $this->convertToDate($dependantArray['birth_date']);
         $updateDependant->gender = $dependantArray['gender'];
-        if($request->has('dependant_medical_'.$updateDependant->id)){
-            $updateDependant->has_medical = 1;
-        }else{
-            $updateDependant->has_medical = 0;
-        }
-        if($request->has('dependant_dental_'.$updateDependant->id)){
-            $updateDependant->has_dental = 1;
-        }else{
-            $updateDependant->has_dental = 0;
-        }
-        if($request->has('dependant_vision_'.$updateDependant->id)){
-            $updateDependant->has_vision = 1;
-        }else{
-            $updateDependant->has_vision = 0;
-        }
-        if($request->has('dependant_court_ordered_'.$updateDependant->id)){
-            $updateDependant->court_ordered = 1;
-        }else{
-            $updateDependant->court_ordered = 0;
-        }
     }
     public function deleteDependant($employee)
     {
@@ -323,7 +270,7 @@ trait FormatsHelper
         }else{
             $updatePhoneNumber->is_primary = 0;
         }
-        
+
     }
     public function deletePhoneNumber($employee)
     {
@@ -363,7 +310,7 @@ trait FormatsHelper
         }else{
             $updateEmergencyContact->is_primary = 0;
         }
-        
+
     }
     public function deleteEmergencyContact($employee)
     {
@@ -422,66 +369,12 @@ trait FormatsHelper
 
     /*
     |--------------------------------------------------------------------------
-    | Sync Medical Insurance
-    |--------------------------------------------------------------------------
-    */
-    public function syncMedicalInsurance($employee, $medicalCoverageType)
-    {
-        foreach($medicalCoverageType as $medicalCoverage){
-            if(!is_null($medicalCoverage)){
-                $employee->insuranceCoverageMedicalPlan()->sync($medicalCoverage);
-            }
-        }
-    }
-    public function unsyncMedicalInsurance($employee)
-    {
-        $employee->insuranceCoverageMedicalPlan()->sync([]);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Sync Dental Insurance
-    |--------------------------------------------------------------------------
-    */
-    public function syncDentalInsurance($employee, $dentalCoverageType)
-    {
-        foreach($dentalCoverageType as $dentalCoverage){
-            if(!is_null($dentalCoverage)){
-                $employee->dentalPlanInsuranceCoverage()->sync($dentalCoverage);
-            }
-        }
-    }
-    public function unsyncDentalInsurance($employee)
-    {
-        $employee->dentalPlanInsuranceCoverage()->sync([]);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Sync Vision Insurance
-    |--------------------------------------------------------------------------
-    */
-    public function syncVisionInsurance($employee, $visionCoverageType)
-    {
-        foreach($visionCoverageType as $visionCoverage){
-            if(!is_null($visionCoverage)){
-                $employee->insuranceCoverageVisionPlan()->sync($visionCoverage);
-            }
-        }
-    }
-    public function unsyncVisionInsurance($employee)
-    {
-        $employee->insuranceCoverageVisionPlan()->sync([]);
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     | Vision voucher update and delete methods
     |--------------------------------------------------------------------------
     */
     public function buildVisionVoucher($employee, $voucherNumber)
     {
-            
+
         $updateVoucher = new VisionVoucher();
         $this->assignVisionVoucherInfo($updateVoucher, $voucherNumber);
         $employee->visionVoucher()->save($updateVoucher);
@@ -494,61 +387,12 @@ trait FormatsHelper
 
     /*
     |--------------------------------------------------------------------------
-    | Accidental insurance update and delete methods
-    |--------------------------------------------------------------------------
-    */
-    public function attachAccidentalInsurance($employee, $request)
-    {
-        if(!is_null($request->accidental_insurance_coverage)){
-            $employee->accidentalCoverage()->detach();
-            $employee->accidentalCoverage()->attach($request->accidental_insurance_coverage, ['amount' => $request->accidental_insurance_amount]);
-        }else{
-            $employee->accidentalCoverage()->detach();
-        }
-    }
-
-    /*
-    |--------------------------------------------------------------------------
-    | Beneficiary update and delete methods
-    |--------------------------------------------------------------------------
-    */
-    public function buildBeneficiary($employee, $beneficiary)
-    {
-            $storeBeneficiaries = array();
-            foreach($beneficiary as $beneficiaryArray){
-                if(isset($beneficiaryArray['update'])){
-                    if(isset($beneficiaryArray['id'])){
-                        $updateBeneficiary = Beneficiary::find($beneficiaryArray['id']);
-                        $this->assignBeneficiaryInfo($updateBeneficiary, $beneficiaryArray);
-                    }else{
-                        $updateBeneficiary = new Beneficiary();
-                        $this->assignBeneficiaryInfo($updateBeneficiary, $beneficiaryArray);
-                    }
-                    $employee->beneficiary()->save($updateBeneficiary);
-                    $storeBeneficiaries[] = $updateBeneficiary->id;
-                }
-            }
-            Beneficiary::where('employee_id', $employee->id)->whereNotIn('id', $storeBeneficiaries)->delete();
-
-    }
-    public function assignBeneficiaryInfo($updateBeneficiary, $beneficiaryArray)
-    {
-        $updateBeneficiary->name = $beneficiaryArray['name']; 
-        $updateBeneficiary->percentage = $beneficiaryArray['percentage'];    
-    }
-    public function deleteBeneficiary($employee)
-    {
-        $employee->beneficiary()->delete();
-    }
-
-    /*
-    |--------------------------------------------------------------------------
     | Parking permit update and delete methods
     |--------------------------------------------------------------------------
     */
     public function buildParkingPermit($employee, $parkingPermitNumber)
     {
-            
+
         $updateParkingPermit = new ParkingPermit();
         $this->assignParkingPermitInfo($updateParkingPermit, $parkingPermitNumber);
         $employee->parkingPermit()->save($updateParkingPermit);

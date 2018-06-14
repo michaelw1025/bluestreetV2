@@ -29,16 +29,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(TeamsTableSeeder::class);
 
-        $this->call(InsuranceCoveragesTableSeeder::class);
-
-        $this->call(MedicalPlansTableSeeder::class);
-
-        $this->call(DentalPlansTableSeeder::class);
-
-        $this->call(VisionPlansTableSeeder::class);
-
-        $this->call(AccidentalCoveragesTableSeeder::class);
-
         $this->call(EmployeesTableSeeder::class);
     }
 }

@@ -41,7 +41,7 @@ $('.ssn-format').on('keypress', function(event){
     var character = String.fromCharCode(event.which);
     if(!isInteger(character)){
         return false;
-    }    
+    }
 });
 
 // checks that an input string is an integer, with an optional +/- sign character
@@ -51,7 +51,7 @@ function isInteger (s) {
    return String(s).search (isInteger_re) != -1
 }
 
-// format SSN 
+// format SSN
 $('.ssn-format').on('keyup', function(){
    var val = this.value.replace(/\D/g, '');
    var newVal = '';
@@ -68,7 +68,7 @@ $('.ssn-format').on('keyup', function(){
         val = val.substr(5);
     }
     newVal += val;
-    this.value = newVal;   
+    this.value = newVal;
 });
 // ----------------End SSN validation----------------
 
@@ -144,10 +144,10 @@ $('.phone-number-format').on('keypress', function(event){
     var character = String.fromCharCode(event.which);
     if(!isInteger(character)){
         return false;
-    }    
+    }
 });
 
-// format phone number 
+// format phone number
 $('.phone-number-format').on('keyup', function(){
    var val = this.value.replace(/\D/g, '');
    var newVal = '';
@@ -164,7 +164,7 @@ $('.phone-number-format').on('keyup', function(){
         val = val.substr(6);
     }
     newVal += val;
-    this.value = newVal;   
+    this.value = newVal;
 });
 // ----------------End Phone number validation----------------
 
@@ -206,65 +206,6 @@ $('.position-select').change(function(){
     $('.progression-'+item).removeClass('d-none');
 });
 // ----------------End set wage table based on position chosen----------------
-
-// ----------------Show medical insurance coverages based on medical plan chosen----------------
-$('.medical-plan-select').change(function(){
-    var item = $(this).val();
-    $('.medical-coverage-types').addClass('d-none');
-    $('.medical-coverage-option').prop('selected', false);
-    $('#medical-coverage-'+item).removeClass('d-none');
-});
-// ----------------End show medical insurance coverages based on medical plan chosen----------------
-
-// ----------------Show dental insurance coverages based on dental plan chosen----------------
-$('.dental-plan-select').change(function(){
-    var item = $(this).val();
-    $('.dental-coverage-types').addClass('d-none');
-    $('.dental-coverage-option').prop('selected', false);
-    $('#dental-coverage-'+item).removeClass('d-none');
-});
-// ----------------End show dental insurance coverages based on dental plan chosen----------------
-
-// ----------------Show vision insurance coverages based on vision plan chosen----------------
-$('.vision-plan-select').change(function(){
-    var item = $(this).val();
-    $('.vision-coverage-types').addClass('d-none');
-    $('.vision-coverage-option').prop('selected', false);
-    $('#vision-coverage-'+item).removeClass('d-none');
-});
-// ----------------End show vision insurance coverages based on vision plan chosen----------------
-
-// ----------------Beneficiary----------------
-$('.beneficiary-checkbox').change(function(){
-    var item = $(this).attr('id').split('-').pop();
-    $('.beneficiary-div-'+item).toggleClass('bg-primary');
-    calculateBeneficiaryTotal();
-});
-
-$('.beneficiary-percentage').on('keyup', function(){
-    calculateBeneficiaryTotal();
-});
-
-function calculateBeneficiaryTotal(){
-    var sum = 0;
-    $('.beneficiary-percentage').each(function(){
-        var index = $(this).attr('id').split('-').pop();
-        if($('#beneficiary-checkbox-'+index).prop('checked')){
-            sum += Number($(this).val());
-        }
-    });
-    if(sum < 100){
-        $('#beneficiary-total').removeClass('bg-danger text-white bg-success').addClass('bg-warning text-dark');
-    }else if(sum > 100){
-        $('#beneficiary-total').removeClass('bg-warning text-dark bg-success').addClass('bg-danger text-white');
-    }else if(sum == 100){
-        $('#beneficiary-total').removeClass('bg-warning text-dark bg-danger').addClass('bg-success text-white');
-    }else{
-        $('#beneficiary-total').removeClass('bg-warning text-dark bg-danger text-white bg-success');
-    }
-    $('#beneficiary-total').attr('value', sum);
-}
-// ----------------End beneficiary----------------
 
 // ----------------Select columns for alphabetical employee table----------------
 $('.alphabetical-column').on('click', function(){
@@ -309,24 +250,12 @@ $('.anniversary-column').on('click', function(){
 // ----------------Clear wage event scale table----------------
 $('.clear-wage-event-scale').on('click', function(){
     if(!confirm('Please confirm clearing the wage event scale.')){
-        
+
     }else{
         $('.wage-event-scale-date').val('');
     }
 });
 // ----------------End clear wage event scale table----------------
-
-// ----------------Set wage event scale table----------------
-// $('.wage-event-scale-date').on('change', function(){
-//     var scaleDate = '';
-//     var previousItem = false;
-//     $('.wage-event-scale-date').each(function(){
-//         if($(this).val()){
-
-//         }
-//     })
-// });
-// ----------------End set wage event scale table----------------
 
 // ----------------File upload look and functionality----------------
 function bs_input_file() {

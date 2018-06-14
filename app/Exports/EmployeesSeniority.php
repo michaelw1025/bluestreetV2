@@ -24,7 +24,7 @@ class EmployeesSeniority implements FromCollection, WithHeadings
     public function headings(): array
     {
         return[
-            'id', 
+            'id',
             'First Name',
             'Last Name',
             'MI',
@@ -40,7 +40,6 @@ class EmployeesSeniority implements FromCollection, WithHeadings
             'State',
             'Zip Code',
             'County',
-            'Vitality',
             'Date of Birth',
             'Hire Date',
             'Service Date',

@@ -8,7 +8,7 @@
         <h1 class="">Wage Progressions<button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button>@if(isset($employees))<button type="button" class="mr-2 btn btn-success pl- pr-3 float-right btn-lg excel-export prevent-print" onclick="location.href='{{ url('hr.export-employees-wage-progressions/'.$searchMonth.'/'.$searchYear.'/'.$searchProgression) }}'" name="export-excel">Export To Excel</button>@endif</h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
-        
+
         <form method="get" action="{{url('hr.query-employees-wage-progression')}}">
         {{ csrf_field() }}
         <div class="form-row align-items-center">
@@ -80,7 +80,6 @@
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="service-date">Service Date</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="address">Address</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="bid-eligible">Bid Eligible</button>
-        <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="vitality">Vitality</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="cost-center">Cost Center</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="shift">Shift</button>
         <button type="button" class="btn btn-outline-primary mr-2 mt-2 prevent-print alphabetical-column" id="job">Job</button>
@@ -104,7 +103,6 @@
                         <th scope="col" class="service-date d-none">Service Date</th>
                         <th scope="col" class="address d-none">Address</th>
                         <th scope="col" class="bid-eligible d-none">Bid Eligible</th>
-                        <th scope="col" class="vitality d-none">Vitality</th>
                         <th scope="col" class="cost-center d-none">Cost Center</th>
                         <th scope="col" class="shift d-none">Shift</th>
                         <th scope="col" class="job d-none">Job</th>
@@ -129,7 +127,6 @@
                         <td class="service-date d-none">{{$employee->service_date->format('m-d-Y')}}</td>
                         <td class="address d-none">{{$employee->address_1}} {{$employee->address_2}}, {{$employee->city}}, {{$employee->state}}, {{$employee->zip_code}}</td>
                         <td class="bid-eligible d-none">{{$employee->bid_eligible == '0' ? 'No' : 'Yes'}}</td>
-                        <td class="vitality d-none">{{$employee->vitality_incentive == '1' ? 'Yes' : 'No'}}</td>
                         <td class="cost-center d-none">{{$employee->costCenter[0]->number}}</td>
                         <td class="shift d-none">{{$employee->shift[0]->description}}</td>
                         <td class="job d-none">{{$employee->job[0]->description}}</td>

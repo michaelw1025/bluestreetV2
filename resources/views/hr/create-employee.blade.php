@@ -36,20 +36,8 @@
             <!-- Include employee emergency contact form -->
             @include('hr.forms.employee-emergency-contact-form')
 
-            <!-- Include health insurance form -->
-            @include('hr.forms.employee-health-insurance-form')
-
-            <!-- Include medical insurance form -->
-            @include('hr.forms.employee-medical-insurance-form')
-
-            <!-- Include dental insurance form -->
-            @include('hr.forms.employee-dental-insurance-form')
-
-            <!-- Include vision insurance form -->
-            @include('hr.forms.employee-vision-insurance-form')
-
-            <!-- Include life insurance form -->
-            @include('hr.forms.employee-life-insurance-form')
+            <!-- Include vision voucher form -->
+            @include('hr.forms.employee-vision-voucher-form')
 
             <!-- Include parking permit form -->
             @include('hr.forms.employee-parking-permit-form')
