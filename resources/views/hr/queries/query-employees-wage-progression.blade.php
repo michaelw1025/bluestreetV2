@@ -141,9 +141,10 @@
                         <td class="job d-none">{{$employeeJob->description}}</td>
                         <td class="position d-none">{{$employeePosition->description}}</td>
                         @endforeach
-                        @foreach($employee->wageProgressionWageTitle as $employeeNextWage)
-                        <td class="next-wage d-none">{{$employeeNextWage->amount}}</td>
+                        @foreach($employee->wageProgressionWageTitle as $employeeCurrentWage)
+                        <td class="current-wage d-none">{{$employeeCurrentWage->amount}}</td>
                         @endforeach
+                        <td class="next-wage d-none">{{$employee->next_wage}}</td>
 
                         <td class="team-manager d-none">{{$employee->team_manager}}</td>
                         <td class="team-leader d-none">{{$employee->team_leader}}</td>

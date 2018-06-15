@@ -359,12 +359,22 @@ class HRQueryController extends Controller
             // for each employee left eager load the required relationships, get current wage for wage title, and get next wage for wage title
             foreach($searchEmployees as $searchEmployee){
                 $searchEmployee->loadMissing('costCenter', 'shift', 'job', 'wageProgressionWageTitle');
+                foreach($searchEmployee->wageProgressionWageTitle as $employeeNextProgression){
+                    $employeeNextProgression = $wageProgressionWageTitle->where([
+                        ['wage_title_id', $employeeNextProgression->wage_title_id],
+                        ['wage_progression_id', $progression->id],
+                    ])->get();
+                    foreach($employeeNextProgression as $nextProgression){
+                        $searchEmployee->next_wage = $nextProgression->amount;
+                    }
+                }
 
                 // $searchEmployee->next_progression = $wageProgressionWageTitle->where([
                 //     ['wage_title_id', $searchEmployee->wageProgressionWageTitle[0]->wage_title_id],
                 //     ['wage_progression_id', $progression->id],
                 // ])->get();
                 $this->setTeamManagerTeamLeader($searchEmployee);
+                // return $searchEmployee;
             }
 
             return view('hr.queries.query-employees-wage-progression', [
