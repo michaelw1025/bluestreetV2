@@ -1,4 +1,4 @@
-        <h5 class="alert alert-info mt-5 toggle-section" id="employee-dependant">Dependants</h5>
+        <h5 class="alert alert-info mt-5 toggle-section d-none" id="employee-dependant">Dependants</h5>
 
 
 @if(isset($employee))

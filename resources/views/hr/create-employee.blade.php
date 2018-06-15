@@ -24,12 +24,6 @@
             <!-- Include wage contact form -->
             @include('hr.forms.employee-wage-form')
 
-            <!-- Include employee spouse form -->
-            @include('hr.forms.employee-spouse-form')
-
-            <!-- Include employee dependant form -->
-            @include('hr.forms.employee-dependant-form')
-
             <!-- Include employee phone number form -->
             @include('hr.forms.employee-phone-number-form')
 
@@ -41,6 +35,12 @@
 
             <!-- Include parking permit form -->
             @include('hr.forms.employee-parking-permit-form')
+
+            <!-- Include spouse form -->
+            @include('hr.forms.employee-spouse-form')
+
+            <!-- Include dependant form -->
+            @include('hr.forms.employee-dependant-form')
 
 
         <div class="form-group row prevent-print mt-4">

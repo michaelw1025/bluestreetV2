@@ -1,5 +1,5 @@
 
-        <h5 class="alert alert-info mt-5 toggle-section" id="employee-spouse">Spouse</h5>
+        <h5 class="alert alert-info mt-5 toggle-section d-none" id="employee-spouse">Spouse</h5>
         <div class="print-section form-row align-items-center employee-spouse {{ $errors->has('spouse.*.*') ? '' : 'd-none' }}">
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="spouse[0][update]">Add Spouse</label>

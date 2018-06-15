@@ -60,12 +60,6 @@
             <!-- Include wage event form -->
             @include('hr.forms.employee-wage-event-form')
 
-            <!-- Include employee spouse form -->
-            @include('hr.forms.employee-spouse-form')
-
-            <!-- Include employee dependant form -->
-            @include('hr.forms.employee-dependant-form')
-
             <!-- Include employee phone number form -->
             @include('hr.forms.employee-phone-number-form')
 
@@ -89,6 +83,12 @@
 
             <!-- Include employee bidding form -->
             @include('hr.forms.employee-bidding-form')
+
+            <!-- Include spouse form -->
+            @include('hr.forms.employee-spouse-form')
+
+            <!-- Include dependant form -->
+            @include('hr.forms.employee-dependant-form')
 
         <div class="form-group row prevent-print mt-4">
             <div class="col-sm-10 col-md-8 col-lg-6">
