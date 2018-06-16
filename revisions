@@ -1,4 +1,9 @@
+v 1.5.1
+-6-16-18
+-minor bug fix
+
 v 1.5.0
+-6-16-18
 -created import seeders
 -cost center query, changed from using indexes to foreach
 -hire date query, changed from using indexes to foreach
