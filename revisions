@@ -1,3 +1,9 @@
+v 1.5.0
+-created import seeders
+-cost center query, changed from using indexes to foreach
+-hire date query, changed from using indexes to foreach
+-hire date query, removed references to terminations
+
 v 1.4.0
 -6-13-18
 -removed all insurances
