@@ -18,7 +18,7 @@ class EmployeeDisciplinarySeeder extends Seeder
       DB::disableQueryLog();
       DB::table('disciplinaries')->truncate();
 
-      $file = public_path().'/csvs/disciplinaries.csv';
+      $file = public_path().'/csvs/disciplinaries-import.csv';
       $csv = Reader::createFromPath($file, 'r');
       $csv->setHeaderOffset(0);
 

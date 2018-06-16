@@ -23,7 +23,7 @@ class EmployeeCSVSeeder extends Seeder
       DB::disableQueryLog();
       DB::table('employees')->truncate();
 
-      $file = public_path().'/csvs/employees.csv';
+      $file = public_path().'/csvs/employees-import.csv';
       $csv = Reader::createFromPath($file, 'r');
       $csv->setHeaderOffset(0);
 
@@ -47,6 +47,7 @@ class EmployeeCSVSeeder extends Seeder
         $phoneNumber = "";
         $emergencyContact = "";
         $eventArray = "";
+        $costCenterSearch = "";
         $checkSSN = preg_replace('/[^0-9]/', '', $record['ssn']);
 
         if(Employee::where('ssn', $checkSSN)->count() > 0){
@@ -105,7 +106,12 @@ class EmployeeCSVSeeder extends Seeder
             // ********************
             // Save Cost center
             // ********************
-            $costCenter = CostCenter::where('number', $record['cost_center'])->first();
+            if($record['cost_center'] === '0' || $record['cost_center'] === ""){
+              $costCenterSearch = "2004";
+            }else{
+              $costCenterSearch = $record['cost_center'];
+            }
+            $costCenter = CostCenter::where('number', $costCenterSearch)->first();
             $employee->costCenter()->sync($costCenter['id']);
 
             // ********************
@@ -689,6 +695,7 @@ class EmployeeCSVSeeder extends Seeder
               $eventArray['15'] = (['date' => setImportWageEventDate($record['fortytwo_month'])]);
             }
             $employee->wageProgression()->sync($eventArray);
+
 
           }
         }
