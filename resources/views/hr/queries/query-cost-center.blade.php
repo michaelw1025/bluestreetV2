@@ -20,7 +20,7 @@
                     <select class="form-control" name="search_cost_center" required>
                         <option></option>
                         @foreach($costCenters as $costCenter)
-                        <option {{ isset($searchCostCenter) ? ($searchCostCenter == $costCenter->id ? 'selected' : '') : old('search_cost_center') }} value="{{$costCenter->id}}">{{$costCenter->number}}</option>
+                        <option {{ isset($searchCostCenter) ? ($searchCostCenter == $costCenter->id ? 'selected' : '') : old('search_cost_center') }} value="{{$costCenter->id}}">{{$costCenter->number}} - {{$costCenter->description}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -37,24 +37,34 @@
         @foreach($employeeCostCenters as $costCenter)
         <ul class="list-group col-xl-6">
         @if($costCenter->employeeStaffManager->isNotEmpty())
-            <li class="list-group-item list-group-item-primary h5"><span class="text-primary">Staff Manager:</span>&nbsp&nbsp  {{$costCenter->employeeStaffManager[0]->first_name}} {{$costCenter->employeeStaffManager[0]->last_name}}</li>
+        @foreach($costCenter->employeeStaffManager as $ccStaffManager)
+            <li class="list-group-item list-group-item-primary h5"><span class="text-primary">Staff Manager:</span>&nbsp&nbsp  {{$ccStaffManager->first_name}} {{$ccStaffManager->last_name}}</li>
+        @endforeach
         @endif
         @if($costCenter->employeeDayTeamManager->isNotEmpty())
-            <li class="list-group-item list-group-item-info h5"><span class="text-info">Day Team Manager:</span>&nbsp&nbsp  {{$costCenter->employeeDayTeamManager[0]->first_name}} {{$costCenter->employeeDayTeamManager[0]->last_name}}</li>
+        @foreach($costCenter->employeeDayTeamManager as $ccDayTeamManager)
+            <li class="list-group-item list-group-item-info h5"><span class="text-info">Day Team Manager:</span>&nbsp&nbsp  {{$ccDayTeamManager->first_name}} {{$ccDayTeamManager->last_name}}</li>
+        @endforeach
         @endif
         @if($costCenter->employeeNightTeamManager->isNotEmpty())
-            <li class="list-group-item list-group-item-info h5"><span class="text-info">Night Team Manager:</span>&nbsp&nbsp  {{$costCenter->employeeNightTeamManager[0]->first_name}} {{$costCenter->employeeNightTeamManager[0]->last_name}}</li>
+        @foreach($costCenter->employeeNightTeamManager as $ccNightTeamManager)
+            <li class="list-group-item list-group-item-info h5"><span class="text-info">Night Team Manager:</span>&nbsp&nbsp  {{$ccNightTeamManager->first_name}} {{$ccNightTeamManager->last_name}}</li>
+        @endforeach
         @endif
         @if($costCenter->employeeDayTeamLeader->isNotEmpty())
-            <li class="list-group-item list-group-item-secondary h5"><span class="text-secondary">Day Team Leader:</span>&nbsp&nbsp  {{$costCenter->employeeDayTeamLeader[0]->first_name}} {{$costCenter->employeeDayTeamLeader[0]->last_name}}</li>
+        @foreach($costCenter->employeeDayTeamLeader as $ccDayTeamLeader)
+            <li class="list-group-item list-group-item-secondary h5"><span class="text-secondary">Day Team Leader:</span>&nbsp&nbsp  {{$ccDayTeamLeader->first_name}} {{$ccDayTeamLeader->last_name}}</li>
+        @endforeach
         @endif
         @if($costCenter->employeeNightTeamLeader->isNotEmpty())
-            <li class="list-group-item list-group-item-secondary h5"><span class="text-secondary">Night Team Leader:</span>&nbsp&nbsp  {{$costCenter->employeeNightTeamLeader[0]->first_name}} {{$costCenter->employeeNightTeamLeader[0]->last_name}}</li>
+        @foreach($costCenter->employeeNightTeamLeader as $ccNightTeamLeader)
+            <li class="list-group-item list-group-item-secondary h5"><span class="text-secondary">Night Team Leader:</span>&nbsp&nbsp  {{$ccNightTeamLeader->first_name}} {{$ccNightTeamLeader->last_name}}</li>
+        @endforeach
         @endif
 
         </ul>
         @endforeach
-        
+
             <table class="table table-sm table-striped table-bordered table-hover mt-4">
                 <thead>
                     <tr>
@@ -77,9 +87,15 @@
                         <td class="hire-date">{{$employee->hire_date->format('m-d-Y')}}</td>
                         <td class="birth-date">{{$employee->birth_date->format('m-d-Y')}}</td>
                         <td class="service-date">{{$employee->service_date->format('m-d-Y')}}</td>
-                        <td class="shift">{{$employee->shift[0]->description}}</td>
-                        <td class="job">{{$employee->job[0]->description}}</td>
-                        <td class="position">{{$employee->position[0]->description}}</td>
+                        @foreach($employee->shift as $employeeShift)
+                        <td class="shift">{{$employeeShift->description}}</td>
+                        @endforeach
+                        @foreach($employee->job as $employeeJob)
+                        <td class="job">{{$employeeJob->description}}</td>
+                        @endforeach
+                        @foreach($employee->position as $employeePosition)
+                        <td class="position">{{$employeePosition->description}}</td>
+                        @endforeach
                     </tr>
                 @endforeach
                 @endforeach

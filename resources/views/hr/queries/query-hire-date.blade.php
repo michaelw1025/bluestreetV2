@@ -43,7 +43,6 @@
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Hire Date</th>
-                        <th scope="col">Term Date</th>
                         <th scope="col">Cost Center</th>
                         <th scope="col">Team Manager</th>
                         <th scope="col">Team Leader</th>
@@ -51,16 +50,15 @@
                 </thead>
                 <tbody>
                 @foreach($employees as $employee)
-                @foreach($employee->termination as $termination)
+
                     <tr class="clickable-row" data-href="{{ url('hr.employees/'.$employee->id) }}">
                         <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                         <td>{{$employee->hire_date->format('m-d-Y')}}</td>
-                        <td>{{$termination->date->format('m-d-Y')}}</td>
                         <td>@foreach($costCenters as $costCenter) {{$employee->costCenter[0]->id == $costCenter->id ? $costCenter->number : ''}} @endforeach</td>
                         <td>{{$employee->team_manager}}</td>
                         <td>{{$employee->team_leader}}</td>
                     </tr>
-                @endforeach
+
                 @endforeach
                 <tbody>
             </table>
