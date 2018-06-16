@@ -9,6 +9,7 @@ use App\Job;
 use App\Shift;
 use App\PhoneNumber;
 use App\EmergencyContact;
+use Carbon\Carbon;
 
 class EmployeeCSVSeeder extends Seeder
 {
@@ -29,6 +30,12 @@ class EmployeeCSVSeeder extends Seeder
       $header = $csv->getHeader(); //returns the CSV header record
       $records = $csv->getRecords(); //returns all the CSV records as an Iterator object
 
+      function setImportWageEventDate($date)
+      {
+          // $date = Carbon::createFromFormat('m-d-Y', $date)->toDateString();
+          return Carbon::parse($date);
+      }
+
       foreach($records as $record){
 // dd($record);
         // define variables
@@ -39,10 +46,11 @@ class EmployeeCSVSeeder extends Seeder
         $zipCode = "";
         $phoneNumber = "";
         $emergencyContact = "";
+        $eventArray = "";
         $checkSSN = preg_replace('/[^0-9]/', '', $record['ssn']);
 
         if(Employee::where('ssn', $checkSSN)->count() > 0){
-          dd($checkSSN);
+          // dd($checkSSN);
         }else{
           // Set gender
           if($record['gender'] === "M"){
@@ -634,6 +642,54 @@ class EmployeeCSVSeeder extends Seeder
               $newEmergencyContact->is_primary = 0;
               $employee->emergencyContact()->save($newEmergencyContact);
             }
+
+            // Set wage progressions
+
+            $eventArray = array();
+            if($record['three_month'] !== ""){
+              $eventArray['2'] = (['date' => setImportWageEventDate($record['three_month'])]);
+            }
+            if($record['six_month'] !== ""){
+              $eventArray['3'] = (['date' => setImportWageEventDate($record['six_month'])]);
+            }
+            if($record['nine_month'] !== ""){
+              $eventArray['4'] = (['date' => setImportWageEventDate($record['nine_month'])]);
+            }
+            if($record['twelve_month'] !== ""){
+              $eventArray['5'] = (['date' => setImportWageEventDate($record['twelve_month'])]);
+            }
+            if($record['fifteen_month'] !== ""){
+              $eventArray['6'] = (['date' => setImportWageEventDate($record['fifteen_month'])]);
+            }
+            if($record['eighteen_month'] !== ""){
+              $eventArray['7'] = (['date' => setImportWageEventDate($record['eighteen_month'])]);
+            }
+            if($record['twentyone_month'] !== ""){
+              $eventArray['8'] = (['date' => setImportWageEventDate($record['twentyone_month'])]);
+            }
+            if($record['twentyfour_month'] !== ""){
+              $eventArray['9'] = (['date' => setImportWageEventDate($record['twentyfour_month'])]);
+            }
+            if($record['twentyseven_month'] !== ""){
+              $eventArray['10'] = (['date' => setImportWageEventDate($record['twentyseven_month'])]);
+            }
+            if($record['thirty_month'] !== ""){
+              $eventArray['11'] = (['date' => setImportWageEventDate($record['thirty_month'])]);
+            }
+            if($record['thirtythree_month'] !== ""){
+              $eventArray['12'] = (['date' => setImportWageEventDate($record['thirtythree_month'])]);
+            }
+            if($record['thirtysix_month'] !== ""){
+              $eventArray['13'] = (['date' => setImportWageEventDate($record['thirtysix_month'])]);
+            }
+            if($record['thirtynine_month'] !== ""){
+              $eventArray['14'] = (['date' => setImportWageEventDate($record['thirtynine_month'])]);
+            }
+            if($record['fortytwo_month'] !== ""){
+              $eventArray['15'] = (['date' => setImportWageEventDate($record['fortytwo_month'])]);
+            }
+            $employee->wageProgression()->sync($eventArray);
+
           }
         }
 
