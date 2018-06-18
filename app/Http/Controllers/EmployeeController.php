@@ -65,7 +65,7 @@ class EmployeeController extends Controller
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         $positions = $position->all();
         $jobs = $job->all();
-        $costCenters = $costCenter->all();
+        $costCenters = $costCenter->orderBy('number', 'asc')->get();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('wageProgression')->get();
         return view('hr.create-employee', [
@@ -154,7 +154,7 @@ class EmployeeController extends Controller
         $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'position.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'visionVoucher', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'wageProgression')->find($id);
         $jobs = $job->all();
         $positions = $position->with('wageTitle')->get();
-        $costCenters = $costCenter->all();
+        $costCenters = $costCenter->orderBy('number', 'asc')->get();
         $shifts = $shift->all();
         $wageTitles = $wageTitle->with('wageProgression')->get();
         $salaryJobs = $job->with(['employee' => function($query){

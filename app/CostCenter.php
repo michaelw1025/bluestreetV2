@@ -21,7 +21,7 @@ class CostCenter extends Model
      * @var array
      */
     protected $hidden = [
-        
+
     ];
 
     // ----------------Mutators----------------
@@ -36,6 +36,7 @@ class CostCenter extends Model
     {
         return ucWords($description);
     }
+
     // ----------------End Mutators----------------
 
     // ----------------Relationships----------------
