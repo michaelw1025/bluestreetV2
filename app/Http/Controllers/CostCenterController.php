@@ -158,7 +158,7 @@ class CostCenterController extends Controller
           }
         }
         $costCenter->number = $request->number;
-        $costCenter->extension = $request->number->extension;
+        $costCenter->extension = $request->number_extension;
         $costCenter->description = $request->description;
         if($costCenter->save()){
             // Sync staff manager
