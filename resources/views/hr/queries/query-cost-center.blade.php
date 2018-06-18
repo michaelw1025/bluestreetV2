@@ -20,7 +20,7 @@
                     <select class="form-control" name="search_cost_center" required>
                         <option></option>
                         @foreach($costCenters as $costCenter)
-                        <option {{ isset($searchCostCenter) ? ($searchCostCenter == $costCenter->id ? 'selected' : '') : old('search_cost_center') }} value="{{$costCenter->id}}">{{$costCenter->number}} - {{$costCenter->description}}</option>
+                        <option {{ isset($searchCostCenter) ? ($searchCostCenter == $costCenter->id ? 'selected' : '') : old('search_cost_center') }} value="{{$costCenter->id}}">{{$costCenter->number}}{{$costCenter->extension != null ? ($costCenter->extension != "" ? '-'.strToUpper($costCenter->extension) : '') : ''}} - {{$costCenter->description}}</option>
                         @endforeach
                     </select>
                 </div>

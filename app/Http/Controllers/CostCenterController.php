@@ -61,13 +61,30 @@ class CostCenterController extends Controller
     public function store(Request $request, CostCenter $costCenter)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager']);
         $this->validate($request,[
-            'number' => 'required|string|max:255|unique:cost_centers',
+            'number' => 'required|numeric|max:9999',
             'description' => 'required|string|max:255',
         ]);
+        if($request->number_extension == null){
+          $extension = "";
+        }else{
+          $extension = $request->number_extension;
+        }
+        $existingCostCenters = $costCenter->where([
+          ['number', $request->number],
+          ['extension', $request->number_extension]
+        ])->orWhere([
+          ['number', $request->number],
+          ['extension', ""]
+        ])->get();
+        if($existingCostCenters->isNotEmpty()){
+          \Session::flash('error', 'cost Center and Extension already exist.');
+          return redirect()->back();
+        }
         $costCenter = new CostCenter();
         $costCenter->number = $request->number;
+        $costCenter->extension = $extension;
         $costCenter->description = $request->description;
         if($costCenter->save()){
             \Session::flash('status', 'Cost Center created.');
@@ -129,13 +146,33 @@ class CostCenterController extends Controller
     public function update(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager']);
         $this->validate($request,[
-            'number' => 'required|string|max:255|unique:cost_centers,number,'.$id,
+            'number' => 'required|numeric|max:9999',
             'description' => 'required|string|max:255',
         ]);
+        // return $request;
+        if($request->number_extension == null){
+          $extension ="";
+        }else{
+          $extension = $request->number_extension;
+        }
         $costCenter = $costCenter->find($id);
+        $existingCostCenters = $costCenter->where([
+          ['number', $request->number],
+          ['extension', $extension]
+        ])->get();
+        // return $costCenter;
+        if($existingCostCenters->isNotEmpty()){
+          foreach($existingCostCenters as $existingCostCenter){
+            if($existingCostCenter->id !== $costCenter->id){
+              \Session::flash('error', 'cost Center and Extension already exist.');
+              return redirect()->back();
+            }
+          }
+        }
         $costCenter->number = $request->number;
+        $costCenter->extension = $extension;
         $costCenter->description = $request->description;
         if($costCenter->save()){
             // Sync staff manager
@@ -174,7 +211,7 @@ class CostCenterController extends Controller
     public function destroy(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $request->user()->authorizeRoles(['admin']);
         // $costCenter = $costCenter->find($id);
         // if($costCenter->delete()){
         //     // Clear staff manager for deleted cost center

@@ -1,7 +1,7 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-position">Position</h5>
         <div class="print-section form-row align-items-center employee-position {{ $errors->has('job') ? '' : ($errors->has('position') ? '' : ($errors->has('cost_center') ? '' : ($errors->has('shift') ? '' : 'd-none'))) }}">
-        
+
             @if(isset($jobs))
             <div class="col-xl-4 my-1">
                 <label class="sr-only" for="job">Job</label>
@@ -48,7 +48,7 @@
                     <select class="form-control" name="cost_center" required>
                         <option></option>
                         @foreach($costCenters as $costCenter)
-                        <option {{ isset($employee->costCenter) ? ($employee->costCenter[0]->id == $costCenter->id ? 'selected' : '') : (old('cost_center') == $costCenter->id ? 'selected' : '') }} value="{{$costCenter->id}}">{{$costCenter->number}} - {{$costCenter->description}}</option>
+                        <option {{ isset($employee->costCenter) ? ($employee->costCenter[0]->id == $costCenter->id ? 'selected' : '') : (old('cost_center') == $costCenter->id ? 'selected' : '') }} value="{{$costCenter->id}}">{{$costCenter->number}}{{$costCenter->extension != null ? ($costCenter->extension != "" ? '-'.strToUpper($costCenter->extension) : '') : ''}} - {{$costCenter->description}}</option>
                         @endforeach
                     </select>
                 </div>

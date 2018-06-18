@@ -15,11 +15,29 @@
         <form method="post" action="" class="prevent-print">
         {{ csrf_field() }}
             <div class="form-group row">
-                <label for="number" class="col-sm-2 col-form-label">Cost Center number</label>
+                <label for="number" class="col-sm-2 col-form-label">Cost Center Number</label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
-                    <input type="text" class="form-control" name="number" required value="{{old('number')}}">
+                    <input type="number" class="form-control" name="number" required value="{{old('number')}}">
                     <small class="text-danger">{{ $errors->first('number') }}</small>
                 </div>
+            </div>
+            <div class="form-group row">
+              <label for="number_extension" class="col-sm-2 col-form-label">Cost Center Extension</label>
+              <div class="col-sm-10 col-md-8 col-lg-6">
+                <select class="form-control" name="number_extension">
+                  <option value="" "selected"></option>
+                  <option value="a" "selected">A</option>
+                  <option value="b" "selected">B</option>
+                  <option value="c" "selected">C</option>
+                  <option value="d" "selected">D</option>
+                  <option value="e" "selected">E</option>
+                </select>
+              </div>
+                <!-- <label for="number_extension" class="col-sm-2 col-form-label">Cost Center Extension</label>
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <input type="text" class="form-control" name="number_extension" required value="{{old('number_extension')}}">
+                    <small class="text-danger">{{ $errors->first('number_extension') }}</small>
+                </div> -->
             </div>
             <div class="form-group row">
                 <label for="description" class="col-sm-2 col-form-label">Cost Center Description</label>
@@ -44,6 +62,7 @@
                 <thead>
                     <tr>
                         <th scope="col">Number</th>
+                        <th scope="col">Extension</th>
                         <th scope="col">Description</th>
                         <th scope="col">Staff Manager</th>
                         <th scope="col">Day TM</th>
@@ -55,7 +74,7 @@
                 <tbody>
                 @foreach($costCenters as $costCenter)
                     <tr class="clickable-row" data-href="{{ url('hr.cost-centers/'.$costCenter->id) }}">
-                        <td>{{$costCenter->number}}</td>
+                        <td>{{$costCenter->number}}{{$costCenter->extension != null ? ($costCenter->extension != "" ? '-'.strToUpper($costCenter->extension) : '') : ''}}</td>
                         <td>{{$costCenter->description}}</td>
                         <td>{{$costCenter->employeeStaffManager->isNotEmpty() ? $costCenter->employeeStaffManager[0]->first_name.' '.$costCenter->employeeStaffManager[0]->last_name : ''}}</td>
                         <td>{{$costCenter->employeeDayTeamManager->isNotEmpty() ? $costCenter->employeeDayTeamManager[0]->first_name.' '.$costCenter->employeeDayTeamManager[0]->last_name : ''}}</td>

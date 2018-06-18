@@ -22,6 +22,24 @@
                 </div>
             </div>
             <div class="form-group row">
+              <label for="number_extension" class="col-sm-2 col-form-label">Cost Center Extension</label>
+              <div class="col-sm-10 col-md-8 col-lg-6">
+                <select class="form-control" name="number_extension">
+                  <option value=""></option>
+                  <option {{$costCenter->extension == 'a' ? 'selected' : ''}} value="a" "selected">A</option>
+                  <option {{$costCenter->extension == 'b' ? 'selected' : ''}} value="b" "selected">B</option>
+                  <option {{$costCenter->extension == 'c' ? 'selected' : ''}} value="c" "selected">C</option>
+                  <option {{$costCenter->extension == 'd' ? 'selected' : ''}} value="d" "selected">D</option>
+                  <option {{$costCenter->extension == 'e' ? 'selected' : ''}} value="e" "selected">E</option>
+                </select>
+              </div>
+                <!-- <label for="number_extension" class="col-sm-2 col-form-label">Cost Center Extension</label>
+                <div class="col-sm-10 col-md-8 col-lg-6">
+                    <input type="text" class="form-control" name="number_extension" required value="{{old('number_extension')}}">
+                    <small class="text-danger">{{ $errors->first('number_extension') }}</small>
+                </div> -->
+            </div>
+            <div class="form-group row">
                 <label for="description" class="col-sm-2 col-form-label">Cost Center Description</label>
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <input type="text" class="form-control" name="description" required value="{{$costCenter['description']}}">
@@ -48,7 +66,7 @@
                             @endforeach
                             @endforeach
                         </select>
-                        
+
                     </div>
                 </div>
 
@@ -70,7 +88,7 @@
                             @endforeach
                             @endforeach
                         </select>
-                        
+
                     </div>
                 </div>
 
@@ -92,7 +110,7 @@
                             @endforeach
                             @endforeach
                         </select>
-                        
+
                     </div>
                 </div>
 
@@ -114,7 +132,7 @@
                             @endforeach
                             @endforeach
                         </select>
-                        
+
                     </div>
                 </div>
 
@@ -136,10 +154,10 @@
                             @endforeach
                             @endforeach
                         </select>
-                        
+
                     </div>
                 </div>
-                
+
             @endif
 
             @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser']))

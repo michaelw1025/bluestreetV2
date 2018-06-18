@@ -12,7 +12,7 @@ class CostCenter extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description',
+        'name', 'extension', 'description',
     ];
 
     /**
@@ -35,6 +35,12 @@ class CostCenter extends Model
     public function getDescriptionAttribute($description)
     {
         return ucWords($description);
+    }
+
+    // Set extension format
+    public function setExtensionAttribute($extension)
+    {
+      $this->attributes['extension'] = strtolower($extension);
     }
 
     // ----------------End Mutators----------------
