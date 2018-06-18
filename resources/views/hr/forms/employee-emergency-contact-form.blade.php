@@ -34,7 +34,7 @@
                     <div class="input-group-prepend">
                         <div class="input-group-text"><span class="text-danger prevent-print">*</span>&nbsp;Name</div>
                     </div>
-                    <input type="text" class="form-control" maxlength="12" name="emergency_contact[{{$loop->index}}][name]"  value="{{ isset($emergencyContact->name) ? $emergencyContact->name : old('emergency_contact.'.$loop->index.'.name') }}">
+                    <input type="text" class="form-control" name="emergency_contact[{{$loop->index}}][name]"  value="{{ isset($emergencyContact->name) ? $emergencyContact->name : old('emergency_contact.'.$loop->index.'.name') }}">
                 </div>
                 <small class="text-danger">{{ $errors->first('emergency_contact.'.$loop->index.'.name') }}</small>
             </div>
@@ -52,7 +52,7 @@
 
             <input class="form-check-input emergency-contact-{{$loop->index}} emergency-contact-primary-checkbox d-none"  type="checkbox" name="emergency_contact[{{$loop->index}}][is_primary]" value="1" {{ $emergencyContact->is_primary == '1' ? 'checked' : '' }}>
             <button type="button" class="toggle-emergency-contact-{{$loop->index}} {{ isset($emergencyContact->id) ? '' : 'd-none' }} ml-1 mt-1 emergency-contact-primary-button btn {{$emergencyContact->is_primary == '1' ? 'btn-primary' : 'btn-outline-secondary'}}" id="emergency-contact-{{$loop->index}}">Primary</button>
-            
+
 
         </div> <!-- end form row -->
 
@@ -110,7 +110,7 @@
 
             <input class="form-check-input emergency-contact-{{$i}} emergency-contact-primary-checkbox d-none"  type="checkbox" name="emergency_contact[{{$i}}][is_primary]" value="1" {{ old('emergency_contact.'.$i.'.is_primary') == '1' ? 'checked' : '' }}>
             <button type="button" class="ml-1 mt-1 emergency-contact-primary-button btn toggle-emergency-contact-{{$i}} d-none {{ old('emergency_contact.'.$i.'.is_primary') == '1' ? 'btn-primary' : 'btn-outline-secondary' }}" id="emergency-contact-{{$i}}">Primary</button>
-            
+
 
         </div> <!-- end form row -->
 
