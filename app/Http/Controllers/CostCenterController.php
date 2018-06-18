@@ -95,10 +95,10 @@ class CostCenterController extends Controller
             'employeeNightTeamLeader:employee_id,first_name,last_name'
         )->find($id);
         $salaryJobs = $job->with(['employee' => function ($query){
-            $query->select('first_name', 'last_name')->where('status', 1);
+            $query->select('first_name', 'last_name')->where('status', 1)->orderBy('last_name');
         }])->where('description', 'salary')->get();
         $salaryPositions = $position->with(['employee' => function ($query){
-            $query->select('first_name', 'last_name')->where('status', 1);
+            $query->select('first_name', 'last_name')->where('status', 1)->orderBy('last_name');
         }])->where('description', 'specialist operations')->get();
         $salaryEmployees = $salaryJobs->concat($salaryPositions);
         return view('hr.show-cost-center', [
