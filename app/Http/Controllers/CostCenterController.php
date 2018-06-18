@@ -49,7 +49,7 @@ class CostCenterController extends Controller
     public function create()
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -61,7 +61,7 @@ class CostCenterController extends Controller
     public function store(Request $request, CostCenter $costCenter)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'number' => 'required|numeric|max:9999',
             'description' => 'required|string|max:255',
@@ -125,7 +125,7 @@ class CostCenterController extends Controller
     public function edit($id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -138,7 +138,7 @@ class CostCenterController extends Controller
     public function update(Request $request, CostCenter $costCenter, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'number' => 'required|numeric|max:9999',
             'description' => 'required|string|max:255',

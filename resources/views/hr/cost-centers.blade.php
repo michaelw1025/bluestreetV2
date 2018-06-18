@@ -62,7 +62,6 @@
                 <thead>
                     <tr>
                         <th scope="col">Number</th>
-                        <th scope="col">Extension</th>
                         <th scope="col">Description</th>
                         <th scope="col">Staff Manager</th>
                         <th scope="col">Day TM</th>
