@@ -66,17 +66,9 @@ class CostCenterController extends Controller
             'number' => 'required|numeric|max:9999',
             'description' => 'required|string|max:255',
         ]);
-        if($request->number_extension == null){
-          $extension = "";
-        }else{
-          $extension = $request->number_extension;
-        }
         $existingCostCenters = $costCenter->where([
           ['number', $request->number],
           ['extension', $request->number_extension]
-        ])->orWhere([
-          ['number', $request->number],
-          ['extension', ""]
         ])->get();
         if($existingCostCenters->isNotEmpty()){
           \Session::flash('error', 'cost Center and Extension already exist.');
@@ -84,7 +76,7 @@ class CostCenterController extends Controller
         }
         $costCenter = new CostCenter();
         $costCenter->number = $request->number;
-        $costCenter->extension = $extension;
+        $costCenter->extension = $request->number_extension;
         $costCenter->description = $request->description;
         if($costCenter->save()){
             \Session::flash('status', 'Cost Center created.');
@@ -151,16 +143,10 @@ class CostCenterController extends Controller
             'number' => 'required|numeric|max:9999',
             'description' => 'required|string|max:255',
         ]);
-        // return $request;
-        if($request->number_extension == null){
-          $extension ="";
-        }else{
-          $extension = $request->number_extension;
-        }
         $costCenter = $costCenter->find($id);
         $existingCostCenters = $costCenter->where([
           ['number', $request->number],
-          ['extension', $extension]
+          ['extension', $request->number_extension]
         ])->get();
         // return $costCenter;
         if($existingCostCenters->isNotEmpty()){
@@ -172,7 +158,7 @@ class CostCenterController extends Controller
           }
         }
         $costCenter->number = $request->number;
-        $costCenter->extension = $extension;
+        $costCenter->extension = $request->number->extension;
         $costCenter->description = $request->description;
         if($costCenter->save()){
             // Sync staff manager

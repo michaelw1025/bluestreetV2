@@ -37,12 +37,6 @@ class CostCenter extends Model
         return ucWords($description);
     }
 
-    // Set extension format
-    public function setExtensionAttribute($extension)
-    {
-      $this->attributes['extension'] = strtolower($extension);
-    }
-
     // ----------------End Mutators----------------
 
     // ----------------Relationships----------------

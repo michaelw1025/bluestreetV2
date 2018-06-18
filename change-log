@@ -1,4 +1,8 @@
-v 1.6.4
+v 1.6.1
+-6-18-18
+-corrected error where cost centers could be duplicated
+
+v 1.6.0
 -6-18-18
 -added an extension to cost centers to account for multiple managers and leaders on same shift for same cost center
 
