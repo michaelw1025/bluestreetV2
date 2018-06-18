@@ -21,13 +21,14 @@
                     <small class="text-danger">{{ $errors->first('description') }}</small>
                 </div>
             </div>
-
+            @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser']))
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.jobs/'.$job['id'].'/update')}}">Edit Job</button>
                     <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.jobs/'.$job['id'].'/delete')}}" name="job">Delete Job</button> -->
                 </div>
             </div>
+            @endif
         </form>
             <!-- </form> -->
 

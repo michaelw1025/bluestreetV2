@@ -40,7 +40,7 @@ class WageProgressionController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -52,7 +52,7 @@ class WageProgressionController extends Controller
     public function store(Request $request, WageProgression $wageProgression)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'month' => 'required|string|max:255|unique:wage_progressions',
         ]);
@@ -91,7 +91,7 @@ class WageProgressionController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -104,7 +104,7 @@ class WageProgressionController extends Controller
     public function update(Request $request, WageProgression $wageProgression, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'month' => 'required|string|max:255|unique:wage_progressions,month,'.$id,
         ]);
@@ -127,7 +127,7 @@ class WageProgressionController extends Controller
     public function destroy(Request $request, WageProgression $wageProgression, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // $wageProgression = $wageProgression->find($id);
         // if($wageProgression->delete()){
         //     \Session::flash('status', 'Wage Progression deleted.');

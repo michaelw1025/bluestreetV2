@@ -40,7 +40,7 @@ class TeamController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -52,7 +52,7 @@ class TeamController extends Controller
     public function store(Request $request, Team $team)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:teams',
         ]);
@@ -91,7 +91,7 @@ class TeamController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -104,7 +104,7 @@ class TeamController extends Controller
     public function update(Request $request, Team $team, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:teams,description,'.$id,
         ]);
@@ -127,7 +127,7 @@ class TeamController extends Controller
     public function destroy(Request $request, Team $team, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // $team = $team->find($id);
         // if($team->delete()){
         //     \Session::flash('status', 'Team deleted.');

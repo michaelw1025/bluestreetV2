@@ -40,7 +40,7 @@ class ShiftController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -52,7 +52,7 @@ class ShiftController extends Controller
     public function store(Request $request, Shift $shift)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:shifts',
         ]);
@@ -91,7 +91,7 @@ class ShiftController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -104,7 +104,7 @@ class ShiftController extends Controller
     public function update(Request $request, Shift $shift, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:shifts,description,'.$id,
         ]);
@@ -127,7 +127,7 @@ class ShiftController extends Controller
     public function destroy(Request $request, Shift $shift, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // $shift = $shift->find($id);
         // if($shift->delete()){
         //     \Session::flash('status', 'Shift deleted.');

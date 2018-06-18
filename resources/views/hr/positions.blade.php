@@ -8,7 +8,7 @@
         <h1 class="">Positions <small class="text-muted">(Manage)</small><button type="button" class="btn btn-info pl- pr-3 float-right btn-lg print-button prevent-print">Print</button></h1>
         <hr class="border-info"/>
         @include('layouts.session-messages')
-
+        @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser']))
         <h3 class="prevent-print">Add Position</h3>
         <!-- <form> -->
         <form method="post" action="" class="prevent-print">
@@ -55,6 +55,7 @@
         </form>
         <!-- </form> -->
         <hr class="border-info mt-4 mb-4 prevent-print"/>
+        @endif
 
         @if($positions)
             <table class="table table-hover">

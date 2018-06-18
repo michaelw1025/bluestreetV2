@@ -43,7 +43,7 @@ class WageTitleController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -55,7 +55,7 @@ class WageTitleController extends Controller
     public function store(Request $request, WageTitle $wageTitle)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:wage_titles',
         ]);
@@ -99,7 +99,7 @@ class WageTitleController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -112,7 +112,7 @@ class WageTitleController extends Controller
     public function update(Request $request, WageTitle $wageTitle, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:wage_titles,description,'.$id,
         ]);
@@ -139,7 +139,7 @@ class WageTitleController extends Controller
     public function destroy(Request $request, WageTitle $wageTitle, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // $wageTitle = $wageTitle->find($id);
         // if($wageTitle->delete()){
         //     \Session::flash('status', 'Wage Title deleted.');

@@ -46,7 +46,7 @@ class PositionController extends Controller
     public function create(Request $request)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -58,7 +58,7 @@ class PositionController extends Controller
     public function store(Request $request, Position $position)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:positions',
         ]);
@@ -104,7 +104,7 @@ class PositionController extends Controller
     public function edit(Request $request, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
     }
 
     /**
@@ -117,7 +117,7 @@ class PositionController extends Controller
     public function update(Request $request, Position $position, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:positions,description,'.$id,
         ]);
@@ -142,7 +142,7 @@ class PositionController extends Controller
     public function destroy(Request $request, Position $position, $id)
     {
         //Check if user is authorized to access this page
-        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
+        $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
         // $position = $position->find($id);
         // $position->job()->sync([]);
         // $position->wageTitle()->sync([]);

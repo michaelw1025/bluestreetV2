@@ -51,13 +51,14 @@
                     </div>
                 </div>
             @endif
-
+            @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser']))
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.positions/'.$position->id.'/update')}}">Edit Position</button>
                     <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.positions/'.$position->id.'/delete')}}" name="position">Delete Position</button> -->
                 </div>
             </div>
+            @endif
         </form>
             <!-- </form> -->
 

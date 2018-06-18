@@ -1,3 +1,13 @@
+v 1.5.3
+-6-18-18
+-removed hrassistant from Job editing
+-remove hrassistant from Position editing
+-remove hrassistant from Shift editing
+-remove hrassistant from Team editing
+-remove hrassistant from Wage Progression editing
+-remove hrassistant from Wage Title editing
+
+
 v 1.5.2
 -6-18-18
 -alphabetized CC Team Managers/Leaders

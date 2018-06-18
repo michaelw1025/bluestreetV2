@@ -21,13 +21,14 @@
                     <small class="text-danger">{{ $errors->first('month') }}</small>
                 </div>
             </div>
-
+            @if(Auth::user()->navigationRoles(['admin', 'hrmanager', 'hruser']))
             <div class="form-group row prevent-print">
                 <div class="col-sm-10 col-md-8 col-lg-6">
                     <button type="submit" class="btn btn-warning" formaction="{{url('hr.wage-progressions/'.$wageProgression['id'].'/update')}}">Edit Wage Progression</button>
                     <!-- <button type="submit" class="btn btn-danger delete-item" formaction="{{url('hr.wage-progressions/'.$wageProgression['id'].'/delete')}}" name="wage progression">Delete Wage Progression</button> -->
                 </div>
             </div>
+            @endif
         </form>
             <!-- </form> -->
 
