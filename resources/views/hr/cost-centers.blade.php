@@ -31,6 +31,11 @@
                   <option value="c" "selected">C</option>
                   <option value="d" "selected">D</option>
                   <option value="e" "selected">E</option>
+                  <option value="f" "selected">F</option>
+                  <option value="g" "selected">G</option>
+                  <option value="h" "selected">H</option>
+                  <option value="i" "selected">I</option>
+                  <option value="j" "selected">J</option>
                 </select>
               </div>
                 <!-- <label for="number_extension" class="col-sm-2 col-form-label">Cost Center Extension</label>
