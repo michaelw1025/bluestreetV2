@@ -12,7 +12,7 @@
                     <select class="form-control" name="job" required>
                         <option></option>
                         @foreach($jobs as $job)
-                        <option {{ isset($employee->job) ? ($employee->job[0]->id == $job->id ? 'selected' : '') : (old('job') == $job->id ? 'selected' : '') }} value="{{$job->id}}">{{$job->description}}</option>
+                        <option {{ isset($employee) ? (count($employee->job) > 0 ? ($employee->job[0]->id == $job->id ? 'selected' : '') : (old('job') == $job->id ? 'selected' : '')) : '' }} value="{{$job->id}}">{{$job->description}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -30,7 +30,9 @@
                     <select class="form-control position-select" name="position" required>
                         <option></option>
                         @foreach($positions as $position)
-                        <option id="title-{{$position->wageTitle[0]->id}}-{{$position->wageTitle[0]->description}}" {{ isset($employee->position) ? ($employee->position[0]->id == $position->id ? 'selected' : '') : (old('position') == $position->id ? 'selected' : '') }} value="{{$position->id}}">{{$position->description}}</option>
+
+                        <option id="title-{{$position->wageTitle[0]->id}}-{{$position->wageTitle[0]->description}}" {{ isset($employee) ? (count($employee->position) > 0 ? ($employee->position[0]->id == $position->id ? 'selected' : '') : (old('position') == $position->id ? 'selected' : '')) : '' }} value="{{$position->id}}">{{$position->description}}</option>
+
                         @endforeach
                     </select>
                 </div>
@@ -48,7 +50,7 @@
                     <select class="form-control" name="cost_center" required>
                         <option></option>
                         @foreach($costCenters as $costCenter)
-                        <option {{ isset($employee->costCenter) ? ($employee->costCenter[0]->id == $costCenter->id ? 'selected' : '') : (old('cost_center') == $costCenter->id ? 'selected' : '') }} value="{{$costCenter->id}}">{{$costCenter->number}}{{$costCenter->extension != null ? ($costCenter->extension != "" ? '-'.strToUpper($costCenter->extension) : '') : ''}} - {{$costCenter->description}}</option>
+                        <option {{ isset($employee) ? (count($employee->costCenter) > 0 ? ($employee->costCenter[0]->id == $costCenter->id ? 'selected' : '') : (old('cost_center') == $costCenter->id ? 'selected' : '')) : '' }} value="{{$costCenter->id}}">{{$costCenter->number}}{{$costCenter->extension != null ? ($costCenter->extension != "" ? '-'.strToUpper($costCenter->extension) : '') : ''}} - {{$costCenter->description}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -66,12 +68,13 @@
                     <select class="form-control" name="shift" required>
                         <option></option>
                         @foreach($shifts as $shift)
-                        <option {{ isset($employee->shift) ? ($employee->shift[0]->id == $shift->id ? 'selected' : '') : (old('shift') == $shift->id ? 'selected' : '') }} value="{{$shift->id}}">{{$shift->description}}</option>
+                        <option {{ isset($employee) ? (count($employee->shift) > 0 ? ($employee->shift[0]->id == $shift->id ? 'selected' : '') : (old('shift') == $shift->id ? 'selected' : '')) : '' }} value="{{$shift->id}}">{{$shift->description}}</option>
                         @endforeach
                     </select>
                 </div>
                 <small class="text-danger">{{ $errors->first('shift') }}</small>
             </div>
             @endif
+
 
         </div> <!-- end form row -->

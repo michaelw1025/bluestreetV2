@@ -151,7 +151,25 @@ class EmployeeController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
-        $employee = $employee->with('spouse', 'dependant', 'phoneNumber', 'emergencyContact', 'position', 'position.wageTitle', 'costCenter', 'shift', 'wageProgressionWageTitle', 'visionVoucher', 'parkingPermit', 'disciplinary', 'termination', 'reduction', 'wageProgression')->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'wageProgression')->find($id);
+        $employee = $employee->with(
+          'spouse',
+          'dependant',
+          'phoneNumber',
+          'emergencyContact',
+          'job',
+          'position',
+          'position.wageTitle',
+          'costCenter',
+          'shift',
+          'wageProgressionWageTitle',
+          'visionVoucher',
+          'parkingPermit',
+          'disciplinary',
+          'termination',
+          'reduction',
+          'wageProgression'
+          )->withCount('dependant', 'phoneNumber', 'emergencyContact', 'wageProgressionWageTitle', 'wageProgression')->find($id);
+        // return $employee;
         $jobs = $job->all();
         $positions = $position->with('wageTitle')->get();
         $costCenters = $costCenter->orderBy('number', 'asc')->get();
@@ -169,7 +187,7 @@ class EmployeeController extends Controller
         $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
         $employee->link = '/storage/'.$employee->photo_link;
-
+// return $employee;
         return view('hr.show-employee', [
             'employee' => $employee,
             'positions' => $positions,

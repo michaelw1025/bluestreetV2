@@ -1,3 +1,8 @@
+v 1.6.3
+-6-19-18
+-corrected page errors when encountering blank employee data
+-changed orderBy of Disciplinary
+
 v 1.6.2
 -6-18-18
 -corrected emergency contact name character limit

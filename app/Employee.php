@@ -278,7 +278,7 @@ class Employee extends Model
     // Disciplinary relationship
     public function disciplinary()
     {
-        return $this->hasMany('App\Disciplinary')->orderBy('type', 'asc')->orderBy('created_at', 'desc');
+        return $this->hasMany('App\Disciplinary')->orderBy('type', 'asc')->orderBy('date', 'desc');
     }
     // Staff Manager relationship
     public function costCenterStaffManager()

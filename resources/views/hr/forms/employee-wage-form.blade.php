@@ -1,11 +1,11 @@
 
         <h5 class="alert alert-info mt-5 toggle-section" id="employee-wage">Wage Progression</h5>
-        
+
         <div class="print-section form-row align-items-center employee-wage {{ $errors->has('progression') ? '' : 'd-none' }}">
-        
+
         @if($wageTitles)
             @foreach($wageTitles as $wageTitle)
-            <table class="table table-bordered table-sm progression-{{$wageTitle->description}} wage-progression-table {{isset($employee->position) ? ($employee->position[0]->wageTitle[0]->id == $wageTitle->id ? '' : 'd-none') : 'd-none'}}">
+            <table class="table table-bordered table-sm progression-{{$wageTitle->description}} wage-progression-table {{isset($employee) ? (count($employee->position) > 0 ? ($employee->position[0]->wageTitle[0]->id == $wageTitle->id ? '' : 'd-none') : 'd-none') : 'd-none'}}">
                 <caption><span class="text-info">Current Wage</span></caption>
                 <thead class="thead-light">
                     <tr>
