@@ -31,6 +31,11 @@
                   <option {{$costCenter->extension == 'c' ? 'selected' : ''}} value="c" "selected">C</option>
                   <option {{$costCenter->extension == 'd' ? 'selected' : ''}} value="d" "selected">D</option>
                   <option {{$costCenter->extension == 'e' ? 'selected' : ''}} value="e" "selected">E</option>
+                  <option {{$costCenter->extension == 'f' ? 'selected' : ''}} value="f" "selected">F</option>
+                  <option {{$costCenter->extension == 'g' ? 'selected' : ''}} value="g" "selected">G</option>
+                  <option {{$costCenter->extension == 'h' ? 'selected' : ''}} value="h" "selected">H</option>
+                  <option {{$costCenter->extension == 'i' ? 'selected' : ''}} value="i" "selected">I</option>
+                  <option {{$costCenter->extension == 'j' ? 'selected' : ''}} value="j" "selected">J</option>
                 </select>
               </div>
                 <!-- <label for="number_extension" class="col-sm-2 col-form-label">Cost Center Extension</label>
