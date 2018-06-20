@@ -531,6 +531,7 @@ class ComposerStaticInitb5c6db8adb4cdeedf5a010480872f4e1
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
         'EmployeeCSVSeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeeCSVSeeder.php',
         'EmployeeDisciplinarySeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeeDisciplinarySeeder.php',
+        'EmployeeShiftSeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeeShiftSeeder.php',
         'EmployeeWageSeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeeWageSeeder.php',
         'EmployeesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/EmployeesTableSeeder.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',

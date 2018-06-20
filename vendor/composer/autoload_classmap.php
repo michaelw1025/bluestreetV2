@@ -189,6 +189,7 @@ return array(
     'Egulias\\EmailValidator\\Warning\\Warning' => $vendorDir . '/egulias/email-validator/EmailValidator/Warning/Warning.php',
     'EmployeeCSVSeeder' => $baseDir . '/database/seeds/EmployeeCSVSeeder.php',
     'EmployeeDisciplinarySeeder' => $baseDir . '/database/seeds/EmployeeDisciplinarySeeder.php',
+    'EmployeeShiftSeeder' => $baseDir . '/database/seeds/EmployeeShiftSeeder.php',
     'EmployeeWageSeeder' => $baseDir . '/database/seeds/EmployeeWageSeeder.php',
     'EmployeesTableSeeder' => $baseDir . '/database/seeds/EmployeesTableSeeder.php',
     'Faker\\Calculator\\Iban' => $vendorDir . '/fzaninotto/faker/src/Faker/Calculator/Iban.php',

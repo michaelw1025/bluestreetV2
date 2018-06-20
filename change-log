@@ -1,15 +1,12 @@
+v 1.6.4
+-6-19-18
+-corrected error when getting an empty staffManager for employee with no assigned cost center
+-imported correct employee shifts
+
 v 1.6.3
-<<<<<<< HEAD
 -6-19-18
 -corrected page errors when encountering blank employee data
 -changed orderBy of Disciplinary
-=======
--6-18-18
--bug fixes
-
--6-18-18
--bug fixes
->>>>>>> 0c8bb3516bed6c898cb6886055605fe08eab25d5
 
 v 1.6.2
 -6-18-18

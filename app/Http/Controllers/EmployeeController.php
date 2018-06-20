@@ -181,11 +181,16 @@ class EmployeeController extends Controller
         $this->setTeamManagerTeamLeader($employee);
         $this->getWageStatus($employee);
         $this->setWageEventDate($employee);
-        foreach($employee->costCenter as $employeeCostCenter){
+        if($employee->costCenter->count() > 0){
+          foreach($employee->costCenter as $employeeCostCenter){
             $staffManager = $costCenter->with('employeeStaffManager:first_name,last_name')->find($employeeCostCenter->id);
+          }
+        }else{
+          $staffManager = null;
         }
-        $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
 
+        $wageProgressions = $wageProgression->orderBy('month', 'asc')->get();
+// return $employee;
         $employee->link = '/storage/'.$employee->photo_link;
 // return $employee;
         return view('hr.show-employee', [

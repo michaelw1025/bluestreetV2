@@ -10,8 +10,10 @@
         @include('layouts.session-messages')
 
         <ul class="list-group col-xl-6">
-        @if($staffManager->employeeStaffManager->isNotEmpty())
-            <li class="list-group-item list-group-item-primary h5"><span class="text-Primary">Staff Manager:</span>&nbsp&nbsp  {{$staffManager->employeeStaffManager[0]->first_name}} {{$staffManager->employeeStaffManager[0]->last_name}}</li>
+        @if(!is_null($staffManager))
+          @if($staffManager->employeeStaffManager->isNotEmpty())
+              <li class="list-group-item list-group-item-primary h5"><span class="text-Primary">Staff Manager:</span>&nbsp&nbsp  {{$staffManager->employeeStaffManager[0]->first_name}} {{$staffManager->employeeStaffManager[0]->last_name}}</li>
+          @endif
         @endif
         @if(!is_null($employee->team_manager))
             <li class="list-group-item list-group-item-info h5"><span class="text-Primary">Team Manager:</span>&nbsp&nbsp  {{$employee->team_manager}}</li>
