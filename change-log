@@ -1,3 +1,7 @@
+v 1.6.5
+-6-26-18
+-corrected error where the id of edited wage_title_wage_progression amounts would be changed
+
 v 1.6.4
 -6-19-18
 -corrected error when getting an empty staffManager for employee with no assigned cost center

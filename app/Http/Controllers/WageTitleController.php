@@ -113,16 +113,17 @@ class WageTitleController extends Controller
     {
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser']);
+        $wageProgressionArray = array();
         $this->validate($request,[
             'description' => 'required|string|max:255|unique:wage_titles,description,'.$id,
         ]);
         $wageTitle = $wageTitle->find($id);
         $wageTitle->description = $request->description;
         if($wageTitle->save()){
-            $wageTitle->wageProgression()->detach();
             foreach($request->progression as $progression){
-                $wageTitle->wageProgression()->attach($progression['id'], ['amount' => $progression['amount']]);
+              $wageProgressionArray[$progression['id']] = ['amount' => $progression['amount']];
             }
+            $wageTitle->wageProgression()->sync($wageProgressionArray);
             \Session::flash('status', 'Wage Title edited.');
         }else{
             \Session::flash('error', 'Wage Title not edited.');

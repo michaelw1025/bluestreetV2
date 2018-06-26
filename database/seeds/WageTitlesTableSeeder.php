@@ -98,6 +98,9 @@ class WageTitlesTableSeeder extends Seeder
             15 => ['amount' => 0],
         ];
 
+        // DB::table('wage_titles')->truncate();
+        // DB::table('wage_progression_wage_title')->truncate();
+
 
         $title1 = new WageTitle();
         $title1->description = 'salary';
