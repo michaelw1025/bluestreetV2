@@ -1,3 +1,9 @@
+v 1.6.6
+-7-3-18
+-removed salary employees from bonus hours query and excel export
+-corrected error in wage progression query where Position was showing incorrect information
+-tested adding a new Wage Title for FST
+
 v 1.6.5
 -6-26-18
 -corrected error where the id of edited wage_title_wage_progression amounts would be changed

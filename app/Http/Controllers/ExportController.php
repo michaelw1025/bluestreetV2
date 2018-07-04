@@ -141,7 +141,14 @@ class ExportController extends Controller
         $eightYearHireDate = $fiveYearHireDate->copy()->subYears(3);
 
         // Get all employees with a hire date greater than or equal to fiveYearHireDate
-        $employees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county')->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
+        $allEmployees = $employee->select('id', 'first_name', 'last_name', 'middle_initial', 'ssn', 'oracle_number', 'birth_date', 'hire_date', 'service_date', 'maiden_name', 'nick_name', 'gender', 'suffix', 'address_1', 'address_2', 'city', 'state', 'zip_code', 'county')->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
+        $employees = $allEmployees->filter(function($employee){
+          foreach($employee->job as $employeeJob){
+            if($employeeJob->id === 1){
+              return $employee;
+            }
+          }
+        });
         foreach($employees as $employee){
             if($employee->hire_date <= $eightYearHireDate){
                 // If employee hire date is greater than or equal to 8 years

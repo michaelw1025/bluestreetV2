@@ -1,5 +1,10 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <a class="navbar-brand text-primary ml-md-4" href="{{ url('/') }}">{{ config('app.name', 'LebWeb') }}</a>
+
+    @if(strpos(url()->current(), 'bluestreetv2'))
+    <a class="navbar-brand text-warning ml-md-4" href="">TESTING</a>
+    @endif
+
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,7 +14,7 @@
         <li class="nav-item">
             <a class="nav-link {{ Route::is('home') ? 'active' : '' }}" href="{{ url('home') }}">Home</a>
         </li>
-        
+
         @if(Auth::user()->navigationRoles(['admin']))
         <li class="nav-item">
             <a class="nav-link {{ Route::is('admin.*') ? 'active' : '' }}" href="{{ url('admin.index') }}">Admin</a>
@@ -44,6 +49,6 @@
                     </li>
             @endguest
         </ul>
-        
+
     </div>
 </nav>

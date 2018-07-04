@@ -138,7 +138,6 @@
                         <td class="job d-none">{{$employeeJob->description}}</td>
                         @endforeach
                         @foreach($employee->position as $employeePosition)
-                        <td class="job d-none">{{$employeeJob->description}}</td>
                         <td class="position d-none">{{$employeePosition->description}}</td>
                         @endforeach
                         @foreach($employee->wageProgressionWageTitle as $employeeCurrentWage)

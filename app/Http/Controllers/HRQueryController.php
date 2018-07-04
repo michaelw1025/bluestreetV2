@@ -358,7 +358,7 @@ class HRQueryController extends Controller
 
             // for each employee left eager load the required relationships, get current wage for wage title, and get next wage for wage title
             foreach($searchEmployees as $searchEmployee){
-                $searchEmployee->loadMissing('costCenter', 'shift', 'job', 'wageProgressionWageTitle');
+                $searchEmployee->loadMissing('costCenter', 'shift', 'job', 'position', 'wageProgressionWageTitle');
                 foreach($searchEmployee->wageProgressionWageTitle as $employeeNextProgression){
                     $employeeNextProgression = $wageProgressionWageTitle->where([
                         ['wage_title_id', $employeeNextProgression->wage_title_id],
@@ -416,7 +416,15 @@ class HRQueryController extends Controller
         // Subtract 3 years from fiveYearHireDate to get the eightYearHireDate
         $eightYearHireDate = $fiveYearHireDate->copy()->subYears(3);
         // Get all employees with a hire date greater than or equal to fiveYearHireDate
-        $employees = $employee->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary')->get();
+        $allEmployees = $employee->where('status', 1)->where('hire_date', '<=', $fiveYearHireDate)->orderBy('hire_date', 'desc')->with('disciplinary', 'job')->get();
+
+        $employees = $allEmployees->filter(function($employee){
+          foreach($employee->job as $employeeJob){
+            if($employeeJob->id === 1){
+              return $employee;
+            }
+          }
+        });
         foreach($employees as $employee){
             if($employee->hire_date <= $eightYearHireDate){
                 // If employee hire date is greater than or equal to 8 years
@@ -434,14 +442,19 @@ class HRQueryController extends Controller
                 foreach($employee->disciplinary as $disciplinary){
                     if($disciplinary->date->between($lastOfPreviousQuarter, $firstOfPreviousQuarter)){
                         $employee->active_disciplinary = 1;
+                        unset($employee['disciplinary']);
+                        unset($employee['job']);
                         return $employee;
                     }else{
                         $employee->active_disciplinary = 0;
+                        unset($employee['disciplinary']);
+                        unset($employee['job']);
                         return $employee;
                     }
                 }
             }
         });
+
         return view('hr.queries.query-employees-bonus-hours', [
             'employees' => $filteredEmployees,
         ]);
