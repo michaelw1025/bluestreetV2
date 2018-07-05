@@ -17,6 +17,7 @@ class CreateCostCentersTable extends Migration
             $table->increments('id');
             $table->integer('number');
             $table->string('description');
+            $table->string('extension')->nullable();
             $table->timestamps();
         });
     }

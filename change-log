@@ -1,4 +1,8 @@
 v 1.6.6
+-7-5-18
+-minor change to keep migrations updated
+
+v 1.6.6
 -7-3-18
 -removed salary employees from bonus hours query and excel export
 -corrected error in wage progression query where Position was showing incorrect information
