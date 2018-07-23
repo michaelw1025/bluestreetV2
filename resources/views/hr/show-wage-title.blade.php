@@ -32,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="clickable-row" >
+                    <tr class="" >
                         @foreach($wageProgressions as $wageProgression)
                         <td>
                         <input type="text" class="form-control d-none" name="progression[{{$loop->iteration}}][id]" value="{{$wageProgression->id}}" required>
