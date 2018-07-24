@@ -1,3 +1,7 @@
+v 1.6.8
+-7-23-18
+-changed hr anniversary query from using hire date to using service date
+
 v 1.6.7
 -7-23-18
 -removed clickable row from Show Wage Title, this was causing data entry to trigger a premature db query

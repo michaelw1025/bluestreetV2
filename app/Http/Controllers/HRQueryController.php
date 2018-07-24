@@ -154,14 +154,14 @@ class HRQueryController extends Controller
             $searchMonth = $request->search_month;
             $searchYear = $request->search_year;
             $searchDate = Carbon::create($request->search_year, $request->search_month, 1, 0);
-            $employees = $employee->where('status', '1')->with('costCenter', 'shift')->get();
+            $employees = $employee->where('status', '1')->with('costCenter', 'shift')->orderBy('service_date', 'asc')->get();
             $monthEmployees = $employees->filter(function($employee) use ($searchDate) {
-                if($employee->hire_date->month == $searchDate->month){
+                if($employee->service_date->month == $searchDate->month){
                     return $employee;
                 }
             });
             $yearEmployees = $monthEmployees->filter(function($monthEmployee) use ($searchDate) {
-                $diff = $monthEmployee->hire_date->diffInYears($searchDate) + 1;
+                $diff = $monthEmployee->service_date->diffInYears($searchDate) + 1;
                 if($diff % 5 == 0){
                     $monthEmployee->diff = $diff;
                     return $monthEmployee;
