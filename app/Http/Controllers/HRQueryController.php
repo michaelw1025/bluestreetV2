@@ -151,28 +151,38 @@ class HRQueryController extends Controller
         //Check if user is authorized to access this page
         $request->user()->authorizeRoles(['admin', 'hrmanager', 'hruser', 'hrassistant']);
         if(isset($request->submit_anniversary_search)){
-            $searchMonth = $request->search_month;
-            $searchYear = $request->search_year;
+            $searchMonth = (int)$request->search_month;
+            $searchYear = (int)$request->search_year;
             $searchDate = Carbon::create($request->search_year, $request->search_month, 1, 0);
-            $employees = $employee->where('status', '1')->with('costCenter', 'shift')->orderBy('service_date', 'asc')->get();
-            $monthEmployees = $employees->filter(function($employee) use ($searchDate) {
-                if($employee->service_date->month == $searchDate->month){
+            $employees = $employee->where('status', '1')->whereMonth('service_date', $searchMonth)->with('costCenter', 'shift')->orderBy('service_date', 'asc')->get();
+            // $monthEmployees = $employees->filter(function($employee) use ($searchDate) {
+            //     if($employee->service_date->month == $searchDate->month){
+            //         return $employee;
+            //     }
+            // });
+            // $yearEmployees = $monthEmployees->filter(function($monthEmployee) use ($searchDate) {
+            //     $diff = $monthEmployee->service_date->diffInYears($searchDate) + 1;
+            //     if($diff % 5 == 0){
+            //         $monthEmployee->diff = $diff;
+            //         return $monthEmployee;
+            //     }
+            // });
+
+            // Filter out employees who do not have a service date at a five year interval to the search year
+            $filteredEmployees = $employees->filter(function($employee) use($searchDate) {
+                $yearDiff = $searchDate->copy()->year - $employee->service_date->year;
+                if($yearDiff % 5 === 0 && $yearDiff !== 0){
+                    $employee->diff = $yearDiff;
                     return $employee;
                 }
+                
             });
-            $yearEmployees = $monthEmployees->filter(function($monthEmployee) use ($searchDate) {
-                $diff = $monthEmployee->service_date->diffInYears($searchDate) + 1;
-                if($diff % 5 == 0){
-                    $monthEmployee->diff = $diff;
-                    return $monthEmployee;
-                }
-            });
-            foreach($yearEmployees as $yearEmployee){
-                $this->setTeamManagerTeamLeader($yearEmployee);
+            foreach($filteredEmployees as $filteredEmployee){
+                $this->setTeamManagerTeamLeader($filteredEmployee);
             }
             $costCenters = $costCenter->all();
             return view('hr.queries.query-anniversaries', [
-                'employees' => $yearEmployees,
+                'employees' => $filteredEmployees,
                 'costCenters' => $costCenters,
                 'searchMonth' => $searchMonth,
                 'searchYear' => $searchYear,
