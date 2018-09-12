@@ -16,8 +16,7 @@ class CreateContractorTrainingsTable extends Migration
         Schema::create('contractor_trainings', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('contractor_id')->unsigned();
-            $table->string('contractor_employee_first_name');
-            $table->string('contractor_employee_last_name');
+            $table->string('contractor_employee_name');
             $table->dateTime('training_completion_date')->nullable();
             $table->dateTime('re_training_due_date')->nullable();
             $table->boolean('active');

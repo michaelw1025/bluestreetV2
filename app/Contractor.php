@@ -14,8 +14,7 @@ class Contractor extends Model
      */
     protected $fillable = [
         'contractor_name',
-        'contact_first_name',
-        'contact_last_name',
+        'contact_name',
         'contact_email',
         'contact_phone_number',
         'general_liability_insurance_date',
@@ -54,28 +53,16 @@ class Contractor extends Model
         return ucWords($name);
     }
 
-    // Set contact first name format
-    public function setContactFirstNameAttribute($firstName)
+    // Set contact name format
+    public function setContactNameAttribute($name)
     {
-        $this->attributes['contact_first_name'] = strtolower($firstName);
+        $this->attributes['contact_name'] = strtolower($name);
     }
 
-    // Get contact first name format
-    public function getContactFirstNameAttribute($firstName)
+    // Get contact name format
+    public function getContactNameAttribute($name)
     {
-        return ucWords($firstName);
-    }
-
-    // Set contact last name format
-    public function setContactLastNameAttribute($lastName)
-    {
-        $this->attributes['contact_last_name'] = strtolower($lastName);
-    }
-
-    // Get contact last name format
-    public function getContactLastNameAttribute($lastName)
-    {
-        return ucWords($lastName);
+        return ucWords($name);
     }
 
     // Set general liability insurance date format

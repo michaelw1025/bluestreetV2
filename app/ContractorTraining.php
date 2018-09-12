@@ -13,8 +13,7 @@ class ContractorTraining extends Model
      * @var array
      */
     protected $fillable = [
-        'contractor_employee_first_name',
-        'contractor_employee_last_name',
+        'contractor_employee_name',
         'training_completion_date',
         're_training_due_date',
         'active',
@@ -40,28 +39,16 @@ class ContractorTraining extends Model
     ];
 
     // ----------------Mutators----------------
-    // Set contractor employee first name format
-    public function setContractorEmployeeFirstNameAttribute($firstName)
+    // Set contractor employee name format
+    public function setContractorEmployeeNameAttribute($name)
     {
-        $this->attributes['contractor_employee_first_name'] = strtolower($firstName);
+        $this->attributes['contractor_employee_name'] = strtolower($name);
     }
 
-    // Get contractor employee first name format
-    public function getContractorEmployeeFirstNameAttribute($firstName)
+    // Get contractor employee name format
+    public function getContractorEmployeeNameAttribute($name)
     {
-        return ucWords($firstName);
-    }
-
-    // Set contractor employee last name format
-    public function setContractorEmployeeLastNameAttribute($lastName)
-    {
-        $this->attributes['contractor_employee_last_name'] = strtolower($lastName);
-    }
-
-    // Get contractor employee last name format
-    public function getContractorEmployeeLastNameAttribute($lastName)
-    {
-        return ucWords($lastName);
+        return ucWords($name);
     }
 
     // Set training completion date format
